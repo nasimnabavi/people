@@ -11,7 +11,6 @@ describe User do
   it { should belong_to :team }
   it { should belong_to :leader_team }
   it { should belong_to :primary_role }
-  it { should have_and_belong_to_many :roles }
   it { should have_and_belong_to_many :abilities }
 
   context 'validation' do
