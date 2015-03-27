@@ -5,13 +5,6 @@
     .list-group-item
       = f.input :primary_role_id, collection: details_page.user_roles, label: 'Primary role:', include_blank: 'no role', input_html: { id: 'js-user-primary' }
     .list-group-item
-      = f.label :role_ids, 'Roles'
-      = f.input :role_ids,
-        as: :select,
-        collection: details_page.available_roles,
-        input_html: { multiple: true, id: 'js-user-roles'},
-        label: false
-    .list-group-item
       = f.label :ability_ids, 'Skills & technologies'
       = f.input :ability_ids,
         as: :select,

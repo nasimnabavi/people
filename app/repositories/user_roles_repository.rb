@@ -6,6 +6,7 @@ class UserRolesRepository
   end
 
   def all
-    @all ||= user.roles.to_a
+    # Optimize for HMT relation once PostgreSQL is ready
+    @all ||= user.positions.includes(:role).map(&:role)
   end
 end

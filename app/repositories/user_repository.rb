@@ -10,7 +10,7 @@ class UserRepository
 
   def active
     User
-      .includes(:roles, :admin_role, :location, :contract_type, :memberships, :abilities)
+      .includes(:positions, :admin_role, :location, :contract_type, :memberships, :abilities)
       .active.by_last_name.decorate
   end
 
