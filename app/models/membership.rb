@@ -1,20 +1,9 @@
-class Membership
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Membership::UserAvailability
-  include Membership::HipchatNotifications
+class Membership < ActiveRecord::Base
+  #include ::Membership::UserAvailability
+  #include ::Membership::HipchatNotifications
 
-  field :starts_at, type: Date
-  field :ends_at, type: Date
-  field :billable, type: Mongoid::Boolean
-  field :project_archived, type: Mongoid::Boolean, default: false
-  field :project_potential, type: Mongoid::Boolean, default: true
-  field :project_internal, type: Mongoid::Boolean, default: true
-  field :stays, type: Mongoid::Boolean, default: false
-  field :booked, type: Mongoid::Boolean, default: false
-
-  belongs_to :user, index: true, touch: true
-  belongs_to :project, index: true
+  belongs_to :user, touch: true
+  belongs_to :project
   belongs_to :role
 
   validates :user, presence: true
@@ -26,17 +15,19 @@ class Membership
   validate :validate_starts_at_ends_at
   validate :validate_duplicate_project
 
-  after_save :check_fields
+  #after_save :check_fields
 
   scope :active, -> { where(project_potential: false, project_archived: false, booked: false) }
   scope :not_archived, -> { where(project_archived: false) }
   scope :potential, -> { where(project_potential: true) }
   scope :with_role, ->(role) { where(role: role) }
   scope :with_user, ->(user) { where(user: user) }
-  scope :unfinished, -> { any_of({ ends_at: nil }, { :ends_at.gt => Time.current }) }
+  #TODO scope :unfinished, -> { any_of({ ends_at: nil }, { :ends_at.gt => Time.current }) }
+  scope :unfinished, -> { where(ends_at: nil) }
+
   scope :billable, -> { where(billable: true) }
   scope :without_bookings, -> { where(booked: false) }
-  scope :only_active, -> { active.desc('starts_at').limit(3) }
+  scope :only_active, -> { active.order(starts_at: :desc).limit(3) }
 
   def started?
     starts_at <= Date.today
@@ -59,9 +50,9 @@ class Membership
   def check_fields
     if project_state_changed?
       update(project_potential: project.potential,
-        project_archived: project.archived,
-        project_internal: project.internal
-      )
+             project_archived: project.archived,
+             project_internal: project.internal
+            )
     end
   end
 

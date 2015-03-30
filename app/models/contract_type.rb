@@ -1,12 +1,4 @@
-class ContractType
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Paranoia
-
-  field :name, type: String
-
-  index({ deleted_at: 1 })
-
+class ContractType < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   has_many :users

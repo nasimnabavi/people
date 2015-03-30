@@ -1,11 +1,4 @@
-class Note
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Paranoia
-
-  field :text, type: String
-  field :open, type: Mongoid::Boolean, default: true
-
+class Note < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
 
@@ -13,5 +6,4 @@ class Note
 
   scope :open_notes, -> { where(open: true) }
   scope :closed_notes, -> { where(open: false) }
-
 end

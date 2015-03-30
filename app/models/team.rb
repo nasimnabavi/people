@@ -1,13 +1,7 @@
-class Team
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class Team < ActiveRecord::Base
   include InitialsHandler
 
   before_save :set_color
-
-  field :name
-  field :initials
-  field :colour
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 

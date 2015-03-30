@@ -1,30 +1,12 @@
-class Project
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Paranoia
-  include Mongoid::History::Trackable
-  include Project::UserAvailability
-  include InitialsHandler
+class Project < ActiveRecord::Base
+  #include ::Project::UserAvailability
+  include ::InitialsHandler
 
-  after_save :update_membership_fields
+  #after_save :update_membership_fields
   after_save :check_potential
   before_save :set_color
 
   POSSIBLE_TYPES = %w(regular maintenance_support maintenance_development).freeze
-
-  field :name
-  field :slug
-  field :end_at, type: Date
-  field :archived, type: Mongoid::Boolean, default: false
-  field :potential, type: Mongoid::Boolean, default: false
-  field :internal, type: Mongoid::Boolean, default: false
-  field :kickoff, type: Date
-  field :project_type, default: POSSIBLE_TYPES.first
-  field :colour
-  field :initials
-  field :toggl_bookmark
-
-  index({ deleted_at: 1 })
 
   has_many :memberships, dependent: :destroy
   has_many :notes
@@ -42,7 +24,7 @@ class Project
   scope :nonpotential, -> { active.where(potential: false) }
   scope :potential, -> { active.where(potential: true) }
 
-  track_history on: [:archived, :potential], version_field: :version, track_create: true, track_update: true
+  #TODO    track_history on: [:archived, :potential], version_field: :version, track_create: true, track_update: true
 
   def to_s
     name

@@ -1,10 +1,4 @@
-class Location
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Paranoia
-
-  field :name, type: String
-
+class Location < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   has_many :users
