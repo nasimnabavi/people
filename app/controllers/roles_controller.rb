@@ -29,7 +29,7 @@ class RolesController < ApplicationController
   end
 
   def sort
-    RolesPriorityUpdater.new(params[:role]).call!
+    RolesPriorityUpdater.new(params[:role]).call
     render json: {}
   end
 

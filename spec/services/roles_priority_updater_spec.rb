@@ -8,7 +8,7 @@ describe RolesPriorityUpdater do
 
   describe '#call' do
     before do
-      subject.call!
+      subject.call
       role_a.reload
       role_b.reload
     end
