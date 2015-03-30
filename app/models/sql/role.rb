@@ -4,7 +4,6 @@ module Sql
 
     has_many :memberships
     has_many :positions
-    has_and_belongs_to_many :users
 
   #TODO  orderable column: :priority
 
