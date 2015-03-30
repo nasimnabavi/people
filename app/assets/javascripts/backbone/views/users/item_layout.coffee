@@ -30,7 +30,7 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
       selectOptions:
         collection: -> @model.get('roles')
         labelPath: 'name'
-        valuePath: '_id'
+        valuePath: 'id'
         defaultOption:
           label: "no role"
           value: null
@@ -40,7 +40,7 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
       selectOptions:
         collection: -> gon.locations
         labelPath: 'name'
-        valuePath: '_id'
+        valuePath: 'id'
         defaultOption:
           label: 'choose'
           value: null
