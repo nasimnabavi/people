@@ -4,4 +4,3 @@ module Api::V1
     expose(:project)
   end
 end
-
