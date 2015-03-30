@@ -66,6 +66,10 @@ class UserMembershipRepository
     not_started.not_ended.not_potential.not_booked
   end
 
+  def all_grouped_by_slug
+    all.group_by { |m| m.project.api_slug }
+  end
+
   private
 
   def search(params)
