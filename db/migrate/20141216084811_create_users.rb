@@ -20,11 +20,12 @@ class CreateUsers < ActiveRecord::Migration
       t.string :phone
       t.boolean :archived, default: false
       t.boolean :available, default: true
+      t.datetime :available_since
       t.boolean :without_gh, default: false
       t.string :uid
-      t.string :user_notes
+      t.text :user_notes
       t.integer :admin_role_id
-      t.integer :role_id
+      t.integer :primary_role_id
       t.integer :contract_type_id
       t.integer :location_id
       t.integer :team_id
@@ -32,7 +33,7 @@ class CreateUsers < ActiveRecord::Migration
       t.timestamps
     end
     add_index :users, :admin_role_id
-    add_index :users, :role_id
+    add_index :users, :primary_role_id
     add_index :users, :contract_type_id
     add_index :users, :location_id
     add_index :users, :team_id
