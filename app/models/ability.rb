@@ -1,9 +1,4 @@
-class Ability
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :name
-
+class Ability < ActiveRecord::Base
   mount_uploader :icon, IconUploader
 
   validates :name, presence: true, uniqueness: true

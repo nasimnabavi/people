@@ -1,19 +1,14 @@
-class Position
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :starts_at, type: Date
-
-  belongs_to :user, index: true
+class Position < ActiveRecord::Base
+  belongs_to :user
   belongs_to :role
 
   validates :user, presence: true
   validates :role, presence: true
   validates :starts_at, presence: true
-  validates_with Position::ChronologyValidator
-  validates_with Position::RoleValidator
+  validates_with ::Position::ChronologyValidator
+  validates_with ::Position::RoleValidator
 
-  default_scope -> { asc(:starts_at) }
+  default_scope -> { order(starts_at: :asc) }
 
   def <=>(other)
     [user.last_name, user.first_name, starts_at] <=> [other.user.last_name,

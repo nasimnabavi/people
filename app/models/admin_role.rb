@@ -1,7 +1,4 @@
-class AdminRole
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
+class AdminRole < ActiveRecord::Base
   has_many :users
 
 end

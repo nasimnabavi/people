@@ -1,39 +1,8 @@
-class User
-  include Mongoid::Document
+class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
-         :trackable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :github]
+    :trackable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :github]
 
-  include Mongoid::Timestamps
-  include Mongoid::Paranoia
-
-  field :encrypted_password
-  field :sign_in_count, type: Integer, default: 0
-  field :current_sign_in_at, type: Time
-  field :last_sign_in_at, type: Time
-  field :current_sign_in_ip
-  field :last_sign_in_ip
-  field :team_join_time, type: DateTime
-  field :oauth_token
-  field :refresh_token
-  field :oauth_expires_at, type: DateTime
-
-  field :first_name
-  field :last_name
-  field :email
-  field :gh_nick
-  field :skype
-  field :employment, type: Integer, default: 0
-  field :phone
-  field :archived, type: Mongoid::Boolean, default: false
-  field :available, type: Mongoid::Boolean, default: true
-  field :available_since, type: Date
-  field :without_gh, type: Mongoid::Boolean, default: false
-  field :uid, type: String
-  field :user_notes, type: String
-
-  mount_uploader :gravatar, GravatarUploader
-
-  index({ email: 1, deleted_at: 1 })
+  #    mount_uploader :gravatar, GravatarUploader
 
   has_many :memberships, dependent: :destroy
   has_many :notes
@@ -52,13 +21,13 @@ class User
   validates :phone, phone_number: true, length: { maximum: 16 }, allow_blank: true
   validates :archived, inclusion: { in: [true, false] }
 
-  scope :by_name, -> { asc(:first_name, :last_name) }
-  scope :by_last_name, -> { asc(:last_name, :first_name) }
+  scope :by_name, -> { order(:first_name, :last_name) }
+  scope :by_last_name, -> { order(:last_name, :first_name) }
   scope :available, -> { where(available: true) }
   scope :active, -> { where(archived: false) }
-  scope :technical, -> { where(:primary_role.in => Role.technical.pluck(:id)) }
+  scope :technical, -> { where(primary_role: Role.technical.pluck(:id)) }
   scope :technical_active, -> { where(archived: false, available: true) }
-  scope :roles, -> (roles) { where(:primary_role.in => roles) }
+  scope :roles, -> (roles) { where(primary_role: roles) }
   scope :contract_users, ->(contract_type) {
     ContractType.where(name: contract_type).first.try(:users)
   }
@@ -68,7 +37,7 @@ class User
   before_update :save_team_join_time
 
   def self.cache_key
-    max(:updated_at)
+    maximum(:updated_at)
   end
 
   def github_connected?
@@ -94,11 +63,11 @@ class User
   def last_membership
     without_date = user_membership_repository.current.without_end_date.items
     return without_date.last if without_date.present?
-    user_membership_repository.current.with_end_date.items.asc(:ends_at).last
+    user_membership_repository.current.with_end_date.items.order(:ends_at).last
   end
 
   def next_memberships
-    @next_memberships ||= user_membership_repository.next.items.asc(:starts_at)
+    @next_memberships ||= user_membership_repository.next.items.order(:starts_at)
   end
 
   def potential_memberships
@@ -113,12 +82,12 @@ class User
     @booked_memberships ||= user_membership_repository
       .currently_booked
       .items
-      .asc(:ends_at,
-           :starts_at)
+      .order(:ends_at,
+    :starts_at)
   end
 
   def current_memberships
-    @current_memberships ||= user_membership_repository.current.items.asc(:ends_at)
+    @current_memberships ||= user_membership_repository.current.items.order(:ends_at)
   end
 
   def user_membership_repository
