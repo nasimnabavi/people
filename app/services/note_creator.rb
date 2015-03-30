@@ -5,7 +5,7 @@ class NoteCreator
     @note = note
   end
 
-  def call!
+  def call
     note_saved = note.save
     send_notification_email if note_saved
     note_saved
