@@ -31,10 +31,7 @@ class GoogleUserBuilder
   end
 
   def find_user
-    @user = User.or(
-      { uid: oauth_data['uid'] },
-      { email: oauth_data['info']['email'] }
-    ).first
+    @user ||= User.where('uid = ? OR email = ?', oauth_data['uid'], oauth_data['info']['email']).first
   end
 
   def update_user_tokens

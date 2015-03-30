@@ -2,7 +2,7 @@ class AvailableUsersRepository
   def all
     User.where(available: true)
       .where(archived: false)
-      .where(:primary_role.in => technical_roles)
+      .where(primary_role: technical_roles)
   end
 
   private

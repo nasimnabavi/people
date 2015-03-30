@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
     :trackable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :github]
 
-  #    mount_uploader :gravatar, GravatarUploader
+  mount_uploader :gravatar, GravatarUploader
 
   has_many :memberships, dependent: :destroy
   has_many :notes

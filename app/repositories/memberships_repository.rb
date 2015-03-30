@@ -8,9 +8,13 @@ class MembershipsRepository
   end
 
   def upcoming_changes(days)
-    Membership.includes(:project).any_of(
-      Membership.between(ends_at: Time.now..days.days.from_now).selector,
-      Membership.between(starts_at: Time.now..days.days.from_now).selector
-    )
+    # FIXME: it should be more friendly
+    Membership.includes(:project)
+      .where("(ends_at BETWEEN ? AND ?) OR (starts_at BETWEEN ? AND ?)",
+             Time.now,
+             days.days.from_now,
+             Time.now,
+             days.days.from_now
+            )
   end
 end
