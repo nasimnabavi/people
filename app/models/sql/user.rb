@@ -3,7 +3,7 @@ module Sql
     devise :database_authenticatable, :registerable,
            :trackable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :github]
 
-#    mount_uploader :gravatar, GravatarUploader
+    mount_uploader :gravatar, GravatarUploader
 
     has_many :memberships, dependent: :destroy
     has_many :notes
@@ -39,7 +39,7 @@ module Sql
     before_update :save_team_join_time
 
     def self.cache_key
-      max(:updated_at)
+      maximum(:updated_at)
     end
 
     def github_connected?
@@ -65,11 +65,11 @@ module Sql
     def last_membership
       without_date = user_membership_repository.current.without_end_date.items
       return without_date.last if without_date.present?
-      user_membership_repository.current.with_end_date.items.asc(:ends_at).last
+      user_membership_repository.current.with_end_date.items.order(:ends_at).last
     end
 
     def next_memberships
-      @next_memberships ||= user_membership_repository.next.items.asc(:starts_at)
+      @next_memberships ||= user_membership_repository.next.items.order(:starts_at)
     end
 
     def potential_memberships
@@ -84,12 +84,12 @@ module Sql
       @booked_memberships ||= user_membership_repository
         .currently_booked
         .items
-        .asc(:ends_at,
+        .order(:ends_at,
              :starts_at)
     end
 
     def current_memberships
-      @current_memberships ||= user_membership_repository.current.items.asc(:ends_at)
+      @current_memberships ||= user_membership_repository.current.items.order(:ends_at)
     end
 
     def user_membership_repository
