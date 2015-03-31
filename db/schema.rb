@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222105942) do
+ActiveRecord::Schema.define(version: 20150331101309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 20141222105942) do
   create_table "roles", force: true do |t|
     t.string   "name"
     t.string   "color"
+    t.integer  "priority"
     t.boolean  "billable",      default: false
     t.boolean  "technical",     default: false
     t.boolean  "show_in_team",  default: true
@@ -133,7 +134,16 @@ ActiveRecord::Schema.define(version: 20141222105942) do
     t.datetime "updated_at"
     t.string   "mongo_id"
     t.integer  "element_order", default: 0,     null: false
+    t.integer  "user_ids",      default: [],                 array: true
   end
+
+  create_table "roles_users", id: false, force: true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
+
+  add_index "roles_users", ["role_id"], name: "index_roles_users_on_role_id", using: :btree
+  add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "notifications_email"
@@ -144,6 +154,8 @@ ActiveRecord::Schema.define(version: 20141222105942) do
 
   create_table "teams", force: true do |t|
     t.string   "name"
+    t.string   "initials"
+    t.string   "colour"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "mongo_id"
@@ -169,11 +181,12 @@ ActiveRecord::Schema.define(version: 20141222105942) do
     t.string   "phone"
     t.boolean  "archived",           default: false
     t.boolean  "available",          default: true
+    t.datetime "available_since"
     t.boolean  "without_gh",         default: false
     t.string   "uid"
-    t.string   "user_notes"
+    t.text     "user_notes"
     t.integer  "admin_role_id"
-    t.integer  "role_id"
+    t.integer  "primary_role_id"
     t.integer  "contract_type_id"
     t.integer  "location_id"
     t.integer  "team_id"
@@ -181,25 +194,15 @@ ActiveRecord::Schema.define(version: 20141222105942) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "mongo_id"
+    t.string   "gravatar"
+    t.integer  "role_ids",           default: [],    array: true
   end
 
   add_index "users", ["admin_role_id"], name: "index_users_on_admin_role_id", using: :btree
   add_index "users", ["contract_type_id"], name: "index_users_on_contract_type_id", using: :btree
   add_index "users", ["leader_team_id"], name: "index_users_on_leader_team_id", using: :btree
   add_index "users", ["location_id"], name: "index_users_on_location_id", using: :btree
-  add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
+  add_index "users", ["primary_role_id"], name: "index_users_on_primary_role_id", using: :btree
   add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
-
-  create_table "vacations", force: true do |t|
-    t.datetime "starts_at"
-    t.datetime "ends_at"
-    t.string   "eventid"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "mongo_id"
-  end
-
-  add_index "vacations", ["user_id"], name: "index_vacations_on_user_id", using: :btree
 
 end

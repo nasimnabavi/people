@@ -11,6 +11,7 @@ gem 'konf'
 gem "heroku-mongo-backup", github: 'alexkravets/heroku-mongo-backup', branch: 'mongoid4'
 gem 'fog'
 
+gem 'pg'
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'mongoid_paranoia', github: 'simi/mongoid_paranoia'
 gem 'mongoid_orderable'
