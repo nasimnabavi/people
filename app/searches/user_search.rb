@@ -26,14 +26,12 @@ class UserSearch < Searchlight::Search
   end
 
   def search_developer
-    search.or({ :id.in => Role.where(technical: true).distinct(:user_ids) },
-      { :primary_role_id.in => Role.where(technical: true).pluck(:id) })
+    search.includes(positions: :role).where('roles.technical' => true)
   end
 
   private
 
   def search_role_by_names(names)
-    search.or({ :id.in => Role.in(name: names).distinct(:user_ids) },
-      { :primary_role_id.in => Role.in(name: names).pluck(:id) })
+    search.includes(positions: :role).where('roles.name' => names)
   end
 end
