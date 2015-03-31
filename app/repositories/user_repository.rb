@@ -32,6 +32,10 @@ class UserRepository
     User.find_by attrs
   end
 
+  def find_by_full_name(name)
+    User.find_by first_name: name.split[0], last_name: name.split[1]
+  end
+
   private
 
   def api_request_params(params)

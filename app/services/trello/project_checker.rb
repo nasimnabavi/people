@@ -15,11 +15,7 @@ module Trello
     end
 
     def user_from_card(card)
-      attrs = {
-        first_name: card.name.split[0],
-        last_name:  card.name.split[1]
-      }
-      UserRepository.new.find_by(attrs)
+      UserRepository.new.find_by_full_name(card.name)
     end
   end
 end
