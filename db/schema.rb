@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330143744) do
+ActiveRecord::Schema.define(version: 20150331101309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(version: 20150330143744) do
     t.datetime "updated_at"
     t.string   "mongo_id"
     t.integer  "element_order", default: 0,     null: false
-    t.integer  "user_ids", array: true, default: []
+    t.integer  "user_ids",      default: [],                 array: true
   end
 
   create_table "roles_users", id: false, force: true do |t|
@@ -195,7 +195,7 @@ ActiveRecord::Schema.define(version: 20150330143744) do
     t.datetime "updated_at"
     t.string   "mongo_id"
     t.string   "gravatar"
-    t.integer  "role_ids", array: true, default: []
+    t.integer  "role_ids",           default: [],    array: true
   end
 
   add_index "users", ["admin_role_id"], name: "index_users_on_admin_role_id", using: :btree
