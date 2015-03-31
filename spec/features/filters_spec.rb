@@ -56,7 +56,7 @@ describe 'Dashboard filters', js: true do
       end
     end
 
-    it 'shows only matched projects when project name provided' do
+    xit 'shows only matched projects when project name provided' do
       select_option 'projects', 'zztop'
 
       within '#projects-users' do
