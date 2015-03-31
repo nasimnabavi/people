@@ -15,7 +15,7 @@ module Trello
     end
 
     def create_membership_for_user(user, project_name)
-      UserMembershipRepository.new(user).create(
+      user_membership_repo.new(user).create(
         project: project_from_label(project_name),
         starts_at: Date.yesterday,
         role: user.primary_role,

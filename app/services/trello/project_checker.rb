@@ -1,9 +1,10 @@
 module Trello
   class ProjectChecker
-    attr_accessor :board, :cards
+    attr_accessor :board, :cards, :user_membership_repo
 
-    def initialize board
-      @board = board
+    def initialize(board, user_membership_repo = UserMembershipRepository)
+      self.board = board
+      self.user_membership_repo = user_membership_repo
       get_cards
     end
 

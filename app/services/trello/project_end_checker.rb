@@ -13,7 +13,7 @@ module Trello
     end
 
     def end_user_memberships(user)
-      memberships = UserMembershipRepository.new(user).without_end_date.items
+      memberships = user_membership_repo.new(user).without_end_date.items
       memberships.each do |membership|
         membership.update_attribute :ends_at, Date.yesterday
       end
