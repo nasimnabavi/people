@@ -1,6 +1,6 @@
 class Membership < ActiveRecord::Base
-  #include ::Membership::UserAvailability
-  #include ::Membership::HipchatNotifications
+  include Membership::UserAvailability
+  include Membership::HipchatNotifications
 
   belongs_to :user, touch: true
   belongs_to :project
@@ -15,7 +15,7 @@ class Membership < ActiveRecord::Base
   validate :validate_starts_at_ends_at
   validate :validate_duplicate_project
 
-  #after_save :check_fields
+  after_save :check_fields
 
   scope :active, -> { where(project_potential: false, project_archived: false, booked: false) }
   scope :not_archived, -> { where(project_archived: false) }

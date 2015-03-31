@@ -1,8 +1,8 @@
 class Project < ActiveRecord::Base
-  #include ::Project::UserAvailability
-  include ::InitialsHandler
+  include Project::UserAvailability
+  include InitialsHandler
 
-  #after_save :update_membership_fields
+  after_save :update_membership_fields
   after_save :check_potential
   before_save :set_color
 
