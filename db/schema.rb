@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20150330143744) do
     t.datetime "updated_at"
     t.string   "mongo_id"
     t.integer  "element_order", default: 0,     null: false
+    t.integer  "user_ids", array: true, default: []
   end
 
   create_table "roles_users", id: false, force: true do |t|
@@ -194,6 +195,7 @@ ActiveRecord::Schema.define(version: 20150330143744) do
     t.datetime "updated_at"
     t.string   "mongo_id"
     t.string   "gravatar"
+    t.integer  "role_ids", array: true, default: []
   end
 
   add_index "users", ["admin_role_id"], name: "index_users_on_admin_role_id", using: :btree
