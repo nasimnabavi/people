@@ -3,6 +3,7 @@ class Role < ActiveRecord::Base
 
   has_many :memberships
   has_many :positions
+  has_many :users, through: :positions
 
   #TODO  orderable column: :priority
 
