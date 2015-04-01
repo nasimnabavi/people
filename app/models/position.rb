@@ -3,7 +3,7 @@ class Position < ActiveRecord::Base
   belongs_to :role
 
   validates :user, presence: true
-  validates :role, presence: true
+  validates :role, presence: true, uniqueness: { scope: :user_id }
   validates :starts_at, presence: true
   validates_with ::Position::ChronologyValidator
   validates_with ::Position::RoleValidator

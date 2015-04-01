@@ -32,10 +32,15 @@ describe Position do
     let(:juniorRole) { create(:role, name: 'junior', technical: true) }
     let!(:seniorRole) { create(:role, name: 'senior', technical: true) }
     let!(:user) { create(:user, primary_role: juniorRole) }
-    let!(:juniorPos) { create(:position, user: user, role: juniorRole, starts_at: Date.new(2014, 5, 14)) }
+    let!(:juniorPos) do
+      create(:position,
+              user: user, role: juniorRole, starts_at: Date.new(2014, 5, 14))
+    end
 
     it 'returns error when dates are wrong' do
-      pos = build(:position, user: user, role: seniorRole, starts_at: juniorPos.starts_at - 2.days)
+      pos = build(:position, user: user, role: seniorRole,
+                  starts_at: juniorPos.starts_at - 2.days)
+
       expect(pos).not_to be_valid
       expect(pos.errors).not_to be_blank
       expect(pos.errors).to include :starts_at
