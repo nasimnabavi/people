@@ -1,5 +1,5 @@
 module Trello
-  class ProjectChecker
+  class BoardSync
     attr_accessor :board, :cards
 
     def initialize(board)
@@ -10,7 +10,7 @@ module Trello
     private
 
     def fetch_cards
-      @cards = board.cards
+      self.cards = board.cards
     end
   end
 end
