@@ -11,7 +11,13 @@ class ProjectDigest
     end
 
     def ending_or_starting_in(days)
-      Project.any_of(ProjectDigest.ending_in(days).selector, ProjectDigest.starting_in(days).selector)
+      Project.where(
+        '(kickoff BETWEEN ? AND ?) OR (end_at BETWEEN ? AND ?)',
+        Time.now,
+        days.days.from_now,
+        Time.now,
+        days.days.from_now
+      )
     end
 
     def three_months_old
