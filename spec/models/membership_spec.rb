@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Membership do
   subject { build(:membership, starts_at: Time.now) }
 
@@ -8,7 +10,6 @@ describe Membership do
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:project) }
   it { should validate_presence_of(:role) }
-  it { should be_timestamped_document }
 
   describe '#validate_starts_at_ends_at' do
     it "adds an error if 'ends_at' is before 'starts_at'" do

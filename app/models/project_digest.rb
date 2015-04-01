@@ -33,7 +33,7 @@ class ProjectDigest
     end
 
     def starting_tommorow
-      Project.potential.where('kickoff BETWEEN ? AND ?', Time.now, 1.day.from_now)
+      Project.potential.where(kickoff: (Time.current..1.day.from_now))
     end
 
     def upcoming_changes(days)
