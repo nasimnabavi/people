@@ -1,10 +1,10 @@
 class Settings
-  include Singleton
-  include Mongoid::Document
+  # include Singleton
+  # include Mongoid::Document
 
-  field :notifications_email, type: String
+  # field :notifications_email, type: String
 
-  validate :notifications_email, format: { with: Devise.email_regexp }
+  # validate :notifications_email, format: { with: Devise.email_regexp }
 
   class << self
     delegate :inspect, to: :instance
@@ -15,6 +15,10 @@ class Settings
 
     def instance
       @instance ||= first_or_create
+    end
+
+    def notifications_email
+      nil
     end
   end
 end

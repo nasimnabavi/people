@@ -23,8 +23,6 @@ describe ProjectDigest do
     end
 
     context "when project has no history" do
-      before { Project.any_instance.stub(:history_tracks) { [HistoryTracker.new] } }
-
       it "returns project" do
         Timecop.freeze(date) do
           expect(ProjectDigest.three_months_old).to include(project)

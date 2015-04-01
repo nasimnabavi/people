@@ -24,8 +24,6 @@ class Project < ActiveRecord::Base
   scope :nonpotential, -> { active.where(potential: false) }
   scope :potential, -> { active.where(potential: true) }
 
-  #TODO    track_history on: [:archived, :potential], version_field: :version, track_create: true, track_update: true
-
   def to_s
     name
   end
@@ -41,14 +39,6 @@ class Project < ActiveRecord::Base
 
   def self.search(search)
     Project.where(name: /#{search}/i)
-  end
-
-  def nonpotential_switch
-    last_track = history_tracks.select do |h|
-      h.modified && h.modified['potential'] == false
-    end.last
-
-    last_track.present? ? last_track.created_at : created_at
   end
 
   private
