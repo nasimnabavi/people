@@ -15,7 +15,7 @@ class ProjectDigest
     end
 
     def three_months_old
-      Project.nonpotential.select{ |p| p.nonpotential_switch.to_date == 3.months.ago.to_date }
+      Project.nonpotential.where(created_at: 3.months.ago.to_date)
     end
 
     def ending_in(days)

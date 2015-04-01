@@ -25,32 +25,6 @@ describe Project do
     its(:pm) { should_not eq(future_membership.user) }
   end
 
-  describe "nonpotential_switch" do
-    let(:date) { Date.new(2014, 04, 20) }
-    let(:date2) { Date.new(2013, 10, 10) }
-    let(:project) { build(:project, created_at: date2) }
-    let(:project_potential) { build(:project, potential: true, created_at: date2) }
-
-    context "when project has history" do
-      before do
-        Timecop.freeze(date) do
-          project_potential.update_attributes(potential: false)
-          project_potential.reload
-        end
-      end
-
-      it "returns last switch to non potential" do
-        expect(project_potential.nonpotential_switch.to_date).to eq(date)
-      end
-    end
-
-    context "when project has no history" do
-      it "returns created_at attribute" do
-        expect(project.nonpotential_switch.to_date).to eq(date2)
-      end
-    end
-  end
-
   describe "#set_initials" do
     let(:project_camel_case) { create(:project, name: 'BolshoeSpasibo') }
     let(:project) { create(:project, name: 'Blyuz') }
