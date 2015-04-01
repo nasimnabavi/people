@@ -12,11 +12,11 @@ class ProjectSearch < Searchlight::Search
   end
 
   def search_memberships
-    Project.where(:_id.in => memberships.map(&:project_id))
+    Project.where(id: memberships.map(&:project_id))
   end
 
   def search_end_at
-    Project.or({ :end_at.gte => end_at }, { end_at: nil })
+    Project.where('end_at >= ? OR end_at = ?', end_at, nil)
   end
 
 end

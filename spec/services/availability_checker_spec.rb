@@ -26,7 +26,7 @@ describe AvailabilityChecker do
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
-          expect(user.available_since).to eq(Date.today)
+          expect(user.available_since).to eq(Time.now)
         end
       end
 
@@ -39,7 +39,7 @@ describe AvailabilityChecker do
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
-          expect(user.available_since).to eq(Date.today)
+          expect(user.available_since).to eq(Time.now)
         end
       end
 
@@ -64,7 +64,7 @@ describe AvailabilityChecker do
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
-          expect(user.available_since).to eq(Date.today)
+          expect(user.available_since).to eq(Time.now)
         end
       end
 
@@ -74,7 +74,7 @@ describe AvailabilityChecker do
 
         it 'changes user availability to true but with proper available_since' do
           expect(user.available).to be_true
-          expect(user.available_since).to eq Date.new(2015, 01, 06)
+          expect(user.available_since).to eq Time.zone.local(2015, 01, 06)
         end
       end
 
@@ -87,7 +87,7 @@ describe AvailabilityChecker do
 
           it 'changes user availability to true' do
             expect(user.available).to be_true
-            expect(user.available_since).to eq(Date.new(2015, 01, 06))
+            expect(user.available_since).to eq(Time.zone.local(2015, 01, 06))
           end
         end
 
@@ -102,7 +102,7 @@ describe AvailabilityChecker do
           end
 
           it 'changes user availability date to next working day' do
-            expect(user.available_since).to eq(Date.new(2015, 01, 12))
+            expect(user.available_since).to eq(Time.zone.local(2015, 01, 12))
           end
         end
 
@@ -146,7 +146,7 @@ describe AvailabilityChecker do
 
           it 'changes user availability to true' do
             expect(user.available).to be_true
-            expect(user.available_since).to eq(Date.today)
+            expect(user.available_since).to eq(Time.now)
           end
         end
       end
@@ -167,7 +167,7 @@ describe AvailabilityChecker do
           end
 
           it 'is available when billable is done' do
-            expect(user.available_since).to eq(Date.new(2015, 02, 17))
+            expect(user.available_since).to eq(Time.zone.local(2015, 02, 17))
           end
         end
 
@@ -210,7 +210,8 @@ describe AvailabilityChecker do
         context 'with gap between them' do
           context 'both with end dates' do
             let!(:first) do
-              create(:membership_billable, ends_at: '2015-01-05',
+              create(:membership_billable, starts_at: '2015-01-01',
+                                           ends_at: '2015-01-05',
                                            user: user,
                                            project: project_without_end_date2)
             end
@@ -225,7 +226,7 @@ describe AvailabilityChecker do
 
             it 'changes user available since to last possible date' do
               expect(user.available).to be_true
-              expect(user.available_since).to eq(Date.new(2015, 01, 06))
+              expect(user.available_since).to eq(Time.zone.local(2015, 01, 06))
             end
           end
 
@@ -246,7 +247,7 @@ describe AvailabilityChecker do
 
             it 'changes user availability to true' do
               expect(user.available).to be_true
-              expect(user.available_since).to eq(Date.new(2015, 01, 06))
+              expect(user.available_since).to eq(Time.zone.local(2015, 01, 06))
             end
           end
         end
@@ -270,7 +271,7 @@ describe AvailabilityChecker do
 
             it 'changes user availability to true' do
               expect(user.available).to be_true
-              expect(user.available_since).to eq(Date.new(2015, 02, 17))
+              expect(user.available_since).to eq(Time.zone.local(2015, 02, 17))
             end
           end
 
