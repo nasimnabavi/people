@@ -13,7 +13,6 @@ class AvailabilityChecker
 
   def available?
     free_right_now? ||
-      has_no_memberships? ||
       has_billable_memberships_with_end_date? ||
       has_memberships_with_gaps? ||
       has_only_nonbillable_memberships?
@@ -21,7 +20,8 @@ class AvailabilityChecker
 
   def available_since
     return unless available?
-    if free_right_now? || has_no_memberships? || has_only_nonbillable_memberships_without_end_data?
+
+    if free_right_now? || has_only_nonbillable_memberships_without_end_data?
       return Date.today
     end
 
@@ -53,9 +53,7 @@ class AvailabilityChecker
   end
 
   def free_right_now?
-    return true if has_no_memberships?
-
-    first_membership_starts_after_today?
+    has_no_memberships? || first_membership_starts_after_today?
   end
 
   def has_only_nonbillable_memberships_without_end_data?
