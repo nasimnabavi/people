@@ -5,12 +5,12 @@ module Trello
     def initialize(board, user_membership_repo = UserMembershipRepository)
       self.board = board
       self.user_membership_repo = user_membership_repo
-      get_cards
+      fetch_cards
     end
 
     private
 
-    def get_cards
+    def fetch_cards
       @cards = board.cards
     end
 
