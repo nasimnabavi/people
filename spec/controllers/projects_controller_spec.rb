@@ -74,12 +74,12 @@ describe ProjectsController do
       end
 
       it 'return actual membership' do
-        expect(new_project.memberships).to eq [actual_membership]
+        expect(new_project.memberships).to match_array([actual_membership])
       end
 
       it 'deletes unnecessary memberships' do
         Timecop.freeze(Time.now) do
-          expect(new_project.memberships).not_to include old_membership
+          expect(new_project.memberships).not_to include(old_membership)
         end
       end
 
@@ -100,7 +100,8 @@ describe ProjectsController do
       it 'return all memberships' do
         put :update, id: new_project, project: attributes_for(:project, potential: true)
         new_project.reload
-        expect(new_project.memberships).to eq [actual_membership, old_membership]
+        expect(new_project.memberships).to match_array([
+          actual_membership, old_membership])
       end
     end
 
