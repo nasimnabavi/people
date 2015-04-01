@@ -164,7 +164,7 @@ describe UserMembershipRepository do
     end
     let!(:current_membership_without_end_date) do
       create(:membership,
-        user: user, starts_at: Time.local(2014, 11, 30), ends_at: Time.local(2014, 12, 26),
+        user: user, starts_at: Time.local(2014, 11, 30), ends_at: nil,
         project: not_potential_or_archived_project2)
     end
     let!(:not_started_membership) do
@@ -183,13 +183,13 @@ describe UserMembershipRepository do
     end
 
     it 'returns current memberships' do
-      expect(subject.current.items.to_a).to(
-        eq [current_membership_with_end_date, current_membership_without_end_date])
+      expect(subject.current.items.to_a).to match_array([
+        current_membership_with_end_date, current_membership_without_end_date])
     end
 
     it 'returns memberships which are not potential, not booked, not archived, started and not ended' do
-      expect(subject.current.items.to_a).to(
-        eq subject.not_potential.not_archived.not_booked.started.not_ended.items.to_a)
+      expect(subject.current.items.to_a).to match_array(
+        subject.not_potential.not_archived.not_booked.started.not_ended.items.to_a)
     end
   end
 
@@ -229,13 +229,15 @@ describe UserMembershipRepository do
     end
 
     it 'returns next memberships' do
-      expect(subject.next.items.to_a).to(
-        eq [next_membership_with_end_date, next_membership_without_end_date, next_membership])
+      expect(subject.next.items.to_a).to match_array([
+        next_membership_with_end_date,
+        next_membership_without_end_date,
+        next_membership])
     end
 
     it 'returns memberships which are not started, not ended, not potential and not booked' do
-      expect(subject.next.items.to_a).to(
-        eq subject.not_started.not_ended.not_potential.not_booked.items.to_a)
+      expect(subject.next.items.to_a).to match_array(
+        subject.not_started.not_ended.not_potential.not_booked.items.to_a)
     end
   end
 
