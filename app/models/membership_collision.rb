@@ -35,12 +35,15 @@ class MembershipCollision
 
   def find_collisions
     if membership.ends_at.present?
-      memberships.or(
-        { :starts_at.lte => membership.ends_at, :ends_at.gte => membership.starts_at },
-        { :starts_at.lte => membership.ends_at, :ends_at => nil }
+      memberships.where(
+        '(starts_at <= ? AND ends_at = ?) OR (starts_at <= ? AND ends_at >= ?)',
+        membership.ends_at, nil, membership.ends_at, membership.starts_at
       )
     else
-      memberships.or({ ends_at: nil }, { :ends_at.gte => membership.starts_at })
+      memberships.where(
+        'ends_at = ? OR ends_at >= ?',
+        nil, membership.starts_at
+      )
     end
   end
 
