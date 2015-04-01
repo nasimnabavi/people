@@ -70,6 +70,12 @@ class UserMembershipRepository
     all.group_by { |m| m.project.api_slug }
   end
 
+  def end_memberships(date)
+    without_end_date.items.each do |membership|
+      membership.update_attribute :ends_at, date
+    end
+  end
+
   private
 
   def search(params)
