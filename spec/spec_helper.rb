@@ -10,6 +10,7 @@ require 'capybara/rspec'
 require 'rack_session_access/capybara'
 require 'capybara/poltergeist'
 require 'phantomjs'
+require 'database_cleaner'
 
 Spork.prefork do
 
@@ -31,7 +32,8 @@ Spork.prefork do
     I18n.enforce_available_locales = false
 
     config.before(:suite) do
-      DatabaseCleaner[:mongoid].strategy = :truncation
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
     end
 
     config.before(:each) do
