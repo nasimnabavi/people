@@ -61,6 +61,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts_as_list (0.6.0)
+      activerecord (>= 3.0)
     addressable (2.3.7)
     animate-scss (0.0.5)
       sass
@@ -351,8 +353,6 @@ GEM
       mongoid (>= 3.0.1)
       rake
       rspec (>= 2.14)
-    mongoid_orderable (4.1.1)
-      mongoid
     mongoid_userstamp (0.4.0)
       mongoid (>= 3.0.4)
     moped (2.0.4)
@@ -574,6 +574,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_list
   animate-scss
   awesome_print
   better_errors
@@ -621,7 +622,6 @@ DEPENDENCIES
   mongoid!
   mongoid-history
   mongoid-rspec
-  mongoid_orderable
   mongoid_paranoia!
   mongoid_userstamp
   moped

@@ -1,11 +1,11 @@
 class Role < ActiveRecord::Base
-  #TODO  after_create :move_to_bottom
+  after_create :move_to_bottom
 
   has_many :memberships
   has_many :positions
   has_many :users, through: :positions
 
-  #TODO  orderable column: :priority
+  acts_as_list column: :priority
 
   validates :name, presence: true, uniqueness: true
   validates :billable, inclusion: { in: [true, false] }
