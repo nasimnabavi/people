@@ -25,7 +25,6 @@ Spork.prefork do
     WebMock.disable_net_connect!(allow_localhost: true,
                                  allow: [/rest/, /codeclimate.com/])
     config.include FactoryGirl::Syntax::Methods
-    config.include Mongoid::Matchers, type: :model
     config.include Devise::TestHelpers, type: :controller
     config.include Helpers::JSONResponse, type: :controller
     config.include Capybara::DSL

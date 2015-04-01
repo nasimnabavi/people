@@ -104,4 +104,5 @@ group :test do
   gem 'poltergeist'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
 end
