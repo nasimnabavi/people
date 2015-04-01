@@ -1,10 +1,9 @@
 module Trello
   class ProjectChecker
-    attr_accessor :board, :cards, :user_membership_repo
+    attr_accessor :board, :cards
 
-    def initialize(board, user_membership_repo = UserMembershipRepository)
+    def initialize(board)
       self.board = board
-      self.user_membership_repo = user_membership_repo
       fetch_cards
     end
 
@@ -12,10 +11,6 @@ module Trello
 
     def fetch_cards
       @cards = board.cards
-    end
-
-    def user_from_card(card)
-      UserRepository.new.find_by_full_name(card.name)
     end
   end
 end
