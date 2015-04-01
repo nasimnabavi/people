@@ -14,15 +14,11 @@ class Position
     end
 
     def sorted_position_names_for(user)
-      user
-        .positions
-        .sort_by!(&:starts_at)
-        .map(&:role)
-        .map(&:name)
+      Position.includes(:role).where(user: user).order(:starts_at).pluck('roles.name')
     end
 
     def expected_positions_order(positions)
-      Role.in(name: positions).sort_by(&:priority).map(&:name).reverse
+      Role.where(name: positions).order(:priority).pluck(:name).reverse
     end
   end
 end
