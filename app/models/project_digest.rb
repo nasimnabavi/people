@@ -19,15 +19,15 @@ class ProjectDigest
     end
 
     def ending_in(days)
-      Project.between(end_at: Time.now..days.days.from_now)
+      Project.where('end_at BETWEEN ? AND ?', Time.now, days.days.from_now)
     end
 
     def starting_in(days)
-      Project.between(kickoff: Time.now..days.days.from_now)
+      Project.where('kickoff BETWEEN ? AND ?', Time.now, days.days.from_now)
     end
 
     def starting_tommorow
-      Project.potential.between(kickoff: Time.now..1.day.from_now)
+      Project.potential.where('kickoff BETWEEN ? AND ?', Time.now, 1.day.from_now)
     end
 
     def upcoming_changes(days)
@@ -46,10 +46,10 @@ class ProjectDigest
   end
 
   def leaving_memberships(days)
-    project.memberships.between(ends_at: Time.now..days.days.from_now)
+    project.memberships.where('ends_at BETWEEN ? AND ?', Time.now, days.days.from_now)
   end
 
   def joining_memberships(days)
-    project.memberships.between(starts_at: Time.now..days.days.from_now)
+    project.memberships.where('starts_at BETWEEN ? AND ?', Time.now, days.days.from_now)
   end
 end

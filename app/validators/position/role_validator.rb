@@ -16,7 +16,7 @@ class Position
     end
 
     def user_roles(user)
-      user.positions.ne(created_at: nil).map(&:role)
+      user.positions.where.not(created_at: nil).map(&:role)
     end
   end
 end

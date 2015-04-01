@@ -9,10 +9,6 @@ describe Membership do
   it { should validate_presence_of(:project) }
   it { should validate_presence_of(:role) }
   it { should be_timestamped_document }
-  it { should have_field(:starts_at).of_type(Date) }
-  it { should have_field(:ends_at).of_type(Date) }
-  it { should have_field(:billable).of_type(Mongoid::Boolean) }
-  it { should validate_inclusion_of(:billable).to_allow([true, false]) }
 
   describe '#validate_starts_at_ends_at' do
     it "adds an error if 'ends_at' is before 'starts_at'" do

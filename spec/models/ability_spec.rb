@@ -7,7 +7,6 @@ describe Ability do
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }
   it { should be_valid }
-  it { should have_field(:name) }
 
   describe '#to_s' do
     it 'returns name' do
