@@ -16,7 +16,9 @@ class Position
     end
 
     def user_roles(user)
-      user.positions.where.not(created_at: nil).map(&:role)
+      Role.joins(:positions)
+        .where('positions.user_id' => user)
+        .where.not('positions.created_at' => nil)
     end
   end
 end
