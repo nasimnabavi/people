@@ -22,7 +22,7 @@ describe PositionsController do
   describe '#create' do
     let(:role) { create(:role, name: 'junior1', technical: true) }
     let(:user) { create(:user, primary_role: role) }
-    let!(:params) { attributes_for(:position, user_id: user._id, role_id: role._id) }
+    let!(:params) { attributes_for(:position, user_id: user.id, role_id: role.id) }
 
     context 'with valid attributes' do
       it 'creates a new position' do

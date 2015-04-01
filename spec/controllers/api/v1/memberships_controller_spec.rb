@@ -6,11 +6,11 @@ describe Api::V1::MembershipsController do
   let!(:user) { create(:user) }
   let!(:role) { create(:role) }
   let!(:project) { create(:project) }
-  let(:membership) { create(:membership, user_id: user._id, project_id: project._id, role_id: role._id) }
+  let(:membership) { create(:membership, user_id: user.id, project_id: project.id, role_id: role.id) }
 
   let!(:any_membership) { create(:membership) }
   let(:membership_attrs) do
-    attributes_for(:membership).merge(user_id: user._id, project_id: project._id, role_id: role._id)
+    attributes_for(:membership).merge(user_id: user.id, project_id: project.id, role_id: role.id)
   end
   let(:rabl_attributes) { [:id, :starts_at, :ends_at, :user_id, :project_id] }
 

@@ -91,7 +91,7 @@ describe MembershipsController do
 
         it 'returns json' do
           %w(project_id role_id user_id).each do |key|
-            expect(json_response[key]).to eql params[key]
+            expect(json_response[key]).to eql params[key].to_i
           end
           %w(starts_at ends_at).each do |key|
             expect(Date.parse(json_response[key])).to eql Date.parse(params[key])

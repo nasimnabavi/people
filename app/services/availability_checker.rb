@@ -89,11 +89,11 @@ class AvailabilityChecker
   end
 
   def current_memberships
-    @current_memberships ||= @user.current_memberships.asc(:ends_at)
+    @current_memberships ||= @user.current_memberships.order(:ends_at)
   end
 
   def memberships
-    @user.memberships.unfinished.without_bookings.asc(:ends_at)
+    @user.memberships.unfinished.without_bookings.order(:ends_at)
   end
 
   def memberships_dates
