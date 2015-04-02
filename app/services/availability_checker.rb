@@ -39,7 +39,7 @@ class AvailabilityChecker
       break if range[:ends].nil?
       break if i == memberships_dates.size - 1 # skip last run
 
-      ends_with_buffer = range[:ends] + 1
+      ends_with_buffer = range[:ends] + 1.day
       next_starts = memberships_dates[i + 1][:starts]
 
       if ends_with_buffer < next_starts
@@ -91,7 +91,7 @@ class AvailabilityChecker
   end
 
   def memberships
-    @user.memberships.unfinished.without_bookings.order(:ends_at)
+    @user.memberships.unfinished.without_bookings.order(ends_at: :asc)
   end
 
   def memberships_dates
@@ -100,10 +100,14 @@ class AvailabilityChecker
       .map{ |membership| { starts: membership.starts_at, ends: membership.ends_at } }
   end
 
-  def next_working_day(date = Date.tomorrow)
-    begin
-      date += 1
-    end while date.saturday? || date.sunday?
+  def next_working_day(date)
+    date ||= Time.now
+
+    loop do
+      date += 1.day
+      break unless date.saturday? || date.sunday?
+    end
+
     date
   end
 end

@@ -22,8 +22,7 @@ class Membership < ActiveRecord::Base
   scope :potential, -> { where(project_potential: true) }
   scope :with_role, ->(role) { where(role: role) }
   scope :with_user, ->(user) { where(user: user) }
-  #TODO scope :unfinished, -> { any_of({ ends_at: nil }, { :ends_at.gt => Time.current }) }
-  scope :unfinished, -> { where(ends_at: nil) }
+  scope :unfinished, -> { where('ends_at IS ? OR ends_at > ?', nil, Time.current) }
 
   scope :billable, -> { where(billable: true) }
   scope :without_bookings, -> { where(booked: false) }
