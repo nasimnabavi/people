@@ -8,7 +8,6 @@ gem 'newrelic_rpm'
 gem 'google-api-client', require: 'google/api_client'
 
 gem 'konf'
-gem "heroku-mongo-backup", github: 'alexkravets/heroku-mongo-backup', branch: 'mongoid4'
 gem 'fog'
 
 gem 'pg'
@@ -87,7 +86,6 @@ group :test do
   gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'mongoid-rspec'
   gem 'faker'
   gem 'timecop'
   gem 'codeclimate-test-reporter', require: false
