@@ -7,7 +7,7 @@ class RolesPriorityUpdater
 
   def call
     sorted_role_ids.each_with_index do |id, index|
-      Role.find(id).set(priority: index + 1)
+      Role.update(id, priority: index + 1)
     end
   end
 end
