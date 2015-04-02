@@ -85,7 +85,7 @@ describe ProjectsController do
 
       it 'changes starts_at' do
         Timecop.freeze(Time.current) do
-          expect(new_project.memberships.first.starts_at).to eq Time.current
+          expect(new_project.memberships.first.starts_at).to eq Time.current.midnight
         end
       end
     end
