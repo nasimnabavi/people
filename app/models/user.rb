@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   mount_uploader :gravatar, GravatarUploader
 
-  has_many :memberships, dependent: :destroy
+  has_many :memberships, ->{ order(:ends_at) }, dependent: :destroy
   has_many :notes
   has_many :positions
   has_many :roles, through: :positions
@@ -22,7 +22,10 @@ class User < ActiveRecord::Base
   validates :phone, phone_number: true, length: { maximum: 16 }, allow_blank: true
   validates :archived, inclusion: { in: [true, false] }
 
-  scope :by_name, -> { order(:first_name, :last_name) }
+  scope :by_name, -> {
+    includes(:primary_role, :memberships, positions: [:role])
+      .order(:first_name, :last_name)
+  }
   scope :by_last_name, -> { order(:last_name, :first_name) }
   scope :available, -> { where(available: true) }
   scope :active, -> { where(archived: false) }
