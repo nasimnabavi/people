@@ -8,7 +8,7 @@ class Position < ActiveRecord::Base
   validates_with ::Position::ChronologyValidator
   validates_with ::Position::RoleValidator
 
-  default_scope -> { order(starts_at: :asc) }
+  #default_scope -> { order(starts_at: :asc) }
 
   def <=>(other)
     [user.last_name, user.first_name, starts_at] <=> [other.user.last_name,

@@ -1,6 +1,8 @@
 class AvailableUsersRepository
   def all
-    User.where(available: true)
+    User.includes(:roles, :primary_role, :memberships, :positions, positions: [:role])
+      .includes(:current_memberships, :potential_memberships, :next_memberships, :booked_memberships, :last_membership)
+      .where(available: true)
       .where(archived: false)
       .where(primary_role: technical_roles)
   end

@@ -16,6 +16,16 @@ class User < ActiveRecord::Base
   belongs_to :primary_role, class_name: 'Role'
   has_and_belongs_to_many :abilities
 
+  # ugly optimization hack
+  has_many :current_memberships, -> { active.unfinished.started }, class: Membership
+  has_many :potential_memberships, -> { potential.unfinished }, class: Membership
+  has_many :next_memberships, -> { next_memberships }, class: Membership
+  has_many :booked_memberships, -> {
+    where(booked: true)
+      .where("ends_at = ? OR ends_at > ?", nil, Time.now)
+  }, class: Membership
+  has_one :last_membership, -> { active.unfinished.started.order('ends_at DESC NULLS FIRST') }, class: Membership
+
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :employment, inclusion: { in: 0..200, message: 'must be between 0-200' }
@@ -64,34 +74,8 @@ class User < ActiveRecord::Base
     potential_memberships.present?
   end
 
-  def last_membership
-    without_date = user_membership_repository.current.without_end_date.items
-    return without_date.last if without_date.present?
-    user_membership_repository.current.with_end_date.items.order(:ends_at).last
-  end
-
-  def next_memberships
-    @next_memberships ||= user_membership_repository.next.items.order(:starts_at)
-  end
-
-  def potential_memberships
-    @potential_memberships ||= user_membership_repository.potential.not_ended.items
-  end
-
   def end_memberships
     memberships.each(&:end_now!) if archived_change && archived_change.last
-  end
-
-  def booked_memberships
-    @booked_memberships ||= user_membership_repository
-      .currently_booked
-      .items
-      .order(:ends_at,
-    :starts_at)
-  end
-
-  def current_memberships
-    @current_memberships ||= user_membership_repository.current.items.order(:ends_at)
   end
 
   def user_membership_repository
