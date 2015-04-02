@@ -8,11 +8,14 @@ describe Trello::CardSync do
 
   context 'card has a label' do
     it 'calls AddUserToProject' do
-      Trello::AddUserToProject.any_instance.should_receive :call!
+      instance = double('AddUserToProject')
+      Trello::AddUserToProject.should_receive(:new).with('User Name', 'label')
+        .and_return(instance)
+      instance.should_receive(:call!)
 
       card = double('card')
-      card.stub(:name)
-      card.stub(:card_labels) { ['label'] }
+      card.stub(:name) { 'User Name' }
+      card.stub(:card_labels) { [{ 'name' => 'label' }] }
 
       described_class.new(card).call!
     end

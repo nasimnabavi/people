@@ -9,7 +9,7 @@ module Trello
 
     def call!
       if labels.any?
-        AddUserToProject.new(user_name, labels).call!
+        AddUserToProject.new(user_name, labels.first['name']).call!
       else
         RemoveUserFromProjects.new(user_name).call!
       end
