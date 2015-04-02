@@ -21,7 +21,7 @@ class AvailabilityChecker
   def available_since
     return unless available?
 
-    if free_right_now? || has_only_nonbillable_memberships_without_end_data?
+    if free_right_now?
       return Date.today
     end
 
@@ -56,11 +56,6 @@ class AvailabilityChecker
     has_no_memberships? || first_membership_starts_after_today?
   end
 
-  def has_only_nonbillable_memberships_without_end_data?
-    return false unless has_only_nonbillable_memberships?
-    memberships.where(billable: false).all? { |membership| membership.ends_at.nil? }
-  end
-
   def first_membership_starts_after_today?
     memberships.reorder(starts_at: :asc).first.starts_at > Date.today
   end
@@ -91,7 +86,7 @@ class AvailabilityChecker
   end
 
   def memberships
-    @user.memberships.unfinished.without_bookings.order(ends_at: :asc)
+    @user.memberships.unfinished.qualifying.without_bookings.order(ends_at: :asc)
   end
 
   def memberships_dates
@@ -101,7 +96,7 @@ class AvailabilityChecker
   end
 
   def next_working_day(date)
-    date ||= Time.now
+    date ||= Time.current
 
     loop do
       date += 1.day
