@@ -19,7 +19,7 @@ describe Trello::ProjectStartChecker do
 
     it 'creates a membership that started yesterday' do
       subject.run!
-      expect(user.memberships.first.starts_at).to eq Date.yesterday
+      expect(user.memberships.first.starts_at).to eq 1.day.ago.midnight
     end
 
     it 'creates a membership with role set to current user position' do
