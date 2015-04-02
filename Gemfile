@@ -12,14 +12,7 @@ gem "heroku-mongo-backup", github: 'alexkravets/heroku-mongo-backup', branch: 'm
 gem 'fog'
 
 gem 'pg'
-gem 'mongoid', github: 'mongoid/mongoid'
-gem 'mongoid_paranoia', github: 'simi/mongoid_paranoia'
 gem 'acts_as_list'
-gem 'bson'
-gem 'bson_ext'
-gem 'moped'
-gem 'mongoid-history'
-gem 'mongoid_userstamp'
 
 gem 'dotenv'
 gem 'dotenv-deployment'

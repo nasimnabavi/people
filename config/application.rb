@@ -4,10 +4,6 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_record/railtie"
 require "sprockets/railtie"
-require "bson"
-require "moped"
-
-Moped::BSON = BSON
 
 require File.expand_path('../preinitializer', __FILE__)
 # Require the gems listed in Gemfile, including any gems

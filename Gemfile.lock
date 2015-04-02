@@ -6,16 +6,6 @@ GIT
     heroku-mongo-backup (0.4.5)
 
 GIT
-  remote: git://github.com/mongoid/mongoid.git
-  revision: 8f22ade5fda84626e888fd9a4c80dc10e37616b4
-  specs:
-    mongoid (4.0.2)
-      activemodel (~> 4.0)
-      moped (~> 2.0.0)
-      origin (~> 2.1)
-      tzinfo (>= 0.3.37)
-
-GIT
   remote: git://github.com/netzpirat/haml_coffee_assets.git
   revision: a3c2951eca005d4fcce4837b9a97a139fc022c66
   specs:
@@ -23,13 +13,6 @@ GIT
       coffee-script (~> 2.0)
       sprockets (~> 2.0)
       tilt (~> 1.1)
-
-GIT
-  remote: git://github.com/simi/mongoid_paranoia.git
-  revision: 30be52e1dc3ee82af827ceeb2bd478956f49526e
-  specs:
-    mongoid_paranoia (0.1.2)
-      mongoid (> 3)
 
 GEM
   remote: https://rubygems.org/
@@ -89,7 +72,6 @@ GEM
       sass (~> 3.2)
       thor
     bson (2.3.0)
-    bson_ext (1.5.1)
     builder (3.2.2)
     bullet (4.13.2)
       activesupport (>= 3.0.0)
@@ -141,7 +123,7 @@ GEM
     coffee-script-source (1.9.1)
     colorize (0.7.5)
     columnize (0.9.0)
-    connection_pool (2.1.2)
+    connection_pool (2.1.3)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.4.1)
@@ -166,7 +148,6 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0)
-    easy_diff (0.0.4)
     erubis (2.7.0)
     excon (0.44.4)
     execjs (2.4.0)
@@ -345,16 +326,15 @@ GEM
     minitest (5.5.1)
     momentjs-rails (2.5.1)
       railties (>= 3.1)
-    mongoid-history (0.4.5)
-      activesupport
-      easy_diff
-      mongoid (>= 3.0)
+    mongoid (4.0.2)
+      activemodel (~> 4.0)
+      moped (~> 2.0.0)
+      origin (~> 2.1)
+      tzinfo (>= 0.3.37)
     mongoid-rspec (1.10.0)
       mongoid (>= 3.0.1)
       rake
       rspec (>= 2.14)
-    mongoid_userstamp (0.4.0)
-      mongoid (>= 3.0.4)
     moped (2.0.4)
       bson (~> 2.2)
       connection_pool (~> 2.0)
@@ -579,8 +559,6 @@ DEPENDENCIES
   awesome_print
   better_errors
   binding_of_caller
-  bson
-  bson_ext
   bullet (~> 4.13.2)
   capistrano
   capistrano-bundler
@@ -619,12 +597,7 @@ DEPENDENCIES
   letter_opener
   messengerjs-rails
   mini_magick
-  mongoid!
-  mongoid-history
   mongoid-rspec
-  mongoid_paranoia!
-  mongoid_userstamp
-  moped
   netguru_theme
   newrelic_rpm
   oj
