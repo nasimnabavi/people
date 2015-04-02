@@ -7,6 +7,12 @@ module Trello
       fetch_cards
     end
 
+    def call!
+      cards.each do |card|
+        CardSync.new(card).call!
+      end
+    end
+
     private
 
     def fetch_cards
