@@ -18,7 +18,7 @@ describe Trello::ProjectEndChecker do
     it 'adds end date for the membership' do
       expect do
         subject.run!
-      end.to change{ membership.reload.ends_at }.from(nil).to Date.yesterday
+      end.to change{ membership.reload.ends_at }.from(nil).to 1.day.ago.midnight
     end
   end
 end
