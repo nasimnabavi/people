@@ -78,14 +78,14 @@ describe ProjectsController do
       end
 
       it 'deletes unnecessary memberships' do
-        Timecop.freeze(Time.now) do
+        Timecop.freeze(Time.current) do
           expect(new_project.memberships).not_to include(old_membership)
         end
       end
 
       it 'changes starts_at' do
-        Timecop.freeze(Time.now) do
-          expect(new_project.memberships.first.starts_at).to eq Time.now
+        Timecop.freeze(Time.current) do
+          expect(new_project.memberships.first.starts_at).to eq Time.current
         end
       end
     end
