@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Trello::ProjectEndChecker do
-  include_context 'trello'
+describe Trello::RemoveUserFromProjects do
+  subject { described_class }
 
   let!(:user) do
     create(:user, first_name: 'Other', last_name: 'Developer')
@@ -14,11 +14,9 @@ describe Trello::ProjectEndChecker do
            ends_at: nil
   end
 
-  context 'user card with removed label' do
-    it 'adds end date for the membership' do
-      expect do
-        subject.run!
-      end.to change{ membership.reload.ends_at }.from(nil).to 1.day.ago.midnight
-    end
+  it 'adds end date for the membership' do
+    expect do
+      subject.new("#{user.first_name} #{user.last_name}").call!
+    end.to change{ membership.reload.ends_at }.from(nil).to 1.day.ago.midnight
   end
 end

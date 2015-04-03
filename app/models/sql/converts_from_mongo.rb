@@ -25,7 +25,6 @@ module Sql
         relation_ids = mongo.attributes.select { |key, value| /^(?!_).*_ids*$/.match(key.to_s) }
         relation_ids.delete('gravatar')
         relation_ids.delete('icon')
-        relation_ids.delete('role_id')
         sql_ids = relation_ids.inject({}) do |memo, (key, value)|
           klass = key.to_s.split('_')[0].capitalize
           klass = /^.*[^_ids*]/.match(key.to_s).to_s.camelize

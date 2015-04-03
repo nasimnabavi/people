@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331101309) do
+ActiveRecord::Schema.define(version: 20150401092515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(version: 20150331101309) do
     t.string   "mongo_id"
     t.string   "gravatar"
     t.integer  "role_ids",           default: [],    array: true
+    t.integer  "role_id"
   end
 
   add_index "users", ["admin_role_id"], name: "index_users_on_admin_role_id", using: :btree
