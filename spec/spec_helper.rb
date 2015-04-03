@@ -23,17 +23,28 @@ Spork.prefork do
   Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
   RSpec.configure do |config|
+    I18n.enforce_available_locales = false
     WebMock.disable_net_connect!(allow_localhost: true,
                                  allow: [/rest/, /codeclimate.com/])
+
     config.include FactoryGirl::Syntax::Methods
     config.include Devise::TestHelpers, type: :controller
     config.include Helpers::JSONResponse, type: :controller
     config.include Capybara::DSL
-    I18n.enforce_available_locales = false
+
+    config.use_transactional_fixtures = false
+    config.infer_base_class_for_anonymous_controllers = false
 
     config.before(:suite) do
-      DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.clean_with(:truncation)
+    end
+
+    config.before(:each) do
+      DatabaseCleaner.strategy = :transaction
+    end
+
+    config.before(:each, js: true) do
+      DatabaseCleaner.strategy = :truncation
     end
 
     config.before(:each) do
@@ -44,8 +55,6 @@ Spork.prefork do
     config.after(:each) do
       DatabaseCleaner.clean
     end
-
-    config.infer_base_class_for_anonymous_controllers = false
   end
 
   CarrierWave.configure do |config|
