@@ -4,4 +4,7 @@ attributes :id, :name, :email, :admin_role_id, :employment, :phone, :location_id
 
 node(:role) { |user| user.primary_role }
 node(:role_id) { |user| user.primary_role.try(:id) }
-node(:roles) { |user| user.positions.map(&:role) }
+
+child(:roles) do
+  extends 'roles/base'
+end
