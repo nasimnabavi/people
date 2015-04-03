@@ -26,6 +26,6 @@ class ProjectsRepository
   end
 
   def find_or_create_by_name(name)
-    Project.where(name: name).first_or_create
+    Project.where(name: name).first_or_create project_type: 'regular'
   end
 end
