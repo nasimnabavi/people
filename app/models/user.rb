@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
   has_many :next_memberships, -> { next_memberships }, class: Membership
   has_many :booked_memberships, -> {
     where(booked: true)
-      .where("ends_at = ? OR ends_at > ?", nil, Time.now)
+      .where("ends_at IS NULL OR ends_at > ?", Time.current)
+      .order("ends_at ASC NULLS FIRST, id ASC")
   }, class: Membership
   has_one :last_membership, -> { active.unfinished.started.order('ends_at DESC NULLS FIRST') }, class: Membership
 
