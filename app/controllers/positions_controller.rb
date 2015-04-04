@@ -11,8 +11,7 @@ class PositionsController < ApplicationController
   before_filter :authenticate_admin!, except: [:new, :create]
 
   def new
-    position.user = current_user
-    position.user = params[:user] if params[:user]
+    position.user = User.find_by(id: params[:user]) || current_user
   end
 
   def create

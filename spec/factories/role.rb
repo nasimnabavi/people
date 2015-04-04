@@ -23,14 +23,6 @@ FactoryGirl.define do
       admin true
     end
 
-    factory :junior_role do
-      name 'junior'
-    end
-
-    factory :developer_role do
-      name 'developer'
-    end
-
     factory :technical_role do
       technical true
     end

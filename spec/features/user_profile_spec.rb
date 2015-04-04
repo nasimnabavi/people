@@ -1,11 +1,14 @@
 require 'spec_helper'
 
 describe 'profile', js: true do
-  let!(:junior) { create(:junior_role, priority: 3) }
-  let!(:developer) { create(:developer_role, priority: 2) }
-  let(:position) { create(:position, role_id: junior.id) }
+  let!(:junior) { create(:role, name: 'junior') }
+  let!(:developer) { create(:role, name: 'developer') }
+  let(:position) { create(:position, role: junior) }
 
   before do
+    junior.move_to_bottom
+    developer.move_to_top
+
     page.set_rack_session 'warden.user.user.key' => User
       .serialize_into_session(position.user).unshift('User')
   end
@@ -40,7 +43,9 @@ describe 'profile', js: true do
         select("#{position.user.last_name} #{position.user.first_name}",
           from: 'position_user_id')
 
-        fill_in('position_starts_at', with: (position.starts_at + 1.year).strftime)
+        fill_in('position_starts_at',
+          with: (position.starts_at + 1.year).strftime("%Y-%m-%d"))
+
         click_button('Create Position')
       end
 
