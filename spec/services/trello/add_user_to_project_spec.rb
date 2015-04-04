@@ -3,9 +3,12 @@ require 'spec_helper'
 describe Trello::AddUserToProject do
   subject { described_class }
 
-  let!(:user) { create(:user, first_name: 'John', last_name: 'Doe') }
+  let!(:role) { create(:role_billable) }
+  let!(:user) do
+    create(:user, first_name: 'John', last_name: 'Doe', primary_role: role)
+  end
   let!(:user_with_membership) do
-    create(:user, first_name: 'Other', last_name: 'Developer')
+    create(:user, first_name: 'Other', last_name: 'Developer', primary_role: role)
   end
   let!(:project) { create(:project, name: 'secondproject') }
   let!(:membership) { create(:membership, project: project, user: user_with_membership) }
