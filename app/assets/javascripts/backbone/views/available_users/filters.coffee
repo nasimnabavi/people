@@ -26,7 +26,7 @@ class Hrguru.Views.AvailableUsersFilters extends Marionette.View
   initializeRoleFilter: ->
     roles_selectize = @$('input[name=roles]').selectize
       plugins: ['remove_button']
-      valueField: '_id'
+      valueField: 'id'
       labelField: 'name'
       searchField: 'name'
       sortField: 'priority'
@@ -38,7 +38,7 @@ class Hrguru.Views.AvailableUsersFilters extends Marionette.View
   initializeAbilitiesFilter: ->
     abilities_selectize = @$('input[name=abilities]').selectize
       plugins: ['remove_button']
-      valueField: '_id'
+      valueField: 'id'
       labelField: 'name'
       searchField: 'name'
       sortField: 'name'

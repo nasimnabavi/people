@@ -31,7 +31,7 @@ class Hrguru.Views.TeamButtons extends Marionette.CompositeView
       error: @teamError
 
   teamCreated: (team, response) =>
-    team.set('id', response._id)
+    team.set('id', response.id)
     team_name = team.get('name')
     Messenger().success("#{team_name} has been created")
     @toggleFormClass()

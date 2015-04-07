@@ -48,9 +48,9 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
   onRender: ->
     @stickit()
     role = @model.get("role")
-    @$el.find('.roles').val(role._id) if role
+    @$el.find('.roles').val(role.id) if role
     location = @model.get("location")
-    @$el.find('.locations').val(location._id) if location
+    @$el.find('.locations').val(location.id) if location
     @toggleVisibility(@model.isActive())
     @renderProjectsRegion()
     @renderNextProjectsRegion()

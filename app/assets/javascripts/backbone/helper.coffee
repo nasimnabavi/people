@@ -65,7 +65,7 @@ class Hrguru.Helper
     keycode - zeroKeycode
 
   showAdminId: ->
-    @admin_role.get('_id')
+    @admin_role.get('id')
 
   togglePotentialCheckbox: (type) ->
     $('.potential').prop('checked', type is 'potential')
