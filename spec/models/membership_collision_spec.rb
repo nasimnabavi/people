@@ -18,7 +18,7 @@ describe MembershipCollision do
   end
 
   context 'when client requests junior to stay as dev' do
-    let!(:junior_role) { create(:junior_role) }
+    let!(:junior_role) { create(:role, name: 'junior') }
     let!(:user) { create(:user, primary_role: junior_role) }
     let(:project) { create(:project) }
     let!(:first_membership) { create(:membership, user: user, project: project) }
