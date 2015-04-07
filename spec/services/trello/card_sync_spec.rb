@@ -23,7 +23,7 @@ describe Trello::CardSync do
 
   context 'card does not have a label' do
     it 'calls RemoveUserFromProjects' do
-      Trello::RemoveUserFromProjects.any_instance.should_receive :call!
+      expect_any_instance_of(Trello::RemoveUserFromProjects).to receive :call!
 
       card = double('card')
       card.stub(:name)
