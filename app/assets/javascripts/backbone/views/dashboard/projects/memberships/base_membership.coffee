@@ -9,5 +9,5 @@ class Hrguru.Views.Dashboard.BaseMembership extends Marionette.ItemView
     $.extend(super, { user: @user.toJSON(), role: @role.toJSON() })
 
   toggleVisibility: (ids) ->
-    show = ids.length == 0 || @model.get('role_id') in ids
+    show = ids.length == 0 || @model.get('role_id').toString() in ids
     @$el.toggleClass('hide', !show)

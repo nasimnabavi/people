@@ -105,18 +105,25 @@ describe 'Dashboard filters', js: true do
   end
 
   describe 'User sorts filtered list' do
-    let!(:junior_role) { create(:role, name: 'junior') }
-    let!(:junior_dev) { create(:user, primary_role: junior_role) }
+    let!(:junior_role) { create(:role, technical: true, name: 'junior') }
+    let!(:junior_dev) do
+      u = create(:user, :available)
+      u.primary_role = junior_role
+      u.save
+      u
+    end
     let!(:junior_membership) do
-      create(:membership, user: junior_dev, role: junior_dev.primary_role)
+      create(:membership, user: junior_dev, role: junior_role)
     end
 
     it 'does not disable the filter' do
+      dev_user
       visit '/'
+      expect(page).to have_text junior_dev.last_name
       select_option('roles', 'junior')
       find('div.up[data-sort="role_name"]').trigger 'click'
-
       expect(page).to have_text junior_dev.last_name
+
       expect(page).not_to have_text dev_user.last_name
     end
   end

@@ -76,11 +76,11 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
     @ui.billable_ratio.html(billable + "/" + not_billable)
 
   toggleVisibility: (ids) ->
-    show = ids.length == 0 || @model.get('id') in ids
+    show = ids.length == 0 || @model.get('id').toString() in ids
     @$el.toggleClass('hide', !show)
 
   toggleByUsers: (user_ids) ->
-    ids = @model.get('memberships').models.map (model) -> model.get('user_id')
+    ids = @model.get('memberships').models.map (model) -> model.get('user_id').toString()
     contains = ids.map (id) -> id in user_ids
     show = user_ids.length == 0 || true in contains
     @$el.toggleClass('hide', !show)

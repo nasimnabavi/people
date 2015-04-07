@@ -23,7 +23,7 @@ class Hrguru.Views.Dashboard.UnstartedMembership extends Hrguru.Views.Dashboard.
     @$el.addClass("start-#{start}", state) if start?
 
   toggleVisibility: (ids) ->
-    @hidden_by_role = ids.length > 0 && !(@model.get('role_id') in ids)
+    @hidden_by_role = ids.length > 0 && !(@model.get('role_id').toString() in ids)
     @$el.toggleClass('invisible', @hidden_by_role) unless @hidden_by_next
 
   highlightNotBillable: (state) ->
@@ -34,4 +34,4 @@ class Hrguru.Views.Dashboard.UnstartedMembership extends Hrguru.Views.Dashboard.
     @model.hasTechnicalRole(@role) && !@model.isBillable()
 
   toggleByUsers: (user_ids) ->
-    @$el.toggleClass('invisible', false) if @user.id in user_ids
+    @$el.toggleClass('invisible', false) if @user.id.toString() in user_ids
