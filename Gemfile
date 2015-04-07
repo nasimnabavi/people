@@ -96,4 +96,5 @@ group :test do
   gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'selenium-webdriver'
   gem 'shoulda'
+  gem 'rspec-instafail'
 end
