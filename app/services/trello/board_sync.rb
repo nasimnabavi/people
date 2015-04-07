@@ -27,7 +27,7 @@ module Trello
 
     def sync_cards
       cards.each do |card|
-        CardSync.new(card).call!
+        CardSyncJob.new.perform(card)
       end
     end
 

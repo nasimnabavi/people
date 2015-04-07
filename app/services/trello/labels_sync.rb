@@ -8,10 +8,10 @@ module Trello
 
     def call!
       labels.each do |label|
-        CreateProjectFromLabel.new(label).call!
+        CreateProjectFromLabelJob.new.perform(label)
       end
 
-      ArchiveProjects.new(labels).call!
+      ArchiveProjectsJob.new.perform(labels)
     end
   end
 end
