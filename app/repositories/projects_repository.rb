@@ -25,6 +25,10 @@ class ProjectsRepository
     active.sort_by { |project| project.name.downcase }
   end
 
+  def ending_in_a_week
+    Project.active.where(end_at: (1.week.from_now - 1.day)..1.week.from_now)
+  end
+
   def find_or_create_by_name(name)
     Project.where(name: name).first_or_create project_type: 'regular'
   end

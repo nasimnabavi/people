@@ -7,7 +7,7 @@ class ProjectDigest
 
   class << self
     def ending_in_a_week
-      Project.active.between(end_at: (1.week.from_now - 1.day)..1.week.from_now)
+      ProjectsRepository.ending_in_a_week
     end
 
     def ending_or_starting_in(days)
