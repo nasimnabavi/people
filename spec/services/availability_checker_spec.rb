@@ -26,7 +26,7 @@ describe AvailabilityChecker do
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
-          expect(user.available_since).to eq(Time.now)
+          expect(user.available_since).to eq(Time.current)
         end
       end
 
@@ -39,7 +39,7 @@ describe AvailabilityChecker do
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
-          expect(user.available_since).to eq(Time.now)
+          expect(user.available_since).to eq(Time.current)
         end
       end
 
@@ -64,7 +64,7 @@ describe AvailabilityChecker do
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
-          expect(user.available_since).to eq(Time.now)
+          expect(user.available_since).to eq(Time.current)
         end
       end
 
@@ -146,7 +146,7 @@ describe AvailabilityChecker do
 
           it 'changes user availability to true' do
             expect(user.available).to be_true
-            expect(user.available_since).to eq(Time.now)
+            expect(user.available_since).to eq(Time.current)
           end
         end
       end
