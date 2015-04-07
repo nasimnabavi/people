@@ -34,6 +34,13 @@ describe Trello::AddUserToProject do
   end
 
   context 'user is in a project' do
+    subject do
+      described_class.new(
+        "#{user_with_membership.first_name} #{user_with_membership.last_name}",
+        project.name
+      )
+    end
+
     let!(:user_with_membership) do
       create(:user, first_name: 'Other', last_name: 'Developer', primary_role: role)
     end
@@ -41,10 +48,7 @@ describe Trello::AddUserToProject do
 
     it 'does not create a new membership for the user' do
       expect do
-        described_class.new(
-          "#{user_with_membership.first_name} #{user_with_membership.last_name}",
-          project.name
-        ).call!
+        subject.call!
       end.to_not change{ user_with_membership.memberships.count }.by 1
     end
   end
