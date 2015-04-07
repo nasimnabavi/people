@@ -35,7 +35,10 @@ describe Trello::AddUserToProject do
 
     it 'does not create a new membership for the user' do
       expect do
-        subject.call!
+        described_class.new(
+          "#{user_with_membership.first_name} #{user_with_membership.last_name}",
+          project.name
+        )
       end.to_not change{ user_with_membership.memberships.count }.by 1
     end
   end
