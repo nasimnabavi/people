@@ -2,7 +2,13 @@ require 'spec_helper'
 
 describe 'Profile page', js: true do
   subject { page }
-  let(:user) { create(:user, first_name: 'Jack', last_name: 'Sparrow') }
+
+  let(:role) { create(:role) }
+  let(:user) do
+    create(:user, first_name: 'Jack', last_name: 'Sparrow',
+      primary_role: role)
+  end
+
   before {
     page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
   }

@@ -1,8 +1,9 @@
 require "spec_helper"
 
 describe "Users page", js: true do
+  let(:role) { create(:role) }
   let(:user) { create(:user) }
-  let!(:developer) { create(:user, first_name: 'Developer Daisy') }
+  let!(:developer) { create(:user, primary_role: role) }
 
   before(:each) do
     page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
