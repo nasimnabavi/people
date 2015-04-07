@@ -1,13 +1,19 @@
 require 'spec_helper'
 
 describe 'Projects page', js: true do
-  let(:senior_role) { create(:admin_role) }
-  let!(:user) { create(:user, admin_role_id: senior_role.id) }
+  let(:admin_role) { create(:admin_role) }
+  let!(:dev_role) { create(:role, name: 'developer', technical: true) }
+  let!(:pm_role) { create(:role, name: 'pm') }
+  let!(:qa_role) { create(:role, name: 'qa') }
   let!(:active_project) { create(:project) }
   let!(:potential_project) { create(:project, :potential) }
   let!(:archived_project) { create(:project, :archived) }
-  let!(:pm_user) { create(:pm_user) }
-  let!(:qa_user) { create(:qa_user) }
+  let!(:user) { create(:user, primary_role: dev_role, admin_role_id: admin_role.id) }
+  let!(:pm_user) { create(:user, primary_role: pm_role) }
+  let!(:qa_user) { create(:user, primary_role: qa_role) }
+  let!(:dev_position) { create(:position, user: user, role: dev_role) }
+  let!(:pm_position) { create(:position, user: pm_user, role: pm_role) }
+  let!(:qa_position) { create(:position, user: qa_user, role: qa_role) }
   let!(:note) { create(:note) }
 
   before do
@@ -111,25 +117,34 @@ describe 'Projects page', js: true do
 
   describe 'managing people in project' do
     describe 'adding member to project' do
-      xit 'adds member to project correctly' do
+      it 'adds member to project correctly' do
+        within('#filters') do
+          find('.projects-types li.active').click
+        end
+
         within('div.project') do
           find('div.selectize-input.items').click
           first('.selectize-dropdown.multi [data-selectable]').click
         end
+
         expect(find('div.project div.non-billable div.count')).to have_text('1')
       end
     end
 
     describe 'removing member from project' do
       let!(:membership) { create(:membership, user: pm_user, project: active_project) }
-      before do
-        visit '/dashboard'
-      end
+
+      before { visit '/dashboard' }
 
       xit 'removes member from project correctly' do
+        within('#filters') do
+          find('.projects-types li.active').click
+        end
+
         within('div.project') do
           find('.icons span.remove', visible: false).click
         end
+
         expect(find('div.project div.non-billable')).to have_no_selector('div.membership')
       end
     end
