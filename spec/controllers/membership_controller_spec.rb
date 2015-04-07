@@ -133,7 +133,7 @@ describe MembershipsController do
 
     context 'valid attributes' do
       it "changes membership's range" do
-        attributes = { ends_at: Time.new(2002, 10, 26, 15, 2) }
+        attributes = { ends_at: Date.new(2002, 10, 26).to_s }
         put :update, id: membership, membership: attributes
         membership.reload
         expect(membership.ends_at.day).to eq 26
@@ -150,7 +150,7 @@ describe MembershipsController do
 
     context 'params starts_at Date picker' do
       it 'saves ends_at value as end of day' do
-        attributes = { ends_at: Date.new(2002, 10, 26) }
+        attributes = { ends_at: Date.new(2002, 10, 26).to_s }
         put :update, id: membership, membership: attributes
         membership.reload
         expect(membership.ends_at).to eq Time.parse('2002-10-26')
