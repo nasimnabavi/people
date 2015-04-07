@@ -22,12 +22,19 @@ class Membership < ActiveRecord::Base
   scope :potential, -> { where(project_potential: true) }
   scope :with_role, ->(role) { where(role: role) }
   scope :with_user, ->(user) { where(user: user) }
-  scope :unfinished, -> { where('ends_at IS ? OR ends_at > ?', nil, Time.current) }
-  scope :started, -> { where('starts_at <= ?', Time.now) }
+  scope :unfinished, -> { where('ends_at IS NULL OR ends_at > ?', Time.current) }
+  scope :started, -> { where('starts_at <= ?', Time.current) }
   scope :billable, -> { where(billable: true) }
   scope :without_bookings, -> { where(booked: false) }
   scope :only_active, -> { active.order(starts_at: :desc).limit(3) }
-  scope :next_memberships, -> { unfinished.where(starts_at: nil, project_potential: false, booked: false) }
+
+  def self.next_memberships
+    not_started = arel_table[:starts_at].gt(Time.current)
+    not_potential = arel_table[:project_potential].eq(false)
+    not_booked = arel_table[:booked].eq(false)
+
+    unfinished.where(not_started.and(not_potential).and(not_booked))
+  end
 
   def self.qualifying
     has_end_date = arel_table[:ends_at].not_eq(nil)
@@ -42,7 +49,7 @@ class Membership < ActiveRecord::Base
   end
 
   def terminated?
-    ends_at.try('<', Time.now) || false
+    ends_at.try('<', Time.current) || false
   end
 
   def active?
