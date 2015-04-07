@@ -41,7 +41,7 @@ describe Api::V1::UsersController do
 
       it 'includes last user role' do
         subject.each do |memb|
-          expect(memb[1]['role']).to be_in %w(junior senior)
+          expect(memb[1]['role']).to be_in %w(junior developer senior)
         end
       end
     end
