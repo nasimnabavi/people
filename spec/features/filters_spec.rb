@@ -1,16 +1,20 @@
 require 'spec_helper'
 
-# Running any of these test causes RSpec to drop DB connection
-# and freeze
-
 describe 'Dashboard filters', js: true do
-  before(:each) { pending 'Tests group broken - to be repaired.'}
-
-  let(:senior_role) { create(:admin_role) }
+  let(:dev_role) { create(:role, name: 'developer') }
+  let(:admin_role) { create(:admin_role) }
   let(:role) { create(:role_billable) }
-  let(:user) { create(:user, admin_role_id: senior_role.id) }
-  let!(:dev_user) { create(:user, last_name: 'Developer', first_name: 'Daisy', admin_role_id: senior_role.id) }
-  let!(:membership) { create(:membership, user: dev_user, project: project_test, role: role) }
+  let(:user) { create(:user, admin_role_id: admin_role.id) }
+
+  let!(:dev_user) do
+    create(:user, last_name: 'Developer', primary_role: dev_role,
+      first_name: 'Daisy', admin_role_id: admin_role.id)
+  end
+
+  let!(:membership) do
+    create(:membership, user: dev_user, project: project_test, role: role)
+  end
+
   let!(:project_zztop) { create(:project, name: 'zztop') }
   let!(:project_test) { create(:project, name: 'test') }
 
@@ -32,7 +36,8 @@ describe 'Dashboard filters', js: true do
     end
 
     context 'when user has not started a project' do
-      let!(:future_dev) { create(:user) }
+      let!(:junior_role) { create(:role, name: 'junior') }
+      let!(:future_dev) { create(:user, primary_role: junior_role) }
       let!(:future_membership) { create(:membership, user: future_dev, starts_at: 1.week.from_now) }
 
       it 'shows the user' do
@@ -61,7 +66,7 @@ describe 'Dashboard filters', js: true do
       end
     end
 
-    xit 'shows only matched projects when project name provided' do
+    it 'shows only matched projects when project name provided' do
       select_option 'projects', 'zztop'
 
       within '#projects-users' do
@@ -100,10 +105,13 @@ describe 'Dashboard filters', js: true do
   end
 
   describe 'User sorts filtered list' do
-    let!(:junior_dev) { create(:user, primary_role: create(:junior_role, technical: true)) }
-    let!(:junior_membership) { create(:membership, user: junior_dev, role: junior_dev.primary_role) }
+    let!(:junior_role) { create(:role, name: 'junior') }
+    let!(:junior_dev) { create(:user, primary_role: junior_role) }
+    let!(:junior_membership) do
+      create(:membership, user: junior_dev, role: junior_dev.primary_role)
+    end
 
-    xit 'does not disable the filter' do
+    it 'does not disable the filter' do
       visit '/'
       select_option('roles', 'junior')
       find('div.up[data-sort="role_name"]').trigger 'click'
