@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'Available users page', js: true do
-  let(:senior_role) { create(:admin_role) }
-  let(:user) { create(:user, admin_role_id: senior_role.id) }
+  let(:admin_role) { create(:admin_role) }
+  let(:user) { create(:user, admin_role_id: admin_role.id) }
   let!(:angular_ability) { create(:ability, name: 'AngularJS') }
   let!(:dev_with_no_skillz) { create(:user, :available) }
   let!(:angular_dev) { create(:user, :available, abilities: [angular_ability]) }

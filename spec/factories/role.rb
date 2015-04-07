@@ -18,11 +18,6 @@ FactoryGirl.define do
       technical false
     end
 
-    factory :role_admin do
-      name 'senior'
-      admin true
-    end
-
     factory :technical_role do
       technical true
     end

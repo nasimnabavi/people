@@ -19,6 +19,10 @@ FactoryGirl.define do
     trait :available do
       available true
       available_since { Date.today }
+      after(:create) do |user|
+        user.primary_role = create(:technical_role)
+        user.save
+      end
     end
 
     trait :archived do
