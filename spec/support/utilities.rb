@@ -9,7 +9,7 @@ def sign_in(user)
      last_name: user.last_name,
      email: user.email
     },
-    extra: { raw_info: { hd: 'example.com' } },
+    extra: { raw_info: { hd: AppConfig.emails.internal } },
     credentials: {
      oauth_token: 123,
      refresh_token: 456,
