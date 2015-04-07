@@ -1,9 +1,14 @@
+require 'spec_helper'
+
 describe AvailableUsersRepository do
   let!(:available_user) { create(:user, :available) }
   let!(:archived_user) { create(:user, :available, :archived) }
   let!(:unavailable_user) { create(:user) }
   let!(:project_manager) do
-    create(:user, :available, primary_role: create(:pm_role))
+    u = create(:user, :available)
+    u.primary_role = create(:pm_role)
+    u.save
+    u
   end
 
   subject { described_class.new.all }
