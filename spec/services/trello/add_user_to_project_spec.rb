@@ -25,6 +25,12 @@ describe Trello::AddUserToProject do
       subject.call!
       expect(user.memberships.first.role).to eq user.primary_role
     end
+
+    it 'does not duplicate memberships' do
+      expect do
+        2.times{ subject.call! }
+      end.to change{ user.memberships.count }.by 1
+    end
   end
 
   context 'user is in a project' do
