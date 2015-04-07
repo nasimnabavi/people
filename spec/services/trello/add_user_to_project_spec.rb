@@ -44,7 +44,7 @@ describe Trello::AddUserToProject do
         described_class.new(
           "#{user_with_membership.first_name} #{user_with_membership.last_name}",
           project.name
-        )
+        ).call!
       end.to_not change{ user_with_membership.memberships.count }.by 1
     end
   end
