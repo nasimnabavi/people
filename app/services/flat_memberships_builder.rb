@@ -35,6 +35,6 @@ class FlatMembershipsBuilder
   end
 
   def get_role(memberships)
-    memberships.map(&:role).map(&:name).last
+    memberships.map{ |m| m.role.name }.last
   end
 end
