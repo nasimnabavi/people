@@ -13,17 +13,23 @@ FactoryGirl.define do
       technical true
     end
 
+    factory :technical_role do
+      technical true
+    end
+
+    factory :dev_role do
+      name 'developer'
+      technical true
+    end
+
     factory :pm_role do
       name 'pm'
       technical false
     end
 
-    factory :technical_role do
-      technical true
-    end
-
     factory :qa_role do
       name 'qa'
+      technical false
     end
   end
 end
