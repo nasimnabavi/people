@@ -1,6 +1,6 @@
 class RolesRepository
   def all
-    @all ||= Role.all
+    @all ||= Role.includes(:users).all
   end
 
   def all_by_name

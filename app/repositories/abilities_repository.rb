@@ -1,6 +1,6 @@
 class AbilitiesRepository
   def all
-    @all ||= Ability.all.order(name: :asc)
+    @all ||= Ability.order(name: :asc)
   end
 
   def ordered_by_user_abilities(user)
