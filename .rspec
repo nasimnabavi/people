@@ -1,3 +1,5 @@
+--require rspec/instafail
+--format RSpec::Instafail
 --color
 --profile
 --drb
