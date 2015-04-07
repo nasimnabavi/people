@@ -46,7 +46,7 @@ class UserDecorator < Draper::Decorator
 
   def info
     projects = project_names.join(', ')
-    name + "\n" + phone_number + "\n" + email + "\n" + skype_nick + "\n" + projects
+    "#{name}\n#{phone_number}\n#{email}\n#{skype_nick}\n#{projects}"
   end
 
   def months_in_current_project
