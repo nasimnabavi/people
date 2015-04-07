@@ -22,7 +22,7 @@ describe RolesController do
 
     it 'exposes roles' do
       get :index
-      expect(controller.roles.count).to be 3
+      expect(controller.roles.count).to be 2 # admin_role is a different object
     end
 
     it 'displays roles on view' do
