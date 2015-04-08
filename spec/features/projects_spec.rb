@@ -74,6 +74,9 @@ describe 'Projects page', js: true do
     end
 
     context 'when adding valid project' do
+      # Validation bug on membership update.
+      # To be fixed.
+
       xit 'creates new project' do
         find_by_id('project-name').set('Project1')
         find_by_id('project-slug').set('test')
@@ -135,6 +138,11 @@ describe 'Projects page', js: true do
       let!(:membership) { create(:membership, user: pm_user, project: active_project) }
 
       before { visit '/dashboard' }
+
+      # The issue with this test is that Poltergeist driver relies on PhantomJS < 2.0
+      # which in turn does not support sending request body with PATCH, which in turn
+      # is the method for update action in Backbone.js. This is to be updated when the
+      # 'phantomjs' gem starts supporting the 2.0 version.
 
       xit 'removes member from project correctly' do
         within('#filters') do
