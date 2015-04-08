@@ -8,12 +8,6 @@ describe Trello::RemoveUserFromProjects do
   end
   let!(:project) { create(:project) }
 
-  around do |example|
-    Timecop.freeze(Time.local(2015))
-    example.run
-    Timecop.return
-  end
-
   context 'membership does not have end date' do
     let!(:membership) do
       create(
