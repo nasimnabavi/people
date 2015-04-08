@@ -32,19 +32,19 @@ class UserMembershipRepository
   end
 
   def not_ended
-    search(ends_later_than: Time.now)
+    search(ends_later_than: Date.today)
   end
 
   def started
-    search(starts_earlier_than: Time.now)
+    search(starts_earlier_than: Date.today)
   end
 
   def not_started
-    search(starts_later_than: Time.now)
+    search(starts_later_than: Date.today)
   end
 
   def not_ended_project
-    search(project_end_time: Time.now)
+    search(project_end_time: Date.today)
   end
 
   def current
@@ -52,7 +52,7 @@ class UserMembershipRepository
   end
 
   def currently_booked
-    search(ends_later_than: Time.now).booked
+    search(ends_later_than: Date.today).booked
   end
 
   def items
