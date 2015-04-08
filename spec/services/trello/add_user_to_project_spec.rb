@@ -18,7 +18,7 @@ describe Trello::AddUserToProject do
 
     it 'creates a membership that started yesterday' do
       subject.call!
-      expect(user.memberships.first.starts_at).to eq 1.day.ago.midnight
+      expect(user.memberships.first.starts_at).to eq Date.yesterday
     end
 
     it 'creates a membership with role set to current user position' do

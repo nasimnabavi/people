@@ -38,7 +38,7 @@ describe MembershipSearch do
     before { Timecop.freeze(Time.local(2014, 12, 1)) }
 
     it 'returns memberships which end later than specified time' do
-      expect(described_class.new(ends_later_than: Time.now).results.to_a).to eq [later_membership]
+      expect(described_class.new(ends_later_than: Date.today).results.to_a).to eq [later_membership]
     end
   end
 
@@ -61,7 +61,7 @@ describe MembershipSearch do
     before { Timecop.freeze(Time.local(2014, 12, 1)) }
 
     it 'returns memberships which start later than specified time' do
-      expect(described_class.new(starts_later_than: Time.now).results.to_a).to(
+      expect(described_class.new(starts_later_than: Date.today).results.to_a).to(
         eq [later_membership])
     end
   end

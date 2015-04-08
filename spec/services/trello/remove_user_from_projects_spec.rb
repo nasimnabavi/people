@@ -21,7 +21,7 @@ describe Trello::RemoveUserFromProjects do
     it 'adds end date for the membership' do
       expect do
         subject.new("#{user.first_name} #{user.last_name}").call!
-      end.to change{ membership.reload.ends_at }.from(nil).to 1.day.ago.midnight
+      end.to change{ membership.reload.ends_at }.from(nil).to Date.yesterday
     end
   end
 
@@ -38,7 +38,7 @@ describe Trello::RemoveUserFromProjects do
     it 'adds end date for the membership' do
       expect do
         subject.new("#{user.first_name} #{user.last_name}").call!
-      end.to change{ membership.reload.ends_at }.from(membership.ends_at).to 1.day.ago.midnight
+      end.to change{ membership.reload.ends_at }.from(membership.ends_at).to Date.yesterday
     end
   end
 
