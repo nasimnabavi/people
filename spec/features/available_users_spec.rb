@@ -12,34 +12,34 @@ describe 'Available users page', js: true do
 
   describe 'filters' do
     it 'allows to filter by abilities' do
-      expect(page).to have_content angular_dev.first_name
-      expect(page).to have_content dev_with_no_skillz.first_name
+      expect(page).to have_content angular_dev.last_name
+      expect(page).to have_content dev_with_no_skillz.last_name
 
       select_option('abilities', 'AngularJS')
-      expect(page).to have_content angular_dev.first_name
-      expect(page).to_not have_content dev_with_no_skillz.first_name
+      expect(page).to have_content angular_dev.last_name
+      expect(page).to_not have_content dev_with_no_skillz.last_name
     end
 
     it 'allows to filter by availability time' do
       select_option('availability_time', 'From now')
 
-      expect(page).to have_content angular_dev.first_name
-      expect(page).to have_content dev_with_no_skillz.first_name
-      expect(page).not_to have_content another_dev.first_name
+      expect(page).to have_content angular_dev.last_name
+      expect(page).to have_content dev_with_no_skillz.last_name
+      expect(page).not_to have_content another_dev.last_name
     end
 
     it 'allows to display all users after selecting from now' do
-      expect(page).to have_content another_dev.first_name
+      expect(page).to have_content another_dev.last_name
 
       select_option('availability_time', 'From now')
 
-      expect(page).to have_content angular_dev.first_name
-      expect(page).to have_content dev_with_no_skillz.first_name
-      expect(page).not_to have_content another_dev.first_name
+      expect(page).to have_content angular_dev.last_name
+      expect(page).to have_content dev_with_no_skillz.last_name
+      expect(page).not_to have_content another_dev.last_name
 
       select_option('availability_time', 'All')
 
-      expect(page).to have_content another_dev.first_name
+      expect(page).to have_content another_dev.last_name
     end
   end
 
@@ -48,7 +48,7 @@ describe 'Available users page', js: true do
     let!(:pm) { create(:user, primary_role: pm_role, available: true) }
 
     it 'displays users' do
-      expect(page).to have_content user.first_name
+      expect(page).to have_content another_dev.last_name
     end
 
     it 'displays now if available_since is today' do
@@ -57,7 +57,7 @@ describe 'Available users page', js: true do
 
     it 'displays only technical users' do
       visit '/'
-      expect(page).not_to have_content pm.first_name
+      expect(page).not_to have_content pm.last_name
     end
   end
 end
