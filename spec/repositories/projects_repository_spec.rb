@@ -8,7 +8,7 @@ describe ProjectsRepository do
 
     let(:project) { create(:project, end_at: 1.week.from_now.midnight) }
     let(:project_ending_late) { create(:project, end_at: 2.weeks.from_now) }
-    let(:inactive_project) { create(:project, end_at: 1.week.from_now) }
+    let(:inactive_project) { create(:project, end_at: 1.week.from_now, archived: true) }
 
     it 'returns projects ending in a week' do
       expect(subject).to include project
