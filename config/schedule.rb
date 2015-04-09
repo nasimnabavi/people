@@ -11,11 +11,13 @@ every changes_digest_day, at: '8 am' do
   rake 'mailer:changes_digest'
 end
 
-every 1.day, at: '6 am' do
-  rake 'trello:board_sync'
-end
-
 every 1.day, at: '8 am' do
   rake 'people:available_checker'
   rake 'people:gravatars_download'
+end
+
+if AppConfig.trello.enabled
+  every 1.day, at: '6:00 am' do
+    rake 'trello:board_sync'
+  end
 end
