@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe MembershipCollision do
   context 'creating membership when it overlaps other' do
-    let!(:role) { create(:role_billable) }
-    let!(:user) { create(:user, primary_role: role) }
     let(:project) { create(:project) }
+    let(:role) { create(:role_billable) }
+    let(:user) { create(:user, primary_role: role) }
     let!(:first_membership) { create(:membership_billable, user: user, project: project) }
     let(:second_membership) { build(:membership_billable, user: user, project: project) }
 
@@ -18,9 +18,9 @@ describe MembershipCollision do
   end
 
   context 'when client requests junior to stay as dev' do
-    let!(:junior_role) { create(:role, name: 'junior') }
-    let!(:user) { create(:user, primary_role: junior_role) }
     let(:project) { create(:project) }
+    let(:junior_role) { create(:role, name: 'junior') }
+    let(:user) { create(:user, primary_role: junior_role) }
     let!(:first_membership) { create(:membership, user: user, project: project) }
     let(:second_membership) { build(:membership_billable, :booked, user: user, project: project) }
 
