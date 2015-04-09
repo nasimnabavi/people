@@ -74,25 +74,21 @@ describe 'Projects page', js: true do
     end
 
     context 'when adding valid project' do
-      # Validation bug on membership update.
-      # To be fixed.
-
-      xit 'creates new project' do
+      it 'creates new project' do
         find_by_id('project-name').set('Project1')
         find_by_id('project-slug').set('test')
-        find('label[for=kickoff]').click
-        find('.datepicker .today.day').click
-        find_by_id('end-at').set('2020-02-02')
-        find_by_id('project-type').set('Regular')
+        fill_in('kickoff', with: Date.today)
+        fill_in('end-at', with: Date.parse(1.year.from_now.to_s))
         check('Potential')
         find('div.selectize-control.devs .selectize-input').click
-        first('div.selectize-dropdown-content [data-selectable]').click
+        first('div.selectize-dropdown-content [data-selectable]', wait: 1).click
         find('div.selectize-control.pms .selectize-input').click
-        first('div.selectize-dropdown-content [data-selectable]').click
+        first('div.selectize-dropdown-content [data-selectable]', wait: 1).click
         find('div.selectize-control.qas .selectize-input').click
-        first('div.selectize-dropdown-content [data-selectable]').click
+        first('div.selectize-dropdown-content [data-selectable]', wait: 1).click
         find('button.new-project-submit').click
-        expect(page).to have_content('Project1')
+
+        expect(page).to have_content('Project1', wait: 10)
       end
     end
 
