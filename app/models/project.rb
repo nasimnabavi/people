@@ -8,8 +8,9 @@ class Project < ActiveRecord::Base
 
   POSSIBLE_TYPES = %w(regular maintenance_support maintenance_development).freeze
 
-  has_many :memberships, dependent: :destroy
   has_many :notes
+  has_many :memberships, inverse_of: :project, dependent: :destroy
+
   accepts_nested_attributes_for :memberships
 
   validates :name, presence: true, uniqueness: { case_sensitive: false },

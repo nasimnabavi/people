@@ -3,7 +3,7 @@ class Membership < ActiveRecord::Base
   include Membership::HipchatNotifications
 
   belongs_to :user, touch: true
-  belongs_to :project
+  belongs_to :project, inverse_of: :memberships
   belongs_to :role
 
   validates :user, presence: true
