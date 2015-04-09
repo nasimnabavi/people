@@ -44,12 +44,38 @@ describe Trello::AddUserToProject do
     let!(:user_with_membership) do
       create(:user, first_name: 'Other', last_name: 'Developer', primary_role: role)
     end
-    let!(:membership) { create(:membership, project: project, user: user_with_membership) }
 
-    it 'does not create a new membership for the user' do
-      expect do
-        subject.call!
-      end.to_not change{ user_with_membership.memberships.count }.by 1
+    context 'from the label' do
+      let!(:membership) { create(:membership, project: project, user: user_with_membership) }
+
+      it 'does not create a new membership for the user' do
+        expect do
+          subject.call!
+        end.to_not change{ user_with_membership.memberships.count }.by 1
+      end
+    end
+
+    context 'different project' do
+      let!(:different_project) { create(:project) }
+      let!(:membership) do
+        create(
+          :membership,
+          project: different_project,
+          user: user_with_membership
+        )
+      end
+
+      it 'ends the existing membership' do
+        expect do
+          subject.call!
+        end.to change{ membership.reload.ends_at }.to Date.yesterday
+      end
+
+      it 'creates a new membership' do
+        expect do
+          subject.call!
+        end.to change{ user_with_membership.memberships.count }.by 1
+      end
     end
   end
 end
