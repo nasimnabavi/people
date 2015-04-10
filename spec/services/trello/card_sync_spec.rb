@@ -29,4 +29,12 @@ describe Trello::CardSync do
       described_class.new(card).call!
     end
   end
+
+  context 'card has an empty label' do
+    it 'does not call AddUserToProject' do
+      card.stub(:card_labels) { [{ 'name' => '' }] }
+      expect_any_instance_of(Trello::AddUserToProject).not_to receive :call!
+      described_class.new(card).call!
+    end
+  end
 end

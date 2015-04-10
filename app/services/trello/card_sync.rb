@@ -3,7 +3,7 @@ module Trello
     attr_accessor :labels, :user_name
 
     def initialize(card)
-      self.labels = card.card_labels
+      self.labels = card.card_labels.reject { |l| l['name'].empty? }
       self.user_name = card.name
     end
 
