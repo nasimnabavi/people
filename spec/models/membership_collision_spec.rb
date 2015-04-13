@@ -8,7 +8,7 @@ describe MembershipCollision do
     let!(:first_membership) { create(:membership_billable, user: user, project: project) }
     let(:second_membership) { build(:membership_billable, user: user, project: project) }
 
-    before { described_class.new(second_membership).call! }
+    before { described_class.new(second_membership).call }
 
     it 'return error when creating second membership' do
       expect(
@@ -24,7 +24,7 @@ describe MembershipCollision do
     let!(:first_membership) { create(:membership, user: user, project: project) }
     let(:second_membership) { build(:membership_billable, :booked, user: user, project: project) }
 
-    before { described_class.new(second_membership).call! }
+    before { described_class.new(second_membership).call }
 
     it 'does not return any errors' do
       expect(

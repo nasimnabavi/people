@@ -6,7 +6,7 @@ class GravatarDownloader
     @user = user
   end
 
-  def call!
+  def call
     user.remote_gravatar_url = users_gravatar_url
     user.save
   end

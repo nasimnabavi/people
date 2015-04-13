@@ -12,23 +12,23 @@ describe Trello::AddUserToProject do
   context 'user is not in a project' do
     it 'creates a new membership for the user' do
       expect do
-        subject.call!
+        subject.call
       end.to change{ user.memberships.count }.by 1
     end
 
     it 'creates a membership that started yesterday' do
-      subject.call!
+      subject.call
       expect(user.memberships.first.starts_at).to eq Date.yesterday
     end
 
     it 'creates a membership with role set to current user position' do
-      subject.call!
+      subject.call
       expect(user.memberships.first.role).to eq user.primary_role
     end
 
     it 'does not duplicate memberships' do
       expect do
-        2.times{ subject.call! }
+        2.times{ subject.call }
       end.to change{ user.memberships.count }.by 1
     end
   end
@@ -50,7 +50,7 @@ describe Trello::AddUserToProject do
 
       it 'does not create a new membership for the user' do
         expect do
-          subject.call!
+          subject.call
         end.to_not change{ user_with_membership.memberships.count }.by 1
       end
     end
@@ -67,13 +67,13 @@ describe Trello::AddUserToProject do
 
       it 'ends the existing membership' do
         expect do
-          subject.call!
+          subject.call
         end.to change{ membership.reload.ends_at }.to Date.yesterday
       end
 
       it 'creates a new membership' do
         expect do
-          subject.call!
+          subject.call
         end.to change{ user_with_membership.memberships.count }.by 1
       end
     end

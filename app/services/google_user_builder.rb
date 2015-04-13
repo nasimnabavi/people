@@ -5,7 +5,7 @@ class GoogleUserBuilder
     @oauth_data = oauth_data.with_indifferent_access
   end
 
-  def call!
+  def call
     find_user
     if user.present?
       update_user_tokens

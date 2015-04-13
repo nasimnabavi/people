@@ -6,7 +6,7 @@ module Trello
       self.labels = labels
     end
 
-    def call!
+    def call
       Project.where.not(name: labels).each do |project|
         project.archived = true
         project.save

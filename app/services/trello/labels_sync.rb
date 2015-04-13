@@ -6,7 +6,7 @@ module Trello
       self.labels = labels
     end
 
-    def call!
+    def call
       labels.each do |label|
         CreateProjectFromLabelJob.new.perform(label)
       end

@@ -4,7 +4,7 @@ describe Trello::CreateProjectFromLabel do
   context 'when project does not exist' do
     it 'creates a new project' do
       expect do
-        described_class.new('newproject').call!
+        described_class.new('newproject').call
       end.to change{ Project.count }.by 1
     end
   end
@@ -14,7 +14,7 @@ describe Trello::CreateProjectFromLabel do
       create(:project, name: 'newproject')
 
       expect do
-        described_class.new('newproject').call!
+        described_class.new('newproject').call
       end.not_to change{ Project.count }
     end
   end

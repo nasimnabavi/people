@@ -6,8 +6,8 @@ describe Trello::BoardSync do
   let(:board) { double('board') }
 
   before do
-    allow_any_instance_of(Trello::CardSync).to receive(:call!)
-    allow_any_instance_of(Trello::LabelsSync).to receive(:call!)
+    allow_any_instance_of(Trello::CardSync).to receive(:call)
+    allow_any_instance_of(Trello::LabelsSync).to receive(:call)
 
     card.stub(:name) { 'User Name' }
     card.stub(:card_labels) { [{ 'name' => 'label' }] }
@@ -20,13 +20,13 @@ describe Trello::BoardSync do
 
   describe '#call' do
     it 'synchronizes all the cards' do
-      expect_any_instance_of(Trello::CardSync).to receive(:call!)
-      described_class.new(board).call!
+      expect_any_instance_of(Trello::CardSync).to receive(:call)
+      described_class.new(board).call
     end
 
     it 'synchronizes all the labels' do
-      expect_any_instance_of(Trello::LabelsSync).to receive(:call!)
-      described_class.new(board).call!
+      expect_any_instance_of(Trello::LabelsSync).to receive(:call)
+      described_class.new(board).call
     end
   end
 end

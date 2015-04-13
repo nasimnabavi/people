@@ -8,7 +8,7 @@ module Trello
       fetch_labels
     end
 
-    def call!
+    def call
       sync_cards
       sync_labels
     end
@@ -32,7 +32,7 @@ module Trello
     end
 
     def sync_labels
-      LabelsSync.new(labels).call!
+      LabelsSync.new(labels).call
     end
   end
 end

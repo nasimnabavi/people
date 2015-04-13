@@ -16,25 +16,25 @@ describe Trello::CardSync do
       instance = double('AddUserToProject')
       Trello::AddUserToProject.should_receive(:new).with('User Name', 'label')
         .and_return(instance)
-      instance.should_receive(:call!)
+      instance.should_receive(:call)
 
-      described_class.new(card).call!
+      described_class.new(card).call
     end
   end
 
   context 'card does not have a label' do
     it 'calls RemoveUserFromProjects' do
       card.stub(:card_labels) { [] }
-      expect_any_instance_of(Trello::RemoveUserFromProjects).to receive :call!
-      described_class.new(card).call!
+      expect_any_instance_of(Trello::RemoveUserFromProjects).to receive :call
+      described_class.new(card).call
     end
   end
 
   context 'card has an empty label' do
     it 'does not call AddUserToProject' do
       card.stub(:card_labels) { [{ 'name' => '' }] }
-      expect_any_instance_of(Trello::AddUserToProject).not_to receive :call!
-      described_class.new(card).call!
+      expect_any_instance_of(Trello::AddUserToProject).not_to receive :call
+      described_class.new(card).call
     end
   end
 end

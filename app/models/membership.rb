@@ -82,6 +82,6 @@ class Membership < ActiveRecord::Base
   end
 
   def validate_duplicate_project
-    MembershipCollision.new(self).call!
+    MembershipCollision.new(self).call
   end
 end

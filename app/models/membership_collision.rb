@@ -6,7 +6,7 @@ class MembershipCollision
     @collisions = find_collisions
   end
 
-  def call!
+  def call
     return if membership.user.nil?
     return if junior_staying_in_current_project?
     return unless collisions.any?

@@ -3,7 +3,7 @@ module Trello
     include SuckerPunch::Job
 
     def perform(card)
-      CardSync.new(card).call!
+      CardSync.new(card).call
     end
   end
 end

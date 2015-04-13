@@ -8,7 +8,7 @@ module Trello
       self.user_memberships_repo = UserMembershipsRepository.new(user)
     end
 
-    def call!
+    def call
       finish_other_active_memberships
       assign_user_to_the_project
     end

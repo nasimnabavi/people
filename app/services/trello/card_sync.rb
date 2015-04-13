@@ -7,11 +7,11 @@ module Trello
       self.user_name = card.name
     end
 
-    def call!
+    def call
       if labels.any?
-        AddUserToProject.new(user_name, labels.first['name']).call!
+        AddUserToProject.new(user_name, labels.first['name']).call
       else
-        RemoveUserFromProjects.new(user_name).call!
+        RemoveUserFromProjects.new(user_name).call
       end
     end
   end

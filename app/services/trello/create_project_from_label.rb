@@ -6,7 +6,7 @@ module Trello
       self.label = label
     end
 
-    def call!
+    def call
       ProjectsRepository.new.find_or_create_by_name label
     end
   end

@@ -3,7 +3,7 @@ module Trello
     include SuckerPunch::Job
 
     def perform(labels)
-      ArchiveProjects.new(labels).call!
+      ArchiveProjects.new(labels).call
     end
   end
 end
