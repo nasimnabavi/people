@@ -5,17 +5,17 @@ class UsersController < ApplicationController
   expose(:user) { users_repository.get params[:id] }
   expose(:users) { UserDecorator.decorate_collection(users_repository.active) }
   # FIXME: this is a bad way, we can't access repo from user model!
-  expose(:user_membership_repository) { UserMembershipRepository.new(user) }
+  expose(:user_memberships_repository) { UserMembershipsRepository.new(user) }
   expose(:user_positions_repository) { UserPositionsRepository.new(user) }
   expose(:user_projects_repository) do
-    UserProjectRepository.new(user, user_membership_repository, projects_repository)
+    UserProjectsRepository.new(user, user_memberships_repository, projects_repository)
   end
   expose(:user_roles_repository) { UserRolesRepository.new(user) }
   expose(:new_membership_page) do
     UserShowPage::NewMembership.new(
       user: user,
       roles_repository: roles_repository,
-      user_membership_repository: user_membership_repository,
+      user_memberships_repository: user_memberships_repository,
       user_roles_repository: user_roles_repository,
       projects_repository: projects_repository
     )
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   private
 
   def user_events
-    UserEventsRepository.new(user_membership_repository).all
+    UserEventsRepository.new(user_memberships_repository).all
   end
 
   def user_params

@@ -1,4 +1,4 @@
-class UserMembershipRepository
+class UserMembershipsRepository
   attr_accessor :user
 
   def initialize(user)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe UserMembershipRepository do
-  subject { UserMembershipRepository.new(user) }
+describe UserMembershipsRepository do
+  subject { UserMembershipsRepository.new(user) }
   let!(:user) { create(:user) }
 
   context 'potential' do

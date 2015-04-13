@@ -3,7 +3,7 @@ class FlatMembershipsBuilder
 
   def initialize(user)
     @user = user
-    @repository = UserMembershipRepository.new(user)
+    @repository = UserMembershipsRepository.new(user)
   end
 
   def build

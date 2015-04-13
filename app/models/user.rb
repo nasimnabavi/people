@@ -79,8 +79,8 @@ class User < ActiveRecord::Base
     memberships.each(&:end_now!) if archived_change && archived_change.last
   end
 
-  def user_membership_repository
-    @user_membership_repository ||= UserMembershipRepository.new(self)
+  def user_memberships_repository
+    @user_memberships_repository ||= UserMembershipsRepository.new(self)
   end
 
   private

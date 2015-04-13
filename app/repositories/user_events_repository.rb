@@ -1,12 +1,12 @@
 class UserEventsRepository
-  attr_accessor :user_membership_repository
+  attr_accessor :user_memberships_repository
 
-  def initialize(user_membership_repository)
-    self.user_membership_repository = user_membership_repository
+  def initialize(user_memberships_repository)
+    self.user_memberships_repository = user_memberships_repository
   end
 
   def all
-    @events ||= user_membership_repository.all.map { |m| build_event(m) }.compact
+    @events ||= user_memberships_repository.all.map { |m| build_event(m) }.compact
   end
 
   private

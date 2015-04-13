@@ -5,7 +5,7 @@ module Trello
     def initialize(user_name, project_name)
       self.user = UserRepository.new.find_by_full_name(user_name)
       self.project = ProjectsRepository.new.find_or_create_by_name(project_name)
-      self.user_memberships_repo = UserMembershipRepository.new(user)
+      self.user_memberships_repo = UserMembershipsRepository.new(user)
     end
 
     def call!

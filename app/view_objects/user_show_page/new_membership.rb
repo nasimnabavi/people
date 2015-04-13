@@ -1,19 +1,19 @@
 class UserShowPage
   class NewMembership
-    attr_accessor :user, :roles_repository, :user_membership_repository,
+    attr_accessor :user, :roles_repository, :user_memberships_repository,
       :user_roles_repository, :projects_repository
 
-    def initialize(user:, roles_repository:, user_membership_repository:,
+    def initialize(user:, roles_repository:, user_memberships_repository:,
                    user_roles_repository:, projects_repository:)
       self.user = user
       self.roles_repository = roles_repository
-      self.user_membership_repository = user_membership_repository
+      self.user_memberships_repository = user_memberships_repository
       self.user_roles_repository = user_roles_repository
       self.projects_repository = projects_repository
     end
 
     def membership
-      user_membership_repository.build(role: user_roles.first)
+      user_memberships_repository.build(role: user_roles.first)
     end
 
     def user_billable?
