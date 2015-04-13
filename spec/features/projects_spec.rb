@@ -81,11 +81,11 @@ describe 'Projects page', js: true do
         fill_in('end-at', with: Date.parse(1.year.from_now.to_s))
         check('Potential')
         find('div.selectize-control.devs .selectize-input').click
-        first('div.selectize-dropdown-content [data-selectable]', wait: 1).click
+        first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
         find('div.selectize-control.pms .selectize-input').click
-        first('div.selectize-dropdown-content [data-selectable]', wait: 1).click
+        first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
         find('div.selectize-control.qas .selectize-input').click
-        first('div.selectize-dropdown-content [data-selectable]', wait: 1).click
+        first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
         find('button.new-project-submit').click
 
         expect(page).to have_content('Project1', wait: 10)
