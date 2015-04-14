@@ -22,6 +22,26 @@ describe Trello::CardSync do
     end
   end
 
+  context 'card has more than one label' do
+    it 'calls AddUserToProject more than once' do
+      card.stub(:card_labels) do
+        [
+          { 'name' => 'Project 1' },
+          { 'name' => 'Project 2' }
+        ]
+      end
+
+      instance = double('AddUserToProject')
+      expect(Trello::AddUserToProject).to receive(:new)
+        .with('User Name', 'Project 1').and_return(instance)
+      expect(Trello::AddUserToProject).to receive(:new)
+        .with('User Name', 'Project 2').and_return(instance)
+      expect(instance).to receive(:call).twice
+
+      described_class.new(card).call
+    end
+  end
+
   context 'card does not have a label' do
     it 'calls RemoveUserFromProjects' do
       card.stub(:card_labels) { [] }

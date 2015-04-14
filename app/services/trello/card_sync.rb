@@ -9,7 +9,9 @@ module Trello
 
     def call
       if labels.any?
-        AddUserToProject.new(user_name, labels.first['name']).call
+        labels.each do |label|
+          AddUserToProject.new(user_name, label['name']).call
+        end
       else
         RemoveUserFromProjects.new(user_name).call
       end
