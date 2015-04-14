@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
   has_many :notes
   has_many :positions
   has_many :roles, through: :positions
-  belongs_to :admin_role
   belongs_to :contract_type
   belongs_to :location
   belongs_to :team, inverse_of: :users
@@ -57,10 +56,6 @@ class User < ActiveRecord::Base
 
   def github_connected?
     gh_nick.present? || without_gh == true
-  end
-
-  def admin?
-    admin_role.present?
   end
 
   def has_current_projects?
