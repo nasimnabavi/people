@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408092703) do
+ActiveRecord::Schema.define(version: 20150414092324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,12 +31,6 @@ ActiveRecord::Schema.define(version: 20150408092703) do
 
   add_index "abilities_users", ["ability_id"], name: "index_abilities_users_on_ability_id", using: :btree
   add_index "abilities_users", ["user_id"], name: "index_abilities_users_on_user_id", using: :btree
-
-  create_table "admin_roles", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "mongo_id"
-  end
 
   create_table "contract_types", force: true do |t|
     t.string   "name"
@@ -185,7 +179,6 @@ ActiveRecord::Schema.define(version: 20150408092703) do
     t.boolean  "without_gh",         default: false
     t.string   "uid"
     t.text     "user_notes"
-    t.integer  "admin_role_id"
     t.integer  "primary_role_id"
     t.integer  "contract_type_id"
     t.integer  "location_id"
@@ -197,9 +190,9 @@ ActiveRecord::Schema.define(version: 20150408092703) do
     t.string   "gravatar"
     t.integer  "role_ids",           default: [],    array: true
     t.integer  "role_id"
+    t.boolean  "admin",              default: false
   end
 
-  add_index "users", ["admin_role_id"], name: "index_users_on_admin_role_id", using: :btree
   add_index "users", ["contract_type_id"], name: "index_users_on_contract_type_id", using: :btree
   add_index "users", ["leader_team_id"], name: "index_users_on_leader_team_id", using: :btree
   add_index "users", ["location_id"], name: "index_users_on_location_id", using: :btree
