@@ -68,10 +68,10 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :primary_role_id,
-      :admin_role_id, :team_id, :leader_team_id,
-      :employment, :phone, :location_id, :contract_type_id, :user_notes,
-      :archived, :skype, ability_ids: [], role_ids: [])
+    params.require(:user).permit(:first_name, :last_name, :employment,
+      :phone, :user_notes, :admin, :archived, :skype, :primary_role_id,
+      :team_id, :leader_team_id, :location_id, :contract_type_id,
+      ability_ids: [], role_ids: [])
   end
 
   def generate_errors
@@ -95,7 +95,6 @@ class UsersController < ApplicationController
     gon.users = Rabl.render(users, 'users/index', view_path: 'app/views', format: :hash)
     gon.projects = Rabl.render(projects_a, 'users/projects', format: :hash)
     gon.roles = roles_repository.all
-    gon.admin_role = roles_repository.admin_role
     gon.locations = locations_repository.all
     gon.abilities = abilities_repository.all
     gon.months = months

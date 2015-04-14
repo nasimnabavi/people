@@ -23,6 +23,7 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
     bookedProjectsRegion: '.booked_projects-region'
 
   bindings:
+    '.admin': 'admin'
     '.employment': 'employment'
     '.phone': 'phone'
     '.roles':
@@ -34,7 +35,6 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
         defaultOption:
           label: "no role"
           value: null
-    '.admin_role': 'admin_role_id'
     '.locations':
       observe: 'location_id'
       selectOptions:

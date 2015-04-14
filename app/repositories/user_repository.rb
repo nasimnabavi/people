@@ -10,8 +10,9 @@ class UserRepository
 
   def active
     User
-      .includes(:admin_role, :location, :contract_type, :abilities, memberships: [:project], primary_role: [:users])
-      .includes(:roles, :memberships, :current_memberships, :potential_memberships, :next_memberships, :booked_memberships, :last_membership)
+      .includes(:location, :contract_type, :abilities, :roles, :memberships,
+        :current_memberships, :potential_memberships, :next_memberships,
+        :booked_memberships, :last_membership, memberships: [:project], primary_role: [:users])
       .active.by_last_name.decorate
   end
 

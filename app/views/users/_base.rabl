@@ -1,6 +1,6 @@
 cache ["base", root_object]
 
-attributes :id, :name, :email, :admin_role_id, :employment, :phone,
+attributes :id, :name, :email, :admin, :employment, :phone,
   :location_id, :contract_type, :archived, :abilities, :info,
   :months_in_current_project
 
