@@ -28,6 +28,10 @@ FactoryGirl.define do
     trait :archived do
       archived true
     end
+
+    trait :admin do
+      admin true
+    end
   end
 
   factory :plain_user, class: "User" do
