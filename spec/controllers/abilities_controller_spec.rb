@@ -1,10 +1,9 @@
 require 'spec_helper'
 
 describe AbilitiesController do
-  before(:each) do
-    admin = create(:admin_role)
-    sign_in create(:user, admin_role_id: admin.id)
-  end
+  let(:admin_user) { create(:user, :admin) }
+
+  before { sign_in(admin_user) }
 
   describe '#index' do
     render_views

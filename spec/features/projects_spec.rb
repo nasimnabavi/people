@@ -1,24 +1,25 @@
 require 'spec_helper'
 
 describe 'Projects page', js: true do
-  let(:admin_role) { create(:admin_role) }
   let!(:dev_role) { create(:role, name: 'developer', technical: true) }
   let!(:pm_role) { create(:role, name: 'pm') }
   let!(:qa_role) { create(:role, name: 'qa') }
   let!(:active_project) { create(:project) }
   let!(:potential_project) { create(:project, :potential) }
   let!(:archived_project) { create(:project, :archived) }
-  let!(:user) { create(:user, primary_role: dev_role, admin_role_id: admin_role.id) }
+  let!(:admin_user) { create(:user, :admin, primary_role: dev_role) }
   let!(:pm_user) { create(:user, primary_role: pm_role) }
   let!(:qa_user) { create(:user, primary_role: qa_role) }
-  let!(:dev_position) { create(:position, user: user, role: dev_role) }
+  let!(:dev_position) { create(:position, user: admin_user, role: dev_role) }
   let!(:pm_position) { create(:position, user: pm_user, role: pm_role) }
   let!(:qa_position) { create(:position, user: qa_user, role: qa_role) }
   let!(:note) { create(:note) }
 
   before do
     allow_any_instance_of(SendMailJob).to receive(:perform)
-    page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
+    page.set_rack_session 'warden.user.user.key' => User
+      .serialize_into_session(admin_user).unshift('User')
+
     visit '/dashboard' # Projects tab
   end
 

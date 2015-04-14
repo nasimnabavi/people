@@ -1,14 +1,13 @@
 require 'spec_helper'
 
 describe 'Available users page', js: true do
-  let(:admin_role) { create(:admin_role) }
-  let(:user) { create(:user, admin_role_id: admin_role.id) }
+  let(:admin_user) { create(:user, :admin) }
   let!(:angular_ability) { create(:ability, name: 'AngularJS') }
   let!(:dev_with_no_skillz) { create(:user, :available) }
   let!(:angular_dev) { create(:user, :available, abilities: [angular_ability]) }
   let!(:another_dev) { create(:user, :available, available_since: 10.days.from_now) }
 
-  before { sign_in(user) }
+  before { sign_in(admin_user) }
 
   describe 'filters' do
     it 'allows to filter by abilities' do

@@ -1,24 +1,47 @@
 require 'spec_helper'
 
 describe 'team view', js: true do
+  let(:admin_user) { create(:user, :admin) }
   let(:billable_role) { create(:role_billable) }
-  let(:admin_role) { create(:admin_role) }
   let(:non_dev_role) { create(:role, name: 'junior qa') }
-  let(:hidden_role) { create(:role, show_in_team: false)}
-  let(:user) { create(:user, admin_role_id: admin_role.id) }
+  let(:hidden_role) { create(:role, show_in_team: false) }
+  let(:team) { create(:team) }
   let!(:dev_role) { create(:role, name: 'developer') }
   let!(:junior_role) { create(:role, name: 'junior', billable: false) }
-  let!(:dev_user) { create(:user, first_name: 'Developer Daisy', admin_role_id: admin_role.id, primary_role: billable_role) }
-  let!(:non_dev_user) { create(:user, first_name: 'Nondev Nigel', primary_role: non_dev_role) }
-  let!(:archived_user) { create(:user, first_name: 'Archived Arthur', archived: true) }
+
+  let!(:dev_user) do
+    create(:user, :admin, first_name: 'Developer Daisy', primary_role: billable_role)
+  end
+
+  let!(:non_dev_user) do
+    create(:user, first_name: 'Nondev Nigel', primary_role: non_dev_role)
+  end
+
+  let!(:archived_user) do
+    create(:user, first_name: 'Archived Arthur', archived: true)
+  end
+
   let!(:no_role_user) { create(:user, first_name: 'Norole Nicola') }
-  let!(:hidden_user) { create(:user, first_name: 'Hidden Amanda', primary_role: hidden_role, team_id: team.id) }
-  let!(:team) { create(:team) }
-  let!(:team_user) { create(:user, first_name: 'Developer Dave', primary_role: billable_role, team_id: team.id) }
-  let!(:junior_team_user) { create(:user, first_name: 'Junior Jake', primary_role: junior_role, team_id: team.id) }
+
+  let!(:hidden_user) do
+    create(:user, first_name: 'Hidden Amanda', primary_role: hidden_role,
+      team_id: team.id)
+  end
+
+  let!(:team_user) do
+    create(:user, first_name: 'Developer Dave', primary_role: billable_role,
+      team_id: team.id)
+  end
+
+  let!(:junior_team_user) do
+    create(:user, first_name: 'Junior Jake', primary_role: junior_role,
+      team_id: team.id)
+  end
 
   before(:each) do
-    page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
+    page.set_rack_session 'warden.user.user.key' => User
+      .serialize_into_session(admin_user).unshift('User')
+
     visit '/teams'
   end
 

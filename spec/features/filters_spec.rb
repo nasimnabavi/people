@@ -1,14 +1,13 @@
 require 'spec_helper'
 
 describe 'Dashboard filters', js: true do
+  let(:admin_user) { create(:user, :admin) }
   let(:dev_role) { create(:role, name: 'developer') }
-  let(:admin_role) { create(:admin_role) }
   let(:role) { create(:role_billable) }
-  let(:user) { create(:user, admin_role_id: admin_role.id) }
 
   let!(:dev_user) do
-    create(:user, last_name: 'Developer', primary_role: dev_role,
-      first_name: 'Daisy', admin_role_id: admin_role.id)
+    create(:user, :admin, last_name: 'Developer', primary_role: dev_role,
+      first_name: 'Daisy')
   end
 
   let!(:membership) do
@@ -19,7 +18,9 @@ describe 'Dashboard filters', js: true do
   let!(:project_test) { create(:project, name: 'test') }
 
   before(:each) do
-    page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
+    page.set_rack_session 'warden.user.user.key' => User
+      .serialize_into_session(admin_user).unshift('User')
+
     visit '/dashboard'
   end
 

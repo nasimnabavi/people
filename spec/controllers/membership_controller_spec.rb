@@ -1,9 +1,11 @@
 require 'spec_helper'
 
 describe MembershipsController do
-  before(:each) do
-    admin = create(:admin_role)
-    sign_in create(:user, admin_role_id: admin.id)
+  let(:admin_user) { create(:user, :admin) }
+
+  before do
+    sign_in(admin_user)
+
     @request.env['HTTP_REFERER'] = memberships_path
   end
 
