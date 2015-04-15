@@ -3,7 +3,8 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.wrapper tag: 'div', class: 'input-group' do |input|
-      input.use :label_input
+      input.use :label
+      input.use :input, class: 'form-control'
     end
     b.use :error, wrap_with: { tag: 'span', class: 'help-block has-error' }
     b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
@@ -13,7 +14,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.wrapper tag: 'div', class: 'input-group' do |input|
-      input.use :input
+      input.use :input, class: 'form-control'
       input.use :label
     end
     b.use :error, wrap_with: { tag: 'span', class: 'help-block has-error' }
