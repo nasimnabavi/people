@@ -30,9 +30,7 @@
         - if details_page.editing_enabled?(current_user)
           = link_to I18n.t('positions.new'), new_position_path(user: details_page.user), class: "btn btn-default btn-success"
     .list-group-item
-      .row
-        .col-sm-12
-          = f.input :employment, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+      = f.input :employment, wrapper: :prepend, label_html: { class: 'input-group-addon' }
     .list-group-item
       = f.input :commitment, wrapper: :prepend, label_html: { class: 'input-group-addon' } do
         = f.input_field :commitment, class: 'form-control'
