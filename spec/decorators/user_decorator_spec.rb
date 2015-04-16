@@ -11,12 +11,11 @@ describe UserDecorator do
   subject { user.decorate }
 
   describe '#project_names' do
-    let(:project) { build_stubbed(:project) }
-    before do
-      subject.model.stub(:memberships) { [Membership.new(project: project)] }
-    end
+    let!(:membership) { create(:membership, user: user) }
 
-    it { expect(subject.project_names).to eq [project.name] }
+    before { subject.reload }
+
+    it { expect(subject.project_names).to eq [membership.project.name] }
   end
 
   describe '#gravatar_image' do
