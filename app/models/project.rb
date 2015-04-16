@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
 
   has_many :notes
   has_many :memberships, inverse_of: :project, dependent: :destroy
+  has_many :users, through: :memberships
 
   accepts_nested_attributes_for :memberships
 

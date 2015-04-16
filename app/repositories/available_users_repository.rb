@@ -1,9 +1,16 @@
 class AvailableUsersRepository
   def all
     User
-      .includes(:roles, :abilities, :current_memberships,
-        :potential_memberships, :next_memberships, :booked_memberships,
-        :last_membership, positions: [:role], memberships: [:project],
+      .includes(
+        :roles,
+        :abilities,
+        :projects,
+        current_memberships: [:project],
+        potential_memberships: [:project],
+        next_memberships: [:project],
+        booked_memberships: [:project],
+        last_membership: [:project],
+        positions: [:role],
         primary_role: [:users])
       .where(available: true, archived: false, primary_role: technical_roles_ids)
   end

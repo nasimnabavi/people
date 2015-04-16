@@ -10,9 +10,18 @@ class UserRepository
 
   def active
     User
-      .includes(:location, :contract_type, :abilities, :roles, :memberships,
-        :current_memberships, :potential_memberships, :next_memberships,
-        :booked_memberships, :last_membership, memberships: [:project], primary_role: [:users])
+      .includes(
+        :location,
+        :contract_type,
+        :abilities,
+        :projects,
+        :roles,
+        current_memberships: [:project],
+        potential_memberships: [:project],
+        next_memberships: [:project],
+        booked_memberships: [:project],
+        last_membership: [:project],
+        primary_role: [:users])
       .active.by_last_name.decorate
   end
 
@@ -27,7 +36,7 @@ class UserRepository
   end
 
   def all_by_name
-    User.by_name
+    User.includes(:projects).by_name
   end
 
   def find_by(attrs)

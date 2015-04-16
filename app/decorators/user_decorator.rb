@@ -60,7 +60,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def project_names
-    model.memberships.map { |m| m.project.name }.uniq
+    model.projects.map(&:name).uniq
   end
 
   def projects_json(membership)
