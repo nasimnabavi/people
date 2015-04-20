@@ -72,9 +72,14 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     membershipsArray
 
   newMembership: (user, membershipsArray) ->
+    if @ui.kickoff.val()
+      date = new Date(@ui.kickoff.val()).toString()
+    else
+      date = new Date().toString()
+
     role_id =  @all_users.get(user).attributes.role_id
     membership_attribute =
-      starts_at: Date()
+      starts_at: date
       user_id: user
       role_id: role_id
       billable: @roles.get(role_id).get('billable')
