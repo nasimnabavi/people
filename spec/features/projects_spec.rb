@@ -105,6 +105,20 @@ describe 'Projects page', js: true do
           expect(find('div.project')).to have_no_selector('div.member-details')
         end
       end
+
+      context 'with a kickoff date provided' do
+        it 'correctly displays the project added' do
+          find_by_id('project-name').set('Project1')
+          fill_in('kickoff', with: Date.today.next_month)
+          find('div.selectize-control.devs .selectize-input').click
+          first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
+          find('button.new-project-submit').click
+
+          expect(page).to have_content(admin_user.last_name, wait: 10)
+          expect(find('div.project div.non-billable div.member-details'))
+            .to have_content("From #{Date.today.next_month.strftime('%d.%m')}")
+        end
+      end
     end
 
     context 'when adding invalid project' do
