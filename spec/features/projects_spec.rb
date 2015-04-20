@@ -74,22 +74,36 @@ describe 'Projects page', js: true do
       find('button.new-project-add').click
     end
 
-    context 'when adding valid project' do
-      it 'creates new project' do
-        find_by_id('project-name').set('Project1')
-        find_by_id('project-slug').set('test')
-        fill_in('kickoff', with: Date.today)
-        fill_in('end-at', with: Date.parse(1.year.from_now.to_s))
-        check('Potential')
-        find('div.selectize-control.devs .selectize-input').click
-        first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
-        find('div.selectize-control.pms .selectize-input').click
-        first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
-        find('div.selectize-control.qas .selectize-input').click
-        first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
-        find('button.new-project-submit').click
+    context 'when adding a valid project' do
+      context 'with complete data' do
+        it 'creates a new project' do
+          find_by_id('project-name').set('Project1')
+          find_by_id('project-slug').set('test')
+          fill_in('kickoff', with: Date.today)
+          fill_in('end-at', with: Date.parse(1.year.from_now.to_s))
+          check('Potential')
+          find('div.selectize-control.devs .selectize-input').click
+          first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
+          find('div.selectize-control.pms .selectize-input').click
+          first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
+          find('div.selectize-control.qas .selectize-input').click
+          first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
+          find('button.new-project-submit').click
 
-        expect(page).to have_content('Project1', wait: 10)
+          expect(page).to have_content('Project1', wait: 10)
+        end
+      end
+
+      context 'with no kickoff date provided' do
+        it 'correctly displays the project added' do
+          find_by_id('project-name').set('Project1')
+          find('div.selectize-control.devs .selectize-input').click
+          first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
+          find('button.new-project-submit').click
+
+          expect(page).to have_content(admin_user.last_name, wait: 10)
+          expect(find('div.project')).to have_no_selector('div.member-details')
+        end
       end
     end
 
