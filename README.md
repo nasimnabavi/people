@@ -34,6 +34,21 @@ Take a note that emails->internal: in `config/config.yml` should be domain used 
 
 Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
 
+### Trello integration
+
+1. Get your developer key from https://trello.com/1/appKey/generate
+2. Use the developer key to obtain a token with read/write privileges: https://trello.com/1/authorize?key=DEV_KEY&name=APP_NAME&expiration=never&response_type=token&scope=read,write
+3. Make sure that everything works fine https://api.trello.com/1/board/BOARD_ID?key=APP_KEY&token=MEMBER_TOKEN
+4. Add credentials to `sec_config.yml`
+
+```yaml
+  trello:
+    enabled:              true
+    developer_public_key: DEV_KEY
+    member_token:         MEMBER_TOKEN
+    schedule_board_id:    BOARD_ID
+```
+
 ### Additional Info
  * after logging in, go to your Profile's settings and update your role to 'senior' or 'pm'
  * by default only 'pm' and 'senior' roles have admin privilages - creating new projects, managing privileges, memberships etc.
