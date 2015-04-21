@@ -4,6 +4,7 @@ describe 'Dashboard filters', js: true do
   let(:admin_user) { create(:user, :admin) }
   let(:dev_role) { create(:role, name: 'developer') }
   let(:role) { create(:role_billable) }
+  let!(:dev_position) { create(:position, user: dev_user, role: dev_role) }
 
   let!(:dev_user) do
     create(:user, :admin, last_name: 'Developer', primary_role: dev_role,
@@ -106,15 +107,15 @@ describe 'Dashboard filters', js: true do
   end
 
   describe 'User sorts filtered list' do
-    let!(:junior_role) { create(:role, technical: true, name: 'junior') }
-    let!(:junior_dev) do
+    let(:junior_role) { create(:role, technical: true, name: 'junior') }
+    let(:junior_dev) do
       u = create(:user, :available)
       u.primary_role = junior_role
       u.save
       u
     end
-    let!(:junior_membership) do
-      create(:membership, user: junior_dev, role: junior_role)
+    let!(:junior_position) do
+      create(:position, user: junior_dev, role: junior_role)
     end
 
     it 'does not disable the filter' do
@@ -122,8 +123,8 @@ describe 'Dashboard filters', js: true do
       expect(page).to have_text junior_dev.last_name
       select_option('roles', 'junior')
       find('div.up[data-sort="role_name"]').trigger 'click'
-      expect(page).to have_text junior_dev.last_name
 
+      expect(page).to have_text junior_dev.last_name
       expect(page).not_to have_text dev_user.last_name
     end
   end
