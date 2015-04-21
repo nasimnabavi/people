@@ -1,7 +1,6 @@
 class ProjectsRepository
   def all
-    @all ||= Project.all.includes(:memberships, :notes)
-      .order('lower(name)').all
+    @all ||= Project.all.includes(:memberships, :notes).order('lower(name)').all
   end
 
   def get(id)
