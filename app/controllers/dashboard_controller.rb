@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
   include ContextFreeRepos
 
-  expose(:projects) { projects_repository.all_by_name }
+  expose(:projects) { projects_repository.all }
   expose(:roles) { roles_repository.all }
   expose_decorated(:users) { users_repository.all_by_name }
 

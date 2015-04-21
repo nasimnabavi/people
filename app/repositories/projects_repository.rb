@@ -1,16 +1,11 @@
 class ProjectsRepository
   def all
-    # FIXME: we should have a 2nd level of eager-loading here: memberships: :role
-    # but it's not available in Mongo
-    @all ||= Project.all.includes(:memberships, :notes).to_a
+    @all ||= Project.all.includes(:memberships, :notes)
+      .order('lower(name)').all
   end
 
   def get(id)
     all.find { |p| p.id == id }
-  end
-
-  def all_by_name
-    all.sort_by(&:name)
   end
 
   def with_notes
