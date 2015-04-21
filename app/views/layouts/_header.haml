@@ -11,6 +11,8 @@
     .navbar-collapse.collapse
       - if signed_in? && current_user.github_connected?
         %ul.nav.navbar-nav
+          - if current_user.admin?
+            %li{ class: menu_class('available_users') }= link_to "Available People", available_path
           %li{ class: menu_class('users') }= link_to "Users", users_path
           %li{ class: menu_class('dashboard') }= link_to "Projects", dashboard_index_path
           %li{ class: menu_class('teams') }= link_to "Teams", teams_path

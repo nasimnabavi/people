@@ -1,6 +1,8 @@
 class AvailableUsersController < ApplicationController
   include ContextFreeRepos
 
+  before_filter :authenticate_admin!
+
   expose(:users) do
     AvailableUserDecorator.decorate_collection(available_users_repository.all)
   end

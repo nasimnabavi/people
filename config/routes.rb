@@ -12,8 +12,10 @@ Hrguru::Application.routes.draw do
   end
 
   authenticated :user do
-    root 'available_users#index', as: 'available'
+    root 'users#index', as: 'listing'
   end
+
+  get 'available', to: 'available_users#index'
 
   namespace :api do
     scope module: :v1 do
