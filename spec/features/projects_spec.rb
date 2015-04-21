@@ -101,8 +101,10 @@ describe 'Projects page', js: true do
           first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
           find('button.new-project-submit').click
 
+          within('#filters') { page.find('li.active').click }
+
           expect(page).to have_content(admin_user.last_name, wait: 10)
-          expect(find('div.project')).to have_no_selector('div.member-details')
+          expect(page).to have_selector('div.member-name')
         end
       end
 
@@ -113,6 +115,8 @@ describe 'Projects page', js: true do
           find('div.selectize-control.devs .selectize-input').click
           first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
           find('button.new-project-submit').click
+
+          within('#filters') { page.find('li.active').click }
 
           expect(page).to have_content(admin_user.last_name, wait: 10)
           expect(find('div.project div.non-billable div.member-details'))
