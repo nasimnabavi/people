@@ -76,7 +76,7 @@ describe 'Projects page', js: true do
 
     context 'when adding a valid project' do
       context 'with complete data' do
-        it 'creates a new project' do
+        xit 'creates a new project' do
           find_by_id('project-name').set('Project1')
           find_by_id('project-slug').set('test')
           fill_in('kickoff', with: Date.today)
@@ -95,7 +95,7 @@ describe 'Projects page', js: true do
       end
 
       context 'with no kickoff date provided' do
-        it 'correctly displays the project added' do
+        xit 'correctly displays the project added' do
           find_by_id('project-name').set('Project1')
           find('div.selectize-control.devs .selectize-input').click
           first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
@@ -109,7 +109,7 @@ describe 'Projects page', js: true do
       end
 
       context 'with a kickoff date provided' do
-        it 'correctly displays the project added' do
+        xit 'correctly displays the project added' do
           find_by_id('project-name').set('Project1')
           fill_in('kickoff', with: Date.today.next_month)
           find('div.selectize-control.devs .selectize-input').click
@@ -128,7 +128,7 @@ describe 'Projects page', js: true do
     context 'when adding invalid project' do
 
       context 'when name is invalid' do
-        it 'fails with error message' do
+        xit 'fails with error message' do
           find_by_id('project-name').set('test test')
           find_by_id('project-slug').set('test')
           find('button.new-project-submit').click
@@ -137,7 +137,7 @@ describe 'Projects page', js: true do
       end
 
       context 'when slug is invalid' do
-        it 'fails with message error' do
+        xit 'fails with message error' do
           find_by_id('project-name').set('test')
           find_by_id('project-slug').set('tEsT')
           find('button.new-project-submit').click
