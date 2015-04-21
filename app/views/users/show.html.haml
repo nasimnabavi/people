@@ -10,22 +10,11 @@
   .col-sm-6
     = render 'new_membership_form', membership_page: new_membership_page
 
-    .tabpanel{ role: 'tabpanel' }
-      %ul.nav.nav-tabs{ role: 'tablist' }
-        %li.active{ role: 'presentation' }
-          = link_to 'Unarchived', '#unarchived', html_options = { 'aria-controls'=> 'unarchived', role: 'tab', 'data-toggle'=> 'tab' }
-        %li{ role: 'presentation' }
-          = link_to 'Archived', '#archived', html_options = { 'aria-controls'=> 'unarchived', role: 'tab', 'data-toggle'=> 'tab' }
-
-    .tab-content
-      .tab-pane.active#unarchived{ role: 'tabpanel' }
-        .list-group
-          - user_show_page.user_active_projects.reverse_each do |project, memberships|
-            = render partial: 'projects', locals: { project: project, memberships: memberships }
-      .tab-pane#archived{ role: 'tabpanel' }
-        .list-group
-          - user_show_page.user_archived_projects.reverse_each do |project, memberships|
-            = render partial: 'projects', locals: { project: project, memberships: memberships }
+    .list-group
+      - user_show_page.user_active_projects.reverse_each do |project, memberships|
+        = render partial: 'projects', locals: { project: project, memberships: memberships }
+      - user_show_page.user_archived_projects.reverse_each do |project, memberships|
+        = render partial: 'projects', locals: { project: project, memberships: memberships }
 
   .time-section
     .timeline
