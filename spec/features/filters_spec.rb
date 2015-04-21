@@ -118,8 +118,7 @@ describe 'Dashboard filters', js: true do
     end
 
     it 'does not disable the filter' do
-      dev_user
-      visit '/'
+      visit available_path
       expect(page).to have_text junior_dev.last_name
       select_option('roles', 'junior')
       find('div.up[data-sort="role_name"]').trigger 'click'

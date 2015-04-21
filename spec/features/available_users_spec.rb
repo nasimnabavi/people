@@ -7,7 +7,10 @@ describe 'Available users page', js: true do
   let!(:angular_dev) { create(:user, :available, abilities: [angular_ability]) }
   let!(:another_dev) { create(:user, :available, available_since: 10.days.from_now) }
 
-  before { sign_in(admin_user) }
+  before do
+    sign_in(admin_user)
+    visit available_path
+  end
 
   describe 'filters' do
     it 'allows to filter by abilities' do
@@ -55,7 +58,7 @@ describe 'Available users page', js: true do
     end
 
     it 'displays only technical users' do
-      visit '/'
+      visit available_path
       expect(page).not_to have_content pm.last_name
     end
   end
