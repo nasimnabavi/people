@@ -58,7 +58,6 @@ describe 'Available users page', js: true do
     end
 
     it 'displays only technical users' do
-      visit available_path
       expect(page).not_to have_content pm.last_name
     end
   end
