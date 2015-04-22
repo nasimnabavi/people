@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414114620) do
+ActiveRecord::Schema.define(version: 20150422134905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(version: 20150414114620) do
 
   create_table "projects", force: true do |t|
     t.string   "name"
-    t.string   "slug"
     t.datetime "end_at"
     t.boolean  "archived",       default: false
     t.boolean  "potential",      default: false
@@ -190,8 +189,8 @@ ActiveRecord::Schema.define(version: 20150414114620) do
     t.string   "gravatar"
     t.integer  "role_ids",           default: [],    array: true
     t.integer  "role_id"
-    t.integer  "commitment"
     t.boolean  "admin",              default: false
+    t.integer  "commitment"
   end
 
   add_index "users", ["contract_type_id"], name: "index_users_on_contract_type_id", using: :btree
