@@ -31,7 +31,7 @@
 
       renderHtml: ->
         html = @renderMonths()
-        html += @renderToDay() if @startTimelineM < moment(new Date()) < @endTimelineM
+        html += @renderToDay() if @startTimelineM < moment() < @endTimelineM
         html += @renderEvent(e) for e in events
         @$el.html(html)
 
