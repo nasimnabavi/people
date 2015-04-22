@@ -31,10 +31,11 @@
           = link_to I18n.t('positions.new'), new_position_path(user: details_page.user), class: "btn btn-default btn-success"
     .list-group-item
       = f.input :employment, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-    .list-group-item
-      = f.input :commitment, wrapper: :prepend, label_html: { class: 'input-group-addon' } do
-        = f.input_field :commitment, class: 'form-control'
-        %span.input-group-addon hours per week
+    - if current_user.admin?
+      .list-group-item
+        = f.input :commitment, wrapper: :prepend, label_html: { class: 'input-group-addon' } do
+          = f.input_field :commitment, class: 'form-control'
+          %span.input-group-addon hours per week
     .list-group-item
       = f.input :location_id, collection: details_page.locations
     .list-group-item
