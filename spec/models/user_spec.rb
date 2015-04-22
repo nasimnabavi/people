@@ -15,6 +15,7 @@ describe User do
 
   context 'validation' do
     it { should be_valid }
+    it { should validate_numericality_of(:commitment).is_less_than_or_equal_to(40) }
 
     describe 'employment hours' do
 

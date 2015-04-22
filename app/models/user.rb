@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   validates :employment, inclusion: { in: 0..200, message: 'must be between 0-200' }
   validates :phone, phone_number: true, length: { maximum: 16 }, allow_blank: true
   validates :archived, inclusion: { in: [true, false] }
+  validates :commitment, numericality: { less_than_or_equal_to: 40 }, allow_blank: true
 
   scope :by_name, -> {
     includes(:primary_role, :memberships, positions: [:role])
