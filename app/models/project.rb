@@ -16,8 +16,6 @@ class Project < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: { case_sensitive: false },
     format: { with: /\A[a-zA-Z0-9_\-]+\Z/ }
-  validates :slug, allow_blank: true, allow_nil: true, uniqueness: true,
-    format: { with: /\A[a-z\d]+\Z/ }
   validates :archived, inclusion: { in: [true, false] }
   validates :potential, inclusion: { in: [true, false] }
   validates :project_type, inclusion: { in: POSSIBLE_TYPES }
@@ -31,7 +29,7 @@ class Project < ActiveRecord::Base
   end
 
   def api_slug
-    slug.blank? ? name.try(:delete, '^[a-zA-Z0-9]*$').try(:downcase) : slug
+    name.try(:delete, '^[a-zA-Z0-9]*$').try(:downcase)
   end
 
   def pm

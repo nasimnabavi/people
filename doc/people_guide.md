@@ -60,7 +60,7 @@ People Guide
 <a name="1"></a>
 ### How to add a new project?
   - Step 1. You have to click 'New project' button on the dashboard.
-  - Step 2. Fill 'Project name' and 'Project slug' fields.
+  - Step 2. Fill 'Project name'.
     - Check 'Potential' if project is potential.
     - Choose 'Kickoff' and 'End at' dates.
   - Step 3. Click 'Add project'.

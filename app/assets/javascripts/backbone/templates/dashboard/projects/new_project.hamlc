@@ -18,11 +18,6 @@
                   Project Name
                   %abbr{ title: 'Required' } *
                 %input#project-name.form-control.name{ placeholder: 'Project name...(without spaces)', type: 'text' }
-            .col-md-6
-              .form-group
-                %label.control-label{ for: 'project-slug' }
-                  Project slug
-                %input#project-slug.form-control.slug{ placeholder: 'Only small letters...', type: 'text' }
           .row
             .col-md-6
               .form-group

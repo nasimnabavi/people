@@ -78,7 +78,6 @@ describe 'Projects page', js: true do
       context 'with complete data' do
         xit 'creates a new project' do
           find_by_id('project-name').set('Project1')
-          find_by_id('project-slug').set('test')
           fill_in('kickoff', with: Date.today)
           fill_in('end-at', with: Date.parse(1.year.from_now.to_s))
           check('Potential')
@@ -130,16 +129,6 @@ describe 'Projects page', js: true do
       context 'when name is invalid' do
         xit 'fails with error message' do
           find_by_id('project-name').set('test test')
-          find_by_id('project-slug').set('test')
-          find('button.new-project-submit').click
-          expect(page.find('.message-error')).to be_visible
-        end
-      end
-
-      context 'when slug is invalid' do
-        xit 'fails with message error' do
-          find_by_id('project-name').set('test')
-          find_by_id('project-slug').set('tEsT')
           find('button.new-project-submit').click
           expect(page.find('.message-error')).to be_visible
         end

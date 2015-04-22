@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :project do
     sequence(:name) { |i| "#{Faker::Internet.domain_word}_#{i}" }
-    slug { name.try(:downcase).try(:tr, '^[a-zA-Z0-9]*$', '') }
     end_at { 30.days.from_now }
     archived false
     project_type { Project::POSSIBLE_TYPES[rand(3)] }

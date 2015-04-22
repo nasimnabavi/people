@@ -10,7 +10,6 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
 
   ui:
     name:      '.name'
-    slug:      '.slug'
     endAt:     '.endAt'
     potential: '.potential'
     kickoff:   '.kickoff'

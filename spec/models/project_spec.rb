@@ -7,9 +7,6 @@ describe Project do
   it { should be_valid }
   it { should validate_presence_of :name }
   it { should validate_uniqueness_of(:name).case_insensitive }
-  it { should validate_uniqueness_of(:slug) }
-  it { should allow_value('1ettersandnumber5', nil, '').for(:slug) }
-  it { should_not allow_value('ANYTHING-else07').for(:slug) }
 
   describe "pm" do
     let(:actual_membership) { build(:membership, starts_at: 1.week.ago, ends_at: 1.week.from_now) }
