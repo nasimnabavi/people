@@ -48,7 +48,6 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     attributes =
       project:
         name: @ui.name.val()
-        slug: @ui.slug.val()
         end_at: @ui.endAt.val()
         potential: @ui.potential.prop('checked')
         internal: false
@@ -109,7 +108,6 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
 
   clearInputs: ->
     @ui.name.val('')
-    @ui.slug.val('')
     @ui.endAt.val('')
     @ui.kickoff.val('')
     @ui.potential.prop('checked')
