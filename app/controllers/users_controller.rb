@@ -44,9 +44,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    # TODO: extract to service object - make sure it saves abilities
-    user.attributes = user_params
-    if user.save
+    if UpdateUser.new(user, user_params).call
       info = { notice: t('users.updated') }
     else
       info = { alert: generate_errors }
