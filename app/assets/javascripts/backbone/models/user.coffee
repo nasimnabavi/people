@@ -37,7 +37,7 @@ class Hrguru.Models.User extends Backbone.Model
 
   visibleByUsers: (users = '') ->
     return true if users.length == 0
-    @id in users
+    String(@id) in users
 
   visibleByRoles: (roles = '') ->
     return true if roles.length == 0
