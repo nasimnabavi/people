@@ -5,6 +5,7 @@ class UserDecorator < Draper::Decorator
 
   decorates :user
   decorates_association :memberships, scope: :only_active
+  decorates_association :positions
   delegate_all
 
   def name

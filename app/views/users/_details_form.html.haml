@@ -23,7 +23,7 @@
             .col-sm-12-with-margin
               = link_to edit_position_path(p), class: 'list-group-item' do
                 %i.fa.fa-calendar
-                = p.starts_at
+                = p.starts_at_date
                 = p.role.label
               = link_to 'delete', p, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
       .actions
