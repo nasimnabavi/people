@@ -86,4 +86,11 @@ describe Trello::AddUserToProject do
       end
     end
   end
+
+  context 'user does not exist' do
+    it 'logs a message' do
+      expect_any_instance_of(Logger).to receive(:info).with('User nonexistent user does not exist')
+      described_class.new("nonexistent user", project.name).call
+    end
+  end
 end
