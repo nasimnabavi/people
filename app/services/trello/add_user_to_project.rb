@@ -24,12 +24,15 @@ module Trello
     end
 
     def assign_user_to_the_project
-      user_memberships_repo.create(
-        project: project,
-        starts_at: Date.yesterday,
-        role: user.primary_role,
-        billable: false
-      )
+      # TODO: investigate why project presence validation does not work here
+      if project.valid?
+        user_memberships_repo.create(
+          project: project,
+          starts_at: Date.yesterday,
+          role: user.primary_role,
+          billable: false
+        )
+      end
     end
   end
 end
