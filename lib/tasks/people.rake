@@ -21,4 +21,9 @@ namespace :people do
       user.save
     end
   end
+
+  desc "Reset primary_role"
+  task primary_role_reset: :environment do
+    User.update_all(primary_role_id: nil)
+  end
 end
