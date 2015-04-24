@@ -1,7 +1,7 @@
 class Hrguru.Models.Membership extends Backbone.Model
 
   started: ->
-    H.currentTime().format('L') >= moment(@get('starts_at')).format('L')
+    H.currentTime() >= moment(@get('starts_at'))
 
   daysToStart: ->
     return null unless @get('starts_at')?
