@@ -3,7 +3,7 @@ machine:
     version: 2.1.5
 deployment:
   master:
-    branch: postgres-after
+    branch: master
     commands:
       - curl -L https://raw.githubusercontent.com/netguru/review/master/check.rb | ruby
       - bundle exec cap staging deploy
