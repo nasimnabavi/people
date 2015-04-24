@@ -2,7 +2,7 @@ class UserSearch < Searchlight::Search
 
   search_on User
 
-  searches :id, :email, :id_or_email, :pm, :qa, :developer
+  searches :id, :email, :id_or_email, :pm, :qa, :developer, :primary
 
   def search_id
     search.where(id: id)
@@ -27,6 +27,10 @@ class UserSearch < Searchlight::Search
 
   def search_developer
     search.includes(positions: :role).where('roles.technical' => true)
+  end
+
+  def search_primary
+    search.where.not(primary_role: nil)
   end
 
   private

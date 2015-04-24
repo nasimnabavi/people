@@ -6,15 +6,15 @@ class DashboardController < ApplicationController
   expose_decorated(:users) { users_repository.all_by_name }
 
   expose_decorated(:developers, decorator: UserDecorator) do
-    users_repository.where(developer: true)
+    users_repository.where(developer: true, primary: true)
   end
 
   expose_decorated(:project_managers, decorator: UserDecorator) do
-    users_repository.where(pm: true)
+    users_repository.where(pm: true, primary: true)
   end
 
   expose_decorated(:quality_assurances, decorator: UserDecorator) do
-    users_repository.where(qa: true)
+    users_repository.where(qa: true, primary: true)
   end
 
   expose_decorated(:memberships) { memberships_repository.active_ongoing }
