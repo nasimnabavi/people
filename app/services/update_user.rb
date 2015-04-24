@@ -16,12 +16,14 @@ class UpdateUser
 
   def create_new_abilities
     # TODO: decouple this method from Selectize implementation
-    params['ability_ids'].shift
-    new_abilities = params['ability_ids'].select{ |a| a.match /\D/ }
-    new_abilities.each do |name|
-      ability = Ability.find_or_create_by name: name
-      params['ability_ids'].pop
-      params['ability_ids'] << ability.id.to_s
+    if params['ability_ids']
+      params['ability_ids'].shift
+      new_abilities = params['ability_ids'].select{ |a| a.match /\D/ }
+      new_abilities.each do |name|
+        ability = Ability.find_or_create_by name: name
+        params['ability_ids'].pop
+        params['ability_ids'] << ability.id.to_s
+      end
     end
   end
 end
