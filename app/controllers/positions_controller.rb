@@ -15,7 +15,7 @@ class PositionsController < ApplicationController
   end
 
   def create
-    if position.save
+    if SavePosition.new(position).call
       respond_on_success user_path(position.user)
     else
       respond_on_failure position.errors
