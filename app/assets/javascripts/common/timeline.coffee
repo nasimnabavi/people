@@ -48,7 +48,7 @@
 
         if project? && project.archived
           startDate = new Date(project.kickoff)
-          lastDate = new Date(project.end_at)
+          lastDate = new Date(project.end_at) if project.end_at
 
         [firstDate, lastDate]
 
