@@ -4,6 +4,7 @@
       %h1
         - if user_show_page.user_gravatar.present?
           = user_show_page.user_gravatar
+        = user_show_page.user.name
       = mail_to user.email, "send email"
     = render 'details_form', details_page: user_details_page
 
