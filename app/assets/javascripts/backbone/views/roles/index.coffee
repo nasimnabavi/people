@@ -17,6 +17,7 @@ class Hrguru.Views.RolesIndex extends Backbone.View
   addItem: (event) ->
     event.preventDefault()
     $input = $('#name')
+    $selectPriority = $('#priority')
     $checkboxBillable = $('#billable')
     $checkboxTechnical = $('#technical')
     $checkboxShowInTeam = $('#show-in-team')
@@ -24,6 +25,7 @@ class Hrguru.Views.RolesIndex extends Backbone.View
     role.save(
       {
         name: $input.val(),
+        priority: $selectPriority.val(),
         billable: $checkboxBillable.prop('checked'),
         technical: $checkboxTechnical.prop('checked'),
         show_in_team: $checkboxShowInTeam.prop('checked')

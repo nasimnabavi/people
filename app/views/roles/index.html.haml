@@ -9,7 +9,7 @@
             = text_field_tag 'name', nil, placeholder: 'Enter role name...', class: 'form-control'
             .input-group-addon.priority-group
               .select
-                %select#priority
+                = select_tag 'priority', options_for_select([1, 2, 3, 4]), id: 'priority'
                 %label priority
             .input-group-addon.billable-group
               .checkbox
