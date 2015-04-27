@@ -26,16 +26,14 @@ class UserSearch < Searchlight::Search
   end
 
   def search_developer
-    search.includes(positions: :role).where('roles.technical' => true)
-  end
-
-  def search_primary
-    search.where.not(primary_role: nil)
+    search.joins(:primary_role).where(roles: { technical: true })
+      .preload(:primary_role)
   end
 
   private
 
   def search_role_by_names(names)
-    search.includes(positions: :role).where('roles.name' => names)
+    search.joins(:primary_role).where(roles: { name: names })
+      .preload(:primary_role)
   end
 end
