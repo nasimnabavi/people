@@ -14,7 +14,7 @@ describe Trello::CardSync do
   context 'card has a label' do
     it 'calls AddUserToProject' do
       instance = double('AddUserToProject')
-      Trello::AddUserToProject.should_receive(:new).with('User Name', 'label')
+      Trello::AddUserToProject.should_receive(:new).with('User Name', ['label'])
         .and_return(instance)
       instance.should_receive(:call)
 
@@ -23,7 +23,7 @@ describe Trello::CardSync do
   end
 
   context 'card has more than one label' do
-    it 'calls AddUserToProject more than once' do
+    it 'calls AddUserToProject with array of project names' do
       card.stub(:card_labels) do
         [
           { 'name' => 'Project 1' },
@@ -33,10 +33,8 @@ describe Trello::CardSync do
 
       instance = double('AddUserToProject')
       expect(Trello::AddUserToProject).to receive(:new)
-        .with('User Name', 'Project 1').and_return(instance)
-      expect(Trello::AddUserToProject).to receive(:new)
-        .with('User Name', 'Project 2').and_return(instance)
-      expect(instance).to receive(:call).twice
+        .with('User Name', ['Project 1', 'Project 2']).and_return(instance)
+      expect(instance).to receive(:call)
 
       described_class.new(card).call
     end

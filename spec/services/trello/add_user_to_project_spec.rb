@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Trello::AddUserToProject do
-  subject { described_class.new("#{user.first_name} #{user.last_name}", project.name) }
+  subject { described_class.new("#{user.first_name} #{user.last_name}", [project.name]) }
 
   let!(:role) { create(:role_billable) }
   let!(:user) do
@@ -35,7 +35,7 @@ describe Trello::AddUserToProject do
     context 'invalid project name' do
       it 'does not create a new membership' do
         expect do
-          described_class.new("#{user.first_name} #{user.last_name}", 'invalid name').call
+          described_class.new("#{user.first_name} #{user.last_name}", ['invalid name']).call
         end.not_to change{ user.memberships.count }
       end
     end
@@ -45,7 +45,7 @@ describe Trello::AddUserToProject do
     subject do
       described_class.new(
         "#{user_with_membership.first_name} #{user_with_membership.last_name}",
-        project.name
+        [project.name]
       )
     end
 
@@ -90,7 +90,7 @@ describe Trello::AddUserToProject do
   context 'user does not exist' do
     it 'logs a message' do
       expect_any_instance_of(Logger).to receive(:info).with('User nonexistent user does not exist')
-      described_class.new("nonexistent user", project.name).call
+      described_class.new("nonexistent user", [project.name]).call
     end
   end
 end

@@ -7,9 +7,11 @@ module Trello
     end
 
     def call
-      UserMembershipsRepository.new(user).current.items.each do |membership|
-        membership.ends_at = Date.yesterday
-        membership.save
+      if user
+        UserMembershipsRepository.new(user).current.items.each do |membership|
+          membership.ends_at = Date.yesterday
+          membership.save
+        end
       end
     end
   end
