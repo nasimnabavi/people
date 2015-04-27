@@ -7,6 +7,10 @@
             %span.input-group-btn
               #add-role.btn.btn-primary create
             = text_field_tag 'name', nil, placeholder: 'Enter role name...', class: 'form-control'
+            .input-group-addon.priority-group
+              .select
+                %select#priority
+                %label priority
             .input-group-addon.billable-group
               .checkbox
                 %label

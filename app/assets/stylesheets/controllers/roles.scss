@@ -17,6 +17,9 @@ body.roles {
       &.admin-row, &.admin-group {
         background-color: $admin-checkbox;
       }
+      label {
+          font-weight: normal;
+      }
     }
     ul#roles {
       list-style-type: none;
