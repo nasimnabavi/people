@@ -17,8 +17,18 @@ FactoryGirl.define do
       technical true
     end
 
+    factory :junior_role do
+      name 'junior'
+      technical true
+    end
+
     factory :dev_role do
       name 'developer'
+      technical true
+    end
+
+    factory :senior_role do
+      name 'senior'
       technical true
     end
 
