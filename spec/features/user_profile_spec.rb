@@ -1,14 +1,11 @@
 require 'spec_helper'
 
 describe 'profile', js: true do
-  let!(:junior) { create(:role, name: 'junior') }
-  let!(:developer) { create(:role, name: 'developer') }
+  let!(:junior) { create(:role, name: 'junior', priority: 2) }
+  let!(:developer) { create(:role, name: 'developer', priority: 1) }
   let(:position) { create(:position, role: junior) }
 
   before do
-    junior.move_to_bottom
-    developer.move_to_top
-
     page.set_rack_session 'warden.user.user.key' => User
       .serialize_into_session(position.user).unshift('User')
   end

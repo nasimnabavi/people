@@ -8,14 +8,13 @@ describe Position do
   it { should be_valid }
 
   describe 'role validation' do
-    let(:juniorRole) { create(:role, name: 'junior', technical: true) }
-    let!(:seniorRole) { create(:role, name: 'senior', technical: true) }
+    let(:juniorRole) { create(:role, name: 'junior', technical: true, priority: 3) }
+    let!(:seniorRole) { create(:role, name: 'senior', technical: true, priority: 1) }
     let!(:user) { create(:user, primary_role: juniorRole) }
 
     it "doesn't allow to set a given role when user has this role already" do
       create(:position, user: user, role: juniorRole, starts_at: Time.now)
-      pos = create(:position, user: user)
-      pos.role = juniorRole
+      pos = build(:position, user: user, role: juniorRole)
       expect(pos).to_not be_valid
     end
 
@@ -29,8 +28,8 @@ describe Position do
   end
 
   describe '#validate chronology' do
-    let(:juniorRole) { create(:role, name: 'junior', technical: true) }
-    let!(:seniorRole) { create(:role, name: 'senior', technical: true) }
+    let(:juniorRole) { create(:role, name: 'junior', technical: true, priority: 3) }
+    let!(:seniorRole) { create(:role, name: 'senior', technical: true, priority: 1) }
     let!(:user) { create(:user, primary_role: juniorRole) }
     let!(:juniorPos) do
       create(:position,
