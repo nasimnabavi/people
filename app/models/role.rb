@@ -1,12 +1,9 @@
 class Role < ActiveRecord::Base
-  after_create :move_to_bottom
-
   has_many :memberships
   has_many :positions
   has_many :users, through: :positions
 
-  acts_as_list column: :priority
-
+  validates :priority, presence: true
   validates :name, presence: true, uniqueness: true
   validates :billable, inclusion: { in: [true, false] }
   validates :technical, inclusion: { in: [true, false] }
