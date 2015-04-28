@@ -4,7 +4,7 @@ describe SavePosition do
   let(:user) { create(:user) }
   let(:position) { build(:position, user: user) }
 
-  subject { SavePosition.new(position).call }
+  subject { described_class.new(position).call }
 
   context 'valid position' do
     it 'creates a new position' do
