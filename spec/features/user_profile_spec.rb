@@ -14,14 +14,14 @@ describe 'profile', js: true do
     before { visit user_path(position.user.id) }
 
     it 'set primary role to a user' do
-      expect(page).to have_select('js-user-primary', selected: 'no role')
-      select(position.role.name, from: 'js-user-primary')
+      expect(page).to have_select('user-primary', selected: 'no role')
+      select(position.role.name, from: 'user-primary')
 
       within('form.edit_user') do
         first('input[type=submit]').click
       end
 
-      expect(page).to have_select('js-user-primary', selected: position.role.name)
+      expect(page).to have_select('user-primary', selected: position.role.name)
     end
   end
 
@@ -29,7 +29,7 @@ describe 'profile', js: true do
     before { visit user_path(position.user.id) }
 
     it 'adds a position to user' do
-      expect(page).to have_select('js-user-primary', options: ['no role', 'junior'])
+      expect(page).to have_select('user-primary', options: ['no role', 'junior'])
 
       within('form.edit_user') do
         click_link('Add position')
@@ -46,7 +46,7 @@ describe 'profile', js: true do
         click_button('Create Position')
       end
 
-      expect(page).to have_select('js-user-primary',
+      expect(page).to have_select('user-primary',
         options: ['no role', 'junior', 'developer'])
     end
   end
