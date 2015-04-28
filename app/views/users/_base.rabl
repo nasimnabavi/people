@@ -1,4 +1,4 @@
-cache ["base", root_object]
+cache ["base", root_object, 1.day]
 
 attributes :id, :name, :email, :admin, :employment, :phone,
   :location_id, :contract_type, :archived, :abilities, :info,
