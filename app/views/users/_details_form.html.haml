@@ -3,7 +3,7 @@
     .list-group-item
       = f.input :contract_type_id, collection: details_page.contract_types
     .list-group-item
-      = f.input :primary_role_id, collection: details_page.user_roles, label: 'Primary role:', include_blank: 'no role', input_html: { id: 'js-user-primary' }
+      = f.input :primary_role_id, collection: details_page.user_roles, label: 'Primary role:', include_blank: 'no role', input_html: { id: 'user-primary' }
     .list-group-item
       = f.label :ability_ids, 'Skills & technologies'
       = f.input :ability_ids,
