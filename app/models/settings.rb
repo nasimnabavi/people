@@ -1,17 +1,12 @@
 class Settings < ActiveRecord::Base
-  include Singleton
-
   validate :notifications_email, format: { with: Devise.email_regexp }
 
   class << self
-    delegate :inspect, to: :instance
-
-    def method_missing(method, *args)
-      instance.public_send(method, *args)
-    end
+    delegate :update_attributes,
+             :notifications_email, to: :instance
 
     def instance
-      @instance ||= first_or_create
+      first_or_create
     end
   end
 end
