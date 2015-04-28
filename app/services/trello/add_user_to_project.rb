@@ -49,14 +49,13 @@ module Trello
     def assign_user_to_projects
       projects.each do |project|
         # TODO: investigate why project presence validation does not work here
-        if project.valid?
-          user_memberships_repo.create(
-            project: project,
-            starts_at: Date.yesterday,
-            role: user.primary_role,
-            billable: false
-          )
-        end
+        next unless project.valid?
+        user_memberships_repo.create(
+          project: project,
+          starts_at: Date.yesterday,
+          role: user.primary_role,
+          billable: false
+        )
       end
     end
   end

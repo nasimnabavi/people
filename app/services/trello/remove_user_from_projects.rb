@@ -7,11 +7,10 @@ module Trello
     end
 
     def call
-      if user
-        UserMembershipsRepository.new(user).current.items.each do |membership|
-          membership.ends_at = Date.yesterday
-          membership.save
-        end
+      return unless user
+      UserMembershipsRepository.new(user).current.items.each do |membership|
+        membership.ends_at = Date.yesterday
+        membership.save
       end
     end
   end
