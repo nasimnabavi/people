@@ -11,7 +11,7 @@ class GoogleUserBuilder
       update_user_tokens
       return user
     else
-      send_notifications
+      #send_notifications
       User.create!(new_user_attributes)
     end
   end
