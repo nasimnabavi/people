@@ -48,11 +48,8 @@ People Guide
 * [How to edit an ability?](#28)
 * [How to remove an ability?](#29)
 
-###[Settings](#Settings)
-* [How to update notifications email?](#30)
-
 ###[Profile](#Profile)
-* [How to update my profile?](#31)
+* [How to update my profile?](#30)
 
 <a name="Projects"></a>
 ###Projects:
@@ -353,22 +350,10 @@ People Guide
   ![ability_page](/doc/img/ability_page.png)
   #####[Back to index](#index)
 
-<a name="Settings"></a>
-###Settings:
-
-<a name="30"></a>
-###How to update notifications email?
-  - Step 1. Go to the settings page (Other -> Settings).
-  - Step 2. Fill a new email.
-  - Step 3. Click 'Save'.
-
-  ![settings_page](/doc/img/settings_page.png)
-  #####[Back to index](#index)
-
 <a name="Profile"></a>
 ###Profile:
 
-<a name="31"></a>
+<a name="30"></a>
 ###How to update my profile?
   - Step 1. Click your name and choose 'Profile' from the list (top right corner of the page).
   - Step 2. You can update:
