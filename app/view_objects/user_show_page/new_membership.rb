@@ -28,6 +28,10 @@ class UserShowPage
       @available_roles ||= roles_repository.all
     end
 
+    def user_primary_role_id
+      user.primary_role.try(:id)
+    end
+
     def user_roles
       @user_roles ||= user_roles_repository.all
     end

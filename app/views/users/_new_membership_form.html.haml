@@ -7,7 +7,7 @@
           = f.association :project, collection: membership_page.active_projects, include_blank: false
         .col-sm-6
           = f.input :ends_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-          = f.association :role, collection: membership_page.user_roles, include_blank: false
+          = f.association :role, collection: membership_page.user_roles, include_blank: false, selected: membership_page.user_primary_role_id
         .col-sm-6
           = f.input_field :billable, as: :boolean, inline_label: 'Billable', input_html: { checked: membership_page.user_billable? }
         .col-sm-6
