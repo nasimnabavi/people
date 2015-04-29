@@ -7,7 +7,7 @@ module Trello
     end
 
     def call
-      return unless user
+      return unless user.present?
       UserMembershipsRepository.new(user).current.items.each do |membership|
         membership.ends_at = Date.yesterday
         membership.save
