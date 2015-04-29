@@ -28,8 +28,6 @@ class UserShowPage
       @available_roles ||= roles_repository.all
     end
 
-    private
-
     def user_roles
       @user_roles ||= user_roles_repository.all
     end
