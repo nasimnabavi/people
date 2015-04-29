@@ -42,6 +42,6 @@
     .list-group-item
       = f.input :phone
     .list-group-item
-      = f.input :archived, as: :boolean, boolean_style: :inline
+      = f.input_field :archived, as: :boolean, inline_label: 'Archived'
     .list-group-item
       = f.button :submit, class: 'btn-success'
