@@ -217,7 +217,7 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
   addMember: (value, item) =>
     member = _.find @users.models, (u) ->
       u.get('id') is parseInt(value, 10)
-    member.save team_id: @model.id, team_join_time: H.currentTime(),
+    member.save team_id: @model.id, team_join_time: new Date(),
       wait: true
       success: @memberAdded
       error: @memberError
