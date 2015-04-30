@@ -102,14 +102,13 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
     EventAggregator.trigger('projects:toggleByType', { type: @displayedType })
 
   retriveRadioState: ->
-    distype = null
     @$('input.toggle-by-type').each ->
       state = JSON.parse( localStorage.getItem('radio_'  + @getAttribute('data-type')) )
       if state?.checked
         @checked =  true
         distype = @getAttribute('data-type')
         EventAggregator.trigger('projects:toggleByType', { type: @getAttribute('data-type') })
-    @displayedType = distype
+    @displayedType = 'active'
     @refreshFilterCheckboxes()
     H.togglePotentialCheckbox(@displayedType)
 
