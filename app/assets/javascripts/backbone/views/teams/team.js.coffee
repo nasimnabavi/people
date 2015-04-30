@@ -93,7 +93,7 @@ class Hrguru.Views.TeamMembers extends Backbone.Marionette.CollectionView
     roles: @roles
 
   excludeMember: (member_view) =>
-    member_view.model.save team_id: null, leader_team_id: null,
+    member_view.model.save team_id: null, leader_team_id: null, team_join_time: null,
       wait: true
       success: @memberExcluded
       error: @memberError
@@ -217,7 +217,7 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
   addMember: (value, item) =>
     member = _.find @users.models, (u) ->
       u.get('id') is parseInt(value, 10)
-    member.save team_id: @model.id,
+    member.save team_id: @model.id, team_join_time: H.currentTime(),
       wait: true
       success: @memberAdded
       error: @memberError
