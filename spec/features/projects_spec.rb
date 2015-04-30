@@ -91,6 +91,13 @@ describe 'Projects page', js: true do
           expect(page.find('.info.js-timeline-show')).to be_visible
         end
       end
+
+      it 'does not allow to add a membership to an archived project' do
+        page.find('li.archived').click
+
+        expect(page.find('.project.archived'))
+          .to have_no_selector('div.selectize-input.items')
+      end
     end
   end
 
