@@ -28,4 +28,21 @@ describe 'Profile page', js: true do
 
     it { expect(page.find('[name="membership[billable]"]').value).to eq "1" }
   end
+
+  context 'label and checkbox are both clickable' do
+    it 'checkbox sets value to true' do
+      visit user_path(user)
+      check('membership_billable')
+
+      expect(page.find('#membership_billable')).to be_checked
+    end
+
+    it 'label sets value to true' do
+      visit user_path(user)
+      page.find('label', text: 'Billable').click
+
+      expect(page.find('#membership_billable')).to be_checked
+    end
+
+  end
 end
