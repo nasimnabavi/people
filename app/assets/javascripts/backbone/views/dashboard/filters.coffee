@@ -119,12 +119,12 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
       )
 
   refreshProjectSelectize: ->
-    if @projects_selectize?
-      @projects_selectize.clear()
-      @filterProjects()
-      @projects_selectize.clearOptions()
-      @projects_selectize.load (callback) =>
-        callback @filterSelectizeProjects()
+    return unless @projects_selectize?
+    @projects_selectize.clear()
+    @filterProjects()
+    @projects_selectize.clearOptions()
+    @projects_selectize.load (callback) =>
+      callback @filterSelectizeProjects()
 
   refreshFilterCheckboxes: ->
     $('.checkboxes .checkbox').hide()
