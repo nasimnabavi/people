@@ -5,7 +5,7 @@ describe RoleDecorator do
 
   describe '#label' do
     it 'generates proper label' do
-      label = "<span class=\"label label-default\" style=\"background-color: \">#{role.name}</span>"
+      label = "<span class=\"label label-default\" style=\"background-color: \">#{CGI.escapeHTML(role.name)}</span>"
       expect(role.label).to eq(label)
     end
   end
