@@ -44,6 +44,31 @@ describe 'Projects page', js: true do
           expect(page.find('.info.js-timeline-show')).to be_visible
         end
       end
+
+      describe 'show next' do
+        let!(:future_membership) do
+          create(:membership, starts_at: 1.month.from_now, user: admin_user)
+        end
+
+        context 'when checked' do
+          it 'shows future memberships' do
+            visit '/dashboard'
+            check 'show-next'
+            expect(page).to have_content(future_membership.user.last_name)
+            expect(page).not_to have_css '.invisible'
+          end
+        end
+
+        context 'when unchecked' do
+          it 'does not show future memberships' do
+            visit '/dashboard'
+            uncheck 'show-next'
+            within '.invisible' do
+              expect(page).to have_content future_membership.user.last_name
+            end
+          end
+        end
+      end
     end
 
     context 'when on Potential tab' do
