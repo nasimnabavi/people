@@ -2,6 +2,7 @@ class Hrguru.Views.UsersShow extends Backbone.View
   el: '#user'
 
   initialize: ->
+    @displayDefaultGravatar()
     @removeFormControlClass()
     @initializeAbilities()
     elTimeline = @$('.timeline')
@@ -20,3 +21,7 @@ class Hrguru.Views.UsersShow extends Backbone.View
       create: (input) ->
         value: input
         text: input
+
+  displayDefaultGravatar: ->
+    $('.img-rounded').error ->
+      $(@).attr('src', 'http://www.gravatar.com/avatar')
