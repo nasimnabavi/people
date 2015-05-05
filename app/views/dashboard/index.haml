@@ -29,5 +29,9 @@
         %input#highlight-not-billable{ type: 'checkbox' } Highlight not billable
 
 #projects-users
+  .new-project
+    = link_to new_project_path, class: 'btn btn-primary new-project-add' do
+      %span.glyphicon.glyphicon-plus
+      New Project
 
 #edit-membership-popups

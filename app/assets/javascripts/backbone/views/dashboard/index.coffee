@@ -46,7 +46,6 @@ class Hrguru.Views.DashboardIndex extends Marionette.View
 
   fillTable: ->
     if H.currentUserIsAdmin()
-      @ui.table.append(new Hrguru.Views.Dashboard.NewProject(collection: @projects).render().$el)
       @ui.table.append(new Hrguru.Views.Dashboard.OpenAllNotes().render().$el)
     @projects.each (project) =>
       view = new Hrguru.Views.Dashboard.ProjectWrapper
