@@ -64,7 +64,7 @@ describe 'Projects page', js: true do
             visit '/dashboard'
             uncheck 'show-next'
             within '.invisible' do
-              expect(page).to have_content future_membership.user.last_name
+              expect(page).to have_content(future_membership.user.last_name)
             end
           end
         end
@@ -102,67 +102,28 @@ describe 'Projects page', js: true do
   end
 
   describe 'project adding' do
-    before do
-      find('button.new-project-add').click
-    end
+    before { visit new_project_path }
 
     context 'when adding a valid project' do
       context 'with complete data' do
-        xit 'creates a new project' do
-          find_by_id('project-name').set('Project1')
-          fill_in('kickoff', with: Date.today)
-          fill_in('end-at', with: Date.parse(1.year.from_now.to_s))
+        it 'creates a new project' do
+          fill_in('project_name', with: 'Project1')
+          fill_in('project_kickoff', with: Date.today)
+          fill_in('project_end_at', with: Date.parse(1.year.from_now.to_s))
           check('Potential')
-          find('div.selectize-control.devs .selectize-input').click
-          first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
-          find('div.selectize-control.pms .selectize-input').click
-          first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
-          find('div.selectize-control.qas .selectize-input').click
-          first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
-          find('button.new-project-submit').click
+          find('.btn-success').click
 
-          expect(page).to have_content('Project1', wait: 10)
-        end
-      end
-
-      context 'with no kickoff date provided' do
-        xit 'correctly displays the project added' do
-          find_by_id('project-name').set('Project1')
-          find('div.selectize-control.devs .selectize-input').click
-          first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
-          find('button.new-project-submit').click
-
-          within('#filters') { page.find('li.active').click }
-
-          expect(page).to have_content(admin_user.last_name, wait: 10)
-          expect(page).to have_selector('div.member-name')
-        end
-      end
-
-      context 'with a kickoff date provided' do
-        xit 'correctly displays the project added' do
-          find_by_id('project-name').set('Project1')
-          fill_in('kickoff', with: Date.today.next_month)
-          find('div.selectize-control.devs .selectize-input').click
-          first('div.selectize-dropdown-content [data-selectable]', wait: 5).click
-          find('button.new-project-submit').click
-
-          within('#filters') { page.find('li.active').click }
-
-          expect(page).to have_content(admin_user.last_name, wait: 10)
-          expect(find('div.project div.non-billable div.member-details'))
-            .to have_content("From #{Date.today.next_month.strftime('%d.%m')}")
+          expect(page).to have_content('Project1')
         end
       end
     end
 
     context 'when adding invalid project' do
 
-      context 'when name is invalid' do
-        xit 'fails with error message' do
-          find_by_id('project-name').set('test test')
-          find('button.new-project-submit').click
-          expect(page.find('.message-error')).to be_visible
+      context 'when name is not present' do
+        it 'fails with error message' do
+          find('.btn-success').click
+          expect(page).to have_content('can\'t be blank')
         end
       end
     end
