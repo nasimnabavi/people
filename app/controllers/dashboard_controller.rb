@@ -4,19 +4,6 @@ class DashboardController < ApplicationController
   expose(:projects) { projects_repository.all }
   expose(:roles) { roles_repository.all }
   expose_decorated(:users) { users_repository.all_by_name }
-
-  expose_decorated(:developers, decorator: UserDecorator) do
-    users_repository.where(developer: true)
-  end
-
-  expose_decorated(:project_managers, decorator: UserDecorator) do
-    users_repository.where(pm: true)
-  end
-
-  expose_decorated(:quality_assurances, decorator: UserDecorator) do
-    users_repository.where(qa: true)
-  end
-
   expose_decorated(:memberships) { memberships_repository.active_ongoing }
 
   def index
@@ -24,9 +11,6 @@ class DashboardController < ApplicationController
     gon.rabl template: 'app/views/dashboard/memberships', as: 'memberships'
     gon.rabl template: 'app/views/dashboard/roles', as: 'roles'
     gon.rabl template: 'app/views/dashboard/projects', as: 'projects'
-    gon.rabl template: 'app/views/dashboard/developers', as: 'developers'
-    gon.rabl template: 'app/views/dashboard/project_managers', as: 'project_managers'
-    gon.rabl template: 'app/views/dashboard/quality_assurance', as: 'quality_assurance'
     gon.currentTime = Time.now
 
     if params[:cookie]
