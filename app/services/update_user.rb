@@ -8,6 +8,7 @@ class UpdateUser
 
   def call
     create_new_abilities
+    update_leader_commitment
     user.attributes = params
     user.save
   end
@@ -25,5 +26,9 @@ class UpdateUser
         params['ability_ids'] << ability.id.to_s
       end
     end
+  end
+
+  def update_leader_commitment
+    params['commitment'] = 30 if params['leader_team_id']
   end
 end
