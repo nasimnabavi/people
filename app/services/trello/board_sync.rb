@@ -16,7 +16,7 @@ module Trello
     private
 
     def fetch_cards
-      self.cards = board.cards
+      self.cards = board.cards(filter: :visible)
     end
 
     def fetch_labels
