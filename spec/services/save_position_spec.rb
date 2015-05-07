@@ -27,28 +27,4 @@ describe SavePosition do
       expect(subject).to be_false
     end
   end
-
-  context 'for junior developer' do
-    before { position.role = create(:junior_role) }
-
-    it 'sets commitment to 40 hours' do
-      expect { subject }.to change{ user.reload.commitment }.to 40
-    end
-  end
-
-  context 'for developer' do
-    before { position.role = create(:dev_role) }
-
-    it 'sets commitment to 38 hours' do
-      expect { subject }.to change{ user.reload.commitment }.to 38
-    end
-  end
-
-  context 'for senior developer' do
-    before { position.role = create(:senior_role) }
-
-    it 'sets commitment to 38 hours' do
-      expect { subject }.to change{ user.reload.commitment }.to 35
-    end
-  end
 end
