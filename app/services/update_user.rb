@@ -2,14 +2,16 @@ class UpdateUser
   attr_accessor :user, :params
 
   def initialize(user, params)
-    self.user = user
-    self.params = params
+    @user = user
+    @params = params
   end
 
   def call
     create_new_abilities
-    update_leader_commitment
-    user.update(params)
+    set_leader_commitment
+
+    user.attributes = params
+    user.save
   end
 
   private
@@ -26,7 +28,9 @@ class UpdateUser
     end
   end
 
-  def update_leader_commitment
-    params['commitment'] = 30 if params['leader_team_id']
+  def set_leader_commitment
+    return unless params['leader_team_id']
+
+    @user = CommitmentSetter.new(user, :leader).call
   end
 end

@@ -1,25 +1,20 @@
 class SavePosition
-  attr_accessor :position
-
-  COMMITMENT = {
-    junior: 40,
-    developer: 38,
-    senior: 35
-  }
+  attr_reader :position
 
   def initialize(position)
-    self.position = position
+    @position = position
   end
 
   def call
-    update_user_commitment if position.user_id
-    position.save
+    position.save && update_user_commitment
   end
 
   private
 
   def update_user_commitment
-    user = position.user
-    user.update commitment: COMMITMENT[position.role.name.to_sym]
+    user = CommitmentSetter.new(position.user,
+      position.role.name.to_sym).call
+
+    user.save
   end
 end
