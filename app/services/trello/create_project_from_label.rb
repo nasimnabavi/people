@@ -7,7 +7,9 @@ module Trello
     end
 
     def call
-      ProjectsRepository.new.find_or_create_by_name label
+      ActiveRecord::Base.connection_pool.with_connection do
+        ProjectsRepository.new.find_or_create_by_name label
+      end
     end
   end
 end
