@@ -11,12 +11,12 @@ The main purpose of the app is to manage people within the projects.
 The main table shows the current teams in each project, but you can also add people who will start working on the project in the future, and see the people who are going to join or leave the project team by clicking “highlight ending” and “highlight next”. The app also gathers the information about a team member, like role, telephone number, github nick, or the city in which we work.
 
 ## System Setup
-You need MongoDB and ImageMagick installed on your system, on OS X this is a simple as:
+You need ImageMagick installed on your system, on OS X this is a simple as:
 ```shell
-  brew update && brew install mongodb imagemagick
+  brew update && brew install imagemagick
 ```
 
-On other systems check out the official [ImageMagick](http://www.imagemagick.org/script/binary-releases.php) and [MongoDB documentation](http://docs.mongodb.org/manual/installation/)
+On other systems check out the official [ImageMagick](http://www.imagemagick.org/script/binary-releases.php)
 
 ## Project setup
 
