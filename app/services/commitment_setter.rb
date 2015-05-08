@@ -14,7 +14,7 @@ class CommitmentSetter
   end
 
   def call
-    user.commitment = COMMITMENT[role_name] if COMMITMENT[role_name]
+    user.commitment = COMMITMENT.fetch(role_name) if COMMITMENT.key?(role_name)
 
     user
   end
