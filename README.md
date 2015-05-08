@@ -16,7 +16,7 @@ You need ImageMagick installed on your system, on OS X this is a simple as:
   brew update && brew install imagemagick
 ```
 
-On other systems check out the official [ImageMagick](http://www.imagemagick.org/script/binary-releases.php)
+On other systems check out the official [ImageMagick](http://www.imagemagick.org/script/binary-releases.php) documentation.
 
 ## Project setup
 
