@@ -1,35 +1,19 @@
 class Hrguru.Views.AvailableUsersFilters extends Marionette.View
   el: '#filters'
 
-  events:
-    'click .category': 'activateCategory'
-
-  ui:
-    tabs: '.category'
-
   initialize: (@availability_time, @abilities, @roles) ->
     @initializeVariables()
-    @bindUIElements()
 
   initializeVariables: ->
     @selectize =
       availability_time: []
       abilities: []
       roles: []
-      category: ''
 
   render: ->
     @initializeAvailabilityTimeFilter()
     @initializeAbilitiesFilter()
     @initializeRoleFilter()
-
-  activateCategory: (e) ->
-    $tab = $(e.target).parent()
-    return unless $tab.hasClass('category')
-    @ui.tabs.removeClass('active')
-    $tab.addClass('active')
-    @selectize.category = $tab.data('category')
-    @filterUsers()
 
   initializeAvailabilityTimeFilter: ->
     availability_time_selectize = @$('select[name=availability_time]').selectize

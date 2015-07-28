@@ -7,10 +7,6 @@
     .abilities
       %input{ type: 'text', name: 'abilities', placeholder: 'Filter abilities…' }
 
-  %ul.nav.nav-tabs.available-users-categories
-    %li.category.active{ data: { category: 'all' } }= link_to 'All', '#'
-    %li.category{ data: { category: 'juniors-interns' } }= link_to 'Juniors/Interns', '#'
-
 %table.table.table-striped.table-hover#available_users.available-users
   %thead
     %th
