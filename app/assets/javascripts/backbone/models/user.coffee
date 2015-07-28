@@ -7,6 +7,7 @@ class Hrguru.Models.User extends Backbone.Model
     abilities: true
     months_in_current_project: true
     availabilityTime: true
+    category: true
 
   membership: null
 
@@ -22,6 +23,7 @@ class Hrguru.Models.User extends Backbone.Model
     @visibleBy.users = @visibleByUsers(data.users)
     @visibleBy.abilities = @visibleByAbilities(data.abilities)
     @visibleBy.months_in_current_project = @visibleByMonthsInCurrentProject(parseInt(data.months))
+    @visibleBy.category = @visibleByCategory(data.category)
     @trigger 'toggle_visible', @isVisible()
 
   isAvailableNow: ->
@@ -33,7 +35,8 @@ class Hrguru.Models.User extends Backbone.Model
 
   isVisible: ->
     @visibleBy.availabilityTime && @visibleBy.roles && @visibleBy.projects && @visibleBy.users &&
-      @visibleBy.abilities && @isActive() && @visibleBy.months_in_current_project
+      @visibleBy.abilities && @isActive() && @visibleBy.months_in_current_project &&
+      @visibleBy.category
 
   visibleByUsers: (users = '') ->
     return true if users.length == 0
@@ -64,6 +67,11 @@ class Hrguru.Models.User extends Backbone.Model
   visibleByMonthsInCurrentProject: (months = '') ->
     return true if months == 0
     @isInProjectForMoreThanMonths(months)
+
+  visibleByCategory: (category = '') ->
+    return true if category == 'all' || category == ''
+    return false unless @get('categories')?
+    _.contains @get('categories'), category
 
   myProjects: ->
     _.map @get("projects"), (p) -> String(p.project.id)
