@@ -12,6 +12,9 @@ class Role < ActiveRecord::Base
   scope :billable, -> { where(billable: true) }
   scope :non_billable, -> { where(billable: false) }
   scope :technical, -> { where(technical: true) }
+  scope :junior_or_intern, lambda {
+    where(name: ['intern', 'junior', 'junior android', 'junior iOS', 'junior frontend'])
+  }
 
   def to_s
     name
