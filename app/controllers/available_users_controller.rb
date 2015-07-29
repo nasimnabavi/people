@@ -17,7 +17,6 @@ class AvailableUsersController < ApplicationController
       view_path: 'app/views', format: :hash, locals: { cache_key: 'all' } )
     gon.juniors_and_interns = Rabl.render(juniors_and_interns, 'available_users/index',
       view_path: 'app/views', format: :hash, locals: { cache_key: 'juniors_and_interns' })
-    gon.users_to_rotate = Rabl.render(users_to_rotate, 'available_users/index',
     gon.roles = roles
     gon.abilities = abilities
   end
