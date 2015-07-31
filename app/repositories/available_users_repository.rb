@@ -18,6 +18,14 @@ class AvailableUsersRepository
       )
   end
 
+  def in_internals
+    users_with_includes(
+      User.technical.joins(memberships: :project).active.where(
+        projects: { internal: true }
+        ).merge(Membership.active.unfinished.started)
+      )
+  end
+
   private
 
   def users_with_includes(users)

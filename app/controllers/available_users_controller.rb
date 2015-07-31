@@ -8,11 +8,15 @@ class AvailableUsersController < ApplicationController
   end
   expose(:juniors_and_interns) do
     AvailableUserDecorator.decorate_collection(available_users_repository.juniors,
-      context: { category: 'juniors-interns'} )
+      context: { category: 'juniors-interns' } )
   end
   expose(:users_to_rotate) do
     AvailableUserDecorator.decorate_collection(available_users_repository.to_rotate,
-      context: { category: 'to-rotate'} )
+      context: { category: 'to-rotate' } )
+  end
+  expose(:users_in_internals) do
+    AvailableUserDecorator.decorate_collection(available_users_repository.in_internals,
+      context: { category: 'internals' } )
   end
   expose(:roles) { roles_repository.all }
   expose(:abilities) { abilities_repository.all }
@@ -24,6 +28,8 @@ class AvailableUsersController < ApplicationController
       view_path: 'app/views', format: :hash, locals: { cache_key: 'juniors_and_interns' })
     gon.users_to_rotate = Rabl.render(users_to_rotate, 'available_users/index',
       view_path: 'app/views', format: :hash, locals: { cache_key: 'to-rotate' } )
+    gon.users_in_internals = Rabl.render(users_in_internals, 'available_users/index',
+      view_path: 'app/views', format: :hash, locals: { cache_key: 'internals' } )
     gon.roles = roles
     gon.abilities = abilities
   end
