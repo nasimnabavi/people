@@ -29,6 +29,8 @@ class Hrguru.Views.AvailableUsersFilters extends Marionette.View
     @ui.tabs.removeClass('active')
     $tab.addClass('active')
     @selectize.category = $tab.data('category')
+    if @selectize.category == 'to-rotate'
+      @sortUsers('seconds_of_longest_current_membership', 0)
     @filterUsers()
 
   initializeAvailabilityTimeFilter: ->
@@ -70,3 +72,6 @@ class Hrguru.Views.AvailableUsersFilters extends Marionette.View
   filterUsers: =>
     EventAggregator.trigger('users:updateVisibility', @selectize)
     H.addUserIndex()
+
+  sortUsers: (attr, direction) ->
+    EventAggregator.trigger('availableUsers:sort', attr, direction)
