@@ -7,7 +7,9 @@ class AvailableUsersController < ApplicationController
     AvailableUserDecorator.decorate_collection(available_users_repository.all)
   end
   expose(:juniors_and_interns) do
-    AvailableUserDecorator.decorate_collection(available_users_repository.juniors)
+    AvailableUserDecorator.decorate_collection(available_users_repository.juniors,
+      context: { category: 'juniors-interns'} )
+  end
   end
   expose(:roles) { roles_repository.all }
   expose(:abilities) { abilities_repository.all }
