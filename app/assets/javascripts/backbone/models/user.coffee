@@ -70,8 +70,8 @@ class Hrguru.Models.User extends Backbone.Model
 
   visibleByCategory: (category = '') ->
     return true if category == 'all' || category == ''
-    return false unless @get('categories')?
-    _.contains @get('categories'), category
+    return false unless @get(category)?
+    @get(category)
 
   myProjects: ->
     _.map @get("projects"), (p) -> String(p.project.id)
