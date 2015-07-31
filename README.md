@@ -4,7 +4,7 @@ People
 [![Code Climate](http://img.shields.io/codeclimate/github/netguru/people.svg)](https://codeclimate.com/github/netguru/people)
 [![Dependencies](http://img.shields.io/gemnasium/netguru/people.svg)](https://gemnasium.com/netguru/people)
 
-##About the app
+## About the app
 
 The main purpose of the app is to manage people within the projects.
 
@@ -50,6 +50,7 @@ Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
 ```
 
 ### Additional Info
+
  * after logging in, go to your Profile's settings and update your role to 'senior' or 'pm'
  * by default only 'pm' and 'senior' roles have admin privilages - creating new projects, managing privileges, memberships etc.
  * optionally update your emails and company_name
@@ -82,7 +83,7 @@ Admin Role is required.
 
 [Introducing: People. A simple open source app for managing devs within projects](https://netguru.co/blog/posts/introducing-people-a-simple-open-source-app-for-managing-devs-within-projects).
 
-###Contributing
+### Contributing
 
 First, thank you for contributing!
 
