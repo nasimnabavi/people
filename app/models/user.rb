@@ -26,6 +26,9 @@ class User < ActiveRecord::Base
       .order("ends_at ASC NULLS FIRST, id ASC")
   }, class: Membership
   has_one :last_membership, -> { active.unfinished.started.order('ends_at DESC NULLS FIRST') }, class: Membership
+  has_one :longest_current_membership, -> {
+    active.unfinished.started.order('ends_at DESC NULLS FIRST, starts_at ASC')
+  }, class: Membership
 
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true
