@@ -44,6 +44,10 @@ class Membership < ActiveRecord::Base
     where(has_end_date.or(is_billable.and(no_end_date)))
   end
 
+  def self.cache_key
+    maximum(:updated_at)
+  end
+
   def started?
     starts_at <= Date.today
   end

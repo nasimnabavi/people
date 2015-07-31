@@ -24,6 +24,10 @@ class Project < ActiveRecord::Base
   scope :nonpotential, -> { active.where(potential: false) }
   scope :potential, -> { active.where(potential: true) }
 
+  def self.cache_key
+    maximum(:updated_at)
+  end
+
   def to_s
     name
   end
