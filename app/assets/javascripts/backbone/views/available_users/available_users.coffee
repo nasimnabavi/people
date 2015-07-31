@@ -5,13 +5,13 @@ class Hrguru.Views.AvailableUsersCollectionView extends Marionette.CollectionVie
   itemView: Hrguru.Views.AvailableUsersRow
 
   events:
-    "click .up" : "incressingDirection"
+    "click .up" : "increasingDirection"
     "click .down" : "decreasingDirection"
 
   initialize: (@collection) ->
     @on('collection:rendered', H.addUserIndex)
 
-  incressingDirection: (e) ->
+  increasingDirection: (e) ->
     @toggleClass(e.target)
     @collection.sortDirection = 1
     @sort(e.target.dataset.sort, @collection.sortDirection)
