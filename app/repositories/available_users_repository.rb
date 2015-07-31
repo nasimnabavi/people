@@ -10,7 +10,7 @@ class AvailableUsersRepository
 
   def to_rotate
     users_with_includes(
-      User.joins(memberships: [:project]).active.available.where(
+      User.joins(memberships: [:project]).active.where(
         primary_role: billable_technical_roles,
         projects: { end_at: nil, internal: false },
         memberships: { ends_at: nil }
