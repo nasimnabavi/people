@@ -12,12 +12,6 @@ class UserDecorator < Draper::Decorator
     "#{last_name} #{first_name}"
   end
 
-  def available_user_categories
-    [
-      ('juniors-interns' if junior_or_intern?),
-    ].compact
-  end
-
   def primary_role_name
     primary_role.present? ? primary_role.name : ''
   end

@@ -80,10 +80,6 @@ class User < ActiveRecord::Base
     @user_memberships_repository ||= UserMembershipsRepository.new(self)
   end
 
-  def junior_or_intern?
-    roles.junior_or_intern.include? primary_role
-  end
-
   private
 
   def save_team_join_time
