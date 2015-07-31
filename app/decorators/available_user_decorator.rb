@@ -2,7 +2,7 @@ class AvailableUserDecorator < UserDecorator
   include ActionView::Helpers::DateHelper
   attr_accessor :category
 
-  def initialize(object, options = { context: {}})
+  def initialize(object, options = { context: {} })
     @category = options[:context][:category]
     super
   end
