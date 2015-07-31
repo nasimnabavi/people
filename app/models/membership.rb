@@ -1,6 +1,7 @@
 class Membership < ActiveRecord::Base
   include Membership::UserAvailability
   include Membership::HipchatNotifications
+  include CacheKey
 
   belongs_to :user, touch: true
   belongs_to :project, inverse_of: :memberships
@@ -42,10 +43,6 @@ class Membership < ActiveRecord::Base
     no_end_date = arel_table[:ends_at].eq(nil)
 
     where(has_end_date.or(is_billable.and(no_end_date)))
-  end
-
-  def self.cache_key
-    maximum(:updated_at)
   end
 
   def started?

@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   include Project::UserAvailability
   include InitialsHandler
+  include CacheKey
 
   after_save :update_membership_fields
   after_save :check_potential
@@ -23,10 +24,6 @@ class Project < ActiveRecord::Base
   scope :active, -> { where(archived: false) }
   scope :nonpotential, -> { active.where(potential: false) }
   scope :potential, -> { active.where(potential: true) }
-
-  def self.cache_key
-    maximum(:updated_at)
-  end
 
   def to_s
     name

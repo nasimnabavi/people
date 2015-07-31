@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include CacheKey
+
   devise :database_authenticatable, :registerable,
     :trackable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :github]
 
@@ -54,10 +56,6 @@ class User < ActiveRecord::Base
 
   before_save :end_memberships
   before_update :save_team_join_time
-
-  def self.cache_key
-    maximum(:updated_at)
-  end
 
   def github_connected?
     gh_nick.present? || without_gh == true
