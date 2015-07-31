@@ -5,7 +5,7 @@ class AvailableUsersRepository
   end
 
   def juniors
-    users_with_includes(User.where(primary_role: Role.junior_or_intern))
+    users_with_includes(User.where(primary_role: non_billable_technical_roles))
   end
 
   private
@@ -22,6 +22,10 @@ class AvailableUsersRepository
       last_membership: [:project],
       positions: [:role],
       primary_role: [:users])
+  end
+
+  def non_billable_technical_roles
+    @non_billable_technical_roles ||= Role.technical.non_billable
   end
 
   def technical_roles_ids
