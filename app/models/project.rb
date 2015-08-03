@@ -24,6 +24,8 @@ class Project < ActiveRecord::Base
   scope :active, -> { where(archived: false) }
   scope :nonpotential, -> { active.where(potential: false) }
   scope :potential, -> { active.where(potential: true) }
+  scope :unfinished, -> { where('end_at IS NULL OR end_at > ?', Time.current) }
+  scope :started, -> { where('kickoff IS NULL OR kickoff <= ?', Time.current) }
 
   def to_s
     name

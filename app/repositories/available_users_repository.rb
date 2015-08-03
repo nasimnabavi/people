@@ -26,6 +26,15 @@ class AvailableUsersRepository
       )
   end
 
+  def with_rotations_in_progress
+    users_with_includes(
+      User.joins(memberships: :project).active.where(
+        primary_role: billable_technical_roles,
+        ).merge(Project.active.unfinished.started)
+        .merge(Membership.not_started.active)
+      )
+  end
+
   private
 
   def users_with_includes(users)
