@@ -16,7 +16,7 @@ class Hrguru.Views.AvailableUsersIndex extends Backbone.View
     @defaultSorting()
 
   createCollections: ->
-    @users = new Hrguru.Collections.Users(gon.users)
+    @users = new Hrguru.Collections.Users()
     @users.add(gon.juniors_and_interns, merge: true)
     @users.add(gon.users_to_rotate, merge: true)
     @users.add(gon.users_in_internals, merge: true)
