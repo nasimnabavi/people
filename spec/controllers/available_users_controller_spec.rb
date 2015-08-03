@@ -18,11 +18,6 @@ describe AvailableUsersController do
         expect(response.status).to eq(200)
       end
 
-      it 'exposes available users' do
-        get :index
-        expect(controller.users.count).to be(2)
-      end
-
       it 'displays users on view' do
         get :index
         expect(response.body).to match(available_user.last_name)
