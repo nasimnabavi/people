@@ -15,6 +15,11 @@ class AvailableUsersController < ApplicationController
     AvailableUserDecorator.decorate_collection(available_users_repository.in_internals,
       context: { category: 'internals' })
   end
+  expose(:users_with_rotations_in_progress) do
+    AvailableUserDecorator.decorate_collection(
+      available_users_repository.with_rotations_in_progress,
+      context: { category: 'in-progress' })
+  end
   expose(:roles) { roles_repository.all }
   expose(:abilities) { abilities_repository.all }
 
@@ -25,6 +30,9 @@ class AvailableUsersController < ApplicationController
       view_path: 'app/views', format: :hash, locals: { cache_key: 'to-rotate' })
     gon.users_in_internals = Rabl.render(users_in_internals, 'available_users/index',
       view_path: 'app/views', format: :hash, locals: { cache_key: 'internals' })
+    gon.users_with_rotations_in_progress = Rabl.render(users_with_rotations_in_progress,
+      'available_users/index', view_path: 'app/views', format: :hash,
+      locals: { cache_key: 'in-progress' })
     gon.roles = roles
     gon.abilities = abilities
   end
