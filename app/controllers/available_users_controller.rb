@@ -20,6 +20,11 @@ class AvailableUsersController < ApplicationController
       available_users_repository.with_rotations_in_progress,
       context: { category: 'in-progress' })
   end
+  expose(:users_in_commercial_projects_with_due_date) do
+    AvailableUserDecorator.decorate_collection(
+      available_users_repository.in_commercial_projects_with_due_date,
+      context: { category: 'in-commercial-with-due-date' })
+  end
   expose(:roles) { roles_repository.all }
   expose(:abilities) { abilities_repository.all }
 
@@ -33,6 +38,10 @@ class AvailableUsersController < ApplicationController
     gon.users_with_rotations_in_progress = Rabl.render(users_with_rotations_in_progress,
       'available_users/index', view_path: 'app/views', format: :hash,
       locals: { cache_key: 'in-progress' })
+    gon.users_in_commercial_projects_with_due_date =
+      Rabl.render(users_in_commercial_projects_with_due_date, 'available_users/index',
+        view_path: 'app/views', format: :hash,
+        locals: { cache_key: 'in-commercial-with-due-date' })
     gon.roles = roles
     gon.abilities = abilities
   end

@@ -10,7 +10,7 @@ class AvailableUsersRepository
 
   def to_rotate
     users_with_includes(
-      User.joins(memberships: [:project]).active.where(
+      User.joins(memberships: :project).active.where(
         primary_role: billable_technical_roles,
         projects: { end_at: nil, internal: false },
         memberships: { ends_at: nil }
@@ -33,6 +33,19 @@ class AvailableUsersRepository
         ).merge(Project.active.unfinished.started)
         .merge(Membership.not_started.active)
       )
+  end
+
+  def in_commercial_projects_with_due_date
+    users_with_includes(
+      User.joins(memberships: :project).active.where(
+        primary_role: billable_technical_roles,
+        projects: { internal: false }
+      ).where(
+        'memberships.ends_at > :now
+        OR projects.end_at > :now',
+        { now: Time.current }
+      ).merge(Project.active.started).order('COALESCE(memberships.ends_at, projects.end_at)')
+    )
   end
 
   private

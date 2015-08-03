@@ -21,6 +21,7 @@ class Hrguru.Views.AvailableUsersIndex extends Backbone.View
     @users.add(gon.users_to_rotate, merge: true)
     @users.add(gon.users_in_internals, merge: true)
     @users.add(gon.users_with_rotations_in_progress, merge: true)
+    @users.add(gon.users_in_commercial_projects_with_due_date, merge: true)
     @roles = new Hrguru.Collections.Roles(gon.roles)
 
   createViews: ->
