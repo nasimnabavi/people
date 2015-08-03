@@ -1,4 +1,3 @@
-cache ["base", root_object]
 attributes :id, :name, :email, :admin_role, :employment, :phone, :location,
   :contract_type, :archived, :abilities, :next_memberships,
   :current_memberships, :booked_memberships, :available_since
