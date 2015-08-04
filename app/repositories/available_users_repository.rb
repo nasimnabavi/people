@@ -1,6 +1,6 @@
 class AvailableUsersRepository
   def all
-    base_users.where(available: true)
+    technical_users.where(available: true)
   end
 
   def juniors
@@ -54,6 +54,10 @@ class AvailableUsersRepository
       booked_memberships: [:project],
       positions: [:role],
       primary_role: [:users])
+  end
+
+  def technical_users
+    base_users.technical
   end
 
   def billable_users
