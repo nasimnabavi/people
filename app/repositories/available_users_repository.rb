@@ -1,57 +1,45 @@
 class AvailableUsersRepository
   def all
-    users_with_includes(
-      User.where(available: true, archived: false, primary_role: technical_roles_ids))
+    base_users.where(available: true)
   end
 
   def juniors
-    users_with_includes(User.where(primary_role: non_billable_technical_roles))
+    base_users.where(primary_role: non_billable_technical_roles)
   end
 
   def to_rotate
-    users_with_includes(
-      User.joins(memberships: :project).active.where(
-        primary_role: billable_technical_roles,
-        projects: { end_at: nil, internal: false },
-        memberships: { ends_at: nil }
-        ).merge(Project.active.nonpotential).order('memberships.starts_at ASC')
-      )
+    not_booked_billable_users.joins(memberships: :project).where(
+      projects: { end_at: nil, internal: false },
+      memberships: { ends_at: nil }
+      ).merge(Project.active.nonpotential).order('memberships.starts_at ASC')
   end
 
   def in_internals
-    users_with_includes(
-      User.technical.joins(memberships: :project).active.where(
-        projects: { internal: true }
-        ).merge(Membership.active.unfinished.started)
-      )
+    not_booked_billable_users.joins(memberships: :project).where(
+      projects: { internal: true }
+      ).merge(Membership.active.unfinished.started)
   end
 
   def with_rotations_in_progress
-    users_with_includes(
-      User.joins(memberships: :project).active.where(
-        primary_role: billable_technical_roles,
-        ).merge(Project.active.unfinished.started)
-        .merge(Membership.not_started.active)
-      )
+    not_booked_billable_users.joins(memberships: :project)
+      .merge(Project.active.unfinished.started)
+      .merge(Membership.not_started.active)
   end
 
   def in_commercial_projects_with_due_date
-    users_with_includes(
-      User.joins(memberships: :project).active.where(
-        primary_role: billable_technical_roles,
+    not_booked_billable_users.joins(memberships: :project).where(
         projects: { internal: false }
       ).where(
         'memberships.ends_at > :now
         OR projects.end_at > :now',
         { now: Time.current }
       ).merge(Project.active.started).order('COALESCE(memberships.ends_at, projects.end_at)')
-    )
   end
 
   private
 
-  def users_with_includes(users)
-    users.includes(
+  def base_users
+    User.active.includes(
       :roles,
       :abilities,
       :projects,
@@ -62,6 +50,14 @@ class AvailableUsersRepository
       booked_memberships: [:project],
       positions: [:role],
       primary_role: [:users])
+  end
+
+  def billable_users
+    base_users.where(primary_role: billable_technical_roles)
+  end
+
+  def not_booked_billable_users
+    billable_users.not_booked
   end
 
   def non_billable_technical_roles
