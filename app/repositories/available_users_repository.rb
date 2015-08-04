@@ -36,6 +36,10 @@ class AvailableUsersRepository
       ).merge(Project.active.started).order('COALESCE(memberships.ends_at, projects.end_at)')
   end
 
+  def booked
+    billable_users.booked
+  end
+
   private
 
   def base_users
