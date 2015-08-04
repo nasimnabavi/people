@@ -53,6 +53,8 @@ class User < ActiveRecord::Base
     ContractType.where(name: contract_type).first.try(:users)
   }
   scope :without_team, -> { where(team: nil) }
+  scope :booked, -> { joins(:memberships).where(memberships: { booked: true }).where("ends_at IS NULL OR ends_at > ?", Time.current) }
+  scope :not_booked, -> { where.not(id: booked.select(:id)) }
 
   before_save :end_memberships
   before_update :save_team_join_time
