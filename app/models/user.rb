@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   }
   scope :by_last_name, -> { order(:last_name, :first_name) }
   scope :available, -> { where(available: true) }
+  scope :unavailable, -> { joins(memberships: :project).where("lower(projects.name) = 'unavailable'").merge(Membership.started.unfinished) }
   scope :active, -> { where(archived: false) }
   scope :technical, -> { where(primary_role: Role.technical.pluck(:id)) }
   scope :technical_active, -> { where(archived: false, available: true) }
