@@ -1,7 +1,6 @@
 class Project < ActiveRecord::Base
   include Project::UserAvailability
   include InitialsHandler
-  include CacheKey
 
   after_save :update_membership_fields
   after_save :check_potential

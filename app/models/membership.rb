@@ -1,7 +1,6 @@
 class Membership < ActiveRecord::Base
   include Membership::UserAvailability
   include Membership::HipchatNotifications
-  include CacheKey
 
   belongs_to :user, touch: true
   belongs_to :project, inverse_of: :memberships
