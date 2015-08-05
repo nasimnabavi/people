@@ -29,6 +29,10 @@ class AvailableUsersController < ApplicationController
     AvailableUserDecorator.decorate_collection(
       available_users_repository.booked, context: { category: 'booked' })
   end
+  expose(:unavailable_users) do
+    AvailableUserDecorator.decorate_collection(
+      available_users_repository.unavailable, context: { category: 'unavailable' })
+  end
   expose(:roles) { roles_repository.all }
   expose(:abilities) { abilities_repository.all }
 
@@ -48,6 +52,8 @@ class AvailableUsersController < ApplicationController
         locals: { cache_key: 'in-commercial-with-due-date' })
     gon.booked_users = Rabl.render(booked_users, 'available_users/index',
       view_path: 'app/views', format: :hash, locals: { cache_key: 'booked' })
+    gon.unavailable_users = Rabl.render(unavailable_users, 'available_users/index',
+      view_path: 'app/views', format: :hash, locals: { cache_key: 'unavailable' })
     gon.roles = roles
     gon.abilities = abilities
   end

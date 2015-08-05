@@ -40,6 +40,11 @@ class AvailableUsersRepository
     billable_users.booked
   end
 
+  def unavailable
+    UnavailableProjectBuilder.new.call
+    technical_users.not_booked.unavailable
+  end
+
   private
 
   def base_users
