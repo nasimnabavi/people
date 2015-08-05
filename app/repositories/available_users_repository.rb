@@ -1,8 +1,4 @@
 class AvailableUsersRepository
-  def all
-    technical_users.where(available: true)
-  end
-
   def juniors
     base_users.available.where(primary_role: non_billable_technical_roles)
   end

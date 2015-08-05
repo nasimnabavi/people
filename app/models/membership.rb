@@ -1,5 +1,4 @@
 class Membership < ActiveRecord::Base
-  include Membership::UserAvailability
   include Membership::HipchatNotifications
 
   belongs_to :user, touch: true

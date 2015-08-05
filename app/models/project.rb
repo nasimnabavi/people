@@ -1,5 +1,4 @@
 class Project < ActiveRecord::Base
-  include Project::UserAvailability
   include InitialsHandler
 
   after_save :update_membership_fields

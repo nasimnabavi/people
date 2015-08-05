@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   scope :unavailable, -> { joins(memberships: :project).where("lower(projects.name) = 'unavailable'").merge(Membership.started.unfinished) }
   scope :active, -> { where(archived: false) }
   scope :technical, -> { where(primary_role: Role.technical.pluck(:id)) }
-  scope :technical_active, -> { where(archived: false, available: true) }
+  scope :technical_active, -> { where(archived: false) }
   scope :roles, -> (roles) { where(primary_role: roles) }
   scope :contract_users, ->(contract_type) {
     ContractType.where(name: contract_type).first.try(:users)
