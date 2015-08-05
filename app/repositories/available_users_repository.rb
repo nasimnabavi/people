@@ -4,7 +4,7 @@ class AvailableUsersRepository
   end
 
   def juniors
-    base_users.where(primary_role: non_billable_technical_roles)
+    base_users.available.where(primary_role: non_billable_technical_roles)
   end
 
   def to_rotate
@@ -70,7 +70,7 @@ class AvailableUsersRepository
   end
 
   def not_booked_billable_users
-    billable_users.not_booked
+    billable_users.not_booked.available
   end
 
   def non_billable_technical_roles
