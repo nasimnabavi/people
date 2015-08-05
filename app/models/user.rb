@@ -58,6 +58,10 @@ class User < ActiveRecord::Base
   before_save :end_memberships
   before_update :save_team_join_time
 
+  def self.cache_key
+    maximum(:updated_at)
+  end
+
   def github_connected?
     gh_nick.present? || without_gh == true
   end
