@@ -3,9 +3,9 @@ require 'spec_helper'
 describe 'Available users page', js: true do
   let(:admin_user) { create(:user, :admin) }
   let!(:angular_ability) { create(:ability, name: 'AngularJS') }
-  let!(:dev_with_no_skillz) { create(:user, :available) }
-  let!(:angular_dev) { create(:user, :available, abilities: [angular_ability]) }
-  let!(:another_dev) { create(:user, :available, available_since: 10.days.from_now) }
+  let!(:dev_with_no_skillz) { create(:user) }
+  let!(:angular_dev) { create(:user, abilities: [angular_ability]) }
+  let!(:another_dev) { create(:user, available_since: 10.days.from_now) }
 
   before do
     sign_in(admin_user)

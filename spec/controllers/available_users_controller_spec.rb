@@ -4,11 +4,11 @@ describe AvailableUsersController do
   render_views
 
   describe '#index' do
-    let!(:available_user) { create(:user, :available) }
+    let!(:available_user) { create(:user) }
     let!(:unavailable_user) { create(:user) }
 
     context 'when current user is an admin' do
-      let(:available_admin_user) { create(:user, :available, :admin) }
+      let(:available_admin_user) { create(:user, :admin) }
 
       before { sign_in(available_admin_user) }
 

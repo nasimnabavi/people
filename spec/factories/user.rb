@@ -6,7 +6,6 @@ FactoryGirl.define do
     password { Devise.friendly_token[0, 20] }
     gh_nick { Faker::Name.first_name }
     employment { 100 }
-    available false
     without_gh false
     oauth_token '123'
     gravatar { File.open(Rails.root.join('spec', 'fixtures', 'gravatar', 'gravatar.jpg')) }
@@ -14,15 +13,6 @@ FactoryGirl.define do
 
     factory :user_deleted do
       deleted_at Time.now
-    end
-
-    trait :available do
-      available true
-      available_since { Date.today }
-      after(:create) do |user|
-        user.primary_role = create(:technical_role)
-        user.save
-      end
     end
 
     trait :archived do
