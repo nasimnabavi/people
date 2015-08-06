@@ -109,7 +109,7 @@ describe 'Dashboard filters', js: true do
   describe 'User sorts filtered list' do
     let(:junior_role) { create(:role, technical: true, name: 'junior') }
     let(:junior_dev) do
-      u = create(:user, :available)
+      u = create(:user)
       u.primary_role = junior_role
       u.save
       u
