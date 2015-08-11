@@ -11,6 +11,7 @@ class UnavailableProjectBuilder
     {
       name: 'unavailable',
       project_type: 'regular',
+      internal: true
     }
   end
 end
