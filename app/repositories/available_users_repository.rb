@@ -4,26 +4,29 @@ class AvailableUsersRepository
   end
 
   def to_rotate
-    not_booked_billable_users.joins(memberships: :project).where(
-      projects: { end_at: nil, internal: false },
-      memberships: { ends_at: nil }
+    not_booked_billable_users.without_scheduled_commercial_memberships.joins(memberships: :project)
+      .where(
+        projects: { end_at: nil, internal: false },
+        memberships: { ends_at: nil }
       ).merge(Project.active.nonpotential).order('memberships.starts_at ASC')
   end
 
   def in_internals
-    not_booked_billable_users.joins(memberships: :project).where(
-      projects: { internal: true }
+    not_booked_billable_users.without_scheduled_commercial_memberships.joins(memberships: :project)
+      .where(
+        projects: { internal: true }
       ).merge(Membership.active.unfinished.started)
   end
 
   def with_rotations_in_progress
     not_booked_billable_users.joins(memberships: :project)
-      .merge(Project.active.unfinished.started)
+      .merge(Project.active.unfinished.started.commercial)
       .merge(Membership.not_started.active)
   end
 
   def in_commercial_projects_with_due_date
-    not_booked_billable_users.joins(memberships: :project).where(
+    not_booked_billable_users.without_scheduled_commercial_memberships.joins(memberships: :project)
+      .where(
         projects: { internal: false }
       ).where(
         'memberships.ends_at > :now
