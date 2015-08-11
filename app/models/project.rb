@@ -25,6 +25,7 @@ class Project < ActiveRecord::Base
   scope :unfinished, -> { where('end_at IS NULL OR end_at > ?', Time.current) }
   scope :started, -> { where('kickoff IS NULL OR kickoff <= ?', Time.current) }
   scope :unavailable, -> { where('lower(name) = ?', 'unavailable') }
+  scope :commercial, -> { where(internal: false) }
 
   def to_s
     name

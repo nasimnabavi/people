@@ -45,7 +45,10 @@ class User < ActiveRecord::Base
   scope :available, -> { where.not(id: unavailable.select(:id)) }
   scope :unavailable, -> do
     joins(memberships: :project).where("lower(projects.name) = 'unavailable'")
-      .merge(Membership.started.unfinished)
+      .where('memberships.ends_at IS NULL
+        OR (memberships.ends_at > ? AND users.id NOT IN (?))',
+        Time.current, with_scheduled_memberships.select(:id))
+      .merge(Membership.started)
   end
   scope :active, -> { where(archived: false) }
   scope :technical, -> { where(primary_role: Role.technical.pluck(:id)) }
@@ -60,7 +63,16 @@ class User < ActiveRecord::Base
       .where("ends_at IS NULL OR ends_at > ?", Time.current)
   end
   scope :not_booked, -> { where.not(id: booked.select(:id)) }
-
+  scope :with_scheduled_memberships, -> do
+    joins(memberships: :project).where('memberships.starts_at > ?', Time.current)
+      .where.not(projects: { id: Project.unavailable.select(:id) })
+  end
+  scope :with_scheduled_commercial_memberships, -> do
+    with_scheduled_memberships.merge(Project.commercial)
+  end
+  scope :without_scheduled_commercial_memberships, -> do
+    where.not(id: with_scheduled_commercial_memberships.select(:id))
+  end
   before_save :end_memberships
   before_update :save_team_join_time
 
