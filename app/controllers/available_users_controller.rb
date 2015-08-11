@@ -4,7 +4,7 @@ class AvailableUsersController < ApplicationController
   before_filter :authenticate_admin!
 
   expose(:juniors_and_interns) do
-    AvailableUserDecorator.decorate_collection(available_users_repository.juniors,
+    AvailableUserDecorator.decorate_collection(available_users_repository.juniors_and_interns,
       context: { category: 'juniors-interns' })
   end
   expose(:users_to_rotate) do
