@@ -20,5 +20,17 @@ FactoryGirl.define do
     trait :archived do
       archived true
     end
+
+    trait :without_due_date do
+      end_at nil
+    end
+
+    trait :commercial do
+      internal false
+    end
+
+    trait :internal do
+      internal true
+    end
   end
 end

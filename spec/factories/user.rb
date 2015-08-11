@@ -22,6 +22,14 @@ FactoryGirl.define do
     trait :admin do
       admin true
     end
+
+    trait :junior do
+      primary_role { create(:junior_role) }
+    end
+
+    trait :intern do
+      primary_role { create(:intern_role) }
+    end
   end
 
   factory :plain_user, class: "User" do
@@ -35,6 +43,42 @@ FactoryGirl.define do
     end
     factory :pm_user do
       primary_role { create(:pm_role) }
+    end
+  end
+
+  factory :developer_in_project, parent: :user do
+    primary_role { create(:dev_role) }
+
+    transient do
+      project { create(:project) }
+      membership_due_date nil
+    end
+
+    after(:create) do |user, evaluator|
+      create(:membership, :billable,
+        user: user,
+        project: evaluator.project,
+        ends_at: evaluator.membership_due_date
+      )
+    end
+
+    trait :with_project_scheduled do
+      transient do
+        scheduled_project nil
+        scheduled_membership_start nil
+        booked false
+      end
+
+      after(:create) do |user, evaluator|
+        create(:membership, :without_end, :billable,
+        {
+          user: user,
+          project: evaluator.scheduled_project,
+          starts_at: evaluator.scheduled_membership_start,
+          booked: evaluator.booked
+        }.reject { |_, v| v.nil? }
+      )
+      end
     end
   end
 end

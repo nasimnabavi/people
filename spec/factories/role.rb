@@ -23,9 +23,15 @@ FactoryGirl.define do
       technical true
     end
 
-    factory :dev_role do
-      name 'developer'
+    factory :intern_role do
+      name 'intern'
       technical true
+    end
+
+    factory :dev_role do
+      sequence(:name) { |i| "developer_#{i}" }
+      technical true
+      billable true
     end
 
     factory :senior_role do

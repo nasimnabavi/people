@@ -22,5 +22,9 @@ FactoryGirl.define do
     trait :booked do
       booked true
     end
+
+    trait :billable do
+      billable true
+    end
   end
 end
