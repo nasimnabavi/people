@@ -10,6 +10,6 @@ module ContextFreeRepos
     expose(:contract_types_repository) { ContractTypesRepository.new }
     expose(:teams_repository) { TeamsRepository.new }
     expose(:memberships_repository) { MembershipsRepository.new }
-    expose(:available_users_repository) { AvailableUsersRepository.new }
+    expose(:scheduled_users_repository) { ScheduledUsersRepository.new }
   end
 end

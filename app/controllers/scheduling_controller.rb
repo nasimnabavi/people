@@ -4,34 +4,34 @@ class SchedulingController < ApplicationController
   before_filter :authenticate_admin!
 
   expose(:juniors_and_interns) do
-    ScheduledUserDecorator.decorate_collection(available_users_repository.juniors_and_interns,
+    ScheduledUserDecorator.decorate_collection(scheduled_users_repository.juniors_and_interns,
       context: { category: 'juniors-interns' })
   end
   expose(:users_to_rotate) do
-    ScheduledUserDecorator.decorate_collection(available_users_repository.to_rotate,
+    ScheduledUserDecorator.decorate_collection(scheduled_users_repository.to_rotate,
       context: { category: 'to-rotate' })
   end
   expose(:users_in_internals) do
-    ScheduledUserDecorator.decorate_collection(available_users_repository.in_internals,
+    ScheduledUserDecorator.decorate_collection(scheduled_users_repository.in_internals,
       context: { category: 'internals' })
   end
   expose(:users_with_rotations_in_progress) do
     ScheduledUserDecorator.decorate_collection(
-      available_users_repository.with_rotations_in_progress,
+      scheduled_users_repository.with_rotations_in_progress,
       context: { category: 'in-progress' })
   end
   expose(:users_in_commercial_projects_with_due_date) do
     ScheduledUserDecorator.decorate_collection(
-      available_users_repository.in_commercial_projects_with_due_date,
+      scheduled_users_repository.in_commercial_projects_with_due_date,
       context: { category: 'in-commercial-with-due-date' })
   end
   expose(:booked_users) do
     ScheduledUserDecorator.decorate_collection(
-      available_users_repository.booked, context: { category: 'booked' })
+      scheduled_users_repository.booked, context: { category: 'booked' })
   end
   expose(:unavailable_users) do
     ScheduledUserDecorator.decorate_collection(
-      available_users_repository.unavailable, context: { category: 'unavailable' })
+      scheduled_users_repository.unavailable, context: { category: 'unavailable' })
   end
   expose(:roles) { roles_repository.all }
   expose(:abilities) { abilities_repository.all }
