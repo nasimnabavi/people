@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :available_users_hash, class: Hash do
+  factory :scheduled_users_hash, class: Hash do
     project
     dev_without_due_date do
       {

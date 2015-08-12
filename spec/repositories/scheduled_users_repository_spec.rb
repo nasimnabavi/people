@@ -1,23 +1,23 @@
 require 'spec_helper'
 
-describe AvailableUsersRepository do
+describe ScheduledUsersRepository do
   let!(:intern) { create(:user, :intern) }
   let!(:junior) { create(:user, :junior) }
   let!(:commercial_project_without_due_date) do
     project = create(:project, :without_due_date, :commercial)
-    build(:available_users_hash, project: project)
+    build(:scheduled_users_hash, project: project)
   end
   let!(:commercial_project_with_due_date) do
     project = create(:project, :commercial)
-    build(:available_users_hash, project: project)
+    build(:scheduled_users_hash, project: project)
   end
   let!(:internal_project) do
     project = create(:project, :internal)
-    build(:available_users_hash, project: project)
+    build(:scheduled_users_hash, project: project)
   end
   let!(:unavailable) do
     project = UnavailableProjectBuilder.new.call
-    build(:available_users_hash, project: project)
+    build(:scheduled_users_hash, project: project)
   end
 
   describe '#juniors_and_interns' do

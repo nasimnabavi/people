@@ -1,4 +1,4 @@
-class AvailableUsersRepository
+class ScheduledUsersRepository
   def juniors_and_interns
     base_users.available.where(primary_role: non_billable_technical_roles)
   end
