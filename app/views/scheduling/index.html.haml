@@ -7,7 +7,7 @@
     .abilities
       %input{ type: 'text', name: 'abilities', placeholder: 'Filter abilities…' }
 
-  %ul.nav.nav-tabs.available-users-categories
+  %ul.nav.nav-tabs.scheduled-users-categories
     %li.category.active{ data: { category: 'all' } }= link_to 'All', '#'
     %li.category{ data: { category: 'juniors-interns' } }= link_to 'Juniors/Interns', '#'
     %li.category{ data: { category: 'to-rotate' } }= link_to 'To Rotate', '#'
@@ -17,7 +17,7 @@
     %li.category{ data: { category: 'booked' } }= link_to 'Booked', '#'
     %li.category{ data: { category: 'unavailable' } }= link_to 'Unavailable', '#'
 
-%table.table.table-striped.table-hover#available_users.available-users
+%table.table.table-striped.table-hover#scheduled-users.scheduled-users
   %thead
     %th
       %p.column-name User
