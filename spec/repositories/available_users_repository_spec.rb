@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe AvailableUsersRepository do
-  let!(:intern) { create(:user, :junior) }
-  let!(:junior) { create(:user, :intern) }
+  let!(:intern) { create(:user, :intern) }
+  let!(:junior) { create(:user, :junior) }
   let!(:commercial_project_without_due_date) do
     project = create(:project, :without_due_date, :commercial)
     build(:available_users_hash, project: project)
