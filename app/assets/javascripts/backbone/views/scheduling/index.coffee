@@ -27,11 +27,11 @@ class Hrguru.Views.SchedulingIndex extends Backbone.View
     @roles = new Hrguru.Collections.Roles(gon.roles)
 
   createViews: ->
-    @filters_view = new Hrguru.Views.AvailableUsersFilters(
+    @filters_view = new Hrguru.Views.ScheduledUsersFilters(
       @AVAILABILITY_TIME, @getAbilities(), @roles
     )
     @filters_view.render()
-    @tbodyView = new Hrguru.Views.AvailableUsersCollectionView(@users)
+    @tbodyView = new Hrguru.Views.ScheduledUsersCollectionView(@users)
     @tbodyView.render()
 
   defaultSorting: ->

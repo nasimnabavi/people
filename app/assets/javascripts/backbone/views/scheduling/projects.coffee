@@ -1,8 +1,8 @@
-class Hrguru.Views.AvailableUsersProjects extends Marionette.CompositeView
-  template: JST['available_users/projects']
+class Hrguru.Views.ScheduledUsersProjects extends Marionette.CompositeView
+  template: JST['scheduling/projects']
 
-  itemView: Hrguru.Views.AvailableUsersProject
-  emptyView: Hrguru.Views.AvailableUsersProjectEmpty
+  itemView: Hrguru.Views.ScheduledUsersProject
+  emptyView: Hrguru.Views.ScheduledUsersProjectEmpty
   itemViewContainer: '.projects'
 
   itemViewOptions: ->

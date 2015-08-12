@@ -1,8 +1,8 @@
-class Hrguru.Views.AvailableUsersCollectionView extends Marionette.CollectionView
-  el: ('#available_users')
+class Hrguru.Views.ScheduledUsersCollectionView extends Marionette.CollectionView
+  el: ('#scheduled-users')
   tagName: 'tbody'
 
-  itemView: Hrguru.Views.AvailableUsersRow
+  itemView: Hrguru.Views.ScheduledUsersRow
 
   events:
     "click .up" : "increasingDirection"
@@ -10,7 +10,7 @@ class Hrguru.Views.AvailableUsersCollectionView extends Marionette.CollectionVie
 
   initialize: (@collection) ->
     @on('collection:rendered', H.addUserIndex)
-    @listenTo(EventAggregator, 'availableUsers:sort', @sort)
+    @listenTo(EventAggregator, 'scheduledUsers:sort', @sort)
 
   increasingDirection: (e) ->
     @toggleClass(e.target)

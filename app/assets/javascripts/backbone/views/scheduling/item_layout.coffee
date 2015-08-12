@@ -1,6 +1,6 @@
-class Hrguru.Views.AvailableUsersRow extends Backbone.Marionette.Layout
+class Hrguru.Views.ScheduledUsersRow extends Backbone.Marionette.Layout
   tagName: 'tr'
-  template: JST['available_users/row']
+  template: JST['scheduling/row']
 
   events:
     'click .user-notes': 'showUserNote'
@@ -37,7 +37,7 @@ class Hrguru.Views.AvailableUsersRow extends Backbone.Marionette.Layout
 
   renderProjectsRegion: ->
     collectProjects = new Backbone.Collection @model.get('projects')
-    projectsView = new Hrguru.Views.AvailableUsersProjects
+    projectsView = new Hrguru.Views.ScheduledUsersProjects
       collection: collectProjects
       show_start_date: false
       show_end_date: false
@@ -47,7 +47,7 @@ class Hrguru.Views.AvailableUsersRow extends Backbone.Marionette.Layout
 
   renderNextProjectsRegion: ->
     collectProjects = new Backbone.Collection @model.get('next_projects')
-    projectsView = new Hrguru.Views.AvailableUsersProjects
+    projectsView = new Hrguru.Views.ScheduledUsersProjects
       collection: collectProjects
       show_start_date: true
       show_end_date: true
@@ -57,7 +57,7 @@ class Hrguru.Views.AvailableUsersRow extends Backbone.Marionette.Layout
 
   renderBookedProjectsRegion: ->
     collectProjects = new Backbone.Collection @model.get('booked_projects')
-    projectsView = new Hrguru.Views.AvailableUsersProjects
+    projectsView = new Hrguru.Views.ScheduledUsersProjects
       collection: collectProjects
       show_start_date: false
       show_end_date: true

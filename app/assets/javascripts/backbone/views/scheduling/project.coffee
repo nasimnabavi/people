@@ -1,5 +1,5 @@
-class Hrguru.Views.AvailableUsersProjectEmpty extends Marionette.ItemView
-  template: JST['available_users/empty_project']
+class Hrguru.Views.ScheduledUsersProjectEmpty extends Marionette.ItemView
+  template: JST['scheduling/empty_project']
 
   initialize: (options) ->
     @header = options.header
@@ -8,8 +8,8 @@ class Hrguru.Views.AvailableUsersProjectEmpty extends Marionette.ItemView
     _.extend super,
       header: @header
 
-class Hrguru.Views.AvailableUsersProject extends Marionette.ItemView
-  template: JST['available_users/project']
+class Hrguru.Views.ScheduledUsersProject extends Marionette.ItemView
+  template: JST['scheduling/project']
 
   initialize: (options) ->
     @role = options.role

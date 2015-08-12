@@ -1,4 +1,4 @@
-class Hrguru.Views.AvailableUsersFilters extends Marionette.View
+class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
   el: '#filters'
 
   events:
@@ -74,4 +74,4 @@ class Hrguru.Views.AvailableUsersFilters extends Marionette.View
     H.addUserIndex()
 
   sortUsers: (attr, direction) ->
-    EventAggregator.trigger('availableUsers:sort', attr, direction)
+    EventAggregator.trigger('scheduledUsers:sort', attr, direction)
