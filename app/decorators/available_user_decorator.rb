@@ -1,4 +1,4 @@
-class AvailableUserDecorator < UserDecorator
+class ScheduledUserDecorator < UserDecorator
   include ActionView::Helpers::DateHelper
   attr_accessor :category
 
