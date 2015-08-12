@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Available users page', js: true do
+describe 'Scheduling page', js: true do
   let(:admin_user) { create(:user, :admin) }
   let!(:angular_ability) { create(:ability, name: 'AngularJS') }
   let!(:dev_with_no_skillz) { create(:user) }
@@ -9,7 +9,7 @@ describe 'Available users page', js: true do
 
   before do
     sign_in(admin_user)
-    visit available_path
+    visit scheduling_path
   end
 
   describe 'filters' do
