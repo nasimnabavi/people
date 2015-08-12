@@ -1,4 +1,4 @@
-class Hrguru.Views.AvailableUsersIndex extends Backbone.View
+class Hrguru.Views.SchedulingIndex extends Backbone.View
   AVAILABILITY_TIME: [
     { text: 'All', value: 100000 }
     { text: 'From now', value: 0 }
