@@ -1,4 +1,4 @@
-class AvailableUsersController < ApplicationController
+class SchedulingController < ApplicationController
   include ContextFreeRepos
 
   before_filter :authenticate_admin!
@@ -37,22 +37,22 @@ class AvailableUsersController < ApplicationController
   expose(:abilities) { abilities_repository.all }
 
   def index
-    gon.juniors_and_interns = Rabl.render(juniors_and_interns, 'available_users/index',
+    gon.juniors_and_interns = Rabl.render(juniors_and_interns, 'scheduling/index',
       view_path: 'app/views', format: :hash, locals: { cache_key: 'juniors_and_interns' })
-    gon.users_to_rotate = Rabl.render(users_to_rotate, 'available_users/index',
+    gon.users_to_rotate = Rabl.render(users_to_rotate, 'scheduling/index',
       view_path: 'app/views', format: :hash, locals: { cache_key: 'to-rotate' })
-    gon.users_in_internals = Rabl.render(users_in_internals, 'available_users/index',
+    gon.users_in_internals = Rabl.render(users_in_internals, 'scheduling/index',
       view_path: 'app/views', format: :hash, locals: { cache_key: 'internals' })
     gon.users_with_rotations_in_progress = Rabl.render(users_with_rotations_in_progress,
-      'available_users/index', view_path: 'app/views', format: :hash,
+      'scheduling/index', view_path: 'app/views', format: :hash,
       locals: { cache_key: 'in-progress' })
     gon.users_in_commercial_projects_with_due_date =
-      Rabl.render(users_in_commercial_projects_with_due_date, 'available_users/index',
+      Rabl.render(users_in_commercial_projects_with_due_date, 'scheduling/index',
         view_path: 'app/views', format: :hash,
         locals: { cache_key: 'in-commercial-with-due-date' })
-    gon.booked_users = Rabl.render(booked_users, 'available_users/index',
+    gon.booked_users = Rabl.render(booked_users, 'scheduling/index',
       view_path: 'app/views', format: :hash, locals: { cache_key: 'booked' })
-    gon.unavailable_users = Rabl.render(unavailable_users, 'available_users/index',
+    gon.unavailable_users = Rabl.render(unavailable_users, 'scheduling/index',
       view_path: 'app/views', format: :hash, locals: { cache_key: 'unavailable' })
     gon.roles = roles
     gon.abilities = abilities

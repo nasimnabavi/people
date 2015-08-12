@@ -15,7 +15,7 @@ Hrguru::Application.routes.draw do
     root 'users#index', as: 'listing'
   end
 
-  get 'available', to: 'available_users#index'
+  get 'scheduling', to: 'scheduling#index'
 
   namespace :api do
     scope module: :v1 do

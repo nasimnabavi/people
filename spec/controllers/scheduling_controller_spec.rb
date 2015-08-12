@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AvailableUsersController do
+describe SchedulingController do
   render_views
 
   describe '#index' do
@@ -8,9 +8,9 @@ describe AvailableUsersController do
     let!(:pm) { create(:pm_user) }
 
     context 'when current user is an admin' do
-      let(:available_admin_user) { create(:user, :admin) }
+      let(:admin_user) { create(:user, :admin) }
 
-      before { sign_in(available_admin_user) }
+      before { sign_in(admin_user) }
 
       it 'responds successfully with an HTTP 200 status code' do
         get :index
