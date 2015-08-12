@@ -4,8 +4,8 @@ describe AvailableUsersController do
   render_views
 
   describe '#index' do
-    let!(:available_user) { create(:user) }
-    let!(:unavailable_user) { create(:user) }
+    let!(:developer) { create(:developer_in_project) }
+    let!(:pm) { create(:pm_user) }
 
     context 'when current user is an admin' do
       let(:available_admin_user) { create(:user, :admin) }
@@ -20,9 +20,9 @@ describe AvailableUsersController do
 
       it 'displays users on view' do
         get :index
-        expect(response.body).to match(available_user.last_name)
-        expect(response.body).to match(available_user.last_name)
-        expect(response.body).not_to match(unavailable_user.last_name)
+        expect(response.body).to match(developer.last_name)
+        expect(response.body).to match(developer.last_name)
+        expect(response.body).not_to match(pm.last_name)
       end
     end
 
