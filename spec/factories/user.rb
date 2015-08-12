@@ -71,13 +71,13 @@ FactoryGirl.define do
 
       after(:create) do |user, evaluator|
         create(:membership, :without_end, :billable,
-        {
-          user: user,
-          project: evaluator.scheduled_project,
-          starts_at: evaluator.scheduled_membership_start,
-          booked: evaluator.booked
-        }.reject { |_, v| v.nil? }
-      )
+          {
+            user: user,
+            project: evaluator.scheduled_project,
+            starts_at: evaluator.scheduled_membership_start,
+            booked: evaluator.booked
+          }.reject { |_, v| v.nil? }
+        )
       end
     end
   end
