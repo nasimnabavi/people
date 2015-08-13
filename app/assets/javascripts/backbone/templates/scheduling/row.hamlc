@@ -12,11 +12,6 @@
 %td
   != @role.name if @role
 %td
-  - if @available_now
-    %p.ready Now
-  - else
-    != @available_since
-%td
   .projects-region
 %td
   .next_projects-region
