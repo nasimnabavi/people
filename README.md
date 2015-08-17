@@ -71,8 +71,8 @@ Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
   * fill in "Email address" and "Product name" and save
 
 ### Github Auth
-
-  * do the same for github account (callback address is `http://localhost:3000/users/auth/github/callback`)
+  * go to: [https://github.com/settings/applications/new](https://github.com/settings/applications/new)
+  * create github application (callback address is `http://localhost:3000/users/auth/github/callback`)
 
 ### Feature flags
 
