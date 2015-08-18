@@ -56,5 +56,6 @@ class SchedulingController < ApplicationController
       view_path: 'app/views', format: :hash, locals: { cache_key: 'unavailable' })
     gon.roles = roles
     gon.abilities = abilities
+    gon.columns_per_category = Scheduling::ColumnSetsBuilder.new.call
   end
 end
