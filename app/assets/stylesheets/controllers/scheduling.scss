@@ -58,7 +58,7 @@ body.scheduling {
   }
 
   a {
-    color: darken($gray, 10%);
+    color: $gray-dark;
   }
 
   input {
@@ -116,5 +116,44 @@ body.scheduling {
         cursor: default;
       }
     }
+  }
+  .role {
+    line-height: 40px;
+  }
+
+  .project-labels {
+    font-size: 10px;
+  }
+
+  .project-label {
+    display: inline-block;
+    @include padding(0 8px);
+    line-height: 10px;
+    color: lighten($brand-primary, 10%);
+    text-transform: uppercase;
+    border-right: 1px solid;
+    &:first-of-type {
+      padding-left: 0;
+    }
+    &:last-of-type {
+      padding-right: 0;
+      border-right: 0;
+    }
+  }
+
+  .project-dates {
+    display: block;
+    color: lighten($gray-darker, 40%);
+    font-size: 10px;
+    text-transform: uppercase;
+    .time {
+      color: $gray-dark;
+      font-size: 12px;
+    }
+  }
+
+  .project-name {
+    font-weight: 700;
+    border: none;
   }
 }
