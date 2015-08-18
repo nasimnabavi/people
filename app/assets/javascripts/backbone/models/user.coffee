@@ -6,7 +6,6 @@ class Hrguru.Models.User extends Backbone.Model
     projects: true
     abilities: true
     months_in_current_project: true
-    availabilityTime: true
     category: true
 
   membership: null
@@ -17,7 +16,6 @@ class Hrguru.Models.User extends Backbone.Model
     @listenTo(EventAggregator, 'users:updateVisibility', @updateVisibility)
 
   updateVisibility: (data) ->
-    @visibleBy.availabilityTime = @visibleByAvailabilityTime(parseInt(data.availability_time))
     @visibleBy.roles = @visibleByRoles(data.roles)
     @visibleBy.projects = @visibleByProjects(data.projects)
     @visibleBy.users = @visibleByUsers(data.users)
@@ -34,7 +32,7 @@ class Hrguru.Models.User extends Backbone.Model
     moment(@get('available_since')).diff(H.currentTime(), 'days')
 
   isVisible: ->
-    @visibleBy.availabilityTime && @visibleBy.roles && @visibleBy.projects && @visibleBy.users &&
+    @visibleBy.roles && @visibleBy.projects && @visibleBy.users &&
       @visibleBy.abilities && @isActive() && @visibleBy.months_in_current_project &&
       @visibleBy.category
 
@@ -58,11 +56,6 @@ class Hrguru.Models.User extends Backbone.Model
     return false unless @get('abilities')?
     myAbilities = @myAbilities()
     (_.union myAbilities, abilities).length == myAbilities.length
-
-  visibleByAvailabilityTime: (availability_time) ->
-    return false unless @daysToAvailable()?
-    return true if isNaN(availability_time)
-    @daysToAvailable() <= availability_time
 
   visibleByMonthsInCurrentProject: (months = '') ->
     return true if months == 0

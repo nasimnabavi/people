@@ -7,7 +7,7 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
   ui:
     tabs: '.category'
 
-  initialize: (@availability_time, @abilities, @roles, @users) ->
+  initialize: (@abilities, @roles, @users) ->
     @initializeVariables()
     @bindUIElements()
     @countUsersInCategories()
@@ -15,13 +15,11 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
 
   initializeVariables: ->
     @selectize =
-      availability_time: []
       abilities: []
       roles: []
       category: ''
 
   render: ->
-    @initializeAvailabilityTimeFilter()
     @initializeAbilitiesFilter()
     @initializeRoleFilter()
     @sortUsersInTab(@ui.tabs.first())
@@ -46,14 +44,6 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
       userCount = @users.inSchedulingCategory($tab.data('category')).length
       $tab.find('.user-count').text("(#{userCount})")
 
-  initializeAvailabilityTimeFilter: ->
-    availability_time_selectize = @$('select[name=availability_time]').selectize
-      valueField: 'value'
-      labelField: 'text'
-      options: @availability_time
-    availability_time_selectize.change @, @updateSelectizeAvailability
-    @selectize.availability_time = availability_time_selectize[0].selectize.items[0]
-
   initializeRoleFilter: ->
     roles_selectize = @$('input[name=roles]').selectize
       plugins: ['remove_button']
@@ -77,10 +67,6 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
       onItemAdd: @filterUsers
       onItemRemove: @filterUsers
     @selectize.abilities = abilities_selectize[0].selectize.items
-
-  updateSelectizeAvailability: (e) =>
-    @selectize.availability_time = $(e.target).first().val()
-    @filterUsers()
 
   filterUsers: =>
     @renderUsers()
