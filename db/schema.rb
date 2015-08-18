@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805144258) do
+ActiveRecord::Schema.define(version: 20150818090226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20150805144258) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "mongo_id"
+    t.boolean  "primary",    default: false, null: false
   end
 
   add_index "positions", ["role_id"], name: "index_positions_on_role_id", using: :btree
@@ -119,7 +120,6 @@ ActiveRecord::Schema.define(version: 20150805144258) do
   create_table "roles", force: true do |t|
     t.string   "name"
     t.string   "color"
-    t.integer  "priority"
     t.boolean  "billable",      default: false
     t.boolean  "technical",     default: false
     t.boolean  "show_in_team",  default: true
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20150805144258) do
     t.string   "mongo_id"
     t.integer  "element_order", default: 0,     null: false
     t.integer  "user_ids",      default: [],                 array: true
+    t.integer  "priority"
   end
 
   create_table "roles_users", id: false, force: true do |t|
