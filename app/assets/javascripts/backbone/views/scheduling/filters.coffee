@@ -27,7 +27,7 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
     @sortUsersInTab(@ui.tabs.first())
 
   activateCategory: (e) ->
-    $tab = $(e.target).parent()
+    $tab = $(e.target).closest('.category')
     return unless $tab.hasClass('category')
     @ui.tabs.removeClass('active')
     $tab.addClass('active')
