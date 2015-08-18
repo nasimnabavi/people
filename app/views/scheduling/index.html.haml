@@ -8,35 +8,35 @@
       %input{ type: 'text', name: 'abilities', placeholder: 'Filter abilities…' }
 
   %ul.nav.nav-tabs.scheduled-users-categories
-    %li.category.active{ data: { category: 'all' } }
+    %li.category.active{ data: { category: 'all', sort: 'name', 'sort-direction' => 1 } }
       = link_to '#' do
         All
         %span.user-count
-    %li.category{ data: { category: 'juniors-interns' } }
+    %li.category{ data: { category: 'juniors-interns', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
         Juniors/Interns
         %span.user-count
-    %li.category{ data: { category: 'to-rotate' } }
+    %li.category{ data: { category: 'to-rotate', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
         To Rotate
         %span.user-count
-    %li.category{ data: { category: 'internals' } }
+    %li.category{ data: { category: 'internals', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
         Internals
         %span.user-count
-    %li.category{ data: { category: 'in-progress' } }
+    %li.category{ data: { category: 'in-progress', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
         Rotation In Progress
         %span.user-count
-    %li.category{ data: { category: 'in-commercial-with-due-date' } }
+    %li.category{ data: { category: 'in-commercial-with-due-date', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
         In Commercial Project With Due Date
         %span.user-count
-    %li.category{ data: { category: 'booked' } }
+    %li.category{ data: { category: 'booked', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
         Booked
         %span.user-count
-    %li.category{ data: { category: 'unavailable' } }
+    %li.category{ data: { category: 'unavailable', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
         Unavailable
         %span.user-count
