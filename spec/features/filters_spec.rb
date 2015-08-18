@@ -122,7 +122,7 @@ describe 'Dashboard filters', js: true do
       visit scheduling_path
       expect(page).to have_text junior_dev.last_name
       select_option('roles', 'junior')
-      find('div.up[data-sort="role_name"]').trigger 'click'
+      find('div.up[data-sort="name"]').trigger 'click'
 
       expect(page).to have_text junior_dev.last_name
       expect(page).not_to have_text dev_user.last_name
