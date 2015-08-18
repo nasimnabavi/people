@@ -166,6 +166,11 @@ class Hrguru.Collections.Users extends Backbone.Collection
     )
     new Hrguru.Collections.Users(filtered)
 
+  inSchedulingCategory: (category) ->
+    filtered = @filter (user) ->
+      user.get(category)
+    new Hrguru.Collections.Users(filtered)
+
   withRole: ->
     filtered = @filter((user) ->
       user.hasRole()

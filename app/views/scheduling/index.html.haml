@@ -8,14 +8,38 @@
       %input{ type: 'text', name: 'abilities', placeholder: 'Filter abilities…' }
 
   %ul.nav.nav-tabs.scheduled-users-categories
-    %li.category.active{ data: { category: 'all' } }= link_to 'All', '#'
-    %li.category{ data: { category: 'juniors-interns' } }= link_to 'Juniors/Interns', '#'
-    %li.category{ data: { category: 'to-rotate' } }= link_to 'To Rotate', '#'
-    %li.category{ data: { category: 'internals' } }= link_to 'Internals', '#'
-    %li.category{ data: { category: 'in-progress' } }= link_to 'Rotation In Progress', '#'
-    %li.category{ data: { category: 'in-commercial-with-due-date' } }= link_to 'In Commercial Project With Due Date', '#'
-    %li.category{ data: { category: 'booked' } }= link_to 'Booked', '#'
-    %li.category{ data: { category: 'unavailable' } }= link_to 'Unavailable', '#'
+    %li.category.active{ data: { category: 'all' } }
+      = link_to '#' do
+        All
+        %span.user-count
+    %li.category{ data: { category: 'juniors-interns' } }
+      = link_to '#' do
+        Juniors/Interns
+        %span.user-count
+    %li.category{ data: { category: 'to-rotate' } }
+      = link_to '#' do
+        To Rotate
+        %span.user-count
+    %li.category{ data: { category: 'internals' } }
+      = link_to '#' do
+        Internals
+        %span.user-count
+    %li.category{ data: { category: 'in-progress' } }
+      = link_to '#' do
+        Rotation In Progress
+        %span.user-count
+    %li.category{ data: { category: 'in-commercial-with-due-date' } }
+      = link_to '#' do
+        In Commercial Project With Due Date
+        %span.user-count
+    %li.category{ data: { category: 'booked' } }
+      = link_to '#' do
+        Booked
+        %span.user-count
+    %li.category{ data: { category: 'unavailable' } }
+      = link_to '#' do
+        Unavailable
+        %span.user-count
 
 %table.table.table-striped.table-hover#scheduled-users.scheduled-users
   %thead

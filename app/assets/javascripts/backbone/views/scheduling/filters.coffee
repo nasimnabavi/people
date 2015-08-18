@@ -7,9 +7,10 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
   ui:
     tabs: '.category'
 
-  initialize: (@availability_time, @abilities, @roles) ->
+  initialize: (@availability_time, @abilities, @roles, @users) ->
     @initializeVariables()
     @bindUIElements()
+    @countUsersInCategories()
     H.setCurrentSchedulingCategory(@ui.tabs.first().data('category'))
 
   initializeVariables: ->
@@ -34,6 +35,12 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
     if @selectize.category == 'to-rotate'
       @sortUsers('seconds_of_longest_current_membership', 0)
     @filterUsers()
+
+  countUsersInCategories: ->
+    @ui.tabs.each (index, tab) =>
+      $tab = $(tab)
+      userCount = @users.inSchedulingCategory($tab.data('category')).length
+      $tab.find('.user-count').text("(#{userCount})")
 
   initializeAvailabilityTimeFilter: ->
     availability_time_selectize = @$('select[name=availability_time]').selectize
