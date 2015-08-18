@@ -39,8 +39,8 @@ class Hrguru.Views.ScheduledUsersRow extends Backbone.Marionette.Layout
     collectProjects = new Backbone.Collection @model.get('projects')
     projectsView = new Hrguru.Views.ScheduledUsersProjects
       collection: collectProjects
-      show_start_date: false
-      show_end_date: false
+      show_start_date: true
+      show_end_date: true
       header: "current"
       role: @model.get("role")
     @projectsRegion.show projectsView
@@ -59,7 +59,7 @@ class Hrguru.Views.ScheduledUsersRow extends Backbone.Marionette.Layout
     collectProjects = new Backbone.Collection @model.get('booked_projects')
     projectsView = new Hrguru.Views.ScheduledUsersProjects
       collection: collectProjects
-      show_start_date: false
+      show_start_date: true
       show_end_date: true
       header: "booked"
       booked: true
