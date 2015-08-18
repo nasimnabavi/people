@@ -11,6 +11,7 @@ class Hrguru.Views.ScheduledUsersCollectionView extends Marionette.CollectionVie
   initialize: (@collection) ->
     @on('collection:rendered', H.addUserIndex)
     @listenTo(EventAggregator, 'scheduledUsers:sort', @sort)
+    @listenTo(EventAggregator, 'scheduledUsers:render', @render)
 
   increasingDirection: (e) ->
     @toggleClass(e.target)
@@ -30,6 +31,11 @@ class Hrguru.Views.ScheduledUsersCollectionView extends Marionette.CollectionVie
   toggleClass: (target) ->
     @$('.active').removeClass('active')
     $(target).addClass('active')
+
+  onRender: ->
+    @$el.find('th').each ->
+      $th = $(this)
+      $th.toggle(H.columnInCurrentSchedulingCategory($th.data('name')))
 
   getSelectizeData: ->
     data = {}

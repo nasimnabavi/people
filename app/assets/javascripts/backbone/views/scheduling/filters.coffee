@@ -10,6 +10,7 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
   initialize: (@availability_time, @abilities, @roles) ->
     @initializeVariables()
     @bindUIElements()
+    H.setCurrentSchedulingCategory(@ui.tabs.first().data('category'))
 
   initializeVariables: ->
     @selectize =
@@ -29,6 +30,7 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
     @ui.tabs.removeClass('active')
     $tab.addClass('active')
     @selectize.category = $tab.data('category')
+    H.setCurrentSchedulingCategory(@selectize.category)
     if @selectize.category == 'to-rotate'
       @sortUsers('seconds_of_longest_current_membership', 0)
     @filterUsers()
@@ -70,8 +72,12 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
     @filterUsers()
 
   filterUsers: =>
+    @renderUsers()
     EventAggregator.trigger('users:updateVisibility', @selectize)
     H.addUserIndex()
+
+  renderUsers: ->
+    EventAggregator.trigger('scheduledUsers:render')
 
   sortUsers: (attr, direction) ->
     EventAggregator.trigger('scheduledUsers:sort', attr, direction)

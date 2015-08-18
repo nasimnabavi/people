@@ -1,6 +1,7 @@
 class Hrguru.Helper
 
   constructor: (options)->
+    @currentSchedulingCategory = ''
     @time_now = moment()
     @server_time = gon.currentTime if gon?
     @current_user = new Hrguru.Models.User(gon.current_user)
@@ -48,6 +49,15 @@ class Hrguru.Helper
       theme: 'flat'
       messageDefaults:
         hideAfter: 5
+
+  setCurrentSchedulingCategory: (category) ->
+    @currentSchedulingCategory = category
+
+  columnInCurrentSchedulingCategory: (column) ->
+    _.contains(@columnsForCurrentSchedulingCategory(), column)
+
+  columnsForCurrentSchedulingCategory: ->
+    gon.columns_per_category[@currentSchedulingCategory]
 
   currentUserIsAdmin: ->
     @current_user.get('admin')

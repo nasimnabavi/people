@@ -1,23 +1,30 @@
-%td
-  .avatar
-    %img{ src: @gravatar }
-  .profile
-    %span.name
-      != @profile_link(@, Routes.user_path(@id))
-    .icons
-      %a{ href: "mailto:#{@email}" }
-        != @icon 'envelope-o'
-      != @github
-      != @skype
-%td
-  != @role.name if @role
-%td
-  .projects-region
-%td
-  .next_projects-region
-%td
-  .booked_projects-region
-%td.user-notes
-  - if @notes
-    %button.btn.btn-primary.user-notes{ data: { toggle: 'modal', target: '.user-notes-modal', 'user-notes': @notes} }
-      Show notes
+- if H.columnInCurrentSchedulingCategory('user')
+  %td
+    .avatar
+      %img{ src: @gravatar }
+    .profile
+      %span.name
+        != @profile_link(@, Routes.user_path(@id))
+      .icons
+        %a{ href: "mailto:#{@email}" }
+          != @icon 'envelope-o'
+        != @github
+        != @skype
+- if H.columnInCurrentSchedulingCategory('role')
+  %td
+    %span.role
+      != @role.name if @role
+- if H.columnInCurrentSchedulingCategory('current-project')
+  %td
+    .projects-region
+- if H.columnInCurrentSchedulingCategory('next-project')
+  %td
+    .next_projects-region
+- if H.columnInCurrentSchedulingCategory('booked')
+  %td
+    .booked_projects-region
+- if H.columnInCurrentSchedulingCategory('notes')
+  %td.user-notes
+    - if @notes
+      %button.btn.btn-primary.user-notes{ data: { toggle: 'modal', target: '.user-notes-modal', 'user-notes': @notes} }
+        Show notes
