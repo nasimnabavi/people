@@ -24,6 +24,8 @@ class Hrguru.Views.SchedulingIndex extends Backbone.View
     @users.add(gon.users_in_commercial_projects_with_due_date, merge: true)
     @users.add(gon.booked_users, merge: true)
     @users.add(gon.unavailable_users, merge: true)
+    @users.each (user) ->
+      user.set('all', true)
     @roles = new Hrguru.Collections.Roles(gon.roles)
 
   createViews: ->
