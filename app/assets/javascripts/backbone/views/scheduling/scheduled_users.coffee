@@ -23,7 +23,7 @@ class Hrguru.Views.ScheduledUsersCollectionView extends Marionette.CollectionVie
     @collection.sortDirection = 0
     @sort(e.target.dataset.sort, @collection.sortDirection)
 
-  sort: (value = 'availability_time', direction = 1) ->
+  sort: (value = 'name', direction = 1) ->
     @collection.sortUsers(value, direction)
     @render()
     EventAggregator.trigger('users:updateVisibility', @getSelectizeData())
