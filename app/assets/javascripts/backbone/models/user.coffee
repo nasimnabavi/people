@@ -24,13 +24,6 @@ class Hrguru.Models.User extends Backbone.Model
     @visibleBy.category = @visibleByCategory(data.category)
     @trigger 'toggle_visible', @isVisible()
 
-  isAvailableNow: ->
-    H.currentTime() > moment(@get('available_since'))
-
-  daysToAvailable: ->
-    return -1 unless @get('available_since')?
-    moment(@get('available_since')).diff(H.currentTime(), 'days')
-
   isVisible: ->
     @visibleBy.roles && @visibleBy.projects && @visibleBy.users &&
       @visibleBy.abilities && @isActive() && @visibleBy.months_in_current_project &&
@@ -91,7 +84,7 @@ class Hrguru.Models.User extends Backbone.Model
   isPotential: ->
     return false unless @hasTechnicalRole()
     if @get('has_project') && !@hasProjectsOnlyPotentialOrNotbillable()
-      return false unless @daysToAvailable()? < 30 && @membership.hasEndDate()
+      return false unless && @membership.hasEndDate()
     (!@hasNextProjects() || @nextProjectsOnlyPotentialOrNotbillable())
 
   hasNextProjects: ->
@@ -117,7 +110,7 @@ class Hrguru.Collections.Users extends Backbone.Collection
   model: Hrguru.Models.User
   url: Routes.users_path()
 
-  sortAttribute: 'available_since'
+  sortAttribute: 'name'
   sortDirection: 1
 
   sortUsers: (attr, direction) ->

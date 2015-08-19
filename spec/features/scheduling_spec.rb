@@ -5,7 +5,7 @@ describe 'Scheduling page', js: true do
   let!(:angular_ability) { create(:ability, name: 'AngularJS') }
   let!(:dev_with_no_skillz) { create(:user) }
   let!(:angular_dev) { create(:user, abilities: [angular_ability]) }
-  let!(:another_dev) { create(:user, available_since: 10.days.from_now) }
+  let!(:another_dev) { create(:user) }
 
   before do
     sign_in(admin_user)
@@ -51,10 +51,6 @@ describe 'Scheduling page', js: true do
 
     xit 'displays users' do
       expect(page).to have_content another_dev.last_name
-    end
-
-    xit 'displays now if available_since is today' do
-      expect(page).to have_content 'Now'
     end
 
     xit 'displays only technical users' do
