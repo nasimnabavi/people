@@ -10,6 +10,7 @@
 
   .col-sm-6
     = render 'new_membership_form', membership_page: new_membership_page
+    = render 'positions', details_page: user_details_page
 
     .list-group
       - user_show_page.user_active_projects.reverse_each do |project, memberships|
