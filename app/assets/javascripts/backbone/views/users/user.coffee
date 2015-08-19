@@ -5,6 +5,7 @@ class Hrguru.Views.UsersShow extends Backbone.View
     @displayDefaultGravatar()
     @removeFormControlClass()
     @initializeAbilities()
+    @observePrimaryRoleChange()
     elTimeline = @$('.timeline')
     @timeline = elTimeline.timeline(gon.events)
     elTimeline.scrollTo(elTimeline[0].scrollWidth, 0)
@@ -25,3 +26,7 @@ class Hrguru.Views.UsersShow extends Backbone.View
   displayDefaultGravatar: ->
     $('.img-rounded').error ->
       $(@).attr('src', 'http://www.gravatar.com/avatar')
+
+  observePrimaryRoleChange: ->
+    $('.primary-toggle').change ->
+      $(this).parents('form').submit()
