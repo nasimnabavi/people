@@ -41,6 +41,7 @@ class PositionsController < ApplicationController
   def toggle_primary
     @position = Position.find(params[:id])
     @position.toggle!(:primary)
+    redirect_to user_path(@position.user)
   end
 
   private
