@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20150818090226) do
   create_table "roles", force: true do |t|
     t.string   "name"
     t.string   "color"
+    t.integer  "priority"
     t.boolean  "billable",      default: false
     t.boolean  "technical",     default: false
     t.boolean  "show_in_team",  default: true
@@ -128,7 +129,6 @@ ActiveRecord::Schema.define(version: 20150818090226) do
     t.string   "mongo_id"
     t.integer  "element_order", default: 0,     null: false
     t.integer  "user_ids",      default: [],                 array: true
-    t.integer  "priority"
   end
 
   create_table "roles_users", id: false, force: true do |t|
