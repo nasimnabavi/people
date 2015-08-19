@@ -9,7 +9,9 @@
             = p.starts_at_date
             = p.role.label
           = link_to 'delete', p, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
-          = link_to "#{p.primary? ? 'Unset' : 'Set as'} primary role", toggle_primary_position_path(p), method: :put, remote: true, class: "primary-toggle-#{p.id}"
+          = form_tag(toggle_primary_position_path(p), method: :put) do
+            = check_box_tag 'primary', 'true', p.primary, class: "primary-toggle"
+
   .actions
     - if details_page.editing_enabled?(current_user)
       = link_to I18n.t('positions.new'), new_position_path(user: details_page.user), class: "btn btn-default btn-success"
