@@ -1,0 +1,18 @@
+.list-group-item
+  %h4.list-group-item-heading= "Positions"
+  .list-group
+    - details_page.positions.each do |p|
+      .row
+        .col-sm-12-with-margin
+          = link_to edit_position_path(p), class: 'list-group-item' do
+            %i.fa.fa-calendar
+            = p.starts_at_date
+            = p.role.label
+          = link_to 'delete', p, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
+          = form_tag(toggle_primary_position_path(p), method: :put) do
+            = check_box_tag "primary-#{p.id}", 'true', p.primary, class: 'primary-toggle'
+            = label_tag "primary-#{p.id}", ''
+
+  .actions
+    - if details_page.editing_enabled?(current_user)
+      = link_to I18n.t('positions.new'), new_position_path(user: details_page.user), class: "btn btn-default btn-success"

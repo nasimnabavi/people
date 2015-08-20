@@ -1,0 +1,54 @@
+.primary-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+
+.primary-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  padding: 1px;
+  width: 60px;
+  height: 30px;
+  background-color: $gray-light;
+  border-radius: 4px;
+  transition: background 0.4s;
+}
+
+.primary-toggle + label:before,
+.primary-toggle + label:after {
+  display: block;
+  position: absolute;
+  content: "";
+}
+
+.primary-toggle + label:before {
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  right: 1px;
+  background-color: $gray-light;
+  border-radius: 4px;
+  transition: background 0.4s;
+}
+
+.primary-toggle + label:after {
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  width: 26px;
+  background-color: #fff;
+  border-radius: 4px;
+  transition: margin 0.4s, background 0.4s;
+}
+
+.primary-toggle:checked + label:before {
+  background-color: $btn-success-bg;
+}
+
+.primary-toggle:checked + label:after {
+  margin-left: 30px;
+}

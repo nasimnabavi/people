@@ -11,7 +11,6 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
     @listenTo(EventAggregator, 'UsersRow:toggleEnding', @highlightEnding)
 
     @listenTo(EventAggregator, 'UsersRow:showOnlyIfArchived', @visibleOnlyIfArchived)
-    @listenTo(EventAggregator, 'UsersRow:showOnlyIfPotential', @visibleOnlyIfPotential)
 
   events:
     'keypress .employment': 'filterEmploymentKeyPress'
@@ -116,15 +115,6 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
   filterPhoneKeyPress: (event) ->
     H.isNumber(event.keyCode)
 
-  highlightEnding: (state) ->
-    daysToEnd = @model.daysToAvailable()
-    unless state
-      return @$el.show() unless @model.get('archived')
-    if daysToEnd >= 0
-      @$el.toggleClass("left-#{daysToEnd}", state)
-    else
-      @$el.hide()
-
   toggleVisibility: (state) ->
     if state then @$el.show() else @$el.hide()
 
@@ -133,16 +123,6 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
       @toggleVisibility(state)
     else
       @toggleVisibility(!state)
-
-  visibleOnlyIfPotential: (state) ->
-    @togglePotentialProject(state)
-    daysToEnd = @model.daysToAvailable()
-    unless state
-      return @$el.show() unless @model.get('archived')
-    if @model.isPotential()
-      @$el.toggleClass("left-#{daysToEnd}", state) if daysToEnd?
-    else
-      @$el.hide()
 
   togglePotentialProject: (state) ->
     @$el.find('.project.potential').toggleClass('hide', !state)

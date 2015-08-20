@@ -8,7 +8,6 @@ class Hrguru.Views.UsersFilters extends Marionette.View
     'change #show-without-project' : 'showOnlyBy'
 
   initialize: (@projects, @roles, @users, @locations, @abilities, @months) ->
-    @listenTo(EventAggregator, 'UsersRow:showOnlyIfPotential', @toggleEndingTime)
     @initializeVariables()
 
   render: ->

@@ -28,11 +28,3 @@ class Hrguru.Views.UsersCollectionView extends Marionette.CollectionView
   toggleClass: (target) ->
     @$('.active').removeClass('active')
     $(target).addClass('active')
-
-  sortEnding: (flag) ->
-    if flag then @sort('available_since') else @sort('name')
-    EventAggregator.trigger 'UsersRow:toggleEnding', flag
-
-  sortByPotential: (state) ->
-    if state then @sort('available_since') else @sort('name')
-    EventAggregator.trigger 'UsersRow:showOnlyIfPotential', state

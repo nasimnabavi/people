@@ -31,10 +31,6 @@ class Hrguru.Views.ScheduledUsersRow extends Backbone.Marionette.Layout
     @renderNextProjectsRegion()
     @renderBookedProjectsRegion()
 
-  serializeData: ->
-    _.extend super,
-      available_now: @model.isAvailableNow()
-
   renderProjectsRegion: ->
     collectProjects = new Backbone.Collection @model.get('projects')
     projectsView = new Hrguru.Views.ScheduledUsersProjects
@@ -102,15 +98,6 @@ class Hrguru.Views.ScheduledUsersRow extends Backbone.Marionette.Layout
 
   filterPhoneKeyPress: (event) ->
     H.isNumber(event.keyCode)
-
-  highlightEnding: (state) ->
-    daysToEnd = @model.daysToAvailable()
-    unless state
-      return @$el.show() unless @model.get('archived')
-    if daysToEnd >= 0
-      @$el.toggleClass("left-#{daysToEnd}", state)
-    else
-      @$el.hide()
 
   toggleVisibility: (state) ->
     if state then @$el.show() else @$el.hide()

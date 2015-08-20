@@ -8,28 +8,27 @@ body.dashboard {
       display: none;
     }
   }
-}
 
-.modal-dialog {
-  position: absolute !important;
-  left: 50%;
-  margin-left: -300px;
-  z-index: 1050;
+  .modal-dialog {
+    position: absolute !important;
+    left: 50%;
+    margin-left: -300px;
+    z-index: 1050;
 
-  .form-group.date {
-    display: inline-block;
-    width: 45%;
-  }
+    .form-group.date {
+      display: inline-block;
+      width: 45%;
+    }
 
-  .checkbox {
-    text-align: left;
-
-    label {
+    .checkbox {
       text-align: left;
+
+      label {
+        text-align: left;
+      }
     }
   }
 }
-
 
 .open-all-notes {
   float: left;

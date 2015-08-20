@@ -31,10 +31,10 @@ describe SchedulingController do
 
       before { sign_in(user) }
 
-      it 'redirects user to root path' do
+      it 'responds successfully with an HTTP 200 status code' do
         get :index
-        expect(response.status).to eq(302)
-        expect(response.redirect_url).to eq(root_url)
+        expect(response).to be_success
+        expect(response.status).to eq(200)
       end
     end
   end

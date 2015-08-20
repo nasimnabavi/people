@@ -1,8 +1,6 @@
 class SchedulingController < ApplicationController
   include ContextFreeRepos
 
-  before_filter :authenticate_admin!
-
   expose(:juniors_and_interns) do
     ScheduledUserDecorator.decorate_collection(scheduled_users_repository.juniors_and_interns,
       context: { category: 'juniors-interns' })
@@ -37,6 +35,15 @@ class SchedulingController < ApplicationController
   expose(:abilities) { abilities_repository.all }
 
   def index
+    set_users_in_gon
+    gon.roles = roles
+    gon.abilities = abilities
+    gon.columns_per_category = Scheduling::ColumnSetsBuilder.new.call
+  end
+
+  private
+
+  def set_users_in_gon
     gon.juniors_and_interns = Rabl.render(juniors_and_interns, 'scheduling/index',
       view_path: 'app/views', format: :hash, locals: { cache_key: 'juniors_and_interns' })
     gon.users_to_rotate = Rabl.render(users_to_rotate, 'scheduling/index',
@@ -54,8 +61,16 @@ class SchedulingController < ApplicationController
       view_path: 'app/views', format: :hash, locals: { cache_key: 'booked' })
     gon.unavailable_users = Rabl.render(unavailable_users, 'scheduling/index',
       view_path: 'app/views', format: :hash, locals: { cache_key: 'unavailable' })
-    gon.roles = roles
-    gon.abilities = abilities
-    gon.columns_per_category = Scheduling::ColumnSetsBuilder.new.call
+    gon.not_scheduled_users = Rabl.render(find_missing_users, 'scheduling/index',
+      view_path: 'app/views', format: :hash, locals: { cache_key: 'missing' })
+  end
+
+  def find_missing_users
+    ids = [gon.juniors_and_interns, gon.users_to_rotate, gon.users_in_internals,
+      gon.users_with_rotations_in_progress, gon.users_in_commercial_projects_with_due_date,
+      gon.booked_users, gon.unavailable_users]
+      .flat_map { |category| category.map { |user| user[:id] } }
+    ScheduledUserDecorator.decorate_collection(
+      Scheduling::MissingUsers.new(ids).call, context: { category: 'not-scheduled' })
   end
 end
