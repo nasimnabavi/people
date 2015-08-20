@@ -1,8 +1,6 @@
 class SchedulingController < ApplicationController
   include ContextFreeRepos
 
-  before_filter :authenticate_admin!
-
   expose(:juniors_and_interns) do
     ScheduledUserDecorator.decorate_collection(scheduled_users_repository.juniors_and_interns,
       context: { category: 'juniors-interns' })
