@@ -8,7 +8,7 @@
   %ul.nav.nav-tabs.scheduled-users-categories
     %li.category.active{ data: { category: 'all', sort: 'name', 'sort-direction' => 1 } }
       = link_to '#' do
-        All
+        All scheduled
         %span.user-count
     %li.category{ data: { category: 'juniors-interns', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
@@ -38,6 +38,11 @@
       = link_to '#' do
         Unavailable
         %span.user-count
+    - if current_user.admin?
+      %li.category{ data: { category: 'not-scheduled', sort: 'name', 'sort-direction' => 1 } }
+        = link_to '#' do
+          Not Scheduled
+          %span.user-count
 
 %table.table.table-striped.table-hover#scheduled-users.scheduled-users
   %thead

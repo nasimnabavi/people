@@ -8,7 +8,8 @@ module Scheduling
       'in-progress' => %w(user role current-project from-to next-project notes),
       'in-commercial-with-due-date' => %w(user role current-project from-to notes),
       'booked' => %w(user role current-project booked notes),
-      'unavailable' => %w(user role current-project from-to next-project booked notes)
+      'unavailable' => %w(user role current-project from-to next-project booked notes),
+      'not-scheduled' => %w(user role current-project from-to booked notes)
     }
 
     def call
