@@ -1,0 +1,48 @@
+#categorization-details-modal.modal.fade{ tabindex: '-1' }
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', data: { dismiss: 'modal' } }
+          %span{'aria-hidden' => 'true'} ×
+        %h4.modal-title How are users categorized?
+      .modal-body
+        %p Scheduling view only contains technical employees at the company.
+        %h4 All scheduled
+        %p
+          Aggregates users from every other category, except the
+          %strong Not scheduled
+          category. Users are sorted alphabetically.
+        %h4 Juniors/interns
+        %p Users who are either juniors or interns at the company. Users are sorted by time in current project
+        %h4 To Rotate
+        %p
+          Users who are in a commercial project without a specified due date (neither on a project nor on their membership).
+          Users are sorted by time in current project.
+        %h4 Internals
+        %p
+          Users who are in an internal project with nothing scheduled in the future, or with another internal project scheduled.
+          Users are sorted by time in current project.
+        %h4 Rotation in progress
+        %p
+          Users who have a commercial project scheduled in the future.
+          Users are sorted by time in current project.
+        %h4 In commercial project with due date
+        %p
+          Users who are in a commercial project and either the project has a due date or their membership in the project has a due date.
+          Users are sorted by time in current project.
+        %h4 Booked
+        %p
+          Users who are booked. A booked user will be taken out of any other category and only appear here.
+          Users are sorted by time in current project.
+        %h4 Unavailable
+        %p
+          Users who are unavailable (either are on holidays or are planning to leave the company).
+          Being unavailable is marked by assigning someone to a project named 'unavailable'. It is created by default after visiting the Scheduling page.
+        %h4 Not scheduled
+        %p
+          Users whose membership in their current project has ended and have nothing scheduled.
+          Users whose current project has ended and they have nothing scheduled.
+      .modal-footer
+        Detailed rules how users are categorized are available at
+        = link_to 'People wiki on Github', 'https://github.com/netguru/people/wiki/Detailed-rules-on-how-users-are-categorized-on-the-Scheduling-page%3F', target: '_blank'
+

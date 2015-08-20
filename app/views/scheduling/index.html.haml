@@ -4,6 +4,9 @@
       %input{ type: 'text', name: 'roles', placeholder: 'Filter roles…' }
     .abilities
       %input{ type: 'text', name: 'abilities', placeholder: 'Filter abilities…' }
+  .modal-button.pull-right
+    = link_to 'How exactly are users categorized?', '#',
+      data: { toggle: 'modal', target: '#categorization-details-modal' }, class: 'btn'
 
   %ul.nav.nav-tabs.scheduled-users-categories
     %li.category.active{ data: { category: 'all', sort: 'name', 'sort-direction' => 1 } }
@@ -59,3 +62,4 @@
     %th{ data: { name: 'notes' } } Notes
 
 = render partial: 'user_notes'
+= render partial: 'categorization_details'
