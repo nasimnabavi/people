@@ -12,11 +12,11 @@
         %span.user-count
     %li.category{ data: { category: 'juniors-interns', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
-        Juniors/Interns
+        Juniors/interns
         %span.user-count
     %li.category{ data: { category: 'to-rotate', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
-        To Rotate
+        To rotate
         %span.user-count
     %li.category{ data: { category: 'internals', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
@@ -24,11 +24,11 @@
         %span.user-count
     %li.category{ data: { category: 'in-progress', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
-        Rotation In Progress
+        Rotation in progress
         %span.user-count
     %li.category{ data: { category: 'in-commercial-with-due-date', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
-        In Commercial Project With Due Date
+        In commercial project with due date
         %span.user-count
     %li.category{ data: { category: 'booked', sort: 'seconds_of_longest_current_membership' } }
       = link_to '#' do
@@ -41,7 +41,7 @@
     - if current_user.admin?
       %li.category{ data: { category: 'not-scheduled', sort: 'name', 'sort-direction' => 1 } }
         = link_to '#' do
-          Not Scheduled
+          Not scheduled
           %span.user-count
 
 %table.table.table-striped.table-hover#scheduled-users.scheduled-users
