@@ -5,8 +5,9 @@
 }
 
 .primary-toggle + label {
-  display: block;
-  position: relative;
+  position: absolute;
+  top: 5px;
+  right: 10px;
   cursor: pointer;
   outline: none;
   user-select: none;
