@@ -8,5 +8,12 @@
     .row
       .col-xs-12
         = f.input :starts_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+    .row
+      .col-xs-12
+        %strong Primary role?
+        .narrow-cell
+          = f.input :primary, label: false do
+            = check_box_tag 'position[primary]', 'true', false, class: 'primary-toggle'
+            = label_tag 'position[primary]', ''
     .actions
       = f.button :submit, class: "btn-success", confirm: I18n.t('confirm_question')
