@@ -47,6 +47,6 @@ class PositionsController < ApplicationController
   private
 
   def position_params
-    params.require(:position).permit(:starts_at, :user_id, :role_id)
+    params.require(:position).permit(:starts_at, :user_id, :role_id, :primary)
   end
 end

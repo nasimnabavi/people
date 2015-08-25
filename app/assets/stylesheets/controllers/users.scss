@@ -146,3 +146,16 @@ body.users {
   }
   margin: 30px 0 0;
 }
+
+.positions-primary {
+  position: absolute;
+  right: 80px;
+}
+
+.narrow-cell {
+  position: relative;
+  padding-top: 1px;
+  width: 12%;
+  margin-left: 3px;
+  height: 50px;
+}
