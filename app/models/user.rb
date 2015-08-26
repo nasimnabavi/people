@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     active.unfinished.started.order('ends_at DESC NULLS FIRST, starts_at ASC')
   }, class: Membership
   has_many :primary_roles, -> { 
-    joins(:positions).where(positions: { primary: true }) }, through: :positions, source: :role
+    joins(:positions).where(positions: { primary: true }).group('roles.id') }, through: :positions, source: :role
 
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true
