@@ -570,6 +570,7 @@ DEPENDENCIES
   haml-rails
   haml_coffee_assets!
   hipchat
+  httparty
   jquery-cookie-rails
   jquery-rails
   jquery-tablesorter
@@ -617,3 +618,6 @@ DEPENDENCIES
   webmock
   whenever
   xray-rails
+
+BUNDLED WITH
+   1.10.5

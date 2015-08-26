@@ -57,6 +57,7 @@ gem 'therubyracer'
 gem 'uglifier'
 gem 'versionist'
 gem 'whenever', require: false
+gem 'httparty'
 
 group :development do
   gem 'better_errors'
