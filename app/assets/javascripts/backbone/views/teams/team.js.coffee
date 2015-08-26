@@ -172,8 +172,9 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
     @membersView.on('leader_set', @setLeader)
 
   onRender: ->
-    @initializeSelectize()
-    @refreshSelectizeOptions()
+    if H.currentUserIsAdmin()
+      @initializeSelectize()
+      @refreshSelectizeOptions()
     @renderMembersRegion()
     @renderLeaderRegion()
     @initializeTooltip()

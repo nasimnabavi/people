@@ -14,6 +14,7 @@
   %ul#leader-region
   #members-region
 
-  %footer
-    .js-team-member-new
-      %input.name{ placeholder: 'Add folk to team...', type: "text" }
+  - if H.currentUserIsAdmin()
+    %footer
+      .js-team-member-new
+        %input.name{ placeholder: 'Add folk to team...', type: "text" }
