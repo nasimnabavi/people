@@ -106,7 +106,7 @@ describe 'team view', js: true do
       team_user.update_attribute(:team_join_time, Time.now - 3.days)
 
       visit current_path
-
+      sleep(2)
       expect(first(:css, ".js-number-of-days").text).to have_content('Since: 3 days')
     end
   end
