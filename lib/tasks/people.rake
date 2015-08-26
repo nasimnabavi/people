@@ -6,11 +6,10 @@ namespace :people do
     end
   end
 
-  desc "Update_primary role"
-  task primary_role_update: :environment do
-    User.each do |user|
-      user.primary_role = user.role
-      user.save
+  desc "Update primary_roles"
+  task primary_roles_update: :environment do
+    User.active.each do |user|
+      user.positions.find_by(role_id: user.primary_role.id).update_attribute(:primary, true)
     end
   end
 
