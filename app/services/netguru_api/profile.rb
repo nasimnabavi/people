@@ -7,7 +7,7 @@ module NetguruApi::Profile
     private
 
     def url
-      "#{AppConfig.profile_api_url}/skillsss"
+      "#{AppConfig.profile_api_url}/skills"
     end
 
     def token
