@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819110855) do
+ActiveRecord::Schema.define(version: 20150826121201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,10 @@ ActiveRecord::Schema.define(version: 20150819110855) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "mongo_id"
+    t.string   "name_downcase"
   end
+
+  add_index "abilities", ["name_downcase"], name: "index_abilities_on_name_downcase", using: :btree
 
   create_table "abilities_users", id: false, force: true do |t|
     t.integer "ability_id", null: false
@@ -186,6 +189,7 @@ ActiveRecord::Schema.define(version: 20150819110855) do
   end
 
   add_index "users", ["contract_type_id"], name: "index_users_on_contract_type_id", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["leader_team_id"], name: "index_users_on_leader_team_id", using: :btree
   add_index "users", ["location_id"], name: "index_users_on_location_id", using: :btree
   add_index "users", ["primary_role_id"], name: "index_users_on_primary_role_id", using: :btree
