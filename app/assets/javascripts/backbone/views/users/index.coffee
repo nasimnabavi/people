@@ -1,6 +1,9 @@
 class Hrguru.Views.UsersIndex extends Backbone.View
   el: '#main-container'
 
+  events:
+    "click .js-fetch-abilities" : "fetchAbilities"
+
   initialize: ->
     @createCollections()
     @createViews()
@@ -21,3 +24,10 @@ class Hrguru.Views.UsersIndex extends Backbone.View
 
   defaultSorting: ->
     $('.default').click()
+
+  fetchAbilities: (e) ->
+    e.preventDefault()
+    alert('Synchronization will run in background. It may take a while.')
+    $.ajax
+      type: 'GET'
+      url: e.target.href
