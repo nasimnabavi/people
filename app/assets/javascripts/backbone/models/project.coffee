@@ -31,7 +31,6 @@ class Hrguru.Models.Project extends Backbone.AssociatedModel
   type: ->
     return 'potential' if @isPotential()
     return 'archived' if @isArchived()
-    return 'internal' if @isInternal()
     'active'
 
   daysToEnd: ->
