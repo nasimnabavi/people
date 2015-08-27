@@ -35,6 +35,7 @@ defaults: &defaults
     developer_public_key: key
     member_token:         token
     schedule_board_id:    id
+  fetching_abilities:     false
 
 heroku_settings: &heroku_settings
   <<: *defaults

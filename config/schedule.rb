@@ -21,7 +21,7 @@ if AppConfig.trello.enabled
   end
 end
 
-if Flip.fetching_abilities?
+if AppConfig.fetching_abilities
   every 1.day, at: '12pm' do
     rake 'abilities:update_name_downcase'
   end
