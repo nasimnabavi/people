@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   include ContextFreeRepos
   before_filter :authenticate_admin!, only: [:update], unless: -> { current_user? }
+  before_filter :authenticate_admin!, only: [:fetch_abilities]
 
   expose(:user) { users_repository.get params[:id] }
   expose(:users) { UserDecorator.decorate_collection(users_repository.active) }
@@ -58,6 +59,11 @@ class UsersController < ApplicationController
   def show
     gon.events = user_events
     gon.fetching_abilities = Flip.fetching_abilities?
+  end
+
+  def fetch_abilities
+    NetguruApi::FetchAbilitiesJob.new.async.perform
+    render(nothing: true, status: :ok)
   end
 
   private

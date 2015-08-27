@@ -26,6 +26,7 @@ Hrguru::Application.routes.draw do
     end
   end
 
+  get 'fetch_abilities', to: 'users#fetch_abilities'
   resources :users, only: [:index, :show, :update]
   resources :dashboard, only: [:index], path: 'dashboard'
   resources :projects, except: [:index]
