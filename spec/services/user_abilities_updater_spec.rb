@@ -36,5 +36,13 @@ describe UserAbilitiesUpdater do
   context 'user_data contains same abilities' do
     let(:user_data_skills) { %w(Java php) }
     it { expect { subject }.not_to change { user.abilities.count } }
+    it { expect(subject).to eq(nil) }
+  end
+
+  context 'can not find user by email provided in user_data' do
+    let(:user_data) { { 'email' => 'wrong email', 'skills' => ['ruby'] } }
+
+    it { expect { subject }.not_to change { user.abilities.count } }
+    it { expect(subject).to eq(nil) }
   end
 end
