@@ -57,6 +57,7 @@ class UsersController < ApplicationController
 
   def show
     gon.events = user_events
+    gon.fetching_abilities = Flip.fetching_abilities?
   end
 
   private

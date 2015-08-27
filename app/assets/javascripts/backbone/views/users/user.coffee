@@ -15,13 +15,14 @@ class Hrguru.Views.UsersShow extends Backbone.View
     @$('#js-user-abilities').removeClass('form-control')
 
   initializeAbilities: ->
-    @$('#js-user-abilities').selectize
+    selectize = @$('#js-user-abilities').selectize
       plugins: ['remove_button', 'drag_drop']
       delimiter: ','
       persist: false
       create: (input) ->
         value: input
         text: input
+    selectize[0].selectize.lock() if gon.fetching_abilities
 
   displayDefaultGravatar: ->
     $('.img-rounded').error ->
