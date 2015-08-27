@@ -17,7 +17,7 @@ class Hrguru.Models.Project extends Backbone.AssociatedModel
     memberships: []
 
   isActive: ->
-    !(@isPotential() || @isArchived() || @isInternal())
+    !(@isPotential() || @isArchived())
 
   isPotential: ->
     @get('potential')
