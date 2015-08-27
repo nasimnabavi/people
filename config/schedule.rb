@@ -20,3 +20,9 @@ if AppConfig.trello.enabled
     rake 'trello:board_sync'
   end
 end
+
+if Flip.fetching_abilities?
+  every 1.day at: '12pm' do
+    rake 'abilities:update_name_downcase'
+  end
+end
