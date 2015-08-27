@@ -74,14 +74,14 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :test do
   gem 'capybara', '~> 2.4.4'
   gem 'codeclimate-test-reporter', require: false
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
-  gem 'faker'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'poltergeist'
   gem 'rack_session_access'
