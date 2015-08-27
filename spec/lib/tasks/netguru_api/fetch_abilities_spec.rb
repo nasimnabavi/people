@@ -7,7 +7,7 @@ describe 'netguru_api:profile namespace rake tasks' do
     Rake::Task.define_task(:environment)
   end
 
-  describe 'netguru_api:profile:fetch_users_abilities' do
+  describe 'netguru_api:profile:fetch_users_abilities', job: true do
     let(:run_rake_task) do
       Rake::Task['netguru_api:profile:fetch_users_abilities'].reenable
       Rake.application.invoke_task 'netguru_api:profile:fetch_users_abilities'

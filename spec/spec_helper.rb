@@ -47,6 +47,10 @@ Spork.prefork do
       DatabaseCleaner.strategy = :truncation
     end
 
+    config.before(:each, job: true) do
+      DatabaseCleaner.strategy = :truncation
+    end
+
     config.before(:each) do
       Timecop.return
       DatabaseCleaner.start
