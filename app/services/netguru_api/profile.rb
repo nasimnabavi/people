@@ -7,7 +7,8 @@ module NetguruApi::Profile
     private
 
     def url
-      "#{AppConfig.profile_api_url}/skills"
+      base_url = AppConfig.profile_api_url.send(Rails.env)
+      "#{base_url}/skills"
     end
 
     def token

@@ -35,7 +35,12 @@ defaults: &defaults
     developer_public_key: key
     member_token:         token
     schedule_board_id:    id
+
   fetching_abilities:     false
+  profile_api_url:
+    development:          some_dev_url
+    staging:              some_stag_url
+    production:           some_prod_url
 
 heroku_settings: &heroku_settings
   <<: *defaults
