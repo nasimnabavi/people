@@ -37,10 +37,7 @@ defaults: &defaults
     schedule_board_id:    id
 
   fetching_abilities:     false
-  profile_api_url:
-    development:          some_dev_url
-    staging:              some_stag_url
-    production:           some_prod_url
+  profile_api_url:        some_dev_url
 
 heroku_settings: &heroku_settings
   <<: *defaults
@@ -89,6 +86,8 @@ test:
 
 staging:
   <<: *heroku_settings
+  profile_api_url:        some_stag_url
 
 production:
   <<: *heroku_settings
+  profile_api_url:        some_stag_url
