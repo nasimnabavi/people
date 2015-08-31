@@ -20,6 +20,7 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
       category: ''
 
   render: ->
+    @initializeUserFilter()
     @initializeAbilitiesFilter()
     @initializeRoleFilter()
     @sortUsersInTab(@ui.tabs.first())
@@ -43,6 +44,19 @@ class Hrguru.Views.ScheduledUsersFilters extends Marionette.View
       $tab = $(tab)
       userCount = @users.inSchedulingCategory($tab.data('category')).length
       $tab.find('.user-count').text("(#{userCount})")
+
+  initializeUserFilter: ->
+    users_selectize = @$('input[name=users]').selectize
+      plugins: ['remove_button']
+      create: false
+      valueField: 'id'
+      labelField: 'name'
+      searchField: 'name'
+      sortField: 'name'
+      options: @users.toJSON()
+      onItemAdd: @filterUsers
+      onItemRemove: @filterUsers
+    @selectize.users = users_selectize[0].selectize.items
 
   initializeRoleFilter: ->
     roles_selectize = @$('input[name=roles]').selectize
