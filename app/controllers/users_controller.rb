@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   include ContextFreeRepos
-  before_filter :authenticate_admin!, only: [:update], unless: -> { current_user? }
-  before_filter :authenticate_admin!, only: [:fetch_abilities]
+  before_filter :authenticate_admin!, only: [:update, :fetch_abilities]
 
   expose(:user) { users_repository.get params[:id] }
   expose(:users) { UserDecorator.decorate_collection(users_repository.active) }
