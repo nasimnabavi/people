@@ -8,7 +8,7 @@ describe UserAbilitiesUpdater do
   let(:ability2) { create(:ability, name: 'php') }
 
   before do
-    user.abilities << ability1 << ability2
+    user.abilities += [ability1, ability2]
   end
 
   context 'user_data contains new ability' do
@@ -37,6 +37,15 @@ describe UserAbilitiesUpdater do
     let(:user_data_skills) { %w(Java php) }
     it { expect { subject }.not_to change { user.abilities.count } }
     it { expect(subject).to eq(nil) }
+  end
+
+  context 'user_data contains new ability nad does not contain one of the old one' do
+    let(:user_data_skills) { %w(Java Ruby) }
+
+    it 'adds new ability and remove old one' do
+      subject
+      expect(user.abilities.pluck(:name)).to eq(%w(Java Ruby))
+    end
   end
 
   context 'can not find user by email provided in user_data' do
