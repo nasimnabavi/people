@@ -28,12 +28,10 @@ class UserAbilitiesUpdater
   end
 
   def add_ability
-    abilities_to_add.each do |new_ability|
-      ability = Ability.find_or_create_by(name_downcase: new_ability.downcase) do |a|
-        a.name = new_ability
-      end
-      user.abilities << ability
+    abilities = abilities_to_add.map do |new_ability|
+      Ability.find_or_create_by(name_downcase: new_ability.downcase, name: new_ability)
     end
+    user.abilities += abilities
   end
 
   def remove_abilities
