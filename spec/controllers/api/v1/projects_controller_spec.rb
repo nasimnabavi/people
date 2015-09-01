@@ -10,7 +10,6 @@ describe Api::V1::ProjectsController do
   describe 'GET #index' do
     before do
       get :index, format: :json
-      @json_response = JSON.parse(response.body)
     end
 
     it 'returns 200 code' do
@@ -18,7 +17,7 @@ describe Api::V1::ProjectsController do
     end
 
     it 'contains current_week fields' do
-      expect(@json_response.first.keys).to eq(project_keys)
+      expect(json_response.first.keys).to eq(project_keys)
     end
 
     it 'does not return potential projects' do
