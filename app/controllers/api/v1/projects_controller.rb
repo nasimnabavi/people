@@ -1,6 +1,6 @@
 module Api::V1
   class ProjectsController < ApiController
-    expose(:projects) { projects_repository.all }
+    expose(:projects) { projects_repository.not_potential }
     expose(:project)
   end
 end

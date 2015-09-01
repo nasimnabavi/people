@@ -26,4 +26,8 @@ class ProjectsRepository
   def find_or_create_by_name(name)
     Project.where(name: name).first_or_create project_type: 'regular'
   end
+
+  def not_potential
+    Project.where(potential: false)
+  end
 end

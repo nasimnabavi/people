@@ -3,22 +3,27 @@ describe Api::V1::ProjectsController do
   render_views
   before { controller.class.skip_before_filter :authenticate_api! }
 
-  let!(:project) { create(:project) }
+  let!(:project1) { create(:project, potential: false) }
+  let!(:project2) { create(:project, potential: true) }
   let(:project_keys) { %w(id name archived potential toggl_bookmark slug) }
 
-  describe "GET #index" do
-
+  describe 'GET #index' do
     before do
       get :index, format: :json
       @json_response = JSON.parse(response.body)
     end
 
-    it "returns 200 code" do
-      expect( response.status ).to eq 200
+    it 'returns 200 code' do
+      expect(response.status).to eq 200
     end
 
-    it "contains current_week fields" do
+    it 'contains current_week fields' do
       expect(@json_response.first.keys).to eq(project_keys)
+    end
+
+    it 'does not return potential projects' do
+      expect(json_response.length).to eq(1)
+      expect(json_response[0]['name']).to eq(project1.name)
     end
   end
 end
