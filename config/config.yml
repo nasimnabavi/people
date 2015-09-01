@@ -87,6 +87,7 @@ test:
 staging:
   <<: *heroku_settings
   profile_api_url:        some_stag_url
+  profile_staging_auth:   some_profile_stag_auth
 
 production:
   <<: *heroku_settings
