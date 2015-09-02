@@ -36,7 +36,8 @@ class Hrguru.Models.User extends Backbone.Model
   visibleByRoles: (roles = '') ->
     return true if roles.length == 0
     return false unless @get('role')?
-    _.contains roles, @myRole()
+    roles = _.intersection roles, @myRoles()
+    return true if roles.length > 0
 
   visibleByProjects: (projects = '') ->
     return true if projects.length == 0
@@ -64,6 +65,9 @@ class Hrguru.Models.User extends Backbone.Model
 
   myRole: ->
     String(@get("role").id)
+
+  myRoles: ->
+    _.map _.pluck(@get('primary_roles'), 'id'), (r) -> String(r)
 
   myAbilities: ->
     _.map @get("abilities"), (a) -> String(a.id)
