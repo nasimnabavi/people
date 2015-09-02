@@ -58,6 +58,7 @@ gem 'uglifier'
 gem 'versionist'
 gem 'whenever', require: false
 gem 'httparty'
+gem 'active_model_serializers'
 
 group :development do
   gem 'better_errors'
