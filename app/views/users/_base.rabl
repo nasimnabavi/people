@@ -2,7 +2,7 @@ cache ["base", root_object, 1.day]
 
 attributes :id, :name, :email, :admin, :employment, :phone,
   :location_id, :contract_type, :archived, :abilities, :info,
-  :months_in_current_project
+  :months_in_current_project, :primary_roles
 
 node(:role) { |user| user.primary_role }
 node(:role_id) { |user| user.primary_role.try(:id) }
