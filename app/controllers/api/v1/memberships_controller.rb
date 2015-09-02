@@ -1,5 +1,5 @@
 module Api::V1
-  class MembershipsController < ApiController
+  class MembershipsController < Api::ApiController
     expose(:membership, attributes: :membership_params)
     expose(:memberships) { memberships_repository.all }
 

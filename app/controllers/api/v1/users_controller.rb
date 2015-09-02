@@ -1,5 +1,5 @@
 module Api::V1
-  class UsersController < ApiController
+  class UsersController < Api::ApiController
     expose_decorated(:users) { users_repository.active }
     expose_decorated(:user) { users_repository.from_api(params).items.first }
 

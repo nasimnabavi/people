@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Api::V1::ApiController do
+describe Api::ApiController do
   render_views
 
-  controller(Api::V1::ApiController) do
+  controller(Api::ApiController) do
     def index
       render text: 'nothing'
     end
