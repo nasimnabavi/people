@@ -24,6 +24,10 @@ Hrguru::Application.routes.draw do
       resources :roles, only: [:index]
       resources :memberships, except: [:new, :edit]
     end
+
+    namespace :v2 do
+      resources :users, only: [:index]
+    end
   end
 
   get 'fetch_abilities', to: 'users#fetch_abilities'
