@@ -39,7 +39,7 @@ describe UserAbilitiesUpdater do
     it { expect(subject).to eq(nil) }
   end
 
-  context 'user_data contains new ability nad does not contain one of the old one' do
+  context 'user_data contains new ability and does not contain one of the old one' do
     let(:user_data_skills) { %w(Java Ruby) }
 
     it 'adds new ability and remove old one' do
