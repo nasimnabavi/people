@@ -115,7 +115,7 @@ describe 'Dashboard filters', js: true do
       u
     end
     let!(:junior_position) do
-      create(:position, user: junior_dev, role: junior_role)
+      create(:position, user: junior_dev, role: junior_role, primary: true)
     end
 
     it 'does not disable the filter' do
