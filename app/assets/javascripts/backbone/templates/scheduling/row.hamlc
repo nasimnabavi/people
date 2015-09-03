@@ -13,7 +13,7 @@
 - if H.columnInCurrentSchedulingCategory('role')
   %td
     %span.role
-      != @role.name if @role
+      != @primary_role_names if @primary_roles
 - if H.columnInCurrentSchedulingCategory('current-project')
   %td
     .projects-region
