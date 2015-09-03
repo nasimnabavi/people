@@ -23,6 +23,10 @@ class Hrguru.Views.ScheduledUsersRow extends Backbone.Marionette.Layout
     note = $(event.target).data('user-notes')
     $('.user-notes-content').html(note)
 
+  serializeData: ->
+    _.extend super,
+      primary_role_names: _.pluck(@model.get('primary_roles'), 'name').join(', ')
+
   onRender: ->
     @stickit()
     role = @model.get("role")
