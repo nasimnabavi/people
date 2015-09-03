@@ -23,6 +23,6 @@ end
 
 if AppConfig.fetching_abilities
   every 1.day, at: '12pm' do
-    rake 'abilities:update_name_downcase'
+    rake 'netguru_api:profile:fetch_users_abilities'
   end
 end
