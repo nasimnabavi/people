@@ -11,6 +11,13 @@ describe Api::V2::UserSerializer do
   attributes = %w(uid email first_name last_name gh_nick archived)
   include_examples 'attributes', attributes
 
+  describe '#role' do
+    let(:user) { create(:user, :junior) }
+    let(:hash) { described_class.new(user).serializable_hash }
+
+    it { expect(hash[:role]).to eq(user.primary_role.name) }
+  end
+
   describe 'assosciations' do
     let(:hash) { described_class.new(object).serializable_hash }
 
