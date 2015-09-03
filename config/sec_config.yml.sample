@@ -1,0 +1,5 @@
+trello:
+  enabled:              true
+  developer_public_key: DEV_KEY
+  member_token:         MEMBER_TOKEN
+  schedule_board_id:    BOARD_ID
