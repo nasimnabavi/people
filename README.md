@@ -21,7 +21,7 @@ On other systems check out the official [ImageMagick](http://www.imagemagick.org
 ## Project setup
 
  * ```cd``` into project and ```bundle install``` to install all of the gem dependencies
- * run ```rake db:create``` & ```rake db:seed``` - it will create your database and populate it with sample data
+ * run ```rake db:setup``` - it will create your database and populate it with sample data
  * this app uses Google Auth. In order to configure it, checkout section **Dev auth setup** and **Local settings**.
  * once you have authentication credentials go to config/config.yml and update your google_client_id, google_secret, google_domain, github_client_id, github_secret accordingly
 
