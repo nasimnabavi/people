@@ -21,7 +21,6 @@ describe Api::V2::UserSerializer do
     context 'when there are two memberships with same project' do
       let!(:some_user) { create(:user) }
       let!(:project) { create(:project) }
-      # let(:membership_data) { { user: some_user, project: project } }
       let!(:membership1) do
         create(:membership, user: some_user, project: project,
           starts_at: 6.months.ago, ends_at: 4.months.ago)
