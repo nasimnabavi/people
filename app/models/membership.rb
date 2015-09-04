@@ -27,6 +27,7 @@ class Membership < ActiveRecord::Base
   scope :billable, -> { where(billable: true) }
   scope :without_bookings, -> { where(booked: false) }
   scope :only_active, -> { active.order(starts_at: :desc).limit(3) }
+  scope :not_internal, -> { where(project_internal: false) }
 
   def self.next_memberships
     not_started = arel_table[:starts_at].gt(Time.current)
