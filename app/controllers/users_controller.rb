@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   include ContextFreeRepos
-  before_filter :authenticate_admin!, only: [:update, :fetch_abilities]
+  before_filter :authenticate_admin!, only: [:update, :fetch_abilities], unless: -> { check_action }
 
   expose(:user) { users_repository.get params[:id] }
   expose(:users) { UserDecorator.decorate_collection(users_repository.active) }
@@ -66,6 +66,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def check_action
+    return false if params[:action] == 'fetch_abilities'
+    user == current_user
+  end
 
   def user_events
     UserEventsRepository.new(user_memberships_repository).all
