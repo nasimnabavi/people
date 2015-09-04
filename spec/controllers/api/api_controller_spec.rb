@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Api::ApiController do
   render_views
 
-  controller(Api::ApiController) do
+  controller(described_class) do
     def index
       render text: 'nothing'
     end
