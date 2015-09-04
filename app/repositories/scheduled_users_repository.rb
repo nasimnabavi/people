@@ -21,7 +21,7 @@ class ScheduledUsersRepository
   def with_rotations_in_progress
     not_booked_billable_users.joins(memberships: :project)
       .merge(Project.active.unfinished.started.commercial)
-      .merge(Membership.not_started.active)
+      .merge(Membership.not_started.active.not_internal)
   end
 
   def in_commercial_projects_with_due_date
