@@ -26,6 +26,7 @@ On other systems check out the official [ImageMagick](http://www.imagemagick.org
  * run ```rake db:setup``` - it will create your database and populate it with sample data
  * this app uses Google Auth. In order to configure it, checkout section **Dev auth setup** and **Local settings**.
  * once you have authentication credentials go to config/config.yml and update your google_client_id, google_secret, google_domain, github_client_id, github_secret accordingly
+ * in `config/config.yml` set `emails/internal` to `netguru.pl`
 
 ### Local settings
 
@@ -36,7 +37,7 @@ Take a note that emails->internal: in `config/config.yml` should be domain used 
 
 Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
 
-### Trello integration
+### Trello integration(not needed for basic setup)
 
 1. Get your developer key from https://trello.com/1/appKey/generate
 2. Use the developer key to obtain a token with read/write privileges: https://trello.com/1/authorize?key=DEV_KEY&name=APP_NAME&expiration=never&response_type=token&scope=read,write
