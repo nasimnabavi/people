@@ -44,6 +44,10 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
           label: 'choose'
           value: null
 
+  serializeData: ->
+    _.extend super,
+      primary_role_names: _.pluck(@model.get('primary_roles'), 'name').join(', ')
+
   onRender: ->
     @stickit()
     role = @model.get("role")
