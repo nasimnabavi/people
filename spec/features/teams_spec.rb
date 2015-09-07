@@ -101,6 +101,19 @@ describe 'team view', js: true do
     end
   end
 
+  describe '.js-team-member-new' do
+    it 'is not visible for non-admin user' do
+      page.set_rack_session 'warden.user.user.key' => User
+        .serialize_into_session(dev_user).unshift('User')
+
+      expect(page).not_to have_css('div.js-team-member-new')
+    end
+
+    it 'is visible for admin user' do
+      expect(page).to have_css('div.js-team-member-new')
+    end
+  end
+
   describe '.js-number-of-days' do
     # temporary xited
     xit 'displays time spent in the team' do
