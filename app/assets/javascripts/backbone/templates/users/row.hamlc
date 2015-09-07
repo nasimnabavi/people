@@ -9,9 +9,9 @@
       != @icon 'envelope-o'
     != @github
     != @skype
-- if H.currentUserIsAdmin() || H.currentUserIdIs(@id)
   %td
-    %select.form-control.roles.role_id
+    != @primary_role_names if @primary_roles
+- if H.currentUserIsAdmin() || H.currentUserIdIs(@id)
   %td
     .input-group.employment-container
       %input.form-control.employment
@@ -22,8 +22,6 @@
     .next_projects-region
     .booked_projects-region
 - else
-  %td
-    != @role.name if @role
   %td
     != "#{@employment}h"
   %td
