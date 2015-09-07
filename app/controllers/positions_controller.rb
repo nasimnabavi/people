@@ -8,7 +8,7 @@ class PositionsController < ApplicationController
   end
   expose_decorated(:roles) { roles_repository.all_by_name }
 
-  before_filter :authenticate_admin!, except: [:new, :create]
+  before_filter :authenticate_admin!, except: [:new, :create, :update, :toggle_primary]
 
   def new
     position.user = User.find_by(id: params[:user]) || current_user
@@ -39,9 +39,9 @@ class PositionsController < ApplicationController
   end
 
   def toggle_primary
-    @position = Position.find(params[:id])
-    @position.toggle!(:primary)
-    redirect_to user_path(@position.user)
+    position = Position.find(params[:id])
+    position.toggle!(:primary)
+    redirect_to user_path(position.user)
   end
 
   private
