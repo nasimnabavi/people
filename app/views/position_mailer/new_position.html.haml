@@ -1,0 +1,7 @@
+%p
+  = link_to @user.name, user_url(@user.object)
+  = "has been assigned a new role(#{@role}) since #{@since}"
+
+- if @primary
+  %p
+    It has also been marked as a primary role.
