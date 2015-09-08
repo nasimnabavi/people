@@ -1,0 +1,5 @@
+%p
+  = link_to @user.name, user_url(@user.object)
+  has been added to
+  = link_to @project.name, project_url(@project)
+  = "since #{@since}"
