@@ -21,7 +21,7 @@ class Membership < ActiveRecord::Base
   scope :potential, -> { where(project_potential: true) }
   scope :with_role, ->(role) { where(role: role) }
   scope :with_user, ->(user) { where(user: user) }
-  scope :unfinished, -> { where('ends_at IS NULL OR ends_at > ?', Time.current) }
+  scope :unfinished, -> { where('ends_at IS NULL OR ends_at >= ?', Time.current) }
   scope :started, -> { where('starts_at <= ?', Time.current) }
   scope :not_started, -> { where('starts_at > ?', Time.current) }
   scope :billable, -> { where(billable: true) }
