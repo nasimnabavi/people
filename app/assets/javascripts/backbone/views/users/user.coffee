@@ -16,7 +16,7 @@ class Hrguru.Views.UsersShow extends Backbone.View
 
   initializeAbilities: ->
     selectize = @$('#js-user-abilities').selectize
-      plugins: ['remove_button', 'drag_drop']
+      plugins: if gon.fetching_abilities then [] else ['remove_button', 'drag_drop']
       delimiter: ','
       persist: false
       create: (input) ->
