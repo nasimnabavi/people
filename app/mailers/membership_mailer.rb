@@ -1,0 +1,2 @@
+class MembershipMailer < BaseMailer
+end
