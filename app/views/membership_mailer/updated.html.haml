@@ -1,0 +1,10 @@
+%p
+  Time span for
+  = link_to @user.name, user_url(@user.object)
+  in
+  = link_to @project.name, project_url(@project)
+  has been changed.
+
+- @old_values.each do |key, value|
+  %p
+    = "#{key.to_s.humanize.capitalize} changed from #{value} to #{@membership.send(key)}"
