@@ -34,4 +34,6 @@ Hrguru::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
   config.middleware.use RackSessionAccess::Middleware
+
+  config.action_mailer.default_url_options = { host: AppConfig.domain }
 end
