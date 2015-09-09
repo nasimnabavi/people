@@ -79,12 +79,16 @@ describe 'team view', js: true do
   end
 
   describe '.js-promote-leader' do
-    xit 'promotes member to leader' do
+    let(:promoted_user) { [team_user, junior_team_user].sort_by(&:last_name).first.decorate }
+    let(:success_msg) do
+      "We successfully promoted #{promoted_user.name} to the leader of #{team.name}!"
+    end
+
+    it 'promotes member to leader' do
       find('.js-promote-leader', match: :first).click
       expect(page).not_to have_css('ul.team-members.empty')
       expect(page).to have_css('ul.team-members.filled')
-      msg = "We successfully promoted #{team_user.decorate.name} to the leader of #{team.name}!"
-      expect(page).to have_content(msg)
+      expect(page).to have_content(success_msg)
     end
   end
 
