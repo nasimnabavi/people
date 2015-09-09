@@ -16,6 +16,7 @@ class PositionsController < ApplicationController
 
   def create
     if SavePosition.new(position).call
+      SendMailJob.new.async.perform_with_user(PositionMailer, :new_position, position, current_user)
       respond_on_success user_path(position.user)
     else
       respond_on_failure position.errors
