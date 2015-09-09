@@ -49,6 +49,17 @@ class MembershipsController < ApplicationController
 
   private
 
+  def old_values(membership)
+    values = {}
+    if membership.starts_at_changed?
+      values[:starts_at] = membership.starts_at_was
+    end
+    if membership.ends_at_changed?
+      values[:ends_at] = membership.ends_at_was || 'not specified'
+    end
+    values
+  end
+
   def set_users_gon
     gon.rabl template: 'app/views/memberships/users', as: 'users'
   end
