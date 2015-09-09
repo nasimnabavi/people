@@ -4,6 +4,10 @@ FactoryGirl.define do
     primary false
     user
     role
+
+    trait :primary do
+      primary true
+    end
   end
 end
 

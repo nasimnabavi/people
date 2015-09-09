@@ -24,11 +24,11 @@ FactoryGirl.define do
     end
 
     trait :junior do
-      primary_role { create(:junior_role) }
+      positions { [create(:position, :primary, role: create(:junior_role)) ] }
     end
 
     trait :intern do
-      primary_role { create(:intern_role) }
+      positions { [create(:position, :primary, role: create(:intern_role))] }
     end
   end
 
@@ -39,15 +39,15 @@ FactoryGirl.define do
     password 'netguru123'
     without_gh true
     factory :qa_user do
-      primary_role { create(:qa_role) }
+      positions { [create(:position, :primary, role: create(:qa_role))] }
     end
     factory :pm_user do
-      primary_role { create(:pm_role) }
+      positions { [create(:position, :primary, role: create(:pm_role))] }
     end
   end
 
   factory :developer_in_project, parent: :user do
-    primary_role { create(:dev_role) }
+    positions { [create(:position, :primary, role: create(:dev_role))] }
 
     transient do
       project { create(:project) }
