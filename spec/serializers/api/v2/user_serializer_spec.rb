@@ -15,7 +15,7 @@ describe Api::V2::UserSerializer do
     let(:user) { create(:user, :junior) }
     let(:hash) { described_class.new(user).serializable_hash }
 
-    it { expect(hash[:role]).to eq(user.primary_role.name) }
+    it { expect(hash[:primary_roles]).to eq(user.primary_roles) }
   end
 
   describe 'assosciations' do
