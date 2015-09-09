@@ -142,10 +142,10 @@ describe 'team view', js: true do
 
   describe '.js-number-of-days' do
     it 'displays time spent in the team' do
-      team.users.order(:last_name).first.update_attribute(:team_join_time, Time.now - 3.days)
+      team_user.update_attribute(:team_join_time, Time.now - 3.days)
 
       visit current_path
-      expect(first(:css, '.js-number-of-days').text).to have_content('Since: 3 days')
+      expect(page).to have_content('Since: 3 days')
     end
   end
 
