@@ -22,12 +22,12 @@ class User < ActiveRecord::Base
   has_many :next_memberships, -> { next_memberships }, class: Membership
   has_many :booked_memberships, -> {
     where(booked: true)
-      .where("ends_at IS NULL OR ends_at > ?", Time.current)
-      .order("ends_at ASC NULLS FIRST, id ASC")
+      .where("memberships.ends_at IS NULL OR memberships.ends_at > ?", Time.current)
+      .order("memberships.ends_at ASC NULLS FIRST, id ASC")
   }, class: Membership
-  has_one :last_membership, -> { active.unfinished.started.order('ends_at DESC NULLS FIRST') }, class: Membership
+  has_one :last_membership, -> { active.unfinished.started.order('memberships.ends_at DESC NULLS FIRST') }, class: Membership
   has_one :longest_current_membership, -> {
-    active.unfinished.started.order('ends_at DESC NULLS FIRST, starts_at ASC')
+    active.unfinished.started.order('memberships.ends_at DESC NULLS FIRST, memberships.starts_at ASC')
   }, class: Membership
   has_many :primary_roles, -> { 
     joins(:positions).where(positions: { primary: true }).group('roles.id') }, through: :positions, source: :role
@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
       .merge(Membership.started)
   end
   scope :active, -> { where(archived: false) }
-  scope :technical, -> { where(primary_role: Role.technical.pluck(:id)) }
+  scope :technical, -> { joins(:positions).where(positions: { role_id: Role.technical.pluck(:id) } ) }
   scope :technical_active, -> { where(archived: false) }
   scope :roles, -> (roles) { where(primary_role: roles) }
   scope :contract_users, ->(contract_type) {
@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   scope :without_team, -> { where(team: nil) }
   scope :booked, -> do
     joins(:memberships).where(memberships: { booked: true })
-      .where("ends_at IS NULL OR ends_at > ?", Time.current)
+      .where("memberships.ends_at IS NULL OR memberships.ends_at > ?", Time.current)
   end
   scope :not_booked, -> { where.not(id: booked.select(:id)) }
   scope :with_scheduled_memberships, -> do
