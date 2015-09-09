@@ -10,7 +10,7 @@ class MembershipsRepository
   def upcoming_changes(days)
     # FIXME: it should be more friendly
     Membership.includes(:project)
-      .where("(ends_at BETWEEN ? AND ?) OR (starts_at BETWEEN ? AND ?)",
+      .where("(memberships.ends_at BETWEEN ? AND ?) OR (memberships.starts_at BETWEEN ? AND ?)",
              Time.now,
              days.days.from_now,
              Time.now,

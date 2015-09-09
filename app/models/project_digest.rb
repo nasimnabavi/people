@@ -52,10 +52,10 @@ class ProjectDigest
   end
 
   def leaving_memberships(days)
-    project.memberships.where('ends_at BETWEEN ? AND ?', Time.now, days.days.from_now)
+    project.memberships.where('memberships.ends_at BETWEEN ? AND ?', Time.now, days.days.from_now)
   end
 
   def joining_memberships(days)
-    project.memberships.where('starts_at BETWEEN ? AND ?', Time.now, days.days.from_now)
+    project.memberships.where('memberships.starts_at BETWEEN ? AND ?', Time.now, days.days.from_now)
   end
 end

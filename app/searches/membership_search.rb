@@ -21,15 +21,15 @@ class MembershipSearch < Searchlight::Search
   end
 
   def search_ends_later_than
-    search.where('ends_at >= ? or ends_at IS NULL', ends_later_than)
+    search.where('memberships.ends_at >= ? or memberships.ends_at IS NULL', ends_later_than)
   end
 
   def search_starts_earlier_than
-    search.where('starts_at <= ?', starts_earlier_than)
+    search.where('memberships.starts_at <= ?', starts_earlier_than)
   end
 
   def search_starts_later_than
-    search.where('starts_at >= ?', starts_later_than)
+    search.where('memberships.starts_at >= ?', starts_later_than)
   end
 
   def search_booked
@@ -37,7 +37,7 @@ class MembershipSearch < Searchlight::Search
   end
 
   def search_with_end_date
-    condition = with_end_date ? 'ends_at IS NOT NULL' : 'ends_at IS NULL'
+    condition = with_end_date ? 'memberships.ends_at IS NOT NULL' : 'memberships.ends_at IS NULL'
     search.where(condition)
   end
 

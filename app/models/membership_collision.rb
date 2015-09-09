@@ -37,12 +37,12 @@ class MembershipCollision
   def find_collisions
     if membership.ends_at.present?
       memberships.where(
-        '(starts_at <= ? AND ends_at >= ?) OR (starts_at <= ? AND ends_at IS NULL)',
+        '(memberships.starts_at <= ? AND memberships.ends_at >= ?) OR (memberships.starts_at <= ? AND memberships.ends_at IS NULL)',
         membership.ends_at, membership.starts_at, membership.ends_at
       )
     else
       memberships.where(
-        'ends_at IS NULL OR ends_at >= ?', membership.starts_at
+        'memberships.ends_at IS NULL OR memberships.ends_at >= ?', membership.starts_at
       )
     end
   end
