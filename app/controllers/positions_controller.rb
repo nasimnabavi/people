@@ -42,6 +42,9 @@ class PositionsController < ApplicationController
   def toggle_primary
     position = Position.find(params[:id])
     position.toggle!(:primary)
+    if position.primary
+      SendMailJob.new.async.perform_with_user(PositionMailer, :new_primary, position, current_user)
+    end
     redirect_to user_path(position.user)
   end
 
