@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
 
   def create
     if project.save
+      SendMailJob.new.async.perform_with_user(ProjectMailer, :created, project, current_user)
       respond_on_success project
     else
       respond_on_failure project.errors
