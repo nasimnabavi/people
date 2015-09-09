@@ -65,6 +65,7 @@ describe 'team view', js: true do
     end
 
     it 'shows new team form' do
+      expect(page).to have_css('.js-new-team-form')
       expect(page).to have_content 'Add team'
     end
 
@@ -78,10 +79,12 @@ describe 'team view', js: true do
   end
 
   describe '.js-promote-leader' do
-    # Skip temporarily
-    xit 'promotes member to leader' do
-      first('.js-promote-leader').click
-      expect(page).to have_xpath('//ul[@class="team-members filled" and @id="leader-region"]')
+    it 'promotes member to leader' do
+      find('.js-promote-leader', match: :first).click
+      expect(page).not_to have_css('ul.team-members.empty')
+      expect(page).to have_css('ul.team-members.filled')
+      msg = "We successfully promoted #{team_user.decorate.name} to the leader of #{team.name}!"
+      expect(page).to have_content(msg)
     end
   end
 
