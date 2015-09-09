@@ -31,7 +31,7 @@ class ScheduledUsersRepository
       ).where(
         'memberships.ends_at > :now
         OR projects.end_at > :now',
-        { now: Time.current }
+        { now: Time.current - 1.day }
       ).merge(Project.active.started).order('COALESCE(memberships.ends_at, projects.end_at)')
   end
 
