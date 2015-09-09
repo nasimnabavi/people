@@ -1,6 +1,6 @@
 class ScheduledUsersRepository
   def juniors_and_interns
-    base_users.available.where(primary_role: non_billable_technical_roles)
+    base_users.joins(:positions).available.where(positions: { role: non_billable_technical_roles, primary: true } )
   end
 
   def to_rotate
@@ -65,7 +65,7 @@ class ScheduledUsersRepository
   end
 
   def billable_users
-    base_users.where(primary_role: billable_technical_roles)
+    base_users.joins(:positions).where(positions: { role: billable_technical_roles, primary: true } )
   end
 
   def not_booked_billable_users
