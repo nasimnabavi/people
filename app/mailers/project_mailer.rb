@@ -28,4 +28,10 @@ class ProjectMailer < BaseMailer
     subject = "#{ project.name }: the next #{ days } days"
     mail(to: to, subject: subject, project: @project)
   end
+
+  def created(project, current_user)
+    @project = project
+    to = mail_receivers(current_user)
+    mail(to: to, subject: "#{ project.name } has been created", project: @project)
+  end
 end
