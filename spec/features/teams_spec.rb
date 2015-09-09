@@ -102,22 +102,35 @@ describe 'team view', js: true do
     end
 
     it 'updates team name' do
-      find('input.new-name').set('Relatively OK team')
+      new_team_name = 'Relatively OK team'
+      find('input.new-name').set(new_team_name)
       find('button.js-edit-team-submit').click
-      expect(page).to have_content('Relatively OK team')
+      expect(page).to have_content(new_team_name)
+      expect(page).to have_content("We successfully changed team's name to #{new_team_name}")
     end
   end
 
   describe '.js-team-member-new' do
-    it 'is not visible for non-admin user' do
-      page.set_rack_session 'warden.user.user.key' => User
-        .serialize_into_session(dev_user).unshift('User')
+    context 'when current_user is not an admin' do
+      it 'is not visible' do
+        page.set_rack_session 'warden.user.user.key' => User
+          .serialize_into_session(dev_user).unshift('User')
 
-      expect(page).not_to have_css('div.js-team-member-new')
+        expect(page).not_to have_css('div.js-team-member-new')
+      end
     end
 
-    it 'is visible for admin user' do
-      expect(page).to have_css('div.js-team-member-new')
+    context 'when current_user us an admin' do
+      it 'is visible' do
+        expect(page).to have_css('div.js-team-member-new')
+      end
+
+      it 'adds a new member to the team' do
+        expect(page).to have_css('.membership', count: 2)
+        find('.js-team-member-new').click
+        find('.selectize-dropdown-content > div', match: :first).click
+        expect(page).to have_css('.membership', count: 3)
+      end
     end
   end
 
