@@ -17,6 +17,7 @@ class MembershipsController < ApplicationController
 
   def create
     if membership.save
+      SendMailJob.new.async.perform_with_user(MembershipMailer, :created, membership, current_user)
       respond_on_success
     else
       respond_on_failure membership.errors
