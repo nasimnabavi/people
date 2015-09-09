@@ -125,11 +125,17 @@ describe 'team view', js: true do
         expect(page).to have_css('div.js-team-member-new')
       end
 
+      let(:success_msg) do
+        "We successfully added #{added_user.name} to #{team.name}!"
+      end
+      let(:added_user) { [dev_user, non_dev_user].sort_by(&:last_name).first.decorate }
+
       it 'adds a new member to the team' do
         expect(page).to have_css('.membership', count: 2)
         find('.js-team-member-new').click
         find('.selectize-dropdown-content > div', match: :first).click
         expect(page).to have_css('.membership', count: 3)
+        expect(page).to have_content(success_msg)
       end
     end
   end
