@@ -25,7 +25,10 @@ class MembershipsController < ApplicationController
   end
 
   def update
+    old_values = old_values(membership)
     if membership.save
+      data = { membership: membership, old_values: old_values }
+      SendMailJob.new.async.perform_with_user(MembershipMailer, :updated, data, current_user)
       respond_on_success user_path(membership.user)
     else
       respond_on_failure membership.errors
