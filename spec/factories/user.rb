@@ -24,7 +24,7 @@ FactoryGirl.define do
     end
 
     trait :junior do
-      positions { [create(:position, :primary, role: create(:junior_role)) ] }
+      positions { [create(:position, :primary, role: create(:junior_role))] }
     end
 
     trait :intern do
