@@ -26,14 +26,17 @@ class UserSearch < Searchlight::Search
   end
 
   def search_developer
-    search.joins(:primary_role).where(roles: { technical: true })
-      .preload(:primary_role, :projects)
+    search.joins(:positions).where(positions: { role: Role.technical, primary: true })
+      .preload(:positions, :projects)
   end
 
   private
 
   def search_role_by_names(names)
-    search.joins(:primary_role).where(roles: { name: names })
-      .preload(:primary_role, :projects)
+    search.joins(positions: :role).where(positions: { role: roles_by_names(names)} )
+  end
+
+  def roles_by_names(names)
+    names.map { |role_name| Role.find_by(name: role_name) }
   end
 end
