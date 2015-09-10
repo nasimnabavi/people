@@ -1,8 +1,6 @@
 require 'factory_girl'
 require 'faker'
 
-Dir[Rails.root.join("spec/factories/*.rb")].each {|f| require f}
-
 billable_roles = %w(senior developer)
 non_billable_roles = %w(junior praktykant pm junior\ pm qa junior\ qa)
 technical_roles = %w(junior praktykant developer senior)
