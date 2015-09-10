@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   scope :active, -> { where(archived: false) }
   scope :technical, -> { joins(:positions).where(positions: { role_id: Role.technical.pluck(:id) } ) }
   scope :technical_active, -> { where(archived: false) }
-  scope :roles, -> (roles) { where(primary_role: roles) }
+  scope :roles, -> (roles) { joins(:positions).where(positions: { role: roles, primary: true }) }
   scope :contract_users, ->(contract_type) {
     ContractType.where(name: contract_type).first.try(:users)
   }
