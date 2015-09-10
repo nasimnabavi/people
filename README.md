@@ -26,7 +26,7 @@ On other systems check out the official [ImageMagick](http://www.imagemagick.org
  * run ```rake db:setup``` - it will create your database and populate it with sample data
  * this app uses Google Auth. In order to configure it, checkout section **Dev auth setup** and **Local settings**.
  * once you have authentication credentials go to config/config.yml and update your google_client_id, google_secret, google_domain, github_client_id, github_secret accordingly
- * in `config/config.yml` set `emails/internal` to `netguru.pl`
+ * in `config/config.yml` set `emails/internal` to your domain.
 
 ### Local settings
 
