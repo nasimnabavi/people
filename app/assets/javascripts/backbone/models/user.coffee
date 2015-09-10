@@ -34,8 +34,7 @@ class Hrguru.Models.User extends Backbone.Model
     String(@id) in users
 
   visibleByRoles: (roles = '') ->
-    return true if roles.length == 0
-    return false unless @get('role')?
+    return true if roles.length is 0
     roles = _.intersection roles, @myRoles()
     return true if roles.length > 0
 
