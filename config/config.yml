@@ -61,6 +61,9 @@ heroku_settings: &heroku_settings
     internal:           <%= ENV['EMAIL_INTERNAL'] %>
     social:             <%= ENV['EMAIL_SOCIAL'] %>
     support:            <%= ENV['EMAIL_SUPPORT'] %>
+    admin:
+                        - <%= ENV['EMAIL_ADMIN_1'] %>
+                        - <%= ENV['EMAIL_ADMIN_2'] %>
   hipchat:
     active:             <%= ENV['HIPCHAT_ACTIVE'] %>
     api_token:          <%= ENV['HIPCHAT_API_TOKEN'] %>
