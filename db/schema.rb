@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826121201) do
+ActiveRecord::Schema.define(version: 20150910080440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20150826121201) do
   create_table "roles", force: true do |t|
     t.string   "name"
     t.string   "color"
-    t.integer  "priority"
+    t.integer  "priority",      default: 1
     t.boolean  "billable",      default: false
     t.boolean  "technical",     default: false
     t.boolean  "show_in_team",  default: true
