@@ -4,7 +4,8 @@ class MembershipMailer < BaseMailer
     @project = membership.project
     @since = membership.starts_at
     to = mail_receivers(current_user, @user)
-    mail(to: to, subject: "#{@user.name} has been added to #{@project.name}", project: @project)
+    subject = "#{@user.name} has been added to #{@project.name}"
+    mail(to: to, subject: subject, project: @project)
   end
 
   def updated(data, current_user)
@@ -13,6 +14,7 @@ class MembershipMailer < BaseMailer
     @project = @membership.project
     @old_values = data[:old_values]
     to = mail_receivers(current_user, @user)
-    mail(to: to, subject: "Time span for #{@user.name} in #{@project.name} has been changed", project: @project)
+    subject = "Time span for #{@user.name} in #{@project.name} has been changed"
+    mail(to: to, subject: subject, project: @project)
   end
 end
