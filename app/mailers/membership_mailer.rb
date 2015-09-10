@@ -15,5 +15,4 @@ class MembershipMailer < BaseMailer
     to = mail_receivers(current_user, @user)
     mail(to: to, subject: "Time span for #{@user.name} in #{@project.name} has been changed", project: @project)
   end
-
 end
