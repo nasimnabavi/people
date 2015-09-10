@@ -21,9 +21,9 @@ class Membership < ActiveRecord::Base
   scope :potential, -> { where(project_potential: true) }
   scope :with_role, ->(role) { where(role: role) }
   scope :with_user, ->(user) { where(user: user) }
-  scope :unfinished, -> { where('memberships.ends_at IS NULL OR memberships.ends_at >= ?', Time.current) }
-  scope :started, -> { where('memberships.starts_at <= ?', Time.current) }
-  scope :not_started, -> { where('memberships.starts_at > ?', Time.current) }
+  scope :unfinished, -> { where('COALESCE(memberships.ends_at, NOW()) >= NOW()') }
+  scope :started, -> { where('memberships.starts_at <= NOW()') }
+  scope :not_started, -> { where('memberships.starts_at > NOW()') }
   scope :billable, -> { where(billable: true) }
   scope :without_bookings, -> { where(booked: false) }
   scope :only_active, -> { active.order(starts_at: :desc).limit(3) }
