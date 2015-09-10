@@ -15,8 +15,8 @@ defaults: &defaults
     internal:             example.com
     social:               example.com
     admin:
-      - first@example.com
-      - second@example.com
+                          - first@example.com
+                          - second@example.com
     notifications:
       changes_digest:
         days:             30
