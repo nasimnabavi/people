@@ -5,13 +5,15 @@ class PositionMailer < BaseMailer
     @since = position.starts_at.to_date
     @primary = position.primary
     to = mail_receivers(current_user, position.user)
-    mail(to: to, subject: "#{@user.name} has been assigned a new role - #{@role}", project: @project)
+    subject = "#{@user.name} has been assigned a new role - #{@role}"
+    mail(to: to, subject: subject, project: @project)
   end
 
   def new_primary(position, current_user)
     @user = position.user.decorate
     @role = position.role.name
     to = mail_receivers(current_user, position.user)
-    mail(to: to, subject: "New primary role for #{@user.name}", project: @project)
+    subject = "New primary role for #{@user.name}"
+    mail(to: to, subject: subject, project: @project)
   end
 end
