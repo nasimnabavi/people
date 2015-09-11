@@ -8,3 +8,5 @@
 - @old_values.each do |key, value|
   %p
     = "#{key.to_s.humanize.capitalize} changed from #{value} to #{@membership.send(key)}"
+
+= render 'shared/performed_by', current_user: @current_user

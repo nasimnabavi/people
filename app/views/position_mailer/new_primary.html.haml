@@ -1,3 +1,5 @@
 %p
   = "Role '#{@role}' has been marked as a primary role for"
   = link_to @user.name, user_url(@user.object)
+
+= render 'shared/performed_by', current_user: @current_user

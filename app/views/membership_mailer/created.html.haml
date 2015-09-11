@@ -3,3 +3,5 @@
   has been added to
   = link_to @project.name, project_url(@project)
   = "since #{@since}"
+
+= render 'shared/performed_by', current_user: @current_user
