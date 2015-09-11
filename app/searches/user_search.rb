@@ -33,7 +33,7 @@ class UserSearch < Searchlight::Search
   private
 
   def search_role_by_names(names)
-    search.joins(positions: :role).where(positions: { role: roles_by_names(names)} )
+    search.joins(positions: :role).where(positions: { role: roles_by_names(names) })
   end
 
   def roles_by_names(names)
