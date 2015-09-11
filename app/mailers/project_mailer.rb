@@ -31,6 +31,7 @@ class ProjectMailer < BaseMailer
 
   def created(project, current_user)
     @project = project
+    @current_user = current_user.decorate
     to = mail_receivers(current_user)
     mail(to: to, subject: "#{ project.name } has been created", project: @project)
   end
