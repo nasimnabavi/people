@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
   after_save :check_potential
   before_save :set_color
 
-  POSSIBLE_TYPES = %w(regular maintenance_support maintenance_development).freeze
+  POSSIBLE_TYPES = %w(regular maintenance).freeze
 
   has_many :notes
   has_many :memberships, inverse_of: :project, dependent: :destroy

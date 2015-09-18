@@ -16,6 +16,10 @@
               %span.glyphicon.glyphicon-time
             %a.js-timeline-show.info{ data: { toggle: 'tooltip' }, title: 'Show Timeline' }
               %span.glyphicon.glyphicon-time
+
+      - if @project_type == 'maintenance'
+        %span.label.label-warning.label-maintenance #{@project_type}
+
         - if @end_at
           .time
             %time= moment(@end_at).fromNow()

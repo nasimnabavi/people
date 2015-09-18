@@ -3,7 +3,7 @@ FactoryGirl.define do
     sequence(:name) { |i| "#{Faker::Internet.domain_word}_#{i}" }
     end_at { 30.days.from_now }
     archived false
-    project_type { Project::POSSIBLE_TYPES[rand(3)] }
+    project_type { Project::POSSIBLE_TYPES[rand(2)] }
 
     factory :project_deleted do
       deleted_at Time.now
