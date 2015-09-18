@@ -17,8 +17,8 @@
             %a.js-timeline-show.info{ data: { toggle: 'tooltip' }, title: 'Show Timeline' }
               %span.glyphicon.glyphicon-time
 
-      - if @project_type == 'maintenance'
-        %span.label.label-warning.label-maintenance #{@project_type}
+      - if /maintenance/.test(@project_type)
+        %span.label.label-warning.label-maintenance maintenance
 
         - if @end_at
           .time
