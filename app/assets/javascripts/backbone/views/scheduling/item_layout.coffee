@@ -42,7 +42,7 @@ class Hrguru.Views.ScheduledUsersRow extends Backbone.Marionette.Layout
       show_start_date: true
       show_end_date: true
       header: "current"
-      role: @model.get("role")
+      roles: @model.get("roles")
     @projectsRegion.show projectsView
 
   renderNextProjectsRegion: ->

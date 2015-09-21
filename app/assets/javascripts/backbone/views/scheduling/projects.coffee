@@ -6,13 +6,13 @@ class Hrguru.Views.ScheduledUsersProjects extends Marionette.CompositeView
   itemViewContainer: '.projects'
 
   itemViewOptions: ->
-    role: @role
+    roles: @roles
     header: @header
     show_start_date: @show_start_date
     show_end_date: @show_end_date
 
   initialize: (options) ->
-    { @role, @header, @show_start_date, @show_end_date } = options
+    { @roles, @header, @show_start_date, @show_end_date } = options
 
   serializeData: ->
     _.extend super,

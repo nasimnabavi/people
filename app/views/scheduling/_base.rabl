@@ -4,7 +4,7 @@ attributes :id, :name, :email, :admin_role, :employment, :phone, :location,
 
 node(:info) { |user| user.info }
 node(:notes) { |user| user.user_notes.present? ? simple_format(user.user_notes) : ''  }
-node(:role) { |user| user.primary_role }
+node(:roles) { |user| user.roles }
 
 child(:roles) do
   extends 'roles/base'
