@@ -12,10 +12,12 @@ describe 'team view', js: true do
   let!(:dev_user) do
     create(:user, :admin, first_name: 'Developer Daisy', primary_role: billable_role)
   end
+  let!(:dev_position) { create(:position, :primary, user: dev_user, role: billable_role) }
 
   let!(:non_dev_user) do
     create(:user, first_name: 'Nondev Nigel', primary_role: non_dev_role)
   end
+  let!(:non_dev_position) { create(:position, :primary, user: non_dev_user, role: non_dev_role) }
 
   let!(:archived_user) do
     create(:user, first_name: 'Archived Arthur', archived: true)
@@ -27,16 +29,19 @@ describe 'team view', js: true do
     create(:user, first_name: 'Hidden Amanda', primary_role: hidden_role,
       team_id: team.id)
   end
+  let!(:hidden_user_position) { create(:position, :primary, user: hidden_user, role: hidden_role) }
 
   let!(:team_user) do
     create(:user, first_name: 'Developer Dave', primary_role: billable_role,
       team_id: team.id)
   end
+  let!(:team_user_position) { create(:position, :primary, user: team_user, role: billable_role) }
 
   let!(:junior_team_user) do
     create(:user, first_name: 'Junior Jake', primary_role: junior_role,
       team_id: team.id)
   end
+  let!(:junior_user_position) { create(:position, :primary, user: junior_team_user, role: junior_role) }
 
   before(:each) do
     page.set_rack_session 'warden.user.user.key' => User

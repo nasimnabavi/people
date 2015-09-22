@@ -188,7 +188,10 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
     ids = @roles
       .filter (role) -> role.get('billable') is billable
       .map (role) -> role.get('id')
-    filtered = _.filter team_members, (user) -> user.get('role_id') in ids
+
+    filtered = _.filter team_members, (user) ->
+      _.some(user.get('primary_role_ids'), (primaryRoleId) -> primaryRoleId in ids)
+
     $counter.text(filtered.length)
 
   highlight: (class_name) ->
