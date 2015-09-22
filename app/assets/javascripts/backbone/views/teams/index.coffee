@@ -24,7 +24,8 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
     visibleRolesIds = _.pluck(visibleRoles, 'id')
 
     filtered = @base_users.where(archived: false).filter (user) ->
-      _.some(user.get('primary_role_ids'), (primaryRoleId) -> _.contains(visibleRolesIds, primaryRoleId))
+      _.some(user.get('primary_role_ids'), (primaryRoleId) ->
+        _.contains(visibleRolesIds, primaryRoleId))
 
     new Hrguru.Collections.Users(filtered)
 

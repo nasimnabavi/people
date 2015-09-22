@@ -33,7 +33,8 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
   initialize: (options) ->
     return unless @model.get('id')?
     @noUI = options.noUI?
-    @roles = options.roles.filter (role) => _.contains(@model.get('primary_role_ids'), role.get('id'))
+    @roles = options.roles.filter (role) =>
+      _.contains(@model.get('primary_role_ids'), role.get('id'))
     @role_names = if _.isEmpty(@roles) then 'no role' else @roles.map((role) -> role.get('name'))
     @billable = 'billable' if _.some(@roles, (role) -> role.get('billable'))
     @listenTo(@model, 'change', @render)

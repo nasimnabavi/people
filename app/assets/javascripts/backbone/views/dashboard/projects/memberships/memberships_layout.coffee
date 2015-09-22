@@ -105,7 +105,7 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
   newMembership: (value, item) ->
     starts_at = H.currentTime().format()
     user = @users.get(value)
-    roles = @roles.filter (role) => _.contains(user.get('primary_role_ids'), role.get('id'))
+    roles = @roles.filter (role) -> _.contains(user.get('primary_role_ids'), role.get('id'))
     billable = _.some(roles, (role) -> role.get('billable'))
     attributes = { project_id: @model.id, user_id: value, starts_at: starts_at, billable: billable }
 

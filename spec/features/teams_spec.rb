@@ -41,7 +41,9 @@ describe 'team view', js: true do
     create(:user, first_name: 'Junior Jake', primary_role: junior_role,
       team_id: team.id)
   end
-  let!(:junior_user_position) { create(:position, :primary, user: junior_team_user, role: junior_role) }
+  let!(:junior_user_position) do
+    create(:position, :primary, user: junior_team_user, role: junior_role)
+  end
 
   before(:each) do
     page.set_rack_session 'warden.user.user.key' => User
