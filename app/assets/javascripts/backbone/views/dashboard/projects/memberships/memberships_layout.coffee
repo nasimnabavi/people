@@ -4,6 +4,7 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
   regions:
     billableRegion: '.billable-list'
     nonBillableRegion: '.non-billable-list'
+    roleChoiceModalRegion:  '#role-choice-modal-region'
 
   collectionEvents:
     add: 'refreshView'
@@ -103,13 +104,29 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
 
   newMembership: (value, item) ->
     starts_at = H.currentTime().format()
-    role = @users.get(value).get('role_id')
-    billable = @roles.get(role).get('billable')
-    attributes = { project_id: @model.id, role_id: role, user_id: value, starts_at: starts_at, billable: billable }
+    user = @users.get(value)
+    roles = @roles.filter (role) => _.contains(user.get('primary_role_ids'), role.get('id'))
+    billable = _.some(roles, (role) -> role.get('billable'))
+    attributes = { project_id: @model.id, user_id: value, starts_at: starts_at, billable: billable }
+
+    if roles.length > 1
+      modal = new Hrguru.Views.RoleChoiceModalView
+        roles: roles
+        attributes: attributes
+        onSubmit: (attrs) => @createMembership(attrs)
+
+      $(@roleChoiceModalRegion.el).html(modal.render().$el)
+      @roleChoiceModalRegion.show modal
+    else
+      attributes.role_id = _.first(roles)?.get('id')
+      @createMembership(attributes)
+
+  createMembership: (attributes) ->
     @collection.create attributes,
       wait: true
       success: (membership) => @membershipCreated(membership)
       error: (membership, request) => @membershipError(membership, request)
+      always: -> $(@roleChoiceModalRegion.el).html('')
 
   membershipCreated: (membership) ->
     @addToCollections(membership)
@@ -123,7 +140,6 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
     @selectize.clear()
     [ error_massage ] = request.responseJSON.errors.project
     Messenger().error(error_massage)
-
 
   fillEditPopups: ->
     @collection.each (membership) =>

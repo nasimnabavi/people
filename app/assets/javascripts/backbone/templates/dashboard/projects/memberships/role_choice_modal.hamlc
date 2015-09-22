@@ -1,0 +1,24 @@
+.modal.fade.role-choice-modal{ tabindex: '-1', role: 'dialog', aria: { labelledby: 'myModal', hidden: 'true' } }
+  .modal-dialog.modal-md
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', data: { dismiss: 'modal' } }
+          %span &times
+        %h3.modal-title Choose role.
+      .modal-body
+        .new-membership-role-form
+          .row
+            .col-md-12
+              %div User has multiple primary roles. Choose one for this project.
+          .row
+            .col-md-6
+              .form-group
+                .input-group
+                  %label.control-label
+                    Role:
+                  %select.form-control.new-membership-role
+                    - @roles.forEach (role) ->
+                      %option{:value => role.id} #{role.name}
+      .modal-footer
+        %button.btn.btn-default.new-membership-role-choice-close{ type: 'button', data: { dismiss: 'modal' } } Close
+        %button.btn.btn-primary.js-new-membership-role-choice-submit{ type: 'button' } Add

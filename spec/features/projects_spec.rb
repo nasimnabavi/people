@@ -10,9 +10,9 @@ describe 'Projects page', js: true do
   let!(:admin_user) { create(:user, :admin, primary_role: dev_role) }
   let!(:pm_user) { create(:user, primary_role: pm_role) }
   let!(:qa_user) { create(:user, primary_role: qa_role) }
-  let!(:dev_position) { create(:position, user: admin_user, role: dev_role) }
-  let!(:pm_position) { create(:position, user: pm_user, role: pm_role) }
-  let!(:qa_position) { create(:position, user: qa_user, role: qa_role) }
+  let!(:dev_position) { create(:position, :primary, user: admin_user, role: dev_role) }
+  let!(:pm_position) { create(:position, :primary, user: pm_user, role: pm_role) }
+  let!(:qa_position) { create(:position, :primary, user: qa_user, role: qa_role) }
   let!(:note) { create(:note) }
 
   before do
@@ -193,7 +193,7 @@ describe 'Projects page', js: true do
         visit '/dashboard'
         find('.projects-types li.active').click
         within('div.project') do
-          first('div.show-notes').click
+          first('div.show-notes').trigger('click')
         end
       end
 
