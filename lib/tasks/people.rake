@@ -17,4 +17,11 @@ namespace :people do
   task primary_role_reset: :environment do
     User.update_all(primary_role_id: nil)
   end
+
+  desc "Update project_type for maintenance projects"
+  task maintenance_project_type_update: :environment do
+    Project.where(project_type: %w(maintenance_support maintenance_development))
+      .update_all(project_type: 'maintenance')
+    puts 'Done!'
+  end
 end
