@@ -6,6 +6,7 @@ class TeamsController < ApplicationController
   expose(:teams) { teams_repository.all }
   expose_decorated(:users) { users_repository.all_by_name }
   expose(:roles) { roles_repository.all }
+  expose(:primary_positions) { positions_repository.primary }
 
   before_action :authenticate_admin!, only: [:update, :create, :destroy, :new, :edit]
 

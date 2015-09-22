@@ -20,10 +20,12 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
 
   visibleOnly: ->
     roles = @roles
-    visibleRoles = @roles.where show_in_team:true
-    filtered = @base_users.where(archived:false).filter (user) ->
-      role = roles.get(user.get('role_id'))
-      _.contains(visibleRoles, role)
+    visibleRoles = @roles.where(show_in_team: true)
+    visibleRolesIds = _.pluck(visibleRoles, 'id')
+
+    filtered = @base_users.where(archived: false).filter (user) ->
+      _.some(user.get('primary_role_ids'), (primaryRoleId) -> _.contains(visibleRolesIds, primaryRoleId))
+
     new Hrguru.Collections.Users(filtered)
 
   noTeamUsers: ->

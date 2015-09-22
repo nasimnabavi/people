@@ -11,5 +11,6 @@ module ContextFreeRepos
     expose(:teams_repository) { TeamsRepository.new }
     expose(:memberships_repository) { MembershipsRepository.new }
     expose(:scheduled_users_repository) { ScheduledUsersRepository.new }
+    expose(:positions_repository) { PositionsRepository.new }
   end
 end

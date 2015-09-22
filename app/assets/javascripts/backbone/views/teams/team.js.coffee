@@ -31,12 +31,11 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
         $el.text("Since: " + duration)
 
   initialize: (options) ->
-    unless @model.get('id')?
-      return
+    return unless @model.get('id')?
     @noUI = options.noUI?
-    @role = options.roles.findWhere id: @model.get('role_id')
-    @role_name = if @role then @role.get('name') else 'no role'
-    @billable = if @role.get('billable') then 'billable'
+    @roles = options.roles.filter (role) => _.contains(@model.get('primary_role_ids'), role.get('id'))
+    @role_names = if _.isEmpty(@roles) then 'no role' else @roles.map((role) -> role.get('name'))
+    @billable = 'billable' if _.some(@roles, (role) -> role.get('billable'))
     @listenTo(@model, 'change', @render)
 
   updateVisibility: ->
@@ -60,7 +59,7 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
 
   serializeData: ->
     model: @model.toJSON()
-    role_name: @role_name
+    role_names: @role_names
     billable: @billable
 
   onMembersExcludeClicked: =>

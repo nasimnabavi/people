@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
 
   expose(:projects) { projects_repository.all }
   expose(:roles) { roles_repository.all }
+  expose(:primary_positions) { positions_repository.primary }
   expose_decorated(:users) { users_repository.all_by_name }
   expose_decorated(:memberships) { memberships_repository.active_ongoing }
 
