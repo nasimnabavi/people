@@ -16,10 +16,6 @@
     .list-group-item
       = f.input :employment, wrapper: :prepend, label_html: { class: 'input-group-addon' }
     .list-group-item
-      = f.input :commitment, wrapper: :prepend, label_html: { class: 'input-group-addon' } do
-        = f.input_field :commitment, class: 'form-control', disabled: !current_user.admin?
-        %span.input-group-addon hours per week
-    .list-group-item
       = f.input :location_id, collection: details_page.locations
     .list-group-item
       = f.input :skype
