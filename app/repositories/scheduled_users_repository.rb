@@ -25,14 +25,12 @@ class ScheduledUsersRepository
   end
 
   def in_commercial_projects_with_due_date
-    not_booked_billable_users.without_scheduled_commercial_memberships.joins(memberships: :project)
-      .where(
-        projects: { internal: false }
-      ).where(
-        'memberships.ends_at > :now
-        OR projects.end_at > :now',
-        { now: Time.current - 1.day }
-      ).merge(Project.active.started).order('COALESCE(memberships.ends_at, projects.end_at)')
+    not_booked_billable_users.without_scheduled_commercial_memberships
+      .joins(current_memberships: [:project])
+      .where("(projects.internal = 'f') AND (memberships.ends_at > :now OR projects.end_at > :now)",
+        { now: Time.current - 1.day })
+      .merge(Project.active.commercial.started)
+      .order('COALESCE(memberships.ends_at, projects.end_at)')
   end
 
   def booked
