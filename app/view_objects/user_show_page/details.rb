@@ -21,7 +21,7 @@ class UserShowPage
     end
 
     def locations
-      @locations ||= locations_repository.all
+      @locations ||= locations_repository.all.order(:name)
     end
 
     def positions
