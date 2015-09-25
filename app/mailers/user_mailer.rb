@@ -9,11 +9,16 @@ class UserMailer < BaseMailer
     @user = user
     @membership = membership
     to = AppConfig.emails.admin
-    subject = if membership.duration_in_months > 5
-                "Rotation for #{user.first_name} #{user.last_name} should be planned."
-              else
-                "#{user.first_name} #{user.last_name} membership duration."
-              end
-    mail(to: to, subject: subject)
+    mail(to: to, subject: membership_duration_subject)
+  end
+
+  private
+
+  def membership_duration_subject
+    if @membership.duration_in_months > 5
+      "Rotation for #{@user.first_name} #{@user.last_name} should be planned."
+    else
+      "#{@user.first_name} #{@user.last_name} membership duration."
+    end
   end
 end
