@@ -18,7 +18,7 @@ namespace :mailer do
   end
 
   desc 'Email about users that are in the project more than six months'
-  task users_to_rotate: :environment do
+  task users_with_rotation_need: :environment do
     ScheduledUsersRepository.new.to_rotate.each do |user|
       long_memberships = user.current_memberships.select do |membership|
         membership.starts_at < 6.months.ago
