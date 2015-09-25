@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :project do
     sequence(:name) { |i| "#{Faker::Internet.domain_word}_#{i}" }
+    starts_at { 90.days.from_now }
     end_at { 30.days.from_now }
     archived false
     project_type { Project::POSSIBLE_TYPES[rand(2)] }
