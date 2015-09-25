@@ -42,7 +42,7 @@ body.scheduling {
       background-color: lighten($gray-lighter, 3%);
     }
 
-    tr.rotation-needed {
+    .rotation-needed {
       background: lighten($brand-warning, 25%);
     }
   }

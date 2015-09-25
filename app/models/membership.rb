@@ -62,7 +62,7 @@ class Membership < ActiveRecord::Base
   end
 
   def duration_in_months
-    ((Time.current - starts_at.to_time)/UserDecorator::DAYS_IN_MONTH).round
+    ((Time.current - starts_at.to_time) / UserDecorator::DAYS_IN_MONTH).round
   end
 
   private
