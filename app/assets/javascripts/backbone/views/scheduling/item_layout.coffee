@@ -12,9 +12,16 @@ class Hrguru.Views.ScheduledUsersRow extends Backbone.Marionette.Layout
     userNotesRegion: '.user_notes-region'
 
   initialize: ->
+    @highlightLongProjectMembership()
     @addInputHandler()
     @listenTo @model, 'change', @onChange
     @initVisibilitytListeners()
+
+  highlightLongProjectMembership: ->
+    return unless H.currentSchedulingCategory == 'to-rotate'
+    sixMonthsAgo = moment().subtract('months', 6)
+    currentLongestMembership = moment().subtract('seconds', @model.get('seconds_of_longest_current_membership'))
+    @$el.addClass('rotation-needed') if currentLongestMembership.isBefore(sixMonthsAgo)
 
   initVisibilitytListeners: ->
     @listenTo(@model, 'toggle_visible', @toggleVisibility)
