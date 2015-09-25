@@ -82,4 +82,14 @@ describe Membership do
       it { should be_false }
     end
   end
+
+  describe "#duration_in_months" do
+    let(:membership_1_month) { build(:membership, starts_at: 1.month.ago) }
+    let(:membership_6_months) { build(:membership, starts_at: 6.months.ago) }
+
+    it "returns an integer that presens number of months from starts_at" do
+      expect(membership_1_month.duration_in_months).to eql(1)
+      expect(membership_6_months.duration_in_months).to eql(6)
+    end
+  end
 end
