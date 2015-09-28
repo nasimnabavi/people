@@ -13,6 +13,7 @@ end
 
 every 1.month, at: '8 am' do
   rake 'mailer:users_with_rotation_need'
+  rake 'slack:users_with_rotation_need'
 end
 
 every 1.day, at: '8 am' do
