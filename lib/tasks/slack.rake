@@ -10,7 +10,7 @@ namespace :slack do
         SlackNotifier.new.ping %/
           Rotation for *#{user.first_name} #{user.last_name}* should be planned. Developer has been
           in a project *#{membership.project.name}* for _#{membership.duration_in_months}_ months.
-        /.strip.gsub(/\s{2,}/, '')
+        /.strip.gsub(/\s{2,}/, ' ')
       end
     end
   end
