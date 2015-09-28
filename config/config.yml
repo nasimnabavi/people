@@ -38,6 +38,9 @@ defaults: &defaults
     developer_public_key: key
     member_token:         token
     schedule_board_id:    id
+  slack:
+    webhook_url:          webhook_url
+    username:             PeopleApp
 
   fetching_abilities:     false
   profile_api_url:        some_dev_url
