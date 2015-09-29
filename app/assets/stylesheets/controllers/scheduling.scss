@@ -9,7 +9,7 @@ body.scheduling {
       margin-right: 15px;
     }
 
-    #main-container{
+    #main-container {
       width: 100%;
     }
 
@@ -42,16 +42,6 @@ body.scheduling {
       background-color: lighten($gray-lighter, 3%);
     }
 
-    .rotation-needed, .rotation-needed-danger, .rotation-needed-warning {
-      .project-dates {
-        color: $gray-darker;
-      }
-
-      .project-label {
-        font-weight: 600;
-      }
-    }
-
     tr.rotation-needed {
       background: lighten($brand-info, 35%);
     }
@@ -62,11 +52,23 @@ body.scheduling {
 
     tr.rotation-needed-danger {
       background: lighten($brand-danger, 10%);
-
-      .project-label {
-        color: lighten($brand-warning, 25%);
-      }
     }
+  }
+
+  .rotation-needed,
+  .rotation-needed-warning,
+  .rotation-needed-danger {
+    .project-dates {
+      color: $gray-darker;
+    }
+
+    .project-label {
+      font-weight: 600;
+    }
+  }
+
+  .rotation-needed-danger .project-label {
+    color: lighten($brand-warning, 25%);
   }
 
   td {
