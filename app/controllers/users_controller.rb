@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if UpdateUser.new(user, user_params).call
+    if UpdateUser.new(user, user_params, current_user).call
       info = { notice: t('users.updated') }
     else
       info = { alert: generate_errors }
@@ -91,8 +91,8 @@ class UsersController < ApplicationController
 
   def months
     result = []
-    result << { value: 0, text: 'Show all'}
-    result << { value: 1, text: '1 month'}
+    result << { value: 0, text: 'Show all' }
+    result << { value: 1, text: '1 month' }
     (2..12).each do |n|
       result << { value: n, text: "#{n} months" }
     end

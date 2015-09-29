@@ -12,6 +12,13 @@ class UserMailer < BaseMailer
     mail(to: to, subject: membership_duration_subject)
   end
 
+  def employment_or_location_changed(user, current_user)
+    @user = user
+    @current_user = current_user
+    to = AppConfig.emails.admin
+    mail(to: to, subject: "#{user.first_name} #{user.last_name} updated.")
+  end
+
   private
 
   def membership_duration_subject

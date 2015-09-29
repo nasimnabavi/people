@@ -1,9 +1,10 @@
 class UpdateUser
-  attr_accessor :user, :params
+  attr_accessor :user, :params, :current_user
 
-  def initialize(user, params)
+  def initialize(user, params, current_user)
     @user = user
     @params = params
+    @current_user = current_user
   end
 
   def call
@@ -11,6 +12,7 @@ class UpdateUser
     set_leader_commitment
 
     user.attributes = params
+    notify_admins_about_changes if user.employment_changed? || user.location_id_changed?
     user.save
   end
 
@@ -33,5 +35,9 @@ class UpdateUser
     return unless params['leader_team_id']
 
     @user = CommitmentSetter.new(user, :leader).call
+  end
+
+  def notify_admins_about_changes
+    SendMailJob.new.async.perform_with_user(UserMailer, :employment_or_location_changed, user, current_user)
   end
 end

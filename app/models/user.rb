@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   has_one :longest_current_membership, -> {
     active.unfinished.started.order('memberships.ends_at DESC NULLS FIRST, memberships.starts_at ASC')
   }, class: Membership
-  has_many :primary_roles, -> { 
+  has_many :primary_roles, -> {
     joins(:positions).where(positions: { primary: true }).group('roles.id') }, through: :positions, source: :role
 
   validates :first_name, :last_name, presence: true
@@ -75,6 +75,7 @@ class User < ActiveRecord::Base
   scope :without_scheduled_commercial_memberships, -> do
     where.not(id: with_scheduled_commercial_memberships.select(:id))
   end
+
   before_save :end_memberships
   before_update :save_team_join_time
 
