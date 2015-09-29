@@ -42,8 +42,30 @@ body.scheduling {
       background-color: lighten($gray-lighter, 3%);
     }
 
+    .rotation-needed, .rotation-needed-danger, .rotation-needed-warning {
+      .project-dates {
+        color: $gray-darker;
+      }
+
+      .project-label {
+        font-weight: 600;
+      }
+    }
+
     tr.rotation-needed {
+      background: lighten($brand-info, 35%);
+    }
+
+    tr.rotation-needed-warning {
       background: lighten($brand-warning, 25%);
+    }
+
+    tr.rotation-needed-danger {
+      background: lighten($brand-danger, 10%);
+
+      .project-label {
+        color: lighten($brand-warning, 25%);
+      }
     }
   }
 
