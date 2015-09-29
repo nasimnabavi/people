@@ -45,14 +45,22 @@ describe UpdateUser do
 
     it 'sends email if location changed' do
       expect(send_mail_job).to receive(:perform_with_user).with(
-          UserMailer, :employment_or_location_changed, user, current_user).once
+          UserMailer,
+          :employment_or_location_changed,
+          user,
+          current_user
+        ).once
 
       described_class.new(user, { location_id: 99 }, current_user).call
     end
 
     it 'sends email if employment changed' do
       expect(send_mail_job).to receive(:perform_with_user).with(
-          UserMailer, :employment_or_location_changed, user, current_user).once
+          UserMailer,
+          :employment_or_location_changed,
+          user,
+          current_user
+        ).once
 
       described_class.new(user, { employment: user.employment + 10 }, current_user).call
     end
@@ -61,7 +69,10 @@ describe UpdateUser do
   context 'notifications about changes not send' do
     it "doesn't send an email if location or employment weren't updated" do
       expect(send_mail_job).to receive(:perform_with_user).with(
-          UserMailer, :employment_or_location_changed, user, current_user).exactly(0).times
+          UserMailer,
+          :employment_or_location_changed,
+          user, current_user
+        ).exactly(0).times
 
       described_class.new(user, params, current_user).call
     end
