@@ -1,9 +1,9 @@
 class Project < ActiveRecord::Base
   include InitialsHandler
 
-  after_save :update_membership_fields
-  after_save :check_potential
   before_save :set_color
+  after_save :update_membership_fields, :check_potential
+  after_update :notify_if_dates_changed
 
   POSSIBLE_TYPES = %w(regular maintenance).freeze
 
@@ -72,5 +72,32 @@ class Project < ActiveRecord::Base
 
   def set_color
     self.colour ||= AvatarColor.new.as_rgb
+  end
+
+  def notify_if_dates_changed
+    kickoff_changed = field_changed?(:kickoff)
+    starts_at_changed = field_changed?(:starts_at)
+    end_at_changed = field_changed?(:end_at)
+
+    return unless kickoff_changed || starts_at_changed || end_at_changed
+
+    notification = "Dates in project *#{name}* has been updated."
+    notification += "\n#{field_changed_msg(:kickoff)}" if kickoff_changed
+    notification += "\n#{field_changed_msg(:starts_at)}" if starts_at_changed
+    notification += "\n#{field_changed_msg(:end_at)}" if end_at_changed
+
+    SlackNotifier.new.ping(notification)
+  end
+
+  def field_changed?(field)
+    changes[field].present? && changes[field][0] != changes[field][1]
+  end
+
+  def field_changed_msg(field)
+    if changes[field].to_a[1].present?
+      "*#{field.to_s.humanize}* changed to _#{send(field).to_s(:ymd)}_."
+    else
+      "*#{field.to_s.humanize}* cleared."
+    end
   end
 end

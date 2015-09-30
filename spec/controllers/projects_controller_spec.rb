@@ -62,11 +62,13 @@ describe ProjectsController do
     let!(:project) { create(:project, name: 'hrguru') }
     let(:actual_membership) { create(:membership, starts_at: 1.week.ago, ends_at: 1.week.from_now, stays: true, project: new_project) }
     let(:old_membership) { create(:membership, starts_at: 2.weeks.ago, ends_at: 1.week.ago, stays: false, project: new_project) }
+    let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
 
     context 'changes potential from true to false' do
       let(:new_project) { create(:project, potential: true) }
 
       before do
+        expect_any_instance_of(Slack::Notifier).to receive(:ping).and_return(response_ok)
         new_project.memberships << [actual_membership, old_membership]
         put :update, id: new_project, project: attributes_for(:project, potential: false)
         new_project.reload
@@ -94,6 +96,7 @@ describe ProjectsController do
 
       before do
         new_project.memberships << [actual_membership, old_membership]
+        expect_any_instance_of(Slack::Notifier).to receive(:ping).and_return(response_ok)
       end
 
       it 'return all memberships' do
@@ -105,11 +108,16 @@ describe ProjectsController do
     end
 
     it 'exposes project' do
+      expect_any_instance_of(Slack::Notifier).to receive(:ping).and_return(response_ok)
       put :update, id: project, project: project.attributes
       expect(controller.project).to eq project
     end
 
     context 'valid attributes' do
+      before do
+        expect_any_instance_of(Slack::Notifier).to receive(:ping).and_return(response_ok)
+      end
+
       it "changes project's attributes" do
         put :update, id: project, project: attributes_for(:project, name: 'dwhite')
         project.reload
