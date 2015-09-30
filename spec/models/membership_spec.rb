@@ -154,8 +154,8 @@ describe Membership do
         new_ends_at = Date.current + 2.days
         expected_notification = "Time span for *#{membership.user.last_name} #{membership.user.first_name}*"
         expected_notification += " in *#{membership.project.name}* has been changed."
-        expected_notification +="\nStarts at changed from _#{membership.starts_at}_ to _#{new_starts_at}_."
-        expected_notification +="\nEnds at changed from _not specified_ to _#{new_ends_at}_."
+        expected_notification += "\nStarts at changed from _#{membership.starts_at}_ to _#{new_starts_at}_."
+        expected_notification += "\nEnds at changed from _not specified_ to _#{new_ends_at}_."
 
         expect(notifier).to receive(:ping).with(expected_notification).once
         membership.update(starts_at: new_starts_at, ends_at: new_ends_at)
@@ -165,7 +165,7 @@ describe Membership do
         new_starts_at = membership.starts_at + 1.day
         expected_notification = "Time span for *#{membership.user.last_name} #{membership.user.first_name}*"
         expected_notification += " in *#{membership.project.name}* has been changed."
-        expected_notification +="\nStarts at changed from _#{membership.starts_at}_ to _#{new_starts_at}_."
+        expected_notification += "\nStarts at changed from _#{membership.starts_at}_ to _#{new_starts_at}_."
 
         expect(notifier).to receive(:ping).with(expected_notification).once
         membership.update(starts_at: new_starts_at)
@@ -175,7 +175,7 @@ describe Membership do
         new_ends_at = Date.current + 2.days
         expected_notification = "Time span for *#{membership.user.last_name} #{membership.user.first_name}*"
         expected_notification += " in *#{membership.project.name}* has been changed."
-        expected_notification +="\nEnds at changed from _not specified_ to _#{new_ends_at}_."
+        expected_notification += "\nEnds at changed from _not specified_ to _#{new_ends_at}_."
 
         expect(notifier).to receive(:ping).with(expected_notification).once
         membership.update(ends_at: new_ends_at)
