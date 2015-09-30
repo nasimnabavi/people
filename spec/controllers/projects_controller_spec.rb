@@ -62,12 +62,16 @@ describe ProjectsController do
     let!(:project) { create(:project, name: 'hrguru') }
     let(:actual_membership) { create(:membership, starts_at: 1.week.ago, ends_at: 1.week.from_now, stays: true, project: new_project) }
     let(:old_membership) { create(:membership, starts_at: 2.weeks.ago, ends_at: 1.week.ago, stays: false, project: new_project) }
+    let(:slack_config) { OpenStruct.new(webhook_url: 'webhook_url', username: 'PeopleApp') }
     let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
 
     context 'changes potential from true to false' do
       let(:new_project) { create(:project, potential: true) }
 
       before do
+        allow(AppConfig).to receive(:slack).and_return(slack_config)
+        allow_any_instance_of(Membership).to receive(:notify_create_on_slack)
+        allow_any_instance_of(Membership).to receive(:notify_update_on_slack)
         expect_any_instance_of(Slack::Notifier).to receive(:ping).and_return(response_ok)
         new_project.memberships << [actual_membership, old_membership]
         put :update, id: new_project, project: attributes_for(:project, potential: false)
@@ -96,6 +100,7 @@ describe ProjectsController do
 
       before do
         new_project.memberships << [actual_membership, old_membership]
+        allow(AppConfig).to receive(:slack).and_return(slack_config)
         expect_any_instance_of(Slack::Notifier).to receive(:ping).and_return(response_ok)
       end
 
@@ -108,6 +113,7 @@ describe ProjectsController do
     end
 
     it 'exposes project' do
+      allow(AppConfig).to receive(:slack).and_return(slack_config)
       expect_any_instance_of(Slack::Notifier).to receive(:ping).and_return(response_ok)
       put :update, id: project, project: project.attributes
       expect(controller.project).to eq project
@@ -115,6 +121,7 @@ describe ProjectsController do
 
     context 'valid attributes' do
       before do
+        allow(AppConfig).to receive(:slack).and_return(slack_config)
         expect_any_instance_of(Slack::Notifier).to receive(:ping).and_return(response_ok)
       end
 
