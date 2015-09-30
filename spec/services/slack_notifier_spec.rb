@@ -1,11 +1,16 @@
 require 'spec_helper'
 
 describe SlackNotifier do
+  let(:slack_config) { OpenStruct.new(webhook_url: 'webhook_url', username: 'PeopleApp') }
   let(:notification) { 'Something really cool to notify.' }
   let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
-  let(:notifier) { Slack::Notifier.new(AppConfig.slack.webhook_url, username: 'test_user') }
+  let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: 'test_user') }
 
   describe '#new' do
+    before do
+      allow(AppConfig).to receive(:slack).and_return(slack_config)
+    end
+
     it 'initializes with correct and default options' do
       expect(described_class.new.options).to eql(username: AppConfig.slack.username)
     end
@@ -21,8 +26,14 @@ describe SlackNotifier do
     end
 
     it 'send a message via Slack::Notifier gem' do
+      allow(AppConfig).to receive(:slack).and_return(slack_config)
       expect(notifier).to receive(:ping).with(notification).and_return(response_ok)
       described_class.new.ping(notification)
+    end
+
+    it 'will not call a ping method from Slack::Notifier if webhook_url is not present' do
+      expect(notifier).to receive(:ping).exactly(0).times
+      expect(described_class.new.ping(notification)).to be_nil
     end
   end
 end

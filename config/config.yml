@@ -92,6 +92,9 @@ test:
   hipchat:
     active: false
     api_token: 1234567890
+  slack:
+    webhook_url:
+    username: PeopleApp
 
 staging:
   <<: *heroku_settings
