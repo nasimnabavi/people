@@ -3,6 +3,16 @@ require 'spec_helper'
 describe Membership do
   subject { build(:membership, starts_at: Time.now) }
 
+  let(:slack_config) { OpenStruct.new(webhook_url: 'webhook_url', username: 'PeopleApp') }
+  let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: 'test_user') }
+  let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
+
+  before do
+    allow(AppConfig).to receive(:slack).and_return(slack_config)
+    allow(Slack::Notifier).to receive(:new).and_return(notifier)
+    allow(notifier).to receive(:ping).and_return(response_ok)
+  end
+
   it { should belong_to :user }
   it { should belong_to :project }
   it { should belong_to :role }
@@ -90,6 +100,91 @@ describe Membership do
     it "returns an integer that presens number of months from starts_at" do
       expect(membership_1_month.duration_in_months).to eql(1)
       expect(membership_6_months.duration_in_months).to eql(6)
+    end
+  end
+
+  context "creating model" do
+    let(:membership) { build(:membership, starts_at: 5.months.ago, ends_at: nil) }
+
+    it 'triggers notify_create_on_slack after create' do
+      expect(membership).to receive(:notify_create_on_slack).once
+      membership.save
+    end
+  end
+
+  context "updating model" do
+    let(:membership) { create(:membership, starts_at: 5.months.ago, ends_at: nil) }
+
+    it 'triggers notify_update_on_slack after create' do
+      expect(membership).to receive(:notify_update_on_slack).once
+      membership.update(ends_at: Date.current + 2.days)
+    end
+  end
+
+  context "notifies on slack if created" do
+    describe "#notify_create_on_slack" do
+      let(:membership) { build(:membership, starts_at: 5.months.ago, ends_at: nil) }
+      let(:membership_with_ends_at) { build(:membership, starts_at: 5.months.ago, ends_at: 1.day.ago) }
+
+      it 'notifies with proper message if only starts_at set' do
+        expected_notification = "*#{membership.user.first_name} #{membership.user.last_name}*"
+        expected_notification += " has been added to *#{membership.project.name}* since _#{membership.starts_at}_."
+
+        expect(notifier).to receive(:ping).with(expected_notification).once
+        membership.save
+      end
+
+      it 'notifies with proper message of starts_at and ends_at set' do
+        expected_notification = "*#{membership_with_ends_at.user.first_name} #{membership_with_ends_at.user.last_name}*"
+        expected_notification += " has been added to *#{membership_with_ends_at.project.name}* since"
+        expected_notification += " _#{membership_with_ends_at.starts_at}_ to _#{membership_with_ends_at.ends_at}_."
+
+        expect(notifier).to receive(:ping).with(expected_notification).once
+        membership_with_ends_at.save
+      end
+    end
+  end
+
+  context "notifies on slack if dates updated" do
+    describe "#notify_update_on_slack" do
+      let!(:membership) { create(:membership, starts_at: 5.months.ago, ends_at: nil) }
+
+      it 'notifies with proper message if starts_at and ends_at changed' do
+        new_starts_at = membership.starts_at + 1.day
+        new_ends_at = Date.current + 2.days
+        expected_notification = "Time span for *#{membership.user.last_name} #{membership.user.first_name}*"
+        expected_notification += " in *#{membership.project.name}* has been changed."
+        expected_notification +="\nStarts at changed from _#{membership.starts_at}_ to _#{new_starts_at}_."
+        expected_notification +="\nEnds at changed from _not specified_ to _#{new_ends_at}_."
+
+        expect(notifier).to receive(:ping).with(expected_notification).once
+        membership.update(starts_at: new_starts_at, ends_at: new_ends_at)
+      end
+
+      it 'notifies with proper message if only starts_at changed' do
+        new_starts_at = membership.starts_at + 1.day
+        expected_notification = "Time span for *#{membership.user.last_name} #{membership.user.first_name}*"
+        expected_notification += " in *#{membership.project.name}* has been changed."
+        expected_notification +="\nStarts at changed from _#{membership.starts_at}_ to _#{new_starts_at}_."
+
+        expect(notifier).to receive(:ping).with(expected_notification).once
+        membership.update(starts_at: new_starts_at)
+      end
+
+      it 'notifies with proper message if only ends_at changed' do
+        new_ends_at = Date.current + 2.days
+        expected_notification = "Time span for *#{membership.user.last_name} #{membership.user.first_name}*"
+        expected_notification += " in *#{membership.project.name}* has been changed."
+        expected_notification +="\nEnds at changed from _not specified_ to _#{new_ends_at}_."
+
+        expect(notifier).to receive(:ping).with(expected_notification).once
+        membership.update(ends_at: new_ends_at)
+      end
+
+      it 'will not send a notification to slack if starts_at or ends_at are not updated' do
+        expect(notifier).to receive(:ping).exactly(0).times
+        membership.update(role_id: 1)
+      end
     end
   end
 end
