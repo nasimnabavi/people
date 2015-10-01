@@ -31,12 +31,13 @@ class Position < ActiveRecord::Base
   end
 
   def notify_slack_on_update
-    return unless primary_changed? || role_id_changed?
-    notification = 'Role'
-    notification += primary_toggled_notification if primary_changed?
-    notification += role_changed_notification if role_id_changed?
+    if primary_changed? || role_id_changed?
+      notification = 'Role'
+      notification += primary_toggled_notification if primary_changed?
+      notification += role_changed_notification if role_id_changed?
 
-    SlackNotifier.new.ping(notification)
+      SlackNotifier.new.ping(notification)
+    end
   end
 
   def primary_toggled_notification
