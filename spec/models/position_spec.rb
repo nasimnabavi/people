@@ -149,6 +149,12 @@ describe Position do
       expected_notification += " changed from _#{position.role.name}_"
       expected_notification += "for *#{position.user.last_name} #{position.user.first_name}*."
 
+      # temporary for debugging purpose
+      puts '--------------------------'
+      puts AppConfig.slack.inspect
+      puts notifier.inspect
+      puts '--------------------------'
+
       expect(notifier).to receive(:ping).with(expected_notification).and_return(response_ok).once
       position.update(role_id: senior_role.id)
     end
