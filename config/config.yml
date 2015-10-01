@@ -100,6 +100,9 @@ staging:
   <<: *heroku_settings
   profile_api_url:        some_stag_url
   profile_staging_auth:   some_profile_stag_auth
+  slack:
+    webhook_url:
+    username: PeopleApp
 
 production:
   <<: *heroku_settings
