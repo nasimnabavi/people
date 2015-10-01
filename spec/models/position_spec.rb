@@ -111,9 +111,10 @@ describe Position do
     let(:slack_config) { OpenStruct.new(webhook_url: 'webhook_url', username: 'PeopleApp') }
     let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: slack_config.username) }
     let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
-    let(:position) { create(:position, starts_at: Time.current) }
-    let(:position_primary) { create(:position, :primary, starts_at: Time.current) }
+    let(:junior_role) { create(:role, name: 'junior', technical: true, priority: 3) }
     let(:senior_role) { create(:role, name: 'senior', technical: true, priority: 1) }
+    let(:position) { create(:position, starts_at: Time.current, role: junior_role) }
+    let(:position_primary) { create(:position, :primary, starts_at: Time.current, role: junior_role) }
 
     before do
       allow(position).to receive(:notify_slack_on_create)
@@ -148,12 +149,6 @@ describe Position do
       expected_notification = "Role _#{senior_role.name}_ has been"
       expected_notification += " changed from _#{position.role.name}_"
       expected_notification += "for *#{position.user.last_name} #{position.user.first_name}*."
-
-      # temporary for debugging purpose
-      puts '--------------------------'
-      puts AppConfig.slack.inspect
-      puts notifier.inspect
-      puts '--------------------------'
 
       expect(notifier).to receive(:ping).with(expected_notification).and_return(response_ok).once
       position.update(role_id: senior_role.id)
