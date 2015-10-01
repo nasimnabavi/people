@@ -77,7 +77,7 @@ describe Position do
 
   describe '#notify_slack_on_create' do
     let(:slack_config) { OpenStruct.new(webhook_url: 'webhook_url', username: 'PeopleApp') }
-    let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: 'test_user') }
+    let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: slack_config.username) }
     let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
     let(:position_primary) { build(:position, :primary, starts_at: Time.current) }
 
@@ -109,7 +109,7 @@ describe Position do
 
   describe '#notify_slack_on_update' do
     let(:slack_config) { OpenStruct.new(webhook_url: 'webhook_url', username: 'PeopleApp') }
-    let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: 'test_user') }
+    let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: slack_config.username) }
     let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
     let(:position) { create(:position, starts_at: Time.current) }
     let(:position_primary) { create(:position, :primary, starts_at: Time.current) }

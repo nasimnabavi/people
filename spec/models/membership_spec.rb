@@ -4,7 +4,7 @@ describe Membership do
   subject { build(:membership, starts_at: Time.now) }
 
   let(:slack_config) { OpenStruct.new(webhook_url: 'webhook_url', username: 'PeopleApp') }
-  let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: 'test_user') }
+  let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: slack_config.username) }
   let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
 
   before do

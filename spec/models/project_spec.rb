@@ -65,7 +65,7 @@ describe Project do
   context "notifies on slack if dates updated" do
     describe "#notify_if_dates_changed" do
       let(:slack_config) { OpenStruct.new(webhook_url: 'webhook_url', username: 'PeopleApp') }
-      let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: 'test_user') }
+      let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: slack_config.username) }
       let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
       let(:project) { create(:project) }
 
