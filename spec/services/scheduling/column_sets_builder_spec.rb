@@ -5,8 +5,10 @@ describe Scheduling::ColumnSetsBuilder do
 
   let(:possible_columns) { %w(user role current-project from-to next-project booked notes) }
   let(:categories) do
-    %w(all juniors-interns to-rotate internals in-progress in-commercial-with-due-date booked
-      unavailable not-scheduled)
+    %w(
+      all juniors-interns to-rotate internals in-progress in-commercial-with-due-date booked
+      unavailable not-scheduled
+    )
   end
 
   describe '#call' do
