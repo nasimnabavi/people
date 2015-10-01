@@ -33,21 +33,23 @@ class Position < ActiveRecord::Base
   def notify_slack_on_update
     return unless primary_changed? || role_id_changed?
     notification = 'Role'
-
-    if primary_changed?
-      notification += " _#{role.name}_ has been"
-      notification += primary? ? " marked" : " unchecked"
-      notification += " as the *primary role* for *#{user.last_name} #{user.first_name}*."
-    end
-
-    if role_id_changed?
-      previous_role = Role.select(:name).find(changes[:role_id].first)
-      notification += " _#{role.name}_ has been"
-      notification += " also" if primary_changed?
-      notification += " changed from _#{previous_role.name}_"
-      notification += primary_changed? ? '.' : "for *#{user.last_name} #{user.first_name}*."
-    end
+    notification += primary_toggled_notification if primary_changed?
+    notification += role_changed_notification if role_id_changed?
 
     SlackNotifier.new.ping(notification)
+  end
+
+  def primary_toggled_notification
+    notification = " _#{role.name}_ has been"
+    notification += primary? ? " marked" : " unchecked"
+    notification + " as the *primary role* for *#{user.last_name} #{user.first_name}*."
+  end
+
+  def role_changed_notification
+    previous_role = Role.select(:name).find(changes[:role_id].first)
+    notification = " _#{role.name}_ has been"
+    notification += " also" if primary_changed?
+    notification += " changed from _#{previous_role.name}_"
+    notification + (primary_changed? ? '.' : "for *#{user.last_name} #{user.first_name}*.")
   end
 end
