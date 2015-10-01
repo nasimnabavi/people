@@ -5,7 +5,10 @@
       .membership__item
         = link_to edit_membership_path(m), class: 'list-group-item' do
           = m.date_range
-          %span.badge= m.duration_in_words
+          - if m.duration_in_words == 'current'
+            %span.badge.badge-success= m.duration_in_words
+          -  else
+            %span.badge= m.duration_in_words
           = m.role.label
           - if m.project.archived?
             %strong archived
