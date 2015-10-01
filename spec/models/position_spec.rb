@@ -58,4 +58,109 @@ describe Position do
       expect(senior_pos.errors).to be_blank
     end
   end
+
+  context 'creating model' do
+    it 'triggers notify_slack_on_create after create' do
+      expect(subject).to receive(:notify_slack_on_create).once
+      subject.save
+    end
+  end
+
+  context 'updating model' do
+    let(:position) { create(:position, starts_at: Time.now) }
+
+    it 'triggers notify_slack_on_update after update' do
+      expect(position).to receive(:notify_slack_on_update).once
+      position.update(primary: !position.primary)
+    end
+  end
+
+  describe '#notify_slack_on_create' do
+    let(:slack_config) { OpenStruct.new(webhook_url: 'webhook_url', username: 'PeopleApp') }
+    let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: 'test_user') }
+    let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
+    let(:position_primary) { build(:position, :primary, starts_at: Time.current) }
+
+    before do
+      allow(AppConfig).to receive(:slack).and_return(slack_config)
+      allow(Slack::Notifier).to receive(:new).and_return(notifier)
+      allow(notifier).to receive(:ping).and_return(response_ok)
+    end
+
+    it 'sends a notification with proper message if primary set to true' do
+      expected_notification = "*#{position_primary.user.last_name} #{position_primary.user.first_name}*"
+      expected_notification += " has been assigned a new role"
+      expected_notification += " (#{position_primary.role.name}) since _#{position_primary.starts_at.to_s(:ymd)}_."
+      expected_notification += "\nIt has also been marked as a *primary role*."
+
+      expect(notifier).to receive(:ping).with(expected_notification).once
+      position_primary.save
+    end
+
+    it 'sends a notification with proper message if primary set to false' do
+      expected_notification = "*#{subject.user.last_name} #{subject.user.first_name}*"
+      expected_notification += " has been assigned a new role"
+      expected_notification += " (#{subject.role.name}) since _#{subject.starts_at.to_s(:ymd)}_."
+
+      expect(notifier).to receive(:ping).with(expected_notification).once
+      subject.save
+    end
+  end
+
+  describe '#notify_slack_on_update' do
+    let(:slack_config) { OpenStruct.new(webhook_url: 'webhook_url', username: 'PeopleApp') }
+    let(:notifier) { Slack::Notifier.new(slack_config.webhook_url, username: 'test_user') }
+    let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
+    let(:position) { create(:position, starts_at: Time.current) }
+    let(:position_primary) { create(:position, :primary, starts_at: Time.current) }
+    let(:senior_role) { create(:role, name: 'senior', technical: true, priority: 1) }
+
+    before do
+      allow(position).to receive(:notify_slack_on_create)
+      allow(position_primary).to receive(:notify_slack_on_create)
+      allow(AppConfig).to receive(:slack).and_return(slack_config)
+      allow(Slack::Notifier).to receive(:new).and_return(notifier)
+      allow(notifier).to receive(:ping).and_return(response_ok)
+    end
+
+    it 'should not send a notification if neither primary nore role_id changed' do
+      expect(notifier).to receive(:ping).exactly(0).times
+      position.update(starts_at: position.starts_at + 1.day)
+    end
+
+    it 'should send notification with proper message if primary changed to true' do
+      expected_notification = "Role _#{position.role.name}_ has been marked as the *primary role*"
+      expected_notification += " for *#{position.user.last_name} #{position.user.first_name}*."
+
+      expect(notifier).to receive(:ping).with(expected_notification).once
+      position.update(primary: true)
+    end
+
+    it 'should send notification with proper message if primary changed to false' do
+      expected_notification = "Role _#{position_primary.role.name}_ has been unchecked as the *primary role*"
+      expected_notification += " for *#{position_primary.user.last_name} #{position_primary.user.first_name}*."
+
+      expect(notifier).to receive(:ping).with(expected_notification).once
+      position_primary.update(primary: false)
+    end
+
+    it 'should send notification with proper message if only role changed' do
+      expected_notification = "Role _#{senior_role.name}_ has been"
+      expected_notification += " changed from _#{position.role.name}_"
+      expected_notification += "for *#{position.user.last_name} #{position.user.first_name}*."
+
+      expect(notifier).to receive(:ping).with(expected_notification).once
+      position.update(role_id: senior_role.id)
+    end
+
+    it 'should send notification with proper message if role and primary flag changed' do
+      expected_notification = "Role _#{senior_role.name}_ has been unchecked as the *primary role*"
+      expected_notification += " for *#{position_primary.user.last_name} #{position_primary.user.first_name}*."
+      expected_notification += " _#{senior_role.name}_ has been also"
+      expected_notification += " changed from _#{position_primary.role.name}_."
+
+      expect(notifier).to receive(:ping).with(expected_notification).once
+      position_primary.update(role_id: senior_role.id, primary: false)
+    end
+  end
 end

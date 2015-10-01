@@ -115,7 +115,7 @@ describe Membership do
   context "updating model" do
     let(:membership) { create(:membership, starts_at: 5.months.ago, ends_at: nil) }
 
-    it 'triggers notify_update_on_slack after create' do
+    it 'triggers notify_update_on_slack after update' do
       expect(membership).to receive(:notify_update_on_slack).once
       membership.update(ends_at: Date.current + 2.days)
     end
