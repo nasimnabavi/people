@@ -20,7 +20,7 @@ class UserMailer < BaseMailer
   end
 
   def without_primary_role(users)
-    @users = users
+    @users = UserDecorator.decorate_collection(users)
     to = AppConfig.emails.admin
     mail(to: to, subject: 'List of users without primary role set.')
   end
