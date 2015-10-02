@@ -1,9 +1,13 @@
 %p
   = link_to "#{@user.first_name} #{@user.last_name}", user_url(@user)
   updated.
-  - if @user.changes[:employment].present?
+  - if @user.employment_changed?
     Employment has been changed to #{@user.employment}.
-  - if @user.changes[:location_id].present?
+  - if @user.location_id_changed?
     Location has been changed to #{@user.location.name}.
+  - if @user.user_notes_changed?
+    Notes has been changed to:
+    %p
+      = @user.user_notes
 
 = render 'shared/performed_by', current_user: @current_user

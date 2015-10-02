@@ -12,7 +12,9 @@ class UpdateUser
     set_leader_commitment
 
     user.attributes = params
-    notify_admins_about_changes if user.employment_changed? || user.location_id_changed?
+    if user.employment_changed? || user.location_id_changed? || user.user_notes_changed?
+      notify_admins_about_changes
+    end
     user.save
   end
 
@@ -38,6 +40,6 @@ class UpdateUser
   end
 
   def notify_admins_about_changes
-    SendMailJob.new.async.perform_with_user(UserMailer, :employment_or_location_changed, user, current_user)
+    SendMailJob.new.async.perform_with_user(UserMailer, :notify_admins_about_changes, user, current_user)
   end
 end
