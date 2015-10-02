@@ -19,6 +19,12 @@ class UserMailer < BaseMailer
     mail(to: to, subject: "#{user.first_name} #{user.last_name} updated.")
   end
 
+  def without_primary_role(users)
+    @users = users
+    to = AppConfig.emails.admin
+    mail(to: to, subject: 'List of users without primary role set.')
+  end
+
   private
 
   def membership_duration_subject
