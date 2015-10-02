@@ -25,7 +25,10 @@ class UserShowPage
     end
 
     def positions
-      @positions ||= PositionDecorator.decorate_collection(user_positions_repository.all)
+      @positions ||= PositionDecorator.decorate_collection(
+        user_positions_repository.all.joins(:role)
+          .order('positions.starts_at DESC,  roles.priority ASC')
+      )
     end
 
     def user_roles
