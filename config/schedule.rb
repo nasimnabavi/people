@@ -18,6 +18,7 @@ end
 
 every 1.day, at: '8 am' do
   rake 'people:gravatars_download'
+  rake 'mailer:users_without_primary_role'
 end
 
 if AppConfig.trello.enabled
