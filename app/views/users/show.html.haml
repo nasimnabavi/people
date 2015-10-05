@@ -13,10 +13,10 @@
     = render 'positions', details_page: user_details_page
 
     .list-group
-      - user_show_page.user_active_projects.reverse_each do |project, memberships|
-        = render partial: 'projects', locals: { project: project, memberships: memberships }
-      - user_show_page.user_archived_projects.reverse_each do |project, memberships|
-        = render partial: 'projects', locals: { project: project, memberships: memberships }
+      - user_show_page.user_active_memberships.each do |membership|
+        = render partial: 'membership', locals: { membership: membership }
+      - user_show_page.user_archived_memberships.each do |membership|
+        = render partial: 'membership', locals: { membership: membership }
 
   .time-section
     .timeline

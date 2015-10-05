@@ -19,6 +19,7 @@ class Membership < ActiveRecord::Base
   after_update :notify_update_on_slack
 
   scope :active, -> { where(project_potential: false, project_archived: false, booked: false) }
+  scope :archived, -> { where(project_archived: true) }
   scope :not_archived, -> { where(project_archived: false) }
   scope :potential, -> { where(project_potential: true) }
   scope :with_role, ->(role) { where(role: role) }
