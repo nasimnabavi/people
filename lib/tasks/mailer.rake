@@ -30,10 +30,10 @@ namespace :mailer do
     end
   end
 
-  desc 'Email about users that miss important things in their profiles'
+  desc 'Email about users that miss primary role in their profiles'
   task users_without_primary_role: :environment do
     user_ids_with_primary = Position.select(:user_id).primary.distinct.pluck(:user_id)
-    users_without_primary = User.where.not(id: user_ids_with_primary).where(primary_role: nil)
+    users_without_primary = User.active.where.not(id: user_ids_with_primary).where(primary_role: nil)
                               .order([:last_name, :first_name])
 
     SendMailJob.new.async.perform(UserMailer, :without_primary_role, users_without_primary)
