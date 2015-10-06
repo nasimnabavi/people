@@ -14,7 +14,7 @@ class ScheduledUserDecorator < UserDecorator
 
   def next_current_membership_ends_at
     latest_membership = object.current_memberships.joins(:project)
-      .order('COALESCE(memberships.ends_at, projects.end_at)').first
+                          .order('COALESCE(memberships.ends_at, projects.end_at)').first
 
     return nil if latest_membership.nil?
 
