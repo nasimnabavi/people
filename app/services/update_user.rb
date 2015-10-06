@@ -12,9 +12,7 @@ class UpdateUser
     set_leader_commitment
 
     user.attributes = params
-    if user.employment_changed? || user.location_id_changed? || user.user_notes_changed?
-      notify_admins_about_changes
-    end
+    notify_admins_about_changes if user.valid? && should_notify_about_changes?
     user.save
   end
 
@@ -37,6 +35,10 @@ class UpdateUser
     return unless params['leader_team_id']
 
     @user = CommitmentSetter.new(user, :leader).call
+  end
+
+  def should_notify_about_changes?
+    user.employment_changed? || user.location_id_changed? || user.user_notes_changed?
   end
 
   def notify_admins_about_changes

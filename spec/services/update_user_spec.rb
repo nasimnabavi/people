@@ -72,5 +72,12 @@ describe UpdateUser do
 
       described_class.new(user, params, current_user).call
     end
+
+    it "doesn't send an email if validation fails" do
+      expect(send_mail_job).to receive(:perform_with_user).with(
+        UserMailer, :notify_admins_about_changes, user, current_user).exactly(0).times
+
+      described_class.new(user, { employment: 2000 }, current_user).call
+    end
   end
 end
