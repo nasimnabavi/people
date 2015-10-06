@@ -32,13 +32,13 @@ describe ScheduledUserDecorator do
     end
 
     it 'returns date from the membership that is next to end' do
-      expect(described_class.new(user_with_due_dates).next_current_membership_ends_at)
-        .to eql(membership_2.ends_at)
+      expect(described_class.new(user_with_due_dates).next_current_membership_ends_at.to_s)
+        .to eql(membership_2.ends_at.to_s)
     end
 
     it 'returns project end date if current membership ends_at is not specified' do
-      expect(described_class.new(user_without_due_dates).next_current_membership_ends_at)
-        .to eql(project_2.end_at)
+      expect(described_class.new(user_without_due_dates).next_current_membership_ends_at.to_s)
+        .to eql(project_2.end_at.to_s)
     end
   end
 end
