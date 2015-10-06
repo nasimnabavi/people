@@ -12,6 +12,19 @@ class ScheduledUserDecorator < UserDecorator
     (Time.now - longest_current_membership.starts_at.to_time).to_i
   end
 
+  def next_current_membership_ends_at
+    latest_membership = object.current_memberships.joins(:project)
+      .order('COALESCE(memberships.ends_at, projects.end_at)').first
+
+    return nil if latest_membership.nil?
+
+    if latest_membership.ends_at.present?
+      latest_membership.ends_at
+    else
+      latest_membership.project.end_at
+    end
+  end
+
   def self.model_name
     ActiveModel::Name.new(User)
   end

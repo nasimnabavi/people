@@ -11,3 +11,4 @@ node(:potential_projects) { |user| user.potential_projects_json }
 node(:booked_projects) { |user| user.booked_projects_json }
 node(root_object.category) { true }
 node(:seconds_of_longest_current_membership) { |user| user.seconds_of_longest_current_membership }
+node(:next_current_membership_ends_at) { |user| user.next_current_membership_ends_at }

@@ -134,7 +134,17 @@ class Hrguru.Collections.Users extends Backbone.Collection
     else
       @compareNumbers(a, b)
 
+  compareDates: (a, b) ->
+    result = 0
+    if a.isBefore(b) then result = 1 else result = -1
+    if @sortDirection is 1 then result else -result
+
   compareStrings: (a, b) ->
+    aDate = moment(a)
+    bDate = moment(b)
+
+    return @compareDates(aDate, bDate) if aDate.isValid() && bDate.isValid()
+
     if @sortDirection is 1
       a.localeCompare(b)
     else

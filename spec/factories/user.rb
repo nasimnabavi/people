@@ -30,6 +30,10 @@ FactoryGirl.define do
     trait :intern do
       positions { [create(:position, :primary, role: create(:intern_role))] }
     end
+
+    trait :developer do
+      positions { [create(:position, :primary, role: create(:dev_role))] }
+    end
   end
 
   factory :plain_user, class: "User" do
