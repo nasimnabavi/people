@@ -34,7 +34,7 @@ module Notification::Position
       if position.primary_changed?
         notification.join(' ') + '.'
       else
-        notification.join(' ') + "for *#{user.last_name} #{user.first_name}*."
+        notification.join(' ') + " for *#{user.last_name} #{user.first_name}*."
       end
     end
   end

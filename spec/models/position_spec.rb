@@ -148,7 +148,7 @@ describe Position do
     it 'sends notification with proper message if only role changed' do
       expected_notification = "Role _#{senior_role.name}_ has been"
       expected_notification += " changed from _#{position.role.name}_"
-      expected_notification += "for *#{position.user.last_name} #{position.user.first_name}*."
+      expected_notification += " for *#{position.user.last_name} #{position.user.first_name}*."
 
       expect(notifier).to receive(:ping).with(expected_notification).and_return(response_ok).once
       position.update(role_id: senior_role.id)
