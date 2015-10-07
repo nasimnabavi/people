@@ -23,34 +23,10 @@ class Position < ActiveRecord::Base
   private
 
   def notify_slack_on_create
-    notification = "*#{user.last_name} #{user.first_name}* has been assigned a new role"
-    notification += " (#{role.name}) since _#{starts_at.to_s(:ymd)}_."
-    notification += "\nIt has also been marked as a *primary role*." if primary?
-
-    SlackNotifier.new.ping(notification)
+    SlackNotifier.new.ping(Notification::Position::Created.new(self))
   end
 
   def notify_slack_on_update
-    if primary_changed? || role_id_changed?
-      notification = 'Role'
-      notification += primary_toggled_notification if primary_changed?
-      notification += role_changed_notification if role_id_changed?
-
-      SlackNotifier.new.ping(notification)
-    end
-  end
-
-  def primary_toggled_notification
-    notification = " _#{role.name}_ has been"
-    notification += primary? ? " marked" : " unchecked"
-    notification + " as the *primary role* for *#{user.last_name} #{user.first_name}*."
-  end
-
-  def role_changed_notification
-    previous_role = Role.select(:name).find(changes[:role_id].first)
-    notification = " _#{role.name}_ has been"
-    notification += " also" if primary_changed?
-    notification += " changed from _#{previous_role.name}_"
-    notification + (primary_changed? ? '.' : "for *#{user.last_name} #{user.first_name}*.")
+    SlackNotifier.new.ping(Notification::Position::Updated.new(self))
   end
 end

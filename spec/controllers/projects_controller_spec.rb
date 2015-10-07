@@ -70,8 +70,8 @@ describe ProjectsController do
 
       before do
         allow(AppConfig).to receive(:slack).and_return(slack_config)
-        allow_any_instance_of(Membership).to receive(:notify_create_on_slack)
-        allow_any_instance_of(Membership).to receive(:notify_update_on_slack)
+        allow_any_instance_of(Membership).to receive(:notify_slack_on_create)
+        allow_any_instance_of(Membership).to receive(:notify_slack_on_update)
         expect_any_instance_of(Slack::Notifier).to receive(:ping).and_return(response_ok)
         new_project.memberships << [actual_membership, old_membership]
         put :update, id: new_project, project: attributes_for(:project, potential: false)

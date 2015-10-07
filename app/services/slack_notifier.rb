@@ -7,7 +7,9 @@ class SlackNotifier
 
   def ping(notification)
     return unless (webhook_url = AppConfig.slack.webhook_url).present?
-    Slack::Notifier.new(webhook_url, options).ping(notification)
+    return unless (message = notification.message).present?
+
+    Slack::Notifier.new(webhook_url, options).ping(message)
   end
 
   private

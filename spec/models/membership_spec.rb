@@ -106,8 +106,8 @@ describe Membership do
   context "creating model" do
     let(:membership) { build(:membership, starts_at: 5.months.ago, ends_at: nil) }
 
-    it 'triggers notify_create_on_slack after create' do
-      expect(membership).to receive(:notify_create_on_slack).once
+    it 'triggers notify_slack_on_create after create' do
+      expect(membership).to receive(:notify_slack_on_create).once
       membership.save
     end
   end
@@ -115,19 +115,19 @@ describe Membership do
   context "updating model" do
     let(:membership) { create(:membership, starts_at: 5.months.ago, ends_at: nil) }
 
-    it 'triggers notify_update_on_slack after update' do
-      expect(membership).to receive(:notify_update_on_slack).once
+    it 'triggers notify_slack_on_update after update' do
+      expect(membership).to receive(:notify_slack_on_update).once
       membership.update(ends_at: Date.current + 2.days)
     end
   end
 
   context "notifies on slack if created" do
-    describe "#notify_create_on_slack" do
+    describe "#notify_slack_on_create" do
       let(:membership) { build(:membership, starts_at: 5.months.ago, ends_at: nil) }
       let(:membership_with_ends_at) { build(:membership, starts_at: 5.months.ago, ends_at: 1.day.ago) }
 
       it 'notifies with proper message if only starts_at set' do
-        expected_notification = "*#{membership.user.first_name} #{membership.user.last_name}*"
+        expected_notification = "*#{membership.user.last_name} #{membership.user.first_name}*"
         expected_notification += " has been added to *#{membership.project.name}* since _#{membership.starts_at}_."
 
         expect(notifier).to receive(:ping).with(expected_notification).once
@@ -135,7 +135,7 @@ describe Membership do
       end
 
       it 'notifies with proper message of starts_at and ends_at set' do
-        expected_notification = "*#{membership_with_ends_at.user.first_name} #{membership_with_ends_at.user.last_name}*"
+        expected_notification = "*#{membership_with_ends_at.user.last_name} #{membership_with_ends_at.user.first_name}*"
         expected_notification += " has been added to *#{membership_with_ends_at.project.name}* since"
         expected_notification += " _#{membership_with_ends_at.starts_at}_ to _#{membership_with_ends_at.ends_at}_."
 
@@ -146,7 +146,7 @@ describe Membership do
   end
 
   context "notifies on slack if dates updated" do
-    describe "#notify_update_on_slack" do
+    describe "#notify_slack_on_update" do
       let!(:membership) { create(:membership, starts_at: 5.months.ago, ends_at: nil) }
 
       it 'notifies with proper message if starts_at and ends_at changed' do

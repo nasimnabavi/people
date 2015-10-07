@@ -14,9 +14,9 @@ class Membership < ActiveRecord::Base
   validate :validate_starts_at_ends_at
   validate :validate_duplicate_project
 
-  after_create :notify_create_on_slack
+  after_create :notify_slack_on_create
   after_save :check_fields
-  after_update :notify_update_on_slack
+  after_update :notify_slack_on_update
 
   scope :active, -> { where(project_potential: false, project_archived: false, booked: false) }
   scope :archived, -> { where(project_archived: true) }
@@ -92,28 +92,11 @@ class Membership < ActiveRecord::Base
     MembershipCollision.new(self).call
   end
 
-  def notify_create_on_slack
-    notification = "*#{user.first_name} #{user.last_name}* has been added to *#{project.name}* since _#{starts_at.to_s(:ymd)}_"
-    notification += ends_at.present? ? " to _#{ends_at.to_s(:ymd)}_." : '.'
-
-    SlackNotifier.new.ping(notification)
+  def notify_slack_on_create
+    SlackNotifier.new.ping(Notification::Membership::Created.new(self))
   end
 
-  def notify_update_on_slack
-    return unless starts_at_changed? || ends_at_changed?
-
-    notification = "Time span for *#{user.last_name} #{user.first_name}* in *#{project.name}* has been changed."
-    notification += "\n#{field_change_msg(:starts_at)}" if starts_at_changed?
-    notification += "\n#{field_change_msg(:ends_at)}" if ends_at_changed?
-
-    SlackNotifier.new.ping(notification)
-  end
-
-  def field_change_msg(field)
-    from, to = send("#{field.to_s}_change")
-
-    msg = "#{field.to_s.humanize} changed from "
-    msg += from.nil? ? '_not specified_ to ' : "_#{from.to_s(:ymd)}_ to "
-    to.nil? ? msg + '_not specified_.' : msg + "_#{to.to_s(:ymd)}_."
+  def notify_slack_on_update
+    SlackNotifier.new.ping(Notification::Membership::Updated.new(self))
   end
 end
