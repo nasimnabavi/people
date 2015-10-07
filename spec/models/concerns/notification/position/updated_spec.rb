@@ -12,7 +12,7 @@ describe Notification::Position::Updated do
       expect(described_class.new(position_primary).message).to be_nil
     end
 
-    it 'sends notification with proper message if primary changed to true' do
+    it 'return proper string if primary changed to true' do
       expected_notification = "Role _#{dev_role.name}_ has been marked as the *primary role*"\
         " for *#{user.last_name} #{user.first_name}*."
 
@@ -21,7 +21,7 @@ describe Notification::Position::Updated do
       expect(described_class.new(position).message).to eql(expected_notification)
     end
 
-    it 'sends notification with proper message if primary changed to false' do
+    it 'return proper string if primary changed to false' do
       expected_notification = "Role _#{dev_role.name}_ has been unchecked as the"\
       " *primary role* for *#{user.last_name} #{user.first_name}*."
 
@@ -30,7 +30,7 @@ describe Notification::Position::Updated do
       expect(described_class.new(position_primary).message).to eql(expected_notification)
     end
 
-    it 'sends notification with proper message if only role changed' do
+    it 'return proper string if only role changed' do
       expected_notification = "Role _#{senior_role.name}_ has been"\
         " changed from _#{dev_role.name}_ for *#{user.last_name} #{user.first_name}*."
 
@@ -39,7 +39,7 @@ describe Notification::Position::Updated do
       expect(described_class.new(position_primary).message).to eql(expected_notification)
     end
 
-    it 'sends notification with proper message if role and primary flag changed' do
+    it 'return proper string if role and primary flag changed' do
       expected_notification = "Role _#{senior_role.name}_ has been unchecked as the *primary role*"\
         " for *#{user.last_name} #{user.first_name}*. _#{senior_role.name}_"\
         " has been also changed from _#{dev_role.name}_."

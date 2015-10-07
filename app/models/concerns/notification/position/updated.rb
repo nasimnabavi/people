@@ -19,7 +19,7 @@ module Notification::Position
     def primary_toggled_notification
       return nil unless position.primary_changed?
 
-      "_#{role.name}_ has been #{position.primary? ? "marked" : "unchecked"}"\
+      "_#{role.name}_ has been #{position.primary? ? 'marked' : 'unchecked'}"\
       " as the *primary role* for *#{user.last_name} #{user.first_name}*."
     end
 
