@@ -1,5 +1,7 @@
 class StagingMailInterceptor
-  ALLOWED_EMAILS = %w(dorota.nieweglowska@netguru.co).freeze
+  ALLOWED_EMAILS = %w(
+    dorota.nieweglowska@netguru.co
+    mateusz.palyz@netguru.pl).freeze
 
   def self.delivering_email(message)
     message.to = extract_allowed_recepients(message)
