@@ -52,6 +52,19 @@ class Hrguru.Views.ScheduledUsersRow extends Backbone.Marionette.Layout
 
   renderProjectsRegion: ->
     collectProjects = new Backbone.Collection @model.get('projects')
+    nextProjects = new Backbone.Collection @model.get('next_projects')
+    nextProjectsIds = nextProjects.map (el) -> el.get('project').id
+
+    collectProjects.each (current) ->
+      if current.get('project').id in nextProjectsIds
+        sameProjectAsNext = nextProjects.find (next) ->
+          next.get('project').id == current.get('project').id
+
+        membership = current.get('membership')
+        membership.ends_at = sameProjectAsNext.get('membership').ends_at
+
+        current.set(membership: membership)
+
     projectsView = new Hrguru.Views.ScheduledUsersProjects
       collection: collectProjects
       show_start_date: true
@@ -62,8 +75,14 @@ class Hrguru.Views.ScheduledUsersRow extends Backbone.Marionette.Layout
 
   renderNextProjectsRegion: ->
     collectProjects = new Backbone.Collection @model.get('next_projects')
+    currentProjectsIds = new Backbone.Collection(@model.get('projects')).map (current) ->
+      current.get('project').id
+
+    filteredProjects = collectProjects.filter (el) ->
+      el.get('project').id not in currentProjectsIds
+
     projectsView = new Hrguru.Views.ScheduledUsersProjects
-      collection: collectProjects
+      collection: new Backbone.Collection filteredProjects
       show_start_date: true
       show_end_date: true
       header: "next"
