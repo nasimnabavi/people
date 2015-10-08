@@ -3,6 +3,7 @@ require 'spec_helper'
 describe UserShowPage do
   let(:user) { create(:developer_in_project) }
   let(:active_project) { create(:project) }
+  let(:booked_project) { create(:project) }
   let(:archived_project) { create(:project, :archived) }
   let!(:active_membership) do
     create(:membership, user: user, project: active_project, role: user.roles.first)
@@ -10,6 +11,11 @@ describe UserShowPage do
   let!(:archived_membership) do
     create(:membership, user: user, project: archived_project, role: user.roles.first,
       project_archived: true
+    )
+  end
+  let!(:booked_membership) do
+    create(:membership, :booked, user: user, project: booked_project, role: user.roles.first,
+      starts_at: Time.current + 12.months, ends_at: Time.current + 14.months
     )
   end
 
@@ -36,6 +42,21 @@ describe UserShowPage do
       expected_memberships = Membership.archived.where(user: user)
 
       memberships = instance.user_archived_memberships
+
+      expect(memberships.size).to eql(1)
+      expect(memberships.map(&:id).sort).to eql(expected_memberships.map(&:id).sort)
+    end
+  end
+
+  describe '#user_booked_memberships' do
+    let(:instance) do
+      described_class.new(user: user, projects_repository: nil, user_projects_repository: nil)
+    end
+
+    it 'returns collection of memberships with booked projects' do
+      expected_memberships = Membership.booked.where(user: user)
+
+      memberships = instance.user_booked_memberships
 
       expect(memberships.size).to eql(1)
       expect(memberships.map(&:id).sort).to eql(expected_memberships.map(&:id).sort)

@@ -28,6 +28,14 @@ class UserShowPage
     )
   end
 
+  def user_booked_memberships
+    MembershipDecorator.decorate_collection(
+      user.object.memberships.booked
+        .where("memberships.ends_at IS NULL OR memberships.ends_at > ?", Time.current)
+        .includes(:project).reorder(ends_at: :desc, starts_at: :desc)
+    )
+  end
+
   def user_active_projects
     user_projects_repository.active_with_memberships.map do |project, ms|
       [project, MembershipDecorator.decorate_collection(ms)]
