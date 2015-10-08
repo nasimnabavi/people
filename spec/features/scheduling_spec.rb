@@ -9,8 +9,10 @@ describe 'Scheduling page', js: true do
   let!(:developer) { create(:developer_in_project, :with_project_scheduled_with_due_date) }
   let!(:next_membership_for_developer) do
     create(:membership, {
-      starts_at: Time.current + 12.months, ends_at: Time.current + 14.months,
-      user: developer, project: developer.projects.first
+      starts_at: Time.current + 12.months,
+      ends_at: Time.current + 14.months,
+      user: developer,
+      project: developer.projects.first
     })
   end
 
