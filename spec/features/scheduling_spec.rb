@@ -6,6 +6,13 @@ describe 'Scheduling page', js: true do
   let!(:dev_with_no_skillz) { create(:user) }
   let!(:angular_dev) { create(:user, abilities: [angular_ability]) }
   let!(:another_dev) { create(:user) }
+  let!(:developer) { create(:developer_in_project, :with_project_scheduled_with_due_date) }
+  let!(:next_membership_for_developer) do
+    create(:membership, {
+      starts_at: Time.current + 12.months, ends_at: Time.current + 14.months,
+      user: developer, project: developer.projects.first
+    })
+  end
 
   before do
     sign_in(admin_user)
@@ -55,6 +62,18 @@ describe 'Scheduling page', js: true do
 
     xit 'displays only technical users' do
       expect(page).not_to have_content pm.last_name
+    end
+  end
+
+  describe 'next project same as current' do
+    it 'displays project only once for specific user' do
+      within('.scheduled-users') do
+        ends_at = next_membership_for_developer.ends_at.to_s(:ymd)
+
+        expect(page.all('a', text: next_membership_for_developer.project.name).size).to eql(1)
+        expect(page.find('.projects-region .project-dates .time', text: ends_at)).to be_visible
+        expect(page.first('.next-projects-region .project-dates .time', text: ends_at)).to be_nil
+      end
     end
   end
 end

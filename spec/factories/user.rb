@@ -84,5 +84,22 @@ FactoryGirl.define do
         )
       end
     end
+
+    trait :with_project_scheduled_with_due_date do
+      transient do
+        scheduled_project nil
+        booked false
+      end
+
+      after(:create) do |user, evaluator|
+        create(:membership, :billable,
+          {
+            user: user,
+            project: evaluator.scheduled_project,
+            booked: evaluator.booked
+          }.reject { |_, v| v.nil? }
+        )
+      end
+    end
   end
 end
