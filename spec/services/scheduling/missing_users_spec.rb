@@ -5,9 +5,8 @@ describe Scheduling::MissingUsers do
   let!(:other_technial_users) { create_list(:user, 3, :developer) }
   let(:pm_user) { create(:pm_user) }
   let(:qa_user) { create(:qa_user) }
-  let(:non_technical_users) { [pm_user, qa_user] }
 
-  subject { described_class.new(other_technial_users.map { |u| u.id }) }
+  subject { described_class.new(other_technial_users.map(&:id)) }
 
   describe '#call' do
     it 'returns users that are not in the given ids list' do
@@ -20,10 +19,9 @@ describe Scheduling::MissingUsers do
     end
 
     it 'returns users that are with technical roles as primary' do
-      users = subject.call
-      users_ids = users.map(&:id)
+      users_ids = subject.call.map(&:id)
 
-      expect(users.size).to eql(technical_users.size)
+      expect(users_ids.size).to eql(technical_users.size)
       expect(users_ids.sort).to eql(technical_users.map(&:id).sort)
       expect(pm_user.id.in?(users_ids)).to be_false
       expect(qa_user.id.in?(users_ids)).to be_false
