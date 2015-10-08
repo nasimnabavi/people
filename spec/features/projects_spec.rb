@@ -7,6 +7,7 @@ describe 'Projects page', js: true do
   let!(:active_project) { create(:project) }
   let!(:potential_project) { create(:project, :potential) }
   let!(:archived_project) { create(:project, :archived) }
+  let!(:potential_archived_project) { create(:project, :potential, :archived) }
   let!(:admin_user) { create(:user, :admin, primary_role: dev_role) }
   let!(:pm_user) { create(:user, primary_role: pm_role) }
   let!(:qa_user) { create(:user, primary_role: qa_role) }
@@ -80,12 +81,26 @@ describe 'Projects page', js: true do
           expect(page.find('.info.js-timeline-show')).to be_visible
         end
       end
+
+      it 'does not display potential project if it is archived' do
+        page.find('li.potential').click
+        within('.project.potential') do
+          expect(page.all('a', text: potential_archived_project.name).size).to eql(0)
+        end
+      end
     end
 
     context 'when on Archived tab' do
+      it 'displays all archived projects' do
+        page.find('li.archived').click
+        expect(page.all('.project.archived').size).to eql(2)
+        expect(page.find_link(archived_project.name)).to be_visible
+        expect(page.find_link(potential_archived_project.name)).to be_visible
+      end
+
       it 'displays action icons (unarchive, timelapse) when hovered' do
         page.find('li.archived').click
-        within('.project.archived') do
+        page.all('.project.archived') do
           expect(page.find('.unarchive')).to be_visible
           expect(page.find('.archive', visible: false)).to_not be_visible
           expect(page.find('.info.js-timeline-show')).to be_visible
@@ -93,9 +108,9 @@ describe 'Projects page', js: true do
       end
 
       it 'does not allow to add a membership to an archived project' do
-        page.find('li.archived').click
+        page.first('li.archived').click
 
-        expect(page.find('.project.archived'))
+        expect(page.first('.project.archived'))
           .to have_no_selector('div.selectize-input.items')
       end
     end
@@ -172,11 +187,8 @@ describe 'Projects page', js: true do
   describe 'managing notes' do
 
     describe 'add a new note' do
-
       before do
-        within('div.project') do
-          first('div.show-notes').click
-        end
+        first('div.project div.show-notes').click
       end
 
       it 'add a note to the project' do
