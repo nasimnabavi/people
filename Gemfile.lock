@@ -400,6 +400,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     rb-readline (0.5.2)
+    react_webpack_rails (0.0.3)
     ref (1.0.5)
     render_anywhere (0.0.11)
       rails (>= 3.0.7)
@@ -601,6 +602,7 @@ DEPENDENCIES
   rack-mini-profiler
   rack_session_access
   rails (= 4.1.8)
+  react_webpack_rails (= 0.0.3)
   render_anywhere
   rollbar
   rspec-instafail
