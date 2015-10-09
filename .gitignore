@@ -16,3 +16,5 @@ tags
 .ruby-gemset
 
 /.idea
+
+node_modules
