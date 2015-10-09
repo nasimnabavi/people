@@ -17,4 +17,5 @@ tags
 
 /.idea
 
+/app/assets/javascripts/react_bundle.js
 node_modules
