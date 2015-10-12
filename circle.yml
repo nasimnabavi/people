@@ -1,6 +1,9 @@
 machine:
   ruby:
     version: 2.1.5
+dependencies:
+  post:
+    - npm run build
 deployment:
   master:
     branch: master
