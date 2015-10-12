@@ -26,6 +26,11 @@ class Project < ActiveRecord::Base
   scope :started, -> { where('kickoff IS NULL OR kickoff <= ?', Time.current) }
   scope :unavailable, -> { where('lower(name) = ?', 'unavailable') }
   scope :commercial, -> { where(internal: false) }
+  scope :internal, -> { where(internal: true) }
+  scope :starts_after, ->(time) { where('starts_at >= ?', time) }
+  scope :starts_before, ->(time) { where('starts_at <= ?', time) }
+  scope :ends_after, ->(time) { where('end_at >= ?', time) }
+  scope :ends_before, ->(time) { where('end_at <= ?', time) }
 
   def to_s
     name
