@@ -1,9 +1,6 @@
 machine:
   ruby:
     version: 2.1.5
-dependencies:
-  post:
-    - npm run build
 deployment:
   master:
     branch: master
@@ -16,5 +13,7 @@ deployment:
       - curl -L https://raw.githubusercontent.com/netguru/review/master/check.rb | ruby
       - bundle exec cap production deploy
 dependencies:
+  post:
+    - npm run build
   cache_directories:
     - "node_modules"
