@@ -12,3 +12,6 @@ deployment:
     commands:
       - curl -L https://raw.githubusercontent.com/netguru/review/master/check.rb | ruby
       - bundle exec cap production deploy
+dependencies:
+  cache_directories:
+    - "node_modules"
