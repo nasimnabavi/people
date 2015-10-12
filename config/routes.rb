@@ -27,6 +27,7 @@ Hrguru::Application.routes.draw do
 
     namespace :v2 do
       resources :users, only: [:index]
+      resources :statistics, only: [:index]
     end
   end
 
@@ -55,6 +56,8 @@ Hrguru::Application.routes.draw do
     get '/css', to: 'pages#css'
     get '/components', to: 'pages#components'
   end
+
+  resources :statistics, only: [:index]
 
   resources :features, only: [:index] do
     resources :strategies, only: [:update, :destroy]
