@@ -29,7 +29,7 @@ class Project < ActiveRecord::Base
   scope :internal, -> { where(internal: true) }
   scope :starts_after, ->(time) { where('starts_at >= ?', time) }
   scope :starts_before, ->(time) { where('starts_at <= ?', time) }
-  scope :ends_after, ->(time) { where('end_at >= ?', time) }
+  scope :ends_after, ->(time) { where('end_at IS NULL OR end_at >= ?', time) }
   scope :ends_before, ->(time) { where('end_at <= ?', time) }
 
   def to_s
