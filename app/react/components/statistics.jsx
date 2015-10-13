@@ -1,6 +1,12 @@
 import React from 'react';
 
 class Statistics extends React.Component {
+  static get propTypes() {
+    return {
+      token: React.PropTypes.string.isRequired,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {
