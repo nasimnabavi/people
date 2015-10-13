@@ -21,12 +21,19 @@ On other systems check out the official [ImageMagick](http://www.imagemagick.org
 ## Project setup
 
  * ```cd``` into project and ```bundle install``` to install all of the gem dependencies
+ * ```npm install``` to install node dependencies
+ * ```npm build``` to generate react-bundle for the first time
  * create database config file `cp config/database.yml.sample config/database.yml` and fill it with your credentials
  * create sec config file `cp config/sec_config.yml.sample config/sec_config.yml`
  * run ```rake db:setup``` - it will create your database and populate it with sample data
  * this app uses Google Auth. In order to configure it, checkout section **Dev auth setup** and **Local settings**.
  * once you have authentication credentials go to config/config.yml and update your google_client_id, google_secret, google_domain, github_client_id, github_secret accordingly
  * in `config/config.yml` set `emails/internal` to your domain.
+
+### Development
+
+* run rails server
+* run webpack in watch mode:  ```$ npm start```
 
 ### Local settings
 
