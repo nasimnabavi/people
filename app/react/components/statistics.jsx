@@ -19,15 +19,15 @@ class Statistics extends React.Component {
       },
       date: (new Date).getFullYear() + '-' + ((new Date).getMonth() + 1)
     };
-    this._handleOnSubmit = this._handleOnSubmit.bind(this);
-    this._fetchDataDone = this._fetchDataDone.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onFetchDataDone = this.onFetchDataDone.bind(this);
   }
 
   componentDidMount() {
-    this._fetchStatistics()
+    this.fetchStatistics()
   }
 
-  _fetchStatistics() {
+  fetchStatistics() {
     $.ajax({
       url: Routes.api_v2_statistics_path(),
       dataType: 'json',
@@ -35,29 +35,29 @@ class Statistics extends React.Component {
         date: this.state.date,
         token: this.props.token
       }
-    }).done(this._fetchDataDone).fail(this._fetchDataFail);
+    }).done(this.onFetchDataDone).fail(this.onFetchDataFail);
   }
 
-  _fetchDataDone(data, textStatus, jqXHR) {
+  onFetchDataDone(data, textStatus, jqXHR) {
     this.setState({statistics: data});
   }
 
-  _fetchDataFail(xhr, status, err) {
+  onFetchDataFail(xhr, status, err) {
     console.error(Routes.api_v2_statistics_path(), status, err.toString());
   }
 
-  _handleOnSubmit(e) {
+  onFormSubmit(e) {
     e.preventDefault();
 
     var dateValue = this.refs.statisticsDate.getDOMNode().value;
     this.state.date = dateValue;
-    this._fetchStatistics();
+    this.fetchStatistics();
   }
 
   render() {
     return (
       <div>
-        <form onChange={this._handleOnSubmit}>
+        <form onChange={this.onFormSubmit}>
           <div className='form-group'>
             <input ref='statisticsDate' className='form-control' type='month' value={this.state.date}/>
           </div>
