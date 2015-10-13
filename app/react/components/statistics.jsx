@@ -1,5 +1,6 @@
 import React from 'react';
 import Statistic from './statistic'
+import StatisticsSearch from './statistics-search'
 
 class Statistics extends React.Component {
   static get propTypes() {
@@ -24,15 +25,15 @@ class Statistics extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchStatistics()
+    this.fetchStatistics(this.state.date)
   }
 
-  fetchStatistics() {
+  fetchStatistics(date) {
     $.ajax({
       url: Routes.api_v2_statistics_path(),
       dataType: 'json',
       data: {
-        date: this.state.date,
+        date: date,
         token: this.props.token
       }
     }).done(this.onFetchDataDone).fail(this.onFetchDataFail);
@@ -46,22 +47,14 @@ class Statistics extends React.Component {
     console.error(Routes.api_v2_statistics_path(), status, err.toString());
   }
 
-  onFormSubmit(e) {
-    e.preventDefault();
-
-    var dateValue = this.refs.statisticsDate.getDOMNode().value;
-    this.state.date = dateValue;
-    this.fetchStatistics();
+  onFormSubmit(date) {
+    this.fetchStatistics(date);
   }
 
   render() {
     return (
       <div>
-        <form onChange={this.onFormSubmit}>
-          <div className='form-group'>
-            <input ref='statisticsDate' className='form-control' type='month' value={this.state.date}/>
-          </div>
-        </form>
+        <StatisticsSearch onFormSubmit={this.onFormSubmit} initDate={this.state.date}/>
         <table className='table table-striped'>
           <thead>
             <th>Statistic</th>
