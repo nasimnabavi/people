@@ -19,6 +19,8 @@ class Statistics extends React.Component {
       },
       date: (new Date).getFullYear() + '-' + ((new Date).getMonth() + 1)
     };
+    this._handleOnSubmit = this._handleOnSubmit.bind(this);
+    this._fetchDataDone = this._fetchDataDone.bind(this);
   }
 
   componentDidMount() {
@@ -33,7 +35,7 @@ class Statistics extends React.Component {
         date: this.state.date,
         token: this.props.token
       }
-    }).done(this._fetchDataDone.bind(this)).fail(this._fetchDataFail);
+    }).done(this._fetchDataDone).fail(this._fetchDataFail);
   }
 
   _fetchDataDone(data, textStatus, jqXHR) {
@@ -55,7 +57,7 @@ class Statistics extends React.Component {
   render() {
     return (
       <div>
-        <form onChange={this._handleOnSubmit.bind(this)}>
+        <form onChange={this._handleOnSubmit}>
           <div className='form-group'>
             <input ref='statisticsDate' className='form-control' type='month' value={this.state.date}/>
           </div>
