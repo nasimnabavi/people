@@ -67,7 +67,7 @@ class Statistics extends React.Component {
             name='Internal projects'
             number={this.state.statistics.internalProjectsNumber}/>
           <Statistic
-            name='Projects ending this month'
+            name='Projects ending'
             number={this.state.statistics.projectsEndingThisMonthNumber}/>
           <Statistic
             name='Projects beginning next month'
