@@ -1,4 +1,5 @@
 import React from 'react';
+import Statistic from './statistic'
 
 class Statistics extends React.Component {
   static get propTypes() {
@@ -64,22 +65,18 @@ class Statistics extends React.Component {
             <th>Statistic</th>
             <th>Number</th>
           </thead>
-          <tr>
-            <td>Commercial projects</td>
-            <td>{this.state.statistics.commercialProjectsNumber}</td>
-          </tr>
-          <tr>
-            <td>Internal projects</td>
-            <td>{this.state.statistics.internalProjectsNumber}</td>
-          </tr>
-          <tr>
-            <td>Projects ending this month</td>
-            <td>{this.state.statistics.projectsEndingThisMonthNumber}</td>
-          </tr>
-          <tr>
-            <td>Projects beginning next month</td>
-            <td>{this.state.statistics.beginningNextMonthProjectsNumber}</td>
-          </tr>
+          <Statistic
+            name='Commercial projects'
+            number={this.state.statistics.commercialProjectsNumber}/>
+          <Statistic
+            name='Internal projects'
+            number={this.state.statistics.internalProjectsNumber}/>
+          <Statistic
+            name='Projects ending this month'
+            number={this.state.statistics.projectsEndingThisMonthNumber}/>
+          <Statistic
+            name='Projects beginning next month'
+            number={this.state.statistics.beginningNextMonthProjectsNumber}/>
         </table>
       </div>
     );
