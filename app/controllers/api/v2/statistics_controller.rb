@@ -1,5 +1,7 @@
 module Api::V2
   class StatisticsController < Api::ApiController
+    before_filter :authenticate_admin!
+
     expose(:commercial_projects_number) {
       Project.commercial.starts_before(end_of_month).ends_after(beginning_of_month).count
     }

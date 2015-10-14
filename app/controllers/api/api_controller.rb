@@ -12,7 +12,15 @@ module Api
     private
 
     def authenticate_api!
-      render(nothing: true, status: 403) unless params[:token] == AppConfig.api_token
+      unauthorized! unless params[:token] == AppConfig.api_token
+    end
+
+    def authenticate_admin!
+      unauthorized!  unless current_user.try(:admin?)
+    end
+
+    def unauthorized!
+      render(nothing: true, status: 403)
     end
   end
 end
