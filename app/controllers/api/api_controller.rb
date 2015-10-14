@@ -16,7 +16,7 @@ module Api
     end
 
     def authenticate_admin!
-      unauthorized!  unless current_user.try(:admin?)
+      unauthorized! unless current_user.try(:admin?)
     end
 
     def unauthorized!
