@@ -1,5 +1,7 @@
 module Api::V2
   class StatisticsController < Api::ApiController
+    include DatesManagement
+
     before_filter :authenticate_admin!
 
     expose(:commercial_projects_number) do
@@ -29,26 +31,6 @@ module Api::V2
         projectsEndingThisMonthNumber: projects_ending_this_month_number,
         beginningNextMonthProjectsNumber: beginning_next_month_projects_number
       }
-    end
-
-    def beginning_of_month
-      @date.beginning_of_month
-    end
-
-    def end_of_month
-      @date.end_of_month
-    end
-
-    def beginning_of_next_month
-      next_month.beginning_of_month
-    end
-
-    def end_of_next_month
-      next_month.end_of_month
-    end
-
-    def next_month
-      @date.next_month
     end
 
     def statistics_params
