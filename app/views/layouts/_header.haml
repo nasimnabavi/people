@@ -15,7 +15,6 @@
           %li{ class: menu_class('users') }= link_to "Users", users_path
           %li{ class: menu_class('dashboard') }= link_to "Projects", dashboard_index_path
           %li{ class: menu_class('teams') }= link_to "Teams", teams_path
-          %li{ class: menu_class('statistics') }= link_to "Statistics", statistics_path
           - if current_user.admin?
             %li.dropdown
               %a.dropdown-toggle{ href: "#", :'data-toggle' => "dropdown"}
@@ -24,6 +23,7 @@
               %ul.dropdown-menu
                 %li{ class: menu_class('roles') }= link_to "Roles", roles_path
                 %li{ class: menu_class('abilities') }= link_to "Abilities", abilities_path
+                %li{ class: menu_class('statistics') }= link_to "Statistics", statistics_path
       - if signed_in?
         %ul.nav.navbar-nav.navbar-right.user-profile
           %li.dropdown
