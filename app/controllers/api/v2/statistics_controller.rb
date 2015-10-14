@@ -2,18 +2,18 @@ module Api::V2
   class StatisticsController < Api::ApiController
     before_filter :authenticate_admin!
 
-    expose(:commercial_projects_number) {
-      Project.commercial.starts_before(end_of_month).ends_after(beginning_of_month).count
-    }
-    expose(:internal_projects_number) {
-      Project.internal.starts_before(end_of_month).ends_after(beginning_of_month).count
-    }
-    expose(:projects_ending_this_month_number) {
-      Project.ends_after(beginning_of_month).ends_before(end_of_month).count
-    }
-    expose(:beginning_next_month_projects_number) {
-      Project.potential.starts_after(beginning_of_next_month).starts_before(end_of_next_month).count
-    }
+    expose(:commercial_projects_number) do
+      Project.commercial_between(beginning_of_month, end_of_month).count
+    end
+    expose(:internal_projects_number) do
+      Project.internal_between(beginning_of_month, end_of_month).count
+    end
+    expose(:projects_ending_this_month_number) do
+      Project.ends_between(beginning_of_month, end_of_month).count
+    end
+    expose(:beginning_next_month_projects_number) do
+      Project.beginning_between(beginning_of_next_month, end_of_next_month).count
+    end
 
     def index
       @date = DateTime.parse("#{statistics_params[:date]}-1")
