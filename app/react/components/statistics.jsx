@@ -16,7 +16,11 @@ class Statistics extends React.Component {
         commercialProjectsNumber: 0,
         internalProjectsNumber: 0,
         projectsEndingThisMonthNumber: 0,
-        beginningNextMonthProjectsNumber: 0
+        beginningNextMonthProjectsNumber: 0,
+        billableDevelopersNumber: 0,
+        developersInInternalsNumber: 0,
+        juniorsAndInternsNumber: 0,
+
       },
       date: (new Date).getFullYear() + '-' + ((new Date).getMonth() + 1)
     };
@@ -55,6 +59,7 @@ class Statistics extends React.Component {
     return (
       <div>
         <StatisticsSearch onFormSubmit={this.onFormSubmit} initDate={this.state.date}/>
+        <h3>Projects</h3>
         <table className='table table-striped'>
           <thead>
             <th>Statistic</th>
@@ -72,6 +77,22 @@ class Statistics extends React.Component {
           <Statistic
             name='Projects beginning next month'
             number={this.state.statistics.beginningNextMonthProjectsNumber}/>
+        </table>
+        <h3>People</h3>
+        <table className='table table-striped'>
+          <thead>
+            <th>Statistic</th>
+            <th>Number</th>
+          </thead>
+          <Statistic
+            name='Billable developers'
+            number={this.state.statistics.billableDevelopersNumber}/>
+          <Statistic
+            name='Developers in internals'
+            number={this.state.statistics.developersInInternalsNumber}/>
+          <Statistic
+            name='Juniors and interns'
+            number={this.state.statistics.juniorsAndInternsNumber}/>
         </table>
       </div>
     );

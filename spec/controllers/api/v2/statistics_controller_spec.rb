@@ -16,7 +16,10 @@ describe Api::V2::StatisticsController do
           "commercialProjectsNumber" => 2,
           "internalProjectsNumber" => 1,
           "projectsEndingThisMonthNumber" => 0,
-          "beginningNextMonthProjectsNumber" => 1
+          "beginningNextMonthProjectsNumber" => 1,
+          "billableDevelopersNumber" => 0,
+          "developersInInternalsNumber" => 0,
+          "juniorsAndInternsNumber" => 0
         }
       end
 

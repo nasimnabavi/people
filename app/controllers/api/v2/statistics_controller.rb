@@ -17,6 +17,10 @@ module Api::V2
       Project.beginning_between(beginning_of_next_month, end_of_next_month).count
     end
 
+    expose(:billable_developers_number) { 0 }
+    expose(:developers_in_internals_number) { 0 }
+    expose(:juniors_and_interns_number) { 0 }
+
     def index
       @date = DateTime.parse("#{statistics_params[:date]}-1")
       render json: statistics_json
@@ -29,7 +33,10 @@ module Api::V2
         commercialProjectsNumber: commercial_projects_number,
         internalProjectsNumber: internal_projects_number,
         projectsEndingThisMonthNumber: projects_ending_this_month_number,
-        beginningNextMonthProjectsNumber: beginning_next_month_projects_number
+        beginningNextMonthProjectsNumber: beginning_next_month_projects_number,
+        billableDevelopersNumber: billable_developers_number,
+        developersInInternalsNumber: developers_in_internals_number,
+        juniorsAndInternsNumber: juniors_and_interns_number
       }
     end
 
