@@ -4,22 +4,16 @@ module Api::V2
 
     before_filter :authenticate_admin!
 
-    expose(:commercial_projects_number) do
-      Project.commercial_between(beginning_of_month, end_of_month).count
-    end
-    expose(:internal_projects_number) do
-      Project.internal_between(beginning_of_month, end_of_month).count
-    end
-    expose(:projects_ending_this_month_number) do
-      Project.ends_between(beginning_of_month, end_of_month).count
-    end
-    expose(:beginning_next_month_projects_number) do
-      Project.beginning_between(beginning_of_next_month, end_of_next_month).count
+    expose(:commercial_projects) { Project.commercial_between(beginning_of_month, end_of_month) }
+    expose(:internal_projects) { Project.internal_between(beginning_of_month, end_of_month) }
+    expose(:projects_ending_this_month) { Project.ends_between(beginning_of_month, end_of_month) }
+    expose(:beginning_next_month_projects) do
+      Project.beginning_between(beginning_of_next_month, end_of_next_month)
     end
 
-    expose(:billable_developers_number) { 0 }
-    expose(:developers_in_internals_number) { 0 }
-    expose(:juniors_and_interns_number) { 0 }
+    expose(:billable_developers) { [] }
+    expose(:developers_in_internals) { [] }
+    expose(:juniors_and_interns) { [] }
 
     def index
       @date = DateTime.parse("#{statistics_params[:date]}-1")
