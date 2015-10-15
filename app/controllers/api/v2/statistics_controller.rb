@@ -1,6 +1,7 @@
 module Api::V2
   class StatisticsController < Api::ApiController
     include DatesManagement
+    include CollectionsSerialization
 
     before_filter :authenticate_admin!
 
@@ -24,13 +25,13 @@ module Api::V2
 
     def statistics_json
       {
-        commercialProjectsNumber: commercial_projects_number,
-        internalProjectsNumber: internal_projects_number,
-        projectsEndingThisMonthNumber: projects_ending_this_month_number,
-        beginningNextMonthProjectsNumber: beginning_next_month_projects_number,
-        billableDevelopersNumber: billable_developers_number,
-        developersInInternalsNumber: developers_in_internals_number,
-        juniorsAndInternsNumber: juniors_and_interns_number
+        commercialProjects: serialize_projects(commercial_projects),
+        internalProjects: serialize_projects(internal_projects),
+        projectsEndingThisMonth: serialize_projects(projects_ending_this_month),
+        beginningNextMonthProjects: serialize_projects(beginning_next_month_projects),
+        billableDevelopers: billable_developers,
+        developersInInternals: developers_in_internals,
+        juniorsAndInterns: juniors_and_interns
       }
     end
 
