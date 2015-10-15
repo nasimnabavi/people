@@ -11,17 +11,6 @@ describe Api::V2::StatisticsController do
 
     context 'with api token' do
       let(:token) { AppConfig.api_token }
-      let(:statistics) do
-        {
-          "commercialProjectsNumber" => 2,
-          "internalProjectsNumber" => 1,
-          "projectsEndingThisMonthNumber" => 0,
-          "beginningNextMonthProjectsNumber" => 1,
-          "billableDevelopersNumber" => 0,
-          "developersInInternalsNumber" => 0,
-          "juniorsAndInternsNumber" => 0
-        }
-      end
 
       before do
         create(:project, :internal, starts_at: '2015-10-2', end_at: '2015-11-2')
@@ -50,7 +39,10 @@ describe Api::V2::StatisticsController do
         end
 
         it 'returns proper json' do
-          expect(json_response).to eq statistics
+          expect(json_response['commercialProjects'].length).to eq 2
+          expect(json_response['internalProjects'].length).to eq 1
+          expect(json_response['projectsEndingThisMonth'].length).to eq 0
+          expect(json_response['beginningNextMonthProjects'].length).to eq 1
         end
       end
     end
