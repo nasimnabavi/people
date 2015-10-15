@@ -1,19 +1,45 @@
 import React from 'react';
+import Detail from './detail'
 
 class Statistic extends React.Component {
   static get propTypes() {
     return {
       name: React.PropTypes.string.isRequired,
-      number: React.PropTypes.number.isRequired,
+      detailsArray: React.PropTypes.array.isRequired,
     };
   }
 
+  constructor(props) {
+    super(props);
+    this.state = { display: false };
+    this.onStatisticClick = this.onStatisticClick.bind(this);
+  }
+
+  onStatisticClick() {
+    this.setState({ display: !this.state.display });
+  }
+
   render() {
-    return (
+    const arrayLength = this.props.detailsArray.length;
+    const list = this.props.detailsArray.map((detail) =>
+      <Detail name={detail.name} url={detail.url} key={detail.id}/>
+    );
+    const details = (
       <tr>
-        <td>{this.props.name}</td>
-        <td>{this.props.number}</td>
+        <td colSpan='2'>
+          {arrayLength > 0 ? <ul className='details-list'>{list}</ul> : <h6>No data for given month</h6>}
+        </td>
       </tr>
+    );
+
+    return (
+      <tbody>
+        <tr className='statistic-row' onClick={this.onStatisticClick}>
+          <td>{this.props.name}</td>
+          <td>{arrayLength}</td>
+        </tr>
+        {this.state.display ? details : null}
+      </tbody>
     );
   }
 }
