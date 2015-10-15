@@ -13,13 +13,13 @@ class Statistics extends React.Component {
     super(props);
     this.state = {
       statistics: {
-        commercialProjectsNumber: 0,
-        internalProjectsNumber: 0,
-        projectsEndingThisMonthNumber: 0,
-        beginningNextMonthProjectsNumber: 0,
-        billableDevelopersNumber: 0,
-        developersInInternalsNumber: 0,
-        juniorsAndInternsNumber: 0,
+        commercialProjects: [],
+        internalProjects: [],
+        projectsEndingThisMonth: [],
+        beginningNextMonthProjects: [],
+        billableDevelopers: [],
+        developersInInternals: [],
+        juniorsAndInterns: [],
 
       },
       date: (new Date).getFullYear() + '-' + ((new Date).getMonth() + 1)
@@ -60,23 +60,23 @@ class Statistics extends React.Component {
       <div>
         <StatisticsSearch onFormSubmit={this.onFormSubmit} initDate={this.state.date}/>
         <h3>Projects</h3>
-        <table className='table table-striped'>
+        <table className='table'>
           <thead>
             <th>Statistic</th>
             <th>Number</th>
           </thead>
           <Statistic
             name='Commercial projects'
-            number={this.state.statistics.commercialProjectsNumber}/>
+            detailsArray={this.state.statistics.commercialProjects}/>
           <Statistic
             name='Internal projects'
-            number={this.state.statistics.internalProjectsNumber}/>
+            detailsArray={this.state.statistics.internalProjects}/>
           <Statistic
             name='Projects ending'
-            number={this.state.statistics.projectsEndingThisMonthNumber}/>
+            detailsArray={this.state.statistics.projectsEndingThisMonth}/>
           <Statistic
             name='Projects beginning next month'
-            number={this.state.statistics.beginningNextMonthProjectsNumber}/>
+            detailsArray={this.state.statistics.beginningNextMonthProjects}/>
         </table>
         <h3>People</h3>
         <table className='table table-striped'>
@@ -86,13 +86,13 @@ class Statistics extends React.Component {
           </thead>
           <Statistic
             name='Billable developers'
-            number={this.state.statistics.billableDevelopersNumber}/>
+            detailsArray={this.state.statistics.billableDevelopers}/>
           <Statistic
             name='Developers in internals'
-            number={this.state.statistics.developersInInternalsNumber}/>
+            detailsArray={this.state.statistics.developersInInternals}/>
           <Statistic
             name='Juniors and interns'
-            number={this.state.statistics.juniorsAndInternsNumber}/>
+            detailsArray={this.state.statistics.juniorsAndInterns}/>
         </table>
       </div>
     );
