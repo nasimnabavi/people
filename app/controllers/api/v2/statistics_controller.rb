@@ -17,7 +17,7 @@ module Api::V2
     expose(:juniors_and_interns) { [] }
 
     def index
-      @date = DateTime.parse("#{statistics_params[:date]}-1")
+      @date = Time.zone.parse("#{statistics_params[:date]}-1")
       render json: statistics_json
     end
 
