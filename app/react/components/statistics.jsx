@@ -79,7 +79,7 @@ class Statistics extends React.Component {
             detailsArray={this.state.statistics.beginningNextMonthProjects}/>
         </table>
         <h3>People</h3>
-        <table className='table table-striped'>
+        <table className='table'>
           <thead>
             <th>Statistic</th>
             <th>Number</th>
