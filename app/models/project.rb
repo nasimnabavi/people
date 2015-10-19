@@ -32,16 +32,16 @@ class Project < ActiveRecord::Base
   scope :ends_after, ->(time) { where('end_at IS NULL OR end_at >= ?', time) }
   scope :ends_before, ->(time) { where('end_at <= ?', time) }
   scope :commercial_between, lambda { |start_date, end_date|
-    commercial.starts_before(end_date).ends_after(start_date)
+    commercial.starts_before(end_date).ends_after(start_date).order('LOWER(name)')
   }
   scope :internal_between, lambda { |start_date, end_date|
-    internal.starts_before(end_date).ends_after(start_date)
+    internal.starts_before(end_date).ends_after(start_date).order('LOWER(name)')
   }
   scope :ends_between, lambda { |start_date, end_date|
-    ends_after(start_date).ends_before(end_date)
+    ends_after(start_date).ends_before(end_date).order('LOWER(name)')
   }
   scope :beginning_between, lambda { |start_date, end_date|
-    potential.starts_after(start_date).starts_before(end_date)
+    potential.starts_after(start_date).starts_before(end_date).order('LOWER(name)')
   }
 
   def to_s
