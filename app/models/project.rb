@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
   after_update :notify_if_dates_changed
 
   POSSIBLE_TYPES = %w(regular maintenance).freeze
+  EXCLUDED_PROJECTS = %w(unavailable).freeze
 
   has_many :notes
   has_many :memberships, inverse_of: :project, dependent: :destroy
@@ -31,11 +32,12 @@ class Project < ActiveRecord::Base
   scope :starts_before, ->(time) { where('starts_at <= ?', time) }
   scope :ends_after, ->(time) { where('end_at IS NULL OR end_at >= ?', time) }
   scope :ends_before, ->(time) { where('end_at <= ?', time) }
+  scope :without_excluded, -> { where.not('name IN (?)', EXCLUDED_PROJECTS) }
   scope :commercial_between, lambda { |start_date, end_date|
     commercial.starts_before(end_date).ends_after(start_date).order('LOWER(name)')
   }
   scope :internal_between, lambda { |start_date, end_date|
-    internal.starts_before(end_date).ends_after(start_date).order('LOWER(name)')
+    internal.starts_before(end_date).ends_after(start_date).without_excluded.order('LOWER(name)')
   }
   scope :ends_between, lambda { |start_date, end_date|
     ends_after(start_date).ends_before(end_date).order('LOWER(name)')
