@@ -22,7 +22,8 @@ class Statistics extends React.Component {
         juniorsAndInterns: [],
 
       },
-      date: (new Date).getFullYear() + '-' + ((new Date).getMonth() + 1)
+      date: (new Date).getFullYear() + '-' + ((new Date).getMonth() + 1),
+      epochDate: ((new Date).getFullYear() - 1970) * 12 + (new Date).getMonth()
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onFetchDataDone = this.onFetchDataDone.bind(this);
@@ -58,7 +59,7 @@ class Statistics extends React.Component {
   render() {
     return (
       <div>
-        <StatisticsSearch onFormSubmit={this.onFormSubmit} initDate={this.state.date}/>
+        <StatisticsSearch onFormSubmit={this.onFormSubmit} initDate={this.state.date} epochInitDate={this.state.epochDate}/>
         <h3>Projects</h3>
         <table className='table'>
           <thead>
