@@ -1,7 +1,7 @@
-.new-team-add.btn.btn-success
+.new-team-add.btn.btn-success.xs-bottom-margin
   .glyphicon.glyphicon-plus.pull-left
   .small.pull-right New team
-.js-new-team-form
+.js-new-team-form.sm-bottom-margin
   .form-group
     .input-group
       %label.control-label
