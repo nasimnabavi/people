@@ -64,8 +64,10 @@ class Statistics extends React.Component {
         <h3>Projects</h3>
         <table className='table'>
           <thead>
-            <th>Statistic</th>
-            <th>Number</th>
+            <tr>
+              <th>Statistic</th>
+              <th>Number</th>
+            </tr>
           </thead>
           <Statistic
             name='Commercial projects'
@@ -83,8 +85,10 @@ class Statistics extends React.Component {
         <h3>People</h3>
         <table className='table'>
           <thead>
-            <th>Statistic</th>
-            <th>Number</th>
+            <tr>
+              <th>Statistic</th>
+              <th>Number</th>
+            </tr>
           </thead>
           <Statistic
             name='Billable developers'
