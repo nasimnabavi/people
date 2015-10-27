@@ -1,0 +1,22 @@
+$positions: (top, bottom, left, right);
+$spacers:  (
+  no: 0,
+  xs: 5px,
+  sm: 10px,
+  md: 20px,
+  lg: 30px,
+  xl: 40px
+);
+
+@each $position in $positions {
+  @each $size, $value in $spacers {
+
+    .#{$size}-#{$position}-margin {
+      margin-#{$position}: $value !important;
+    }
+
+    .#{$size}-#{$position}-padding {
+      padding-#{$position}: $value !important;
+    }
+  }
+}
