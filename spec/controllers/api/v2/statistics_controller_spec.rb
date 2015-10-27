@@ -23,7 +23,7 @@ describe Api::V2::StatisticsController do
         before { sign_in create(:user) }
 
         it 'returns response status 403' do
-          get :index, token: token, date: '2015-10-1'
+          get :index, token: token, startDate: '2015-10-1', endDate: '2015-10-30'
           expect(response.status).to eq 403
         end
       end
@@ -31,7 +31,7 @@ describe Api::V2::StatisticsController do
       context 'with admin' do
         before do
           sign_in create(:user, :admin)
-          get :index, token: token, date: '2015-10-1'
+          get :index, token: token, startDate: '2015-10-1', endDate: '2015-10-30'
         end
 
         it 'returns response status 200' do
