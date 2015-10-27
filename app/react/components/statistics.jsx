@@ -6,6 +6,8 @@ class Statistics extends React.Component {
   static get propTypes() {
     return {
       token: React.PropTypes.string.isRequired,
+      startDate: React.PropTypes.string.isRequired,
+      endDate: React.PropTypes.string.isRequired
     };
   }
 
@@ -20,24 +22,23 @@ class Statistics extends React.Component {
         billableDevelopers: [],
         developersInInternals: [],
         juniorsAndInterns: [],
-
-      },
-      date: (new Date).getFullYear() + '-' + ((new Date).getMonth() + 1)
+      }
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onFetchDataDone = this.onFetchDataDone.bind(this);
   }
 
   componentDidMount() {
-    this.fetchStatistics(this.state.date)
+    this.fetchStatistics(this.props.startDate, this.props.endDate)
   }
 
-  fetchStatistics(date) {
+  fetchStatistics(startDate, endDate) {
     $.ajax({
       url: Routes.api_v2_statistics_path(),
       dataType: 'json',
       data: {
-        date: date,
+        startDate: startDate,
+        endDate: endDate,
         token: this.props.token
       }
     }).done(this.onFetchDataDone).fail(this.onFetchDataFail);
@@ -51,14 +52,15 @@ class Statistics extends React.Component {
     console.error(Routes.api_v2_statistics_path(), status, err.toString());
   }
 
-  onFormSubmit(date) {
-    this.fetchStatistics(date);
+  onFormSubmit(startDate, endDate) {
+    this.fetchStatistics(startDate, endDate);
   }
 
   render() {
     return (
       <div>
-        <StatisticsSearch onFormSubmit={this.onFormSubmit} initDate={this.state.date}/>
+        <StatisticsSearch onFormSubmit={this.onFormSubmit} format='YYYY-MM-DD'
+          initStartDate={this.props.startDate} initEndDate={this.props.endDate}/>
         <h3>Projects</h3>
         <table className='table'>
           <thead>
