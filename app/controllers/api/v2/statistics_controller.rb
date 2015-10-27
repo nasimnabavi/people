@@ -8,7 +8,9 @@ module Api::V2
     expose(:commercial_projects) { Project.commercial_between(start_date, end_date) }
     expose(:internal_projects) { Project.internal_between(start_date, end_date) }
     expose(:projects_ending_this_month) { Project.ends_between(start_date, end_date) }
-    expose(:beginning_next_month_projects) { Project.beginning_between(today, thirty_days_from_today) }
+    expose(:beginning_next_month_projects) do
+      Project.beginning_between(today, thirty_days_from_today)
+    end
 
     expose(:billable_developers) { [] }
     expose(:developers_in_internals) { [] }
