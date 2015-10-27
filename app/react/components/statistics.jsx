@@ -76,10 +76,10 @@ class Statistics extends React.Component {
             name='Internal projects'
             detailsArray={this.state.statistics.internalProjects}/>
           <Statistic
-            name='Projects ending'
+            name='Projects with end date'
             detailsArray={this.state.statistics.projectsEndingThisMonth}/>
           <Statistic
-            name='Projects beginning next month'
+            name='Potential projects in next 30 days'
             detailsArray={this.state.statistics.beginningNextMonthProjects}/>
         </table>
         <h3>People</h3>
