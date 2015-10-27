@@ -1,0 +1,19 @@
+.daterangepicker .ranges li {
+  color: $brand-primary;
+
+  &.active,
+  &:hover {
+    background-color: $btn-primary-bg;
+    border-color: $btn-primary-border;
+    color: #fff;
+  }
+}
+
+.daterangepicker td.active {
+  &,
+  &:hover {
+    background-color: $btn-primary-bg;
+    border-color: $btn-primary-border;
+    color: #fff;
+  }
+}
