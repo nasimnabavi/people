@@ -145,7 +145,7 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
   template: JST['teams/team_layout']
   completionTemplate: JST['dashboard/projects/memberships/completion']
   tagName: 'li'
-  className: 'col-md-3'
+  className: 'team-box-flex'
 
   regions:
     leaderRegion:   '#leader-region'

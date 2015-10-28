@@ -1,3 +1,22 @@
+.teams-container-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  @media #{$sm-down} {
+    flex-direction: column;
+  }
+}
+
+.team-box-flex {
+  width: 25%;
+  padding: 15px;
+
+  @media #{$sm-down} {
+    width: 100%;
+  }
+}
+
 .teams-list {
   list-style: none;
   padding: 0;
