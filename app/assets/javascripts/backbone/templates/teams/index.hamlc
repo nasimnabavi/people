@@ -1,4 +1,8 @@
-#buttons-region
-#no-team-region
-#teams-region
-#modal-region
+.row
+  .col-md-12#buttons-region
+.row
+  .col-md-12#no-team-region
+.row
+  #teams-region
+.row
+  .col-md-12#modal-region
