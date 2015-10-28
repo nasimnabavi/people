@@ -5,6 +5,7 @@ gem 'rails', '4.1.8'
 
 gem 'acts_as_list'
 gem 'animate-scss'
+gem "autoprefixer-rails"
 gem 'capistrano'
 gem 'capistrano-bundler'
 gem 'capistrano-passenger'

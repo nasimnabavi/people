@@ -545,6 +545,7 @@ DEPENDENCIES
   active_model_serializers
   acts_as_list
   animate-scss
+  autoprefixer-rails
   awesome_print
   better_errors
   binding_of_caller
