@@ -1,6 +1,6 @@
 .row
   = simple_form_for project  do |f|
-    .col-xs-9
+    .col-xs-12.col-sm-6
       = f.input :name
       = f.input :colour
       = f.input :kickoff, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
@@ -12,24 +12,6 @@
       = f.input :maintenance_since, as: :date_picker, wrapper: :prepend, required: true, label_html: { class: 'input-group-addon'},
         wrapper_html: { id: 'maintenance_wrapper', class: f.object.project_type == 'maintenance' ? '' : 'hidden' }
       = f.input :toggl_bookmark
-    .col-xs-3#project-membership{ style: 'display: none' }
-      .h3 Attached users:
-      %table.table.table-hover
-        %thead
-          %tr
-            %td
-            %td First Name
-            %td Last Name
-            %td Stays?
-        %tbody
-          - project.memberships.unfinished.each do |membership|
-            = f.simple_fields_for :memberships, membership do |fa|
-              %tr
-                %td= membership.user.decorate.gravatar_image(size: :thumb)
-                %td= membership.user.first_name
-                %td= membership.user.last_name
-                %td.warning
-                  = fa.input :stays, as: :boolean, label: false
     .col-xs-12.actions
       = link_to "Back", :back, class: "btn btn-default btn-sm"
       = f.button :submit, "Save", class: "btn-success"
