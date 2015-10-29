@@ -37,7 +37,7 @@ class TeamsController < ApplicationController
 
   def destroy
     if team.destroy
-      respond_on_success teams_path
+      render json: team
     else
       respond_on_failure team.errors
     end
