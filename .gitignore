@@ -19,3 +19,6 @@ tags
 
 /app/assets/javascripts/react_bundle.js
 node_modules
+
+# Gemsurance report files
+gemsurance_report.html
