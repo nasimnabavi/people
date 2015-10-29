@@ -2,8 +2,8 @@ class Hrguru.Views.ModalView extends Marionette.ItemView
   template: JST['teams/_form']
 
   events:
-    'click .js-edit-team-submit': (e) -> @updateTeam(e)
-    'click .js-remove-team': (e) -> @removeTeam(e)
+    'click .js-edit-team-submit': 'updateTeam'
+    'click .js-remove-team': 'removeTeam'
 
   initialize: (options) ->
     @team = options.team
