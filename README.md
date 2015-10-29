@@ -89,6 +89,17 @@ Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
 Feature flags toggle is available at `/features`.
 Admin Role is required.
 
+### Gemsurance - keep gems up to date
+
+Profile app uses `gemsurance` as development dependency. It should be used to check which gems are up to date.
+To use it just write in console:
+
+```bash
+bundle exec gemsurance
+```
+
+It will generate HTML file with list of gems. Gems in bold are the one specified in `Gemfile`.
+
 ### Read More
 
 [Introducing: People. A simple open source app for managing devs within projects](https://netguru.co/blog/posts/introducing-people-a-simple-open-source-app-for-managing-devs-within-projects).
