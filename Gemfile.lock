@@ -245,6 +245,12 @@ GEM
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
     formatador (0.2.5)
+    gems (0.8.3)
+    gemsurance (0.6.0)
+      bundler (~> 1.2)
+      gems (~> 0.8)
+      git (~> 1.2)
+    git (1.2.9.1)
     gon (5.2.3)
       actionpack (>= 2.3.0)
       json
@@ -573,6 +579,7 @@ DEPENDENCIES
   flip
   fog
   font-awesome-rails
+  gemsurance
   gon
   google-analytics-rails
   google-api-client
