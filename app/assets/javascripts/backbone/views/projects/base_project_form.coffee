@@ -5,7 +5,7 @@ class Hrguru.Views.BaseProjectForm extends Backbone.View
   events:
     'change #project_project_type' : 'toggleProjectMaintenanceDate'
 
-  toggleProjectMaintenanceDate: (event) =>
+  toggleProjectMaintenanceDate: (event) ->
     if $(event.target).val() == 'maintenance'
       $('#maintenance_wrapper').removeClass('hidden')
     else
