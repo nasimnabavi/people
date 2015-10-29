@@ -1,6 +1,7 @@
 import React from 'react';
-import Statistic from './statistic'
-import StatisticsSearch from './statistics-search'
+import Statistic from './statistic';
+import StatisticsSearch from './statistics-search';
+import StatisticsChart from './statistics-chart';
 
 class Statistics extends React.Component {
   static get propTypes() {
@@ -63,6 +64,10 @@ class Statistics extends React.Component {
         <StatisticsSearch onFormSubmit={this.onFormSubmit} format='YYYY-MM-DD'
           initStartDate={this.props.startDate} initEndDate={this.props.endDate}/>
         <h3>Projects</h3>
+        <StatisticsChart
+          commercial={this.state.statistics.commercialProjects.length}
+          maintenance={this.state.statistics.maintenanceProjects.length}
+          internal={this.state.statistics.internalProjects.length}/>
         <table className='table'>
           <thead>
             <tr>
