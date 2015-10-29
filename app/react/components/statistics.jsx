@@ -16,6 +16,7 @@ class Statistics extends React.Component {
     this.state = {
       statistics: {
         commercialProjects: [],
+        maintenanceProjects: [],
         internalProjects: [],
         projectsEndingThisMonth: [],
         beginningNextMonthProjects: [],
@@ -75,6 +76,9 @@ class Statistics extends React.Component {
           <Statistic
             name='Internal projects'
             detailsArray={this.state.statistics.internalProjects}/>
+          <Statistic
+            name='Projects under maintenance'
+            detailsArray={this.state.statistics.maintenanceProjects}/>
           <Statistic
             name='Projects with end date'
             detailsArray={this.state.statistics.projectsEndingThisMonth}/>
