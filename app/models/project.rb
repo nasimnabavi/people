@@ -1,7 +1,7 @@
 class Project < ActiveRecord::Base
   include InitialsHandler
 
-  before_save :set_color
+  before_save :set_color, :check_maintenance
   after_save :update_membership_fields, :check_potential
   after_update :notify_if_dates_changed
 
@@ -96,6 +96,10 @@ class Project < ActiveRecord::Base
 
   def set_color
     self.colour ||= AvatarColor.new.as_rgb
+  end
+
+  def check_maintenance
+    self.maintenance_since = nil unless maintenance? && maintenance_since
   end
 
   def notify_if_dates_changed
