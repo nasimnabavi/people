@@ -19,6 +19,7 @@ class Project < ActiveRecord::Base
   validates :archived, inclusion: { in: [true, false] }
   validates :potential, inclusion: { in: [true, false] }
   validates :project_type, inclusion: { in: POSSIBLE_TYPES }
+  validates :maintenance_since, presence: true, if: "project_type == 'maintenance'"
 
   scope :active, -> { where(archived: false) }
   scope :nonpotential, -> { active.where(potential: false) }
