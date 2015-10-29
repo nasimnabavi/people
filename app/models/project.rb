@@ -34,11 +34,20 @@ class Project < ActiveRecord::Base
   scope :ends_after, ->(time) { where('end_at IS NULL OR end_at >= ?', time) }
   scope :ends_before, ->(time) { where('end_at <= ?', time) }
   scope :without_excluded, -> { where.not('name IN (?)', EXCLUDED_PROJECTS) }
+  scope :no_maintenance_before, lambda { |time|
+    where('maintenance_since IS NULL OR maintenance_since > ?', time)
+  }
+  scope :maintenance_before, ->(time) { where('maintenance_since <= ?', time) }
   scope :commercial_between, lambda { |start_date, end_date|
-    commercial.starts_before(end_date).ends_after(start_date).order('LOWER(name)')
+    commercial.starts_before(end_date).ends_after(start_date)
+      .no_maintenance_before(end_date).order('LOWER(name)')
   }
   scope :internal_between, lambda { |start_date, end_date|
     internal.starts_before(end_date).ends_after(start_date).without_excluded.order('LOWER(name)')
+  }
+  scope :maintenance_between, lambda { |start_date, end_date|
+    commercial.starts_before(end_date).ends_after(start_date)
+      .maintenance_before(end_date).order('LOWER(name)')
   }
   scope :ends_between, lambda { |start_date, end_date|
     ends_after(start_date).ends_before(end_date).order('LOWER(name)')

@@ -7,6 +7,7 @@ module Api::V2
 
     expose(:commercial_projects) { Project.commercial_between(start_date, end_date) }
     expose(:internal_projects) { Project.internal_between(start_date, end_date) }
+    expose(:maintenance_projects) { Project.maintenance_between(start_date, end_date) }
     expose(:projects_ending_this_month) { Project.ends_between(start_date, end_date) }
     expose(:beginning_next_month_projects) do
       Project.beginning_between(today, thirty_days_from_today)
@@ -28,6 +29,7 @@ module Api::V2
       {
         commercialProjects: serialize_projects(commercial_projects),
         internalProjects: serialize_projects(internal_projects),
+        maintenanceProjects: serialize_projects(maintenance_projects),
         projectsEndingThisMonth: serialize_projects(projects_ending_this_month),
         beginningNextMonthProjects: serialize_projects(beginning_next_month_projects),
         billableDevelopers: billable_developers,
