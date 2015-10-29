@@ -15,5 +15,6 @@
                     New name:
                   %input.form-control.new-name{ type: 'text', name: 'new-team-name' }
       .modal-footer
+        %button.btn.btn-danger.js-remove-team{ type: 'button' } Remove Team
         %button.btn.btn-default.edit-team-close{ type: 'button', data: { dismiss: 'modal' } } Close
         %button.btn.btn-primary.js-edit-team-submit{ type: 'button' } Save changes
