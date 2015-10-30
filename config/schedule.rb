@@ -21,6 +21,10 @@ every 1.day, at: '8 am' do
   rake 'mailer:users_without_primary_role'
 end
 
+every 1.day, at: '8 am' do
+  rake 'scheduling:remove_expired_booked_memberships'
+end
+
 if AppConfig.trello.enabled
   every 1.day, at: '6:00 am' do
     rake 'trello:board_sync'
