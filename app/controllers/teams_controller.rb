@@ -37,6 +37,7 @@ class TeamsController < ApplicationController
 
   def destroy
     if team.destroy
+      team.users.each { |u| u.update(team_id: nil) }
       render json: team
     else
       respond_on_failure team.errors
