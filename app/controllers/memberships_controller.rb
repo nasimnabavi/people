@@ -16,6 +16,7 @@ class MembershipsController < ApplicationController
   def index; end
 
   def create
+    Memberships::UpdateBookedAt.new(membership).call
     if membership.save
       SendMailJob.new.async.perform_with_user(MembershipMailer, :created, membership, current_user)
       respond_on_success
@@ -26,6 +27,7 @@ class MembershipsController < ApplicationController
 
   def update
     old_values = old_values(membership)
+    Memberships::UpdateBookedAt.new(membership).call
     if membership.save
       data = { membership: membership, old_values: old_values }
       SendMailJob.new.async.perform_with_user(MembershipMailer, :updated, data, current_user)
