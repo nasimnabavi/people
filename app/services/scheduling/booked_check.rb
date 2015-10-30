@@ -13,10 +13,11 @@ module Scheduling
     EXPIRATION_TIME = 7.days
 
     def booked_users
-      @booked_users ||= User.includes(:memberships).where(memberships: { booked: true })
+      @booked_users ||= User.includes(:memberships).where(memberships: { booked: true, booked_at:  })
     end
 
     def user_booked_state_has_ended?(membership)
+      return false if membership.booked_at.nil?
       membership.booked_at + EXPIRATION_TIME < Time.zone.now
     end
   end
