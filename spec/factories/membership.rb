@@ -21,10 +21,16 @@ FactoryGirl.define do
 
     trait :booked do
       booked true
+      booked_at { Time.now }
     end
 
     trait :billable do
       billable true
+    end
+
+    trait :booked_expired do
+      booked true
+      booked_at { Time.now - 8.days }
     end
   end
 end
