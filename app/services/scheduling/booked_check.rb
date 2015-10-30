@@ -17,7 +17,7 @@ module Scheduling
     end
 
     def user_booked_state_has_ended?(membership)
-      membership.booked_at.to_date + EXPIRATION_TIME < Date.today
+      membership.booked_at + EXPIRATION_TIME < Time.zone.now
     end
   end
 end
