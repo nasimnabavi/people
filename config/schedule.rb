@@ -21,7 +21,7 @@ every 1.day, at: '8 am' do
   rake 'mailer:users_without_primary_role'
 end
 
-every 1.day, at: '8 am' do
+every :hour do
   rake 'scheduling:remove_expired_booked_memberships'
 end
 
