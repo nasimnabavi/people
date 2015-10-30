@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028101551) do
+ActiveRecord::Schema.define(version: 20151030074830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20151028101551) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "mongo_id"
+    t.datetime "booked_at"
   end
 
   add_index "memberships", ["project_id"], name: "index_memberships_on_project_id", using: :btree
