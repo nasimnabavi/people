@@ -17,6 +17,7 @@ class UserEventsRepository
     event[:endDate] = membership.ends_at.to_date if membership.ends_at.present?
     event[:user_id] = membership.user.id.to_s
     event[:billable] = membership.billable
+    event[:id] = membership.project.id.to_s
     event
   end
 end
