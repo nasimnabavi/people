@@ -3,6 +3,7 @@ People
 
 [![Code Climate](http://img.shields.io/codeclimate/github/netguru/people.svg)](https://codeclimate.com/github/netguru/people)
 [![Dependencies](http://img.shields.io/gemnasium/netguru/people.svg)](https://gemnasium.com/netguru/people)
+[![Circle CI](https://circleci.com/gh/netguru/people.svg?style=svg)](https://circleci.com/gh/netguru/people)
 
 ## About the app
 
