@@ -104,7 +104,7 @@ class Project < ActiveRecord::Base
   end
 
   def set_color
-    self.colour ||= AvatarColor.new.as_rgb
+    self.color ||= AvatarColor.new.as_rgb
   end
 
   def check_maintenance

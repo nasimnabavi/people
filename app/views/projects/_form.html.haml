@@ -2,7 +2,7 @@
   = simple_form_for project  do |f|
     .col-xs-12.col-sm-6
       = f.input :name
-      = f.input :colour
+      = f.input :color
       = f.input :kickoff, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
       = f.input :starts_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
       = f.input :end_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }

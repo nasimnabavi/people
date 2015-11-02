@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030074830) do
+ActiveRecord::Schema.define(version: 20151102082117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 20151030074830) do
     t.boolean  "internal",          default: false
     t.datetime "kickoff"
     t.string   "project_type"
-    t.string   "colour"
+    t.string   "color"
     t.string   "initials"
     t.string   "toggl_bookmark"
     t.datetime "created_at"
@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(version: 20151030074830) do
   create_table "teams", force: true do |t|
     t.string   "name"
     t.string   "initials"
-    t.string   "colour"
+    t.string   "color"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "mongo_id"

@@ -11,6 +11,6 @@ class Team < ActiveRecord::Base
   accepts_nested_attributes_for :users
 
   def set_color
-    self.colour ||= AvatarColor.new.as_rgb
+    self.color ||= AvatarColor.new.as_rgb
   end
 end

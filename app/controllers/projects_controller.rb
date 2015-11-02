@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:name, :starts_at, :end_at, :archived, :potential,
-      :kickoff, :project_type, :toggl_bookmark, :internal, :maintenance_since, :colour,
+      :kickoff, :project_type, :toggl_bookmark, :internal, :maintenance_since, :color,
       memberships_attributes: [:id, :stays, :user_id, :role_id, :starts_at, :billable])
   end
 

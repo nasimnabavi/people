@@ -1,1 +1,1 @@
-attributes :id, :name, :colour, :initials
+attributes :id, :name, :color, :initials

@@ -46,10 +46,10 @@ describe Project do
     end
   end
 
-  describe "#set_colour" do
+  describe "#set_color" do
     let(:project) { create(:project) }
-    it "sets random colour in hex format" do
-      expect(project.colour).to match(/#[a-f0-9]{6}/)
+    it "sets random color in hex format" do
+      expect(project.color).to match(/#[a-f0-9]{6}/)
     end
   end
 
