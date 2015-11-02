@@ -188,7 +188,7 @@ describe 'Projects page', js: true do
 
     describe 'add a new note' do
       before do
-        first('div.project div.show-notes').click
+        first('div.project div.show-notes').trigger('click')
       end
 
       it 'add a note to the project' do
