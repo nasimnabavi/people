@@ -10,7 +10,7 @@
       = f.input :internal, as: :boolean, wrapper: :vertical_boolean, label: false, inline_label: true, input_html: { checked: project.internal }
       = f.input :project_type, label: 'Type', collection: Project::POSSIBLE_TYPES, label_method: ->(l) {l.humanize}, include_blank: false
       = f.input :maintenance_since, as: :date_picker, wrapper: :prepend, required: true, label_html: { class: 'input-group-addon'},
-        wrapper_html: { id: 'maintenance_wrapper', class: f.object.project_type == 'maintenance' ? '' : 'hidden' }
+        wrapper_html: { id: 'maintenance_wrapper', class: f.object.maintenance_visibility }
       = f.input :toggl_bookmark
     .col-xs-12.actions
       = link_to "Back", :back, class: "btn btn-default btn-sm"

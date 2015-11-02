@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
 
   before_filter :authenticate_admin!, except: [:show]
 
-  expose(:project, attributes: :project_params)
+  expose_decorated(:project, attributes: :project_params)
 
   def create
     if project.save
