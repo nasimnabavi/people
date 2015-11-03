@@ -14,8 +14,7 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :memberships
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false },
-    format: { with: /\A[a-zA-Z0-9_\-]+\Z/ }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :archived, inclusion: { in: [true, false] }
   validates :potential, inclusion: { in: [true, false] }
   validates :project_type, inclusion: { in: POSSIBLE_TYPES }
