@@ -31,14 +31,6 @@ describe Trello::AddUserToProject do
         2.times{ subject.call }
       end.to change{ user.memberships.count }.by 1
     end
-
-    context 'invalid project name' do
-      it 'does not create a new membership' do
-        expect do
-          described_class.new("#{user.first_name} #{user.last_name}", ['invalid name']).call
-        end.not_to change{ user.memberships.count }
-      end
-    end
   end
 
   context 'user is in a project' do
