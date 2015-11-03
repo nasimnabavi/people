@@ -28,10 +28,10 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    if project.destroy && project.potential
-      redirect_to(projects_url, notice: I18n.t('projects.success', type: 'delete'))
+    if project.destroy
+      redirect_to(dashboard_index_path, notice: I18n.t('projects.success', type: 'delete'))
     else
-      redirect_to(projects_url, alert: I18n.t('projects.error', type: 'delete'))
+      redirect_to(dashboard_index_path, alert: I18n.t('projects.error', type: 'delete'))
     end
   end
 
