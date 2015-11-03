@@ -11,10 +11,10 @@ class User < ActiveRecord::Base
   has_many :roles, through: :positions
   belongs_to :contract_type
   belongs_to :location
-  belongs_to :team, inverse_of: :users
   belongs_to :leader_team, class_name: 'Team', inverse_of: :leader
   belongs_to :primary_role, class_name: 'Role'
   has_and_belongs_to_many :abilities
+  has_and_belongs_to_many :teams
 
   # ugly optimization hack
   has_many :current_memberships, -> { active.unfinished.started }, class: Membership
