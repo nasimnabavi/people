@@ -27,7 +27,7 @@ class Statistic extends React.Component {
     const details = (
       <tr>
         <td colSpan='2'>
-          {arrayLength > 0 ? <ul className='details-list'>{list}</ul> : <h6>No data for given month</h6>}
+          {arrayLength > 0 ? <ul className='details-list'>{list}</ul> : <h6>No data for given period</h6>}
         </td>
       </tr>
     );
