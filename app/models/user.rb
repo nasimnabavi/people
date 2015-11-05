@@ -78,7 +78,8 @@ class User < ActiveRecord::Base
   scope :membership_between, lambda { |start_date, end_date|
     joins(memberships: :role)
       .where(
-        '(starts_at <= ? AND ends_at >= ?) OR (starts_at <= ? AND ends_at >= ?)',
+        '(starts_at <= ? AND (ends_at >= ? OR ends_at IS NULL)) OR
+          (starts_at <= ? AND (ends_at >= ? OR ends_at IS NULL))',
         start_date,
         start_date,
         end_date,
