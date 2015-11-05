@@ -2,6 +2,7 @@ import React from 'react';
 import Statistic from './statistic';
 import StatisticsSearch from './statistics-search';
 import StatisticsChart from './statistics-chart';
+import NestedStatistics from './nested-statistics';
 
 class Statistics extends React.Component {
   static get propTypes() {
@@ -21,9 +22,15 @@ class Statistics extends React.Component {
         internalProjects: [],
         projectsEndingThisMonth: [],
         beginningNextMonthProjects: [],
-        billableDevelopers: [],
+        seniorAndroidDevs: [],
+        seniorIosDevs: [],
+        seniorRorDevs: [],
+        androidDevs: [],
+        iosDevs: [],
+        rorDevs:[],
         developersInInternals: [],
         juniorsAndInterns: [],
+        nonBillableInCommercialProjects: [],
       }
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -99,12 +106,22 @@ class Statistics extends React.Component {
               <th>Number</th>
             </tr>
           </thead>
-          <Statistic
+          <NestedStatistics
             name='Billable developers'
-            detailsArray={this.state.statistics.billableDevelopers}/>
+            statisticsArrays={[
+              {name: 'Senior android devs', people: this.state.statistics.seniorAndroidDevs},
+              {name: 'Senior iOS devs', people: this.state.statistics.seniorIosDevs},
+              {name: 'Senior RoR devs', people: this.state.statistics.seniorRorDevs},
+              {name: 'Android devs', people: this.state.statistics.androidDevs},
+              {name: 'iOS devs', people: this.state.statistics.iosDevs},
+              {name: 'RoR devs', people: this.state.statistics.rorDevs},
+            ]}/>
           <Statistic
             name='Developers in internals'
             detailsArray={this.state.statistics.developersInInternals}/>
+          <Statistic
+            name='Non-billable developers in commercial projects'
+            detailsArray={this.state.statistics.nonBillableInCommercialProjects}/>
           <Statistic
             name='Juniors and interns'
             detailsArray={this.state.statistics.juniorsAndInterns}/>
