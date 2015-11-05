@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
         end_date,
         end_date)
   }
-  scope :billbillable_roles_between, lambda { |roles, start_date, end_date|
+  scope :billable_roles_between, lambda { |roles, start_date, end_date|
     membership_between(start_date, end_date)
       .where('roles.name IN (?) AND memberships.billable = true', roles).distinct.order(:last_name)
   }

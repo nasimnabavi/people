@@ -14,22 +14,22 @@ module Api::V2
     end
 
     expose(:senior_android_devs) do
-      User.billbillable_roles_between(['senior android'], start_date, end_date)
+      User.billable_roles_between(['senior android'], start_date, end_date)
     end
     expose(:senior_ios_devs) do
-      User.billbillable_roles_between(['senior iOS'], start_date, end_date)
+      User.billable_roles_between(['senior iOS'], start_date, end_date)
     end
     expose(:senior_ror_devs) do
-      User.billbillable_roles_between(['senior RoR'], start_date, end_date)
+      User.billable_roles_between(['senior RoR'], start_date, end_date)
     end
     expose(:android_devs) do
-      User.billbillable_roles_between(['android'], start_date, end_date)
+      User.billable_roles_between(['android'], start_date, end_date)
     end
     expose(:ios_devs) do
-      User.billbillable_roles_between(['iOS'], start_date, end_date)
+      User.billable_roles_between(['iOS'], start_date, end_date)
     end
     expose(:ror_devs) do
-      User.billbillable_roles_between(['developer RoR'], start_date, end_date)
+      User.billable_roles_between(['developer RoR'], start_date, end_date)
     end
     expose(:developers_in_internals) do
       User.developers_in_internals_between(start_date, end_date)
