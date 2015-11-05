@@ -6,6 +6,7 @@ module CollectionsSerialization
   end
 
   def serialize_users(users_array)
-    ActiveModel::ArraySerializer.new(users_array, each_serializer: Api::V2::UserStatisticsSerializer)
+    ActiveModel::ArraySerializer.new(users_array,
+      each_serializer: Api::V2::UserStatisticsSerializer)
   end
 end
