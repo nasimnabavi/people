@@ -22,7 +22,7 @@ class StatisticsChart extends React.Component {
       (this.props.commercial + this.props.internal + this.props.maintenance))*100).toFixed(1);
     const internalPercentage = ((this.props.internal /
       (this.props.commercial + this.props.internal + this.props.maintenance))*100).toFixed(1);
-    const commercialPercentage = 100 - maintenancePercentage - internalPercentage;
+    const commercialPercentage = (100 - maintenancePercentage - internalPercentage).toFixed(1);
 
     return (
       <div className='progress'>
