@@ -13,9 +13,33 @@ module Api::V2
       Project.beginning_between(today, thirty_days_from_today)
     end
 
-    expose(:billable_developers) { [] }
-    expose(:developers_in_internals) { [] }
-    expose(:juniors_and_interns) { [] }
+    expose(:senior_android_devs) do
+      User.billbillable_roles_between(['senior android'], start_date, end_date)
+    end
+    expose(:senior_ios_devs) do
+      User.billbillable_roles_between(['senior iOS'], start_date, end_date)
+    end
+    expose(:senior_ror_devs) do
+      User.billbillable_roles_between(['senior RoR'], start_date, end_date)
+    end
+    expose(:android_devs) do
+      User.billbillable_roles_between(['android'], start_date, end_date)
+    end
+    expose(:ios_devs) do
+      User.billbillable_roles_between(['iOS'], start_date, end_date)
+    end
+    expose(:ror_devs) do
+      User.billbillable_roles_between(['developer RoR'], start_date, end_date)
+    end
+    expose(:developers_in_internals) do
+      User.developers_in_internals_between(start_date, end_date)
+    end
+    expose(:juniors_and_interns) do
+      User.roles_between(%w(intern junior\ RoR junior\ iOS junior\ android), start_date, end_date)
+    end
+    expose(:non_billable_in_commercial_projects) do
+      User.non_billable_in_commercial_projects_between(['developer'], start_date, end_date)
+    end
 
     def index
       @start_date = Time.zone.parse(statistics_params[:startDate])
@@ -32,9 +56,15 @@ module Api::V2
         maintenanceProjects: serialize_projects(maintenance_projects),
         projectsEndingThisMonth: serialize_projects(projects_ending_this_month),
         beginningNextMonthProjects: serialize_projects(beginning_next_month_projects),
-        billableDevelopers: billable_developers,
-        developersInInternals: developers_in_internals,
-        juniorsAndInterns: juniors_and_interns
+        seniorAndroidDevs: serialize_users(senior_android_devs),
+        seniorIosDevs: serialize_users(senior_ios_devs),
+        seniorRorDevs: serialize_users(senior_ror_devs),
+        androidDevs: serialize_users(android_devs),
+        iosDevs: serialize_users(ios_devs),
+        rorDevs: serialize_users(ror_devs),
+        developersInInternals: serialize_users(developers_in_internals),
+        juniorsAndInterns: serialize_users(juniors_and_interns),
+        nonBillableInCommercialProjects: serialize_users(non_billable_in_commercial_projects)
       }
     end
 
