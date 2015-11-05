@@ -38,7 +38,10 @@ module Api::V2
       User.roles_between(%w(intern junior\ RoR junior\ iOS junior\ android), start_date, end_date)
     end
     expose(:non_billable_in_commercial_projects) do
-      User.non_billable_in_commercial_projects_between(['developer'], start_date, end_date)
+      User.non_billable_in_commercial_projects_between(
+        %w(developer\ RoR iOS android senior\ Android senior\ iOS senior\ RoR),
+        start_date,
+        end_date)
     end
 
     def index
