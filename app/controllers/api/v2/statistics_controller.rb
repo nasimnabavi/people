@@ -34,8 +34,17 @@ module Api::V2
     expose(:developers_in_internals) do
       User.developers_in_internals_between(start_date, end_date)
     end
-    expose(:juniors_and_interns) do
-      User.roles_between(%w(intern junior\ RoR junior\ iOS junior\ android), start_date, end_date)
+    expose(:interns) do
+      User.roles_between(['intern'], start_date, end_date)
+    end
+    expose(:junior_ror) do
+      User.roles_between(['junior RoR'], start_date, end_date)
+    end
+    expose(:junior_ios) do
+      User.roles_between(['junior iOS'], start_date, end_date)
+    end
+    expose(:junior_android) do
+      User.roles_between(['junior android'], start_date, end_date)
     end
     expose(:non_billable_in_commercial_projects) do
       User.non_billable_in_commercial_projects_between(
@@ -66,7 +75,10 @@ module Api::V2
         iosDevs: serialize_users(ios_devs),
         rorDevs: serialize_users(ror_devs),
         developersInInternals: serialize_users(developers_in_internals),
-        juniorsAndInterns: serialize_users(juniors_and_interns),
+        interns: serialize_users(interns),
+        juniorAndroid: serialize_users(junior_android),
+        juniorIos: serialize_users(junior_ios),
+        juniorRor: serialize_users(junior_ror),
         nonBillableInCommercialProjects: serialize_users(non_billable_in_commercial_projects)
       }
     end

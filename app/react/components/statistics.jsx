@@ -29,7 +29,10 @@ class Statistics extends React.Component {
         iosDevs: [],
         rorDevs:[],
         developersInInternals: [],
-        juniorsAndInterns: [],
+        interns: [],
+        juniorRor: [],
+        juniorIos: [],
+        juniorAndroid: [],
         nonBillableInCommercialProjects: [],
       }
     };
@@ -109,12 +112,12 @@ class Statistics extends React.Component {
           <NestedStatistics
             name='Billable developers'
             statisticsArrays={[
-              {name: 'Senior android devs', people: this.state.statistics.seniorAndroidDevs},
-              {name: 'Senior iOS devs', people: this.state.statistics.seniorIosDevs},
               {name: 'Senior RoR devs', people: this.state.statistics.seniorRorDevs},
-              {name: 'Android devs', people: this.state.statistics.androidDevs},
-              {name: 'iOS devs', people: this.state.statistics.iosDevs},
+              {name: 'Senior iOS devs', people: this.state.statistics.seniorIosDevs},
+              {name: 'Senior android devs', people: this.state.statistics.seniorAndroidDevs},
               {name: 'RoR devs', people: this.state.statistics.rorDevs},
+              {name: 'iOS devs', people: this.state.statistics.iosDevs},
+              {name: 'Android devs', people: this.state.statistics.androidDevs}
             ]}/>
           <Statistic
             name='Developers in internals'
@@ -122,9 +125,14 @@ class Statistics extends React.Component {
           <Statistic
             name='Non-billable developers in commercial projects'
             detailsArray={this.state.statistics.nonBillableInCommercialProjects}/>
-          <Statistic
+          <NestedStatistics
             name='Juniors and interns'
-            detailsArray={this.state.statistics.juniorsAndInterns}/>
+            statisticsArrays={[
+              {name: 'Junior RoR devs', people: this.state.statistics.juniorRor},
+              {name: 'Junior iOS devs', people: this.state.statistics.juniorIos},
+              {name: 'Junir android devs', people: this.state.statistics.juniorAndroid},
+              {name: 'Interns', people: this.state.statistics.interns}
+            ]}/>
         </table>
       </div>
     );
