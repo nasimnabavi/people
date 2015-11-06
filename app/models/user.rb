@@ -75,11 +75,15 @@ class User < ActiveRecord::Base
   scope :without_scheduled_commercial_memberships, -> do
     where.not(id: with_scheduled_commercial_memberships.select(:id))
   end
+  scope :without_excluded_projects, lambda {
+    joins(memberships: :project).where('projects.name NOT IN (?)', Project::EXCLUDED_PROJECTS)
+  }
   scope :membership_between, lambda { |start_date, end_date|
     joins(memberships: :role)
       .where(
-        '(starts_at <= ? AND (ends_at >= ? OR ends_at IS NULL)) OR
-          (starts_at <= ? AND (ends_at >= ? OR ends_at IS NULL))',
+        '(memberships.starts_at <= ? AND (memberships.ends_at >= ? OR memberships.ends_at IS NULL))
+          OR
+          (memberships.starts_at <= ? AND (memberships.ends_at >= ? OR memberships.ends_at IS NULL))',
         start_date,
         start_date,
         end_date,
@@ -87,21 +91,24 @@ class User < ActiveRecord::Base
   }
   scope :billable_roles_between, lambda { |roles, start_date, end_date|
     membership_between(start_date, end_date)
-      .where('roles.name IN (?) AND memberships.billable = true', roles).distinct.order(:last_name)
+      .where('roles.name IN (?) AND memberships.billable = true', roles)
+      .without_excluded_projects.distinct.order(:last_name)
   }
   scope :roles_between, lambda { |roles, start_date, end_date|
     membership_between(start_date, end_date)
-      .where('roles.name IN (?)', roles).distinct.order(:last_name)
+      .where('roles.name IN (?)', roles)
+      .without_excluded_projects.distinct.order(:last_name)
   }
   scope :developers_in_internals_between, lambda { |start_date, end_date|
     membership_between(start_date, end_date)
-      .where('roles.name = ? AND project_internal = true', 'developer').distinct.order(:last_name)
+      .where('roles.name = ? AND project_internal = true', 'developer')
+      .without_excluded_projects.distinct.order(:last_name)
   }
   scope :non_billable_in_commercial_projects_between, lambda { |roles, start_date, end_date|
     membership_between(start_date, end_date)
       .where(
         'roles.name IN (?) AND project_internal = false AND memberships.billable = false',
-        roles).distinct.order(:last_name)
+        roles).without_excluded_projects.distinct.order(:last_name)
   }
 
   before_save :end_memberships
