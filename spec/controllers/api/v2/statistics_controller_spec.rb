@@ -19,7 +19,7 @@ describe Api::V2::StatisticsController do
         create(:project, :internal, starts_at: '2015-10-2', end_at: '2015-11-2')
         create(:project, :commercial, starts_at: '2015-10-4', end_at: nil)
         create(:project, :commercial, starts_at: '2015-10-8', end_at: '2015-11-8')
-        create(:project, :commercial, :potential, starts_at: '2015-11-7', end_at: '2015-12-30')
+        create(:project, :commercial, :potential, starts_at: Date.today + 5.days)
       end
 
       context 'without admin' do
