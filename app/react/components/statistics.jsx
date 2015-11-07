@@ -20,8 +20,8 @@ class Statistics extends React.Component {
         commercialProjects: [],
         maintenanceProjects: [],
         internalProjects: [],
-        projectsEndingThisMonth: [],
-        beginningNextMonthProjects: [],
+        projectsEndingBetween: [],
+        beginningSoonProjects: [],
         seniorAndroidDevs: [],
         seniorIosDevs: [],
         seniorRorDevs: [],
@@ -96,10 +96,10 @@ class Statistics extends React.Component {
             detailsArray={this.state.statistics.maintenanceProjects}/>
           <Statistic
             name='Projects with end date'
-            detailsArray={this.state.statistics.projectsEndingThisMonth}/>
+            detailsArray={this.state.statistics.projectsEndingBetween}/>
           <Statistic
             name='Potential projects in next 30 days'
-            detailsArray={this.state.statistics.beginningNextMonthProjects}/>
+            detailsArray={this.state.statistics.beginningSoonProjects}/>
         </table>
         <h3>People</h3>
         <table className='table'>

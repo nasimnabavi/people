@@ -1,15 +1,15 @@
 module Api::V2
   class StatisticsController < Api::ApiController
     include DatesManagement
-    include CollectionsSerialization
 
+    respond_to :json
     before_filter :authenticate_admin!
 
     expose(:commercial_projects) { Project.commercial_between(start_date, end_date) }
     expose(:internal_projects) { Project.internal_between(start_date, end_date) }
     expose(:maintenance_projects) { Project.maintenance_between(start_date, end_date) }
-    expose(:projects_ending_this_month) { Project.ends_between(start_date, end_date) }
-    expose(:beginning_next_month_projects) do
+    expose(:projects_ending_between) { Project.ends_between(start_date, end_date) }
+    expose(:beginning_soon_projects) do
       Project.beginning_between(today, thirty_days_from_today)
     end
 
@@ -56,32 +56,10 @@ module Api::V2
     def index
       @start_date = Time.zone.parse(statistics_params[:startDate])
       @end_date = Time.zone.parse(statistics_params[:endDate])
-      render json: statistics_json
+      render 'api/v2/statistics/index'
     end
 
     private
-
-    def statistics_json
-      {
-        commercialProjects: serialize_projects(commercial_projects),
-        internalProjects: serialize_projects(internal_projects),
-        maintenanceProjects: serialize_projects(maintenance_projects),
-        projectsEndingThisMonth: serialize_projects(projects_ending_this_month),
-        beginningNextMonthProjects: serialize_projects(beginning_next_month_projects),
-        seniorAndroidDevs: serialize_users(senior_android_devs),
-        seniorIosDevs: serialize_users(senior_ios_devs),
-        seniorRorDevs: serialize_users(senior_ror_devs),
-        androidDevs: serialize_users(android_devs),
-        iosDevs: serialize_users(ios_devs),
-        rorDevs: serialize_users(ror_devs),
-        developersInInternals: serialize_users(developers_in_internals),
-        interns: serialize_users(interns),
-        juniorAndroid: serialize_users(junior_android),
-        juniorIos: serialize_users(junior_ios),
-        juniorRor: serialize_users(junior_ror),
-        nonBillableInCommercialProjects: serialize_users(non_billable_in_commercial_projects)
-      }
-    end
 
     def statistics_params
       params.permit(:token, :startDate, :endDate)
