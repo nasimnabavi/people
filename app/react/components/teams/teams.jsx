@@ -206,7 +206,7 @@ class Teams extends React.Component {
     this.state.teams.forEach(team => {
       let teamUsers = this.props.users.filter(user => user.team_ids != null && user.team_ids.indexOf(team.id) > -1);
       teamRows.push(
-        <li className="team-box-flex">
+        <li className="team-box-flex" key={team.id}>
           <Team
             team={team}
             users={this.props.users}
@@ -218,17 +218,21 @@ class Teams extends React.Component {
         </li>
       );
     });
-    return (
-      <div>
-        <div className="row">
-          <div className="col-md-12" id="buttons-region">
-            <div className="btn btn-success new-team-add xs-bottom-margin" onClick={this.onNewTeamButtonClick}>
-              <div className="glyphicon glyphicon-plus pull-left"></div>
-              <div className="pull-right small">New team</div>
-            </div>
-            { this.state.display ? this.newTeamRow() : null}
+    let newTeamArea = (
+      <div className="row">
+        <div className="col-md-12" id="buttons-region">
+          <div className="btn btn-success new-team-add xs-bottom-margin" onClick={this.onNewTeamButtonClick}>
+            <div className="glyphicon glyphicon-plus pull-left"></div>
+            <div className="pull-right small">New team</div>
           </div>
+          { this.state.display ? this.newTeamRow() : null}
         </div>
+      </div>
+    );
+
+    return (
+      <div className="whole-teams">
+        { gon.current_user.admin ? newTeamArea : null }
         <div className="row">
           <div className="col-md-12" id="no-team-region">
             <div className="btn btn-default lg-bottom-margin show-users" onClick={toggleNoTeamUserRows}>
@@ -249,22 +253,25 @@ class Teams extends React.Component {
             </div>
           </div>
         </div>
-        <Modal show={this.state.showEditTeamModal} onHide={closeModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit team</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h4>New name:</h4>
-            <input type="text" onChange={updateNewTeamName}></input>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button bsStyle="danger" onClick={this.removeTeam}>Remove team</Button>
-            <Button onClick={closeModal}>Close</Button>
-            <Button bsStyle="primary" onClick={this.updateTeam}>Save</Button>
-          </Modal.Footer>
-        </Modal>
+        <div>
+          <Modal show={this.state.showEditTeamModal} onHide={closeModal}
+            dialogClassName="whole-teams">
+            <Modal.Header closeButton>
+              <Modal.Title>Edit team</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h4>New name:</h4>
+              <input type="text" onChange={updateNewTeamName}></input>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button bsStyle="danger" onClick={this.removeTeam}>Remove team</Button>
+              <Button onClick={closeModal}>Close</Button>
+              <Button bsStyle="primary" onClick={this.updateTeam}>Save</Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
     </div>
-    );
+  );
   }
 }
 

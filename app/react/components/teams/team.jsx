@@ -25,7 +25,7 @@ class Team extends React.Component {
     let items = [];
     this.nonBillableUsers().forEach(user => {
       items.push(
-        <li>
+        <li key={user.id}>
           <TeamUser user={user} roles={this.props.roles} viewedInTeam={this.props.team}
             removedFromTeamCallback={this.props.userAddedCallback}
             teamChangedCallback={this.props.teamChangedCallback} />
@@ -39,7 +39,7 @@ class Team extends React.Component {
     let items = [];
     this.billableUsers().forEach(user => {
       items.push(
-        <li>
+        <li key={user.id}>
           <TeamUser user={user} roles={this.props.roles} viewedInTeam={this.props.team}
             removedFromTeamCallback={this.props.userAddedCallback}
             teamChangedCallback={this.props.teamChangedCallback} />
