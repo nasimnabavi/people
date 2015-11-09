@@ -8,10 +8,10 @@ describe User do
   it { should have_many :positions }
   it { should belong_to :contract_type }
   it { should belong_to :location }
-  it { should belong_to :team }
   it { should belong_to :leader_team }
   it { should belong_to :primary_role }
   it { should have_and_belong_to_many :abilities }
+  it { should have_and_belong_to_many :teams }
 
   context 'validation' do
     it { should be_valid }
@@ -164,19 +164,6 @@ describe User do
       end
       it 'will not return user without UoP contract' do
         expect(User.contract_users('UoP').to_a).to_not include user_without_uop
-      end
-    end
-  end
-
-  describe '#days_in_current_team' do
-
-    let(:team1) { double('Team', id: 'team1_id', name: 'team1') }
-    let(:team2) { double('Team', id: 'team2_id', name: 'team2') }
-    let(:user) { create(:user, team_id: team1.id, team_join_time: Time.now) }
-
-    context 'when user.team_id is updated' do
-      it 'user.team_join_time updates as well' do
-        expect { user.update(team_id: team2.id) }.to change { user.team_join_time }
       end
     end
   end

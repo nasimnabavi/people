@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     active.unfinished.started.order('memberships.ends_at DESC NULLS FIRST, memberships.starts_at ASC')
   }, class: Membership
   has_many :primary_roles, -> {
-    joins(:positions).where(positions: { primary: true }).group('roles.id') }, through: :positions, source: :role
+    joins(:positions).where(positions: { primary: true }).group('roles.id').group('positions.starts_at') }, through: :positions, source: :role
 
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true
@@ -112,7 +112,6 @@ class User < ActiveRecord::Base
   }
 
   before_save :end_memberships
-  before_update :save_team_join_time
 
   def self.cache_key
     maximum(:updated_at)
@@ -140,14 +139,5 @@ class User < ActiveRecord::Base
 
   def user_memberships_repository
     @user_memberships_repository ||= UserMembershipsRepository.new(self)
-  end
-
-  private
-
-  def save_team_join_time
-    if team_id_changed?
-      team_join_val = team_id.present? ? DateTime.now : nil
-      assign_attributes(team_join_time: team_join_val)
-    end
   end
 end
