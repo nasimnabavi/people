@@ -8,7 +8,6 @@ describe User do
   it { should have_many :positions }
   it { should belong_to :contract_type }
   it { should belong_to :location }
-  it { should belong_to :leader_team }
   it { should belong_to :primary_role }
   it { should have_and_belong_to_many :abilities }
   it { should have_and_belong_to_many :teams }
