@@ -47,7 +47,7 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, :team_leader_id, user_ids: [], users: [])
+    params.require(:team).permit(:name, :team_leader_id, :user_id, user_ids: [], users: [])
   end
 
   def save_team_and_respond status_code
