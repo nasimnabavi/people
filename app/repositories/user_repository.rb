@@ -16,6 +16,7 @@ class UserRepository
         :abilities,
         :projects,
         :roles,
+        :teams,
         current_memberships: [:project],
         potential_memberships: [:project],
         next_memberships: [:project],
