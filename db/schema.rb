@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103124708) do
+ActiveRecord::Schema.define(version: 20151104211622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,7 +152,10 @@ ActiveRecord::Schema.define(version: 20151103124708) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "mongo_id"
+    t.integer  "user_id"
   end
+
+  add_index "teams", ["user_id"], name: "index_teams_on_user_id", using: :btree
 
   create_table "teams_users", id: false, force: true do |t|
     t.integer "user_id", null: false
@@ -187,7 +190,6 @@ ActiveRecord::Schema.define(version: 20151103124708) do
     t.integer  "primary_role_id"
     t.integer  "contract_type_id"
     t.integer  "location_id"
-    t.integer  "leader_team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "mongo_id"
@@ -200,7 +202,6 @@ ActiveRecord::Schema.define(version: 20151103124708) do
 
   add_index "users", ["contract_type_id"], name: "index_users_on_contract_type_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["leader_team_id"], name: "index_users_on_leader_team_id", using: :btree
   add_index "users", ["location_id"], name: "index_users_on_location_id", using: :btree
   add_index "users", ["primary_role_id"], name: "index_users_on_primary_role_id", using: :btree
 
