@@ -6,7 +6,7 @@ class Team < ActiveRecord::Base
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   has_and_belongs_to_many :users
-  has_one :leader, class_name: 'User', inverse_of: :leader_team
+  belongs_to :leader, class_name: 'User', foreign_key: 'user_id'
 
   accepts_nested_attributes_for :users
 
