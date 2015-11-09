@@ -6,7 +6,7 @@ describe UserDecorator do
   end
 
   let(:team) { create(:team) }
-  let(:user) { create(:user, team: team, team_join_time: 6.days.ago) }
+  let(:user) { create(:user, teams: [team], team_join_time: 6.days.ago) }
   let(:user_without_team) { create(:user) }
   subject { user.decorate }
 
