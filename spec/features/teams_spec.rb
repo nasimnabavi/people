@@ -92,7 +92,6 @@ describe 'team view', js: true do
     end
 
     xit 'promotes member to leader' do
-      binding.pry
       find('.js-promote-leader', match: :first).click
       expect(page).not_to have_css('ul.team-members.empty')
       expect(page).to have_css('ul.team-members.filled')
