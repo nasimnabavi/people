@@ -146,6 +146,22 @@ class TeamUser extends React.Component {
       Messenger().success("User removed from team successfully");
       this.props.removedFromTeamCallback(user);
     }
+    let leaderRemoved = () => {
+      this.props.viewedInTeam.user_id = null;
+      this.props.teamChangedCallback(this.props.viewedInTeam);
+    }
+    if(this.props.viewedInTeam && this.props.viewedInTeam.user_id == user.id) {
+      $.ajax({
+        url: Routes.team_path(this.props.viewedInTeam.id),
+        type: "PUT",
+        dataType: 'json',
+        data: {
+          team: {
+            user_id: null
+          }
+        }
+      }).done(leaderRemoved).fail(this.failedToPromoteLeader);
+    }
     $.ajax({
       url: Routes.user_path(user.id),
       type: "PUT",
