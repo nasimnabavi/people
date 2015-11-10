@@ -95,7 +95,7 @@ class TeamUser extends React.Component {
         <Tooltip id="leader-star">Promote to leader</Tooltip>
       );
       const leaderStarAction = (
-        <span className='glyphicon glyphicon-star'
+        <span className='js-promote-leader glyphicon glyphicon-star make-leader'
           onClick={this.promoteToLeader}>
         </span>
       );
