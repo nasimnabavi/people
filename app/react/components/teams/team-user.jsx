@@ -96,7 +96,7 @@ class TeamUser extends React.Component {
       );
       const leaderStarAction = (
         <OverlayTrigger placement="top" overlay={tooltip}>
-          <span className='js-promote-leader glyphicon glyphicon-star make-leader'
+          <span className='glyphicon glyphicon-star'
             onClick={this.promoteToLeader}>
           </span>
         </OverlayTrigger>
