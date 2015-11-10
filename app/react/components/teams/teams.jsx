@@ -199,7 +199,7 @@ class Teams extends React.Component {
     let noTeamUsersRows = [];
     this.noTeamUsers().forEach(user => {
       noTeamUsersRows.push(
-        <TeamUser user={user} roles={this.props.roles} teams={this.props.teams}></TeamUser>);
+        <TeamUser key={user.id} user={user} roles={this.props.roles} teams={this.props.teams}></TeamUser>);
     });
     let teamRows = [];
     let updateNewTeamName = (e) => this.setState({ newTeamName: e.target.value });
