@@ -82,10 +82,14 @@ class User < ActiveRecord::Base
       .where(
         '(memberships.starts_at <= ? AND (memberships.ends_at >= ? OR memberships.ends_at IS NULL))
           OR
-          (memberships.starts_at <= ? AND (memberships.ends_at >= ? OR memberships.ends_at IS NULL))',
+          (memberships.starts_at <= ? AND (memberships.ends_at >= ? OR memberships.ends_at IS NULL))
+          OR
+          (memberships.starts_at >= ? AND memberships.ends_at <= ?)',
         start_date,
         start_date,
         end_date,
+        end_date,
+        start_date,
         end_date)
   }
   scope :billable_roles_between, lambda { |roles, start_date, end_date|
