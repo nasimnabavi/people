@@ -15,7 +15,6 @@ class Hrguru.Views.UsersFilters extends Marionette.View
     @initializeRoleFilter()
     @initializeProjectFilter()
     @initializeAbilitiesFilter()
-    @initializeMonthsInCurrentProjectFilter()
 
   initializeUserFilter: ->
     users_selectize = @$('input[name=users]').selectize
@@ -68,16 +67,6 @@ class Hrguru.Views.UsersFilters extends Marionette.View
       onItemAdd: @filterUsers
       onItemRemove: @filterUsers
     @selectize.abilities = abilities_selectize[0].selectize.items
-
-  initializeMonthsInCurrentProjectFilter: ->
-    months_in_current_project_selectize = @$('select[name=months]').selectize
-      create: false
-      valueField: 'value'
-      sortField: 'value'
-      labelField: 'text'
-      options: @months
-    months_in_current_project_selectize.change @, @updateSelectizeMonths
-    @selectize.months = months_in_current_project_selectize[0].selectize.items[0]
 
   filterUsers: =>
     EventAggregator.trigger('users:updateVisibility', @selectize)
