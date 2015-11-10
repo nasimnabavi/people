@@ -1,7 +1,7 @@
 import React from 'react';
 import TeamUser from './team-user';
 import Team from './team';
-import { Modal, Button } from 'react-bootstrap';
+import Modal from 'react-modal';
 
 require('react-select/dist/react-select.css');
 
@@ -229,6 +229,14 @@ class Teams extends React.Component {
         </div>
       </div>
     );
+    Modal.setAppElement('#edit-team-modal');
+    const customStyles = {
+      content : {
+        top                   : '40%',
+        left                  : '20%',
+        right: '20%'
+      }
+    };
 
     return (
       <div className="whole-teams">
@@ -253,21 +261,13 @@ class Teams extends React.Component {
             </div>
           </div>
         </div>
-        <div>
-          <Modal show={this.state.showEditTeamModal} onHide={closeModal}
-            dialogClassName="whole-teams">
-            <Modal.Header closeButton>
-              <Modal.Title>Edit team</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <h4>New name:</h4>
-              <input type="text" onChange={updateNewTeamName}></input>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button bsStyle="danger" onClick={this.removeTeam}>Remove team</Button>
-              <Button onClick={closeModal}>Close</Button>
-              <Button bsStyle="primary" onClick={this.updateTeam}>Save</Button>
-            </Modal.Footer>
+        <div id='edit-team-modal'>
+          <Modal
+            isOpen={this.state.showEditTeamModal}
+            onRequestClose={closeModal}
+            style={customStyles}>
+            <h2>Hello!</h2>
+            <button onClick={closeModal}>close</button>
           </Modal>
         </div>
     </div>
