@@ -95,11 +95,9 @@ class TeamUser extends React.Component {
         <Tooltip id="leader-star">Promote to leader</Tooltip>
       );
       const leaderStarAction = (
-        <OverlayTrigger placement="top" overlay={tooltip}>
-          <span className='glyphicon glyphicon-star'
-            onClick={this.promoteToLeader}>
-          </span>
-        </OverlayTrigger>
+        <span className='glyphicon glyphicon-star'
+          onClick={this.promoteToLeader}>
+        </span>
       );
       let isNotLeaderOfTeam = () => {
         return !(this.props.viewedInTeam.user_id === this.props.user.id);
