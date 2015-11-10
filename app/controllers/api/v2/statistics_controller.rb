@@ -32,7 +32,10 @@ module Api::V2
       User.billable_roles_between(['developer RoR'], start_date, end_date)
     end
     expose(:developers_in_internals) do
-      User.developers_in_internals_between(start_date, end_date)
+      User.developers_in_internals_between(
+        %w(developer\ RoR iOS android senior\ Android senior\ iOS senior\ RoR),
+        start_date,
+        end_date)
     end
     expose(:interns) do
       User.roles_between(['intern'], start_date, end_date)

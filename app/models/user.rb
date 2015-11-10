@@ -98,9 +98,9 @@ class User < ActiveRecord::Base
       .where('roles.name IN (?)', roles)
       .without_excluded_projects.distinct.order(:last_name)
   }
-  scope :developers_in_internals_between, lambda { |start_date, end_date|
+  scope :developers_in_internals_between, lambda { |roles, start_date, end_date|
     membership_between(start_date, end_date)
-      .where('roles.name = ? AND project_internal = true', 'developer')
+      .where('roles.name IN (?) AND project_internal = true', roles)
       .without_excluded_projects.distinct.order(:last_name)
   }
   scope :non_billable_in_commercial_projects_between, lambda { |roles, start_date, end_date|
