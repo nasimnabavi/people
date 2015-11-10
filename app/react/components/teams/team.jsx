@@ -81,16 +81,6 @@ class Team extends React.Component {
     });
   }
 
-  editSection() {
-    if(gon.current_user.admin) {
-      return(
-        <div className="admin-section" onClick={this.showEditModal}>
-          <span className="js-edit-team glyphicon glyphicon-pencil"></span>
-        </div>
-      );
-    } else { return null; }
-  }
-
   showEditModal(e) {
     e.preventDefault();
     this.props.showEditModalCallback(this.props.team);
@@ -135,18 +125,18 @@ class Team extends React.Component {
     }
   }
 
-  addTeamSection() {
-    if(gon.current_user.admin) {
-      return (
-        <AddUserToTeam
-          users={this.props.users}
-          team={this.props.team}
-          userAddedCallback={this.props.userAddedCallback}></AddUserToTeam>
-      )
-    } else { return ''; }
-  }
-
   render() {
+    let addUserToTeamSection = (
+      <AddUserToTeam
+      users={this.props.users}
+      team={this.props.team}
+      userAddedCallback={this.props.userAddedCallback}/>
+    );
+    let editButton = (
+      <div className="admin-section" onClick={this.showEditModal}>
+        <span className="js-edit-team glyphicon glyphicon-pencil"/>
+      </div>
+    );
     return (
       <article className='team'>
         <header>
@@ -158,16 +148,22 @@ class Team extends React.Component {
             <span className='devs'>{this.billableUsers().length}</span>
             <span className='jnrs'>{this.nonBillableUsers().length}</span>
           </p>
-          {this.editSection()}
+          <div class-name="edit-button">
+            { gon.current_user.admin ? editButton : null }
+          </div>
         </header>
-        {this.leaderRow()}
+        <div className="leader-row">
+          {this.leaderRow()}
+        </div>
         <div id='members-region'>
           <ul className="team-members">
             {this.billableRows()}
             {this.nonBillableRows()}
           </ul>
         </div>
-        {this.addTeamSection()}
+        <div>
+          { gon.current_user.admin ? addUserToTeamSection : null }
+        </div>
       </article>
     );
   }
