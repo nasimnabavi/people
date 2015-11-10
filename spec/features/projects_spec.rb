@@ -188,7 +188,7 @@ describe 'Projects page', js: true do
 
     describe 'add a new note' do
       before do
-        first('div.project div.show-notes').trigger('click')
+        find('.open-all-notes-button').trigger('click')
       end
 
       it 'add a note to the project' do
@@ -204,9 +204,7 @@ describe 'Projects page', js: true do
         create(:note, user: pm_user, project: active_project)
         visit '/dashboard'
         find('.projects-types li.active').click
-        within('div.project') do
-          first('div.show-notes').trigger('click')
-        end
+        find('.open-all-notes-button').trigger('click')
       end
 
       it 'remove a note' do
