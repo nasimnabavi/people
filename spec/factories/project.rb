@@ -33,5 +33,9 @@ FactoryGirl.define do
     trait :internal do
       internal true
     end
+
+    trait :maintenance do
+      project_type { 'maintenance' }
+    end
   end
 end
