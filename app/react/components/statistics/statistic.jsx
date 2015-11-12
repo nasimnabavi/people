@@ -1,5 +1,7 @@
 import React from 'react';
-import Detail from './detail'
+import classNames from 'classnames';
+import Detail from './detail';
+
 
 class Statistic extends React.Component {
   static get propTypes() {
@@ -31,10 +33,11 @@ class Statistic extends React.Component {
         </td>
       </tr>
     );
+    const stClassName = classNames('statistic-row', { opened: this.state.display });
 
     return (
       <tbody>
-        <tr className='statistic-row' onClick={this.onStatisticClick}>
+        <tr className={stClassName} onClick={this.onStatisticClick}>
           <td>{this.props.name}</td>
           <td>{arrayLength}</td>
         </tr>

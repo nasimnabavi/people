@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import NestedStatistic from './nested-statistic';
 
 class NestedStatistics extends React.Component {
@@ -27,10 +28,11 @@ class NestedStatistics extends React.Component {
     );
     const data = arrayLength > 0 ?
       statistics : <tr><td colSpan='2'><h6>No data for given period</h6></td></tr>;
+    const stClassName = classNames('statistic-row', { opened: this.state.display });
 
     return (
       <tbody>
-        <tr className='statistic-row' onClick={this.onStatisticClick}>
+        <tr className={stClassName} onClick={this.onStatisticClick}>
           <td>{this.props.name}</td>
           <td>{arrayLength}</td>
         </tr>
