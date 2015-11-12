@@ -17,6 +17,7 @@ class UserRepository
         :projects,
         :roles,
         :teams,
+        :primary_roles,
         current_memberships: [:project],
         potential_memberships: [:project],
         next_memberships: [:project],
@@ -37,7 +38,7 @@ class UserRepository
   end
 
   def all_by_name
-    User.includes(:projects).by_name
+    User.includes(:projects, :teams).by_name
   end
 
   def find_by(attrs)
