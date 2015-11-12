@@ -4,11 +4,6 @@
   %img{ src: @gravatar }
 %td
   != @profile_link(@, Routes.user_path(@id))
-  .icons
-    %a{ href: "mailto:#{@email}" }
-      != @icon 'envelope-o'
-    != @github
-    != @skype
   %td
     != @primary_role_names if @primary_roles
 - if H.currentUserIsAdmin() || H.currentUserIdIs(@id)
