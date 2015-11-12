@@ -67,7 +67,7 @@ gem 'react_webpack_rails', '0.0.4'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'bullet', '~> 4.13.2'
+  gem 'bullet'
   gem 'letter_opener'
   gem 'quiet_assets'
   gem 'xray-rails'
