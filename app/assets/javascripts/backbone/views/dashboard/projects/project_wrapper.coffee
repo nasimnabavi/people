@@ -10,6 +10,7 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
     time: '.time'
     timeline_show: '.js-timeline-show'
     timeline_hide: '.js-timeline-hide'
+    open_notes: '.js-open-project-notes'
 
   regions:
     membershipsRegion: '.js-memberships-region'
@@ -20,6 +21,7 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
     'click .unarchive' : 'unarchiving'
     'click .js-timeline-show' : 'toggleTimeline'
     'click .js-timeline-hide' : 'toggleTimeline'
+    'click .js-open-project-notes' : -> @model.trigger('notes:toggle')
 
   initialize: (options) ->
     { @users, @roles, @model, @memberships } = options
