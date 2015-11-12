@@ -253,11 +253,11 @@ GEM
       gems (~> 0.8)
       git (~> 1.2)
     git (1.2.9.1)
-    gon (5.2.3)
-      actionpack (>= 2.3.0)
+    gon (6.0.1)
+      actionpack (>= 3.0)
       json
       multi_json
-      request_store (>= 1.0.5)
+      request_store (>= 1.0)
     google-analytics-rails (0.0.6)
     google-api-client (0.6.4)
       addressable (>= 2.3.2)
@@ -417,7 +417,7 @@ GEM
     ref (1.0.5)
     render_anywhere (0.0.11)
       rails (>= 3.0.7)
-    request_store (1.1.0)
+    request_store (1.2.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rest-client (1.8.0)
