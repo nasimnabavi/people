@@ -13,7 +13,8 @@ class Hrguru.Views.UsersFilters extends Marionette.View
   render: ->
     @initializeUserFilter()
     @initializeRoleFilter()
-    @initializeProjectFilter()
+    @initializeActualProjectsFilter()
+    @initializeOldProjectsFilter()
     @initializeAbilitiesFilter()
 
   initializeUserFilter: ->
@@ -42,8 +43,8 @@ class Hrguru.Views.UsersFilters extends Marionette.View
       onItemRemove: @filterUsers
     @selectize.roles = roles_selectize[0].selectize.items
 
-  initializeProjectFilter: ->
-    projects_selectize = @$('input[name=projects]').selectize
+  initializeActualProjectsFilter: ->
+    projects_selectize = @$('input[name=projects-actual]').selectize
       plugins: ['remove_button']
       create: false
       valueField: 'id'
@@ -53,7 +54,20 @@ class Hrguru.Views.UsersFilters extends Marionette.View
       options: @projects.toJSON()
       onItemAdd: @filterUsers
       onItemRemove: @filterUsers
-    @selectize.projects = projects_selectize[0].selectize.items
+    @selectize.actualProjects = projects_selectize[0].selectize.items
+
+  initializeOldProjectsFilter: ->
+    projects_selectize = @$('input[name=projects-old]').selectize
+      plugins: ['remove_button']
+      create: false
+      valueField: 'id'
+      labelField: 'name'
+      searchField: 'name'
+      sortField: 'name'
+      options: @projects.toJSON()
+      onItemAdd: @filterUsers
+      onItemRemove: @filterUsers
+    @selectize.oldProjects = projects_selectize[0].selectize.items
 
   initializeAbilitiesFilter: ->
     abilities_selectize = @$('input[name=abilities]').selectize
