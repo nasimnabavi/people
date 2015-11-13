@@ -20,7 +20,11 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
     @listenTo(@collection, 'membership:updated:billable', @updateCollections)
 
   serializeData: ->
-    $.extend(super, { billableCount: @billable.length, nonBillableCount: @nonBillable.length,
+    billableLength = @billable.models.filter((membership) ->
+      new Date(membership.get('starts_at')) < new Date()).length
+    nonBillableLength = @nonBillable.models.filter((membership) ->
+      new Date(membership.get('starts_at')) < new Date()).length
+    $.extend(super, { billableCount: billableLength, nonBillableCount: nonBillableLength,
     showAddMembership: @showAddMembership })
 
   getUsers: ->
