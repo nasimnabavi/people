@@ -233,7 +233,7 @@ class Teams extends React.Component {
 
     return (
       <div className="whole-teams">
-        { gon.current_user.admin ? newTeamArea : null }
+        { gon.current_user_is_emailed_admin ? newTeamArea : null }
         <div className="row">
           <div className="col-md-12" id="no-team-region">
             <div className="btn btn-default lg-bottom-margin show-users" onClick={toggleNoTeamUserRows}>

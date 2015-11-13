@@ -90,7 +90,7 @@ class TeamUser extends React.Component {
   }
 
   actions() {
-    if(gon.current_user.admin && this.props.viewedInTeam) {
+    if(gon.current_user_is_emailed_admin && this.props.viewedInTeam) {
       const tooltip = (
         <Tooltip id="leader-star">Promote to leader</Tooltip>
       );

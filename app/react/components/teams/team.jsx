@@ -149,7 +149,7 @@ class Team extends React.Component {
             <span className='jnrs'>{this.nonBillableUsers().length}</span>
           </p>
           <div class-name="edit-button">
-            { gon.current_user.admin ? editButton : null }
+            { gon.current_user_is_emailed_admin ? editButton : null }
           </div>
         </header>
         <div className="leader-row">
@@ -162,7 +162,7 @@ class Team extends React.Component {
           </ul>
         </div>
         <div>
-          { gon.current_user.admin ? addUserToTeamSection : null }
+          { gon.current_user_is_emailed_admin ? addUserToTeamSection : null }
         </div>
       </article>
     );
