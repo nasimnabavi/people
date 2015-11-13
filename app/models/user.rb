@@ -19,13 +19,16 @@ class User < ActiveRecord::Base
   has_many :current_memberships, -> { active.unfinished.started }, anonymous_class: Membership
   has_many :potential_memberships, -> { potential.unfinished }, anonymous_class: Membership
   has_many :next_memberships, -> { next_memberships }, anonymous_class: Membership
-  has_many :previous_memberships, -> { where('ends_at < ?', Time.zone.now) }, anonymous_class: Membership
+  has_many :previous_memberships, -> { where('ends_at < ?', Time.zone.now) },
+    anonymous_class: Membership
   has_many :booked_memberships, -> {
     where(booked: true)
       .where("memberships.ends_at IS NULL OR memberships.ends_at > ?", Time.current)
       .order("memberships.ends_at ASC NULLS FIRST, id ASC")
   }, anonymous_class: Membership
-  has_one :last_membership, -> { active.unfinished.started.order('memberships.ends_at DESC NULLS FIRST') }, anonymous_class: Membership
+  has_one :last_membership, -> {
+    active.unfinished.started.order('memberships.ends_at DESC NULLS FIRST')
+  }, anonymous_class: Membership
   has_one :longest_current_membership, -> {
     active.unfinished.started.order('memberships.ends_at DESC NULLS FIRST, memberships.starts_at ASC')
   }, anonymous_class: Membership
