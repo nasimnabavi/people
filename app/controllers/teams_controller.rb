@@ -14,6 +14,7 @@ class TeamsController < ApplicationController
     gon.rabl template: 'app/views/teams/teams', as: 'teams'
     gon.rabl template: 'app/views/dashboard/users', as: 'users'
     gon.rabl template: 'app/views/dashboard/roles', as: 'roles'
+    gon.current_user_is_emailed_admin = AppConfig.emails.admin.include?(current_user.email)
     respond_to do |format|
       format.html
       format.json { render json: teams }
