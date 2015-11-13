@@ -10,3 +10,6 @@ node(:has_potential_project) { |user| user.has_potential_projects? }
 node(:next_projects) { |user| user.next_projects_json }
 node(:potential_projects) { |user| user.potential_projects_json }
 node(:booked_projects) { |user| user.booked_projects_json }
+node(:previous_projects) do |user|
+  user.previous_projects_json
+end

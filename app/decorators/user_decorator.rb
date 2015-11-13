@@ -83,4 +83,8 @@ class UserDecorator < Draper::Decorator
   def current_projects_with_memberships_json
     @current_projects_with_memberships_json ||= projects_json(current_memberships)
   end
+
+  def previous_projects_json
+    @previous_projects_json ||= projects_json(previous_memberships)
+  end
 end
