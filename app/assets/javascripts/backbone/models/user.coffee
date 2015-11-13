@@ -3,7 +3,8 @@ class Hrguru.Models.User extends Backbone.Model
   visibleBy:
     users: true
     roles: true
-    projects: true
+    actualProjects: true
+    oldProjects: true
     abilities: true
     months_in_current_project: true
     category: true
@@ -17,7 +18,8 @@ class Hrguru.Models.User extends Backbone.Model
 
   updateVisibility: (data) ->
     @visibleBy.roles = @visibleByRoles(data.roles)
-    @visibleBy.projects = @visibleByProjects(data.projects)
+    @visibleBy.actualProjects = @visibleByProjects(data.actualProjects)
+    @visibleBy.oldProjects = @visibleByOldProjects(data.oldProjects)
     @visibleBy.users = @visibleByUsers(data.users)
     @visibleBy.abilities = @visibleByAbilities(data.abilities)
     @visibleBy.months_in_current_project = @visibleByMonthsInCurrentProject(parseInt(data.months))
@@ -25,9 +27,9 @@ class Hrguru.Models.User extends Backbone.Model
     @trigger 'toggle_visible', @isVisible()
 
   isVisible: ->
-    @visibleBy.roles && @visibleBy.projects && @visibleBy.users &&
+    @visibleBy.roles && @visibleBy.actualProjects && @visibleBy.users &&
       @visibleBy.abilities && @isActive() && @visibleBy.months_in_current_project &&
-      @visibleBy.category
+      @visibleBy.category && @visibleBy.oldProjects
 
   visibleByUsers: (users = '') ->
     return true if users.length == 0
@@ -42,6 +44,12 @@ class Hrguru.Models.User extends Backbone.Model
     return true if projects.length == 0
     return false unless @get('projects')?
     myProjects = @myProjects()
+    (_.difference myProjects, projects).length < myProjects.length
+
+  visibleByOldProjects: (projects = '') ->
+    return true if projects.length == 0
+    return false unless @get('projects')?
+    myProjects = @myOldProjects()
     (_.difference myProjects, projects).length < myProjects.length
 
   visibleByAbilities: (abilities = '') ->
@@ -61,6 +69,9 @@ class Hrguru.Models.User extends Backbone.Model
 
   myProjects: ->
     _.map @get("projects"), (p) -> String(p.project.id)
+
+  myOldProjects: ->
+    _.map @get("previous_projects"), (p) -> String(p.project.id)
 
   myRole: ->
     String(@get("role").id)
