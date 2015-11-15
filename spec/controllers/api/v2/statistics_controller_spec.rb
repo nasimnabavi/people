@@ -27,6 +27,10 @@ describe Api::V2::StatisticsController do
     create(:membership, :billable, project: commercial_unfinished, starts_at: '2015-10-8',
       role: dev)
   end
+  let!(:billable_dev_in_commercial_middle) do
+    create(:membership, :billable, project: commercial_unfinished, starts_at: '2015-10-8',
+      ends_at: '2015-10-26', role: dev)
+  end
   let!(:non_billable_membership_in_commercial) do
     create(:membership, project: commercial_unfinished, starts_at: '2015-10-12', role: dev)
   end
@@ -78,7 +82,7 @@ describe Api::V2::StatisticsController do
           expect(json_response['beginningSoonProjects'].length).to eq 1
           expect(json_response['developersInInternals'].length).to eq 1
           expect(json_response['nonBillableInCommercialProjects'].length).to eq 1
-          expect(json_response['rorDevs'].length).to eq 1
+          expect(json_response['rorDevs'].length).to eq 2
         end
       end
     end
