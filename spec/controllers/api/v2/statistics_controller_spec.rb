@@ -62,79 +62,8 @@ describe Api::V2::StatisticsController do
           get :index, params
         end
 
-        it 'exposes commercial projects' do
-          controller.commercial_projects.should be_an ActiveRecord::Relation
-          controller.commercial_projects.first.should be_a Project
-        end
-
-        it 'exposes internal projects' do
-          controller.internal_projects.should be_an ActiveRecord::Relation
-          controller.internal_projects.first.should be_a Project
-        end
-
-        it 'exposes maintenance projects' do
-          controller.maintenance_projects.should be_an ActiveRecord::Relation
-          controller.maintenance_projects.first.should be_a Project
-        end
-
-        it 'exposes projects ending between' do
-          controller.projects_ending_between.should be_an ActiveRecord::Relation
-          controller.projects_ending_between.first.should be_a Project
-        end
-
-        it 'exposes projects beginning soon' do
-          controller.beginning_soon_projects.should be_an ActiveRecord::Relation
-          controller.beginning_soon_projects.first.should be_a Project
-        end
-
-        it 'exposes senior android devs' do
-          controller.senior_android_devs.should be_an ActiveRecord::Relation
-        end
-
-        it 'exposes senior ios devs' do
-          controller.senior_ios_devs.should be_an ActiveRecord::Relation
-        end
-
-        it 'exposes senior ror devs' do
-          controller.senior_ror_devs.should be_an ActiveRecord::Relation
-        end
-
-        it 'exposes android devs' do
-          controller.android_devs.should be_an ActiveRecord::Relation
-        end
-
-        it 'exposes ios devs' do
-          controller.ios_devs.should be_an ActiveRecord::Relation
-        end
-
-        it 'exposes ror devs' do
-          controller.ror_devs.should be_an ActiveRecord::Relation
-          controller.ror_devs.first.should be_a User
-        end
-
-        it 'exposes developers in internals' do
-          controller.developers_in_internals.should be_an ActiveRecord::Relation
-          controller.developers_in_internals.first.should be_a User
-        end
-
-        it 'exposes interns' do
-          controller.interns.should be_an ActiveRecord::Relation
-        end
-
-        it 'exposes junior ror devs' do
-          controller.junior_ror.should be_an ActiveRecord::Relation
-        end
-
-        it 'exposes junior android devs' do
-          controller.junior_android.should be_an ActiveRecord::Relation
-        end
-
-        it 'exposes junior ios devs' do
-          controller.junior_ios.should be_an ActiveRecord::Relation
-        end
-
-        it 'exposes non billable devs in commercial projects' do
-          controller.non_billable_in_commercial_projects.should be_an ActiveRecord::Relation
+        it 'exposes statistics' do
+          controller.statistics.should be_a StatisticsRepository
         end
 
         it 'returns response status 200' do
