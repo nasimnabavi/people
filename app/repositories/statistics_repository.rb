@@ -38,6 +38,10 @@ class StatisticsRepository
     User.billable_roles_between(['senior RoR'], start_date, end_date)
   end
 
+  def senior_frontend_devs
+    User.billable_roles_between(['senior frontend'], start_date, end_date)
+  end
+
   def android_devs
     User.billable_roles_between(['android'], start_date, end_date)
   end
@@ -48,6 +52,10 @@ class StatisticsRepository
 
   def ror_devs
     User.billable_roles_between(['developer RoR'], start_date, end_date)
+  end
+
+  def frontend_devs
+    User.billable_roles_between(['frontend'], start_date, end_date)
   end
 
   def developers_in_internals
@@ -71,6 +79,10 @@ class StatisticsRepository
 
   def junior_android
     User.roles_between(['junior android'], start_date, end_date)
+  end
+
+  def junior_frontend
+    User.roles_between(['junior frontend'], start_date, end_date)
   end
 
   def non_billable_in_commercial_projects
