@@ -36,6 +36,7 @@ FactoryGirl.define do
 
     trait :maintenance do
       project_type { 'maintenance' }
+      maintenance_since { Time.now - 7.days }
     end
   end
 end
