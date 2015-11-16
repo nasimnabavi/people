@@ -54,6 +54,8 @@ class Project < ActiveRecord::Base
   scope :beginning_between, lambda { |start_date, end_date|
     potential.starts_after(start_date).starts_before(end_date).order('LOWER(name)')
   }
+  scope :maintenance, -> { where(project_type: 'maintenance') }
+  scope :not_maintenance, -> { where.not(project_type: 'maintenance') }
 
   def to_s
     name
