@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
       .where.not(projects: { id: Project.unavailable.select(:id) })
   end
   scope :with_scheduled_commercial_memberships, -> do
-    with_scheduled_memberships.merge(Project.commercial)
+    with_scheduled_memberships.merge(Project.commercial.not_maintenance)
   end
   scope :without_scheduled_commercial_memberships, -> do
     where.not(id: with_scheduled_commercial_memberships.select(:id))
