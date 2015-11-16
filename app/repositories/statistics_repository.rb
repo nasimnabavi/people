@@ -42,6 +42,10 @@ class StatisticsRepository
     User.billable_roles_between(['senior frontend'], start_date, end_date)
   end
 
+  def senior_designers
+    User.billable_roles_between(['senior designer/UX'], start_date, end_date)
+  end
+
   def android_devs
     User.billable_roles_between(['android'], start_date, end_date)
   end
@@ -56,6 +60,10 @@ class StatisticsRepository
 
   def frontend_devs
     User.billable_roles_between(['frontend'], start_date, end_date)
+  end
+
+  def designers
+    User.billable_roles_between(['designer/UX'], start_date, end_date)
   end
 
   def developers_in_internals
