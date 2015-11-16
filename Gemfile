@@ -53,7 +53,7 @@ gem 'rvm1-capistrano3', require: false
 gem 'sass-rails'
 gem 'searchlight'
 gem 'selectize-rails'
-gem 'simple_form', '~> 3.1.0.rc2'
+gem 'simple_form'
 gem 'slack-notifier'
 gem 'sucker_punch'
 gem 'therubyracer'
