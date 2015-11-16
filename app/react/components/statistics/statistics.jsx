@@ -3,6 +3,7 @@ import Statistic from './statistic';
 import StatisticsSearch from './statistics-search';
 import StatisticsChart from './statistics-chart';
 import NestedStatistics from './nested-statistics';
+import StatisticsPeople from './statistics-people';
 
 class Statistics extends React.Component {
   static get propTypes() {
@@ -134,6 +135,8 @@ class Statistics extends React.Component {
               {name: 'Interns', people: this.state.statistics.interns}
             ]}/>
         </table>
+        <StatisticsPeople
+          statistics={this.state.statistics} />
       </div>
     );
   }
