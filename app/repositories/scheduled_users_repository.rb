@@ -8,7 +8,7 @@ class ScheduledUsersRepository
       .where(
         projects: { end_at: nil, internal: false },
         memberships: { ends_at: nil }
-      ).merge(Project.active.nonpotential).order('memberships.starts_at ASC')
+      ).merge(Project.active.nonpotential.not_maintenance).order('memberships.starts_at ASC')
   end
 
   def in_internals
@@ -20,7 +20,7 @@ class ScheduledUsersRepository
 
   def with_rotations_in_progress
     not_booked_billable_users.joins(memberships: :project)
-      .merge(Project.active.unfinished.started.commercial)
+      .merge(Project.active.unfinished.started.commercial.not_maintenance)
       .merge(Membership.not_started.active.not_internal)
   end
 
@@ -29,7 +29,7 @@ class ScheduledUsersRepository
       .joins(current_memberships: [:project])
       .where("(projects.internal = 'f') AND (memberships.ends_at > :now OR projects.end_at > :now)",
         now: 1.day.ago)
-      .merge(Project.active.commercial.started)
+      .merge(Project.active.commercial.started.not_maintenance)
       .order('COALESCE(memberships.ends_at, projects.end_at)')
   end
 
