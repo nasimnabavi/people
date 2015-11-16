@@ -81,6 +81,9 @@ class Hrguru.Views.ScheduledUsersRow extends Backbone.Marionette.Layout
     filteredProjects = collectProjects.filter (el) ->
       el.get('project').id not in currentProjectsIds
 
+    filteredProjects = filteredProjects.filter (el) ->
+      el.get('project').project_type != 'maintenance'
+
     projectsView = new Hrguru.Views.ScheduledUsersProjects
       collection: new Backbone.Collection filteredProjects
       show_start_date: true
