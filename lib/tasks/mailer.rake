@@ -36,6 +36,7 @@ namespace :mailer do
     users_without_primary = User.active.where.not(id: user_ids_with_primary).where(primary_role: nil)
                               .order([:last_name, :first_name])
 
+    next if users_without_primary.size.zero?
     SendMailJob.new.async.perform(UserMailer, :without_primary_role, users_without_primary)
   end
 
