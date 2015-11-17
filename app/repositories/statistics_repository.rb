@@ -46,6 +46,10 @@ class StatisticsRepository
     User.billable_roles_between(['senior designer/UX'], start_date, end_date)
   end
 
+  def senior_project_managers
+    User.roles_between(['senior PM'], start_date, end_date)
+  end
+
   def android_devs
     User.billable_roles_between(['android'], start_date, end_date)
   end
@@ -64,6 +68,10 @@ class StatisticsRepository
 
   def designers
     User.billable_roles_between(['designer/UX'], start_date, end_date)
+  end
+
+  def project_managers
+    User.roles_between(['PM'], start_date, end_date)
   end
 
   def developers_in_internals
@@ -91,6 +99,10 @@ class StatisticsRepository
 
   def junior_frontend
     User.roles_between(['junior frontend'], start_date, end_date)
+  end
+
+  def junior_project_managers
+    User.roles_between(['designer/UX'], start_date, end_date)
   end
 
   def non_billable_in_commercial_projects
