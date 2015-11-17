@@ -5,7 +5,7 @@ module Repositories
       :iosDevs, :rorDevs, :developersInInternals, :interns, :juniorRor, :juniorIos, :juniorAndroid,
       :nonBillableInCommercialProjects, :juniorFrontendDevs, :frontendDevs, :seniorFrontendDevs,
       :designers, :seniorDesigners, :juniorProjectManagers, :projectManagers,
-      :seniorProjectManagers
+      :seniorProjectManagers, :juniorQualityAssurance, :qualityAssurance, :seniorQualityAssurance
 
     def commercialProjects
       ActiveModel::ArraySerializer.new(object.commercial_projects,
@@ -62,6 +62,11 @@ module Repositories
         each_serializer: Api::V2::UserStatisticsSerializer)
     end
 
+    def seniorQualityAssurance
+      ActiveModel::ArraySerializer.new(object.senior_quality_assurance,
+        each_serializer: Api::V2::UserStatisticsSerializer)
+    end
+
     def androidDevs
       ActiveModel::ArraySerializer.new(object.android_devs,
         each_serializer: Api::V2::UserStatisticsSerializer)
@@ -89,6 +94,11 @@ module Repositories
 
     def projectManagers
       ActiveModel::ArraySerializer.new(object.project_managers,
+        each_serializer: Api::V2::UserStatisticsSerializer)
+    end
+
+    def qualityAssurance
+      ActiveModel::ArraySerializer.new(object.quality_assurance,
         each_serializer: Api::V2::UserStatisticsSerializer)
     end
 
@@ -124,6 +134,11 @@ module Repositories
 
     def juniorProjectManagers
       ActiveModel::ArraySerializer.new(object.junior_project_managers,
+        each_serializer: Api::V2::UserStatisticsSerializer)
+    end
+
+    def juniorQualityAssurance
+      ActiveModel::ArraySerializer.new(object.junior_quality_assurance,
         each_serializer: Api::V2::UserStatisticsSerializer)
     end
 
