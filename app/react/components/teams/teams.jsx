@@ -2,6 +2,8 @@ import React from 'react';
 import TeamUser from './team-user';
 import Team from './team';
 import Modal from 'react-modal';
+import TeamActions from '../../actions/TeamActions';
+import TeamStore from '../../stores/TeamStore';
 
 require('react-select/dist/react-select.css');
 
@@ -17,18 +19,16 @@ class Teams extends React.Component {
 
   constructor(props) {
     super(props);
+    TeamStore.setInitialState(this.props.teams);
     this.state = {
       display: false,
-      teams: this.props.teams,
+      teams: TeamStore.getState().teams,
       users: this.props.users,
       showEditTeamModal: false,
       showNoTeamUsers: false
     };
     this.onNewTeamButtonClick = this.onNewTeamButtonClick.bind(this);
-    this.closeNewTeamRow = this.closeNewTeamRow.bind(this);
-    this.addTeam = this.addTeam.bind(this);
     this.handleTeamChangeName = this.handleTeamChangeName.bind(this);
-    this.addedTeam = this.addedTeam.bind(this);
     this.editTeamCallback = this.editTeamCallback.bind(this);
     this.updateTeam = this.updateTeam.bind(this);
     this.removeTeam = this.removeTeam.bind(this);
@@ -38,7 +38,20 @@ class Teams extends React.Component {
     this.failedToRemoveTeam = this.failedToRemoveTeam.bind(this);
     this.userAddedToTeamCallback = this.userAddedToTeamCallback.bind(this);
     this.teamChangedCallback = this.teamChangedCallback.bind(this);
+    this._onTeamChange = this._onTeamChange.bind(this);
     this.setMessengerOptions();
+  }
+
+  componentDidMount() {
+    TeamStore.listen(this._onTeamChange);
+  }
+
+  componentWillUnmount() {
+    TeamStore.unlisten(this._onTeamChange);
+  }
+
+  _onTeamChange(store) {
+    this.setState({ teams: store.teams, display: false });
   }
 
   userAddedToTeamCallback(newUser) {
@@ -88,6 +101,8 @@ class Teams extends React.Component {
   }
 
   newTeamRow() {
+    const createTeam = () => TeamActions.create(this.state.teamName);
+    const closeNewTeamRow = () => this.setState({ display: false });
     return (
       <div className="js-new-team-form sm-bottom-margin">
         <div className="form-group">
@@ -100,8 +115,8 @@ class Teams extends React.Component {
           </div>
         </div>
         <div className="actions">
-          <a className="btn btn-danger btn-sm new-team-close" href="#" onClick={this.closeNewTeamRow}>Close</a>
-          <a className="btn btn-default btn-sm new-team-submit" href="#" onClick={this.addTeam}>Add team</a>
+          <a className="btn btn-danger btn-sm new-team-close" href="#" onClick={closeNewTeamRow}>Close</a>
+          <a className="btn btn-default btn-sm new-team-submit" href="#" onClick={createTeam}>Add team</a>
         </div>
       </div>
     );
@@ -109,19 +124,6 @@ class Teams extends React.Component {
 
   handleTeamChangeName(e) {
     this.setState({ teamName: e.target.value });
-  }
-
-  addTeam(e, smth) {
-    $.ajax({
-      url: Routes.teams_path(),
-      type: "POST",
-      dataType: 'json',
-      data: {
-        team: {
-          name: this.state.teamName
-        }
-      }
-    }).done(this.addedTeam).fail(this.failedToAddTeam);
   }
 
   updateTeam() {
@@ -168,22 +170,6 @@ class Teams extends React.Component {
   failedToRemoveTeam() {
     Messenger().error(`Team could not be removed`);
     this.setState({ showEditTeamModal: false, editedTeam: null });
-  }
-
-  addedTeam(data, textStatus, jqXHR) {
-    this.setState({ display: false });
-    this.state.teams.push(data);
-    this.setState({ teams: this.state.teams });
-    Messenger().success(`${data.name} has been created`);
-  }
-
-  failedToAddTeam(xhr, status, err) {
-    let errors = JSON.parse(xhr.responseText).errors
-    Messenger().error("Name of this team is already taken");
-  }
-
-  closeNewTeamRow() {
-    this.setState({ display: false });
   }
 
   teamChangedCallback(newTeam) {
