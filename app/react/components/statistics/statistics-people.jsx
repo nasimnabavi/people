@@ -54,6 +54,12 @@ export default class StatisticsPeople extends React.Component {
               juniors={this.props.statistics.juniorProjectManagers}
               regulars={this.props.statistics.projectManagers}
               seniors={this.props.statistics.seniorProjectManagers} />
+            <StatisticsPeopleRow
+              label={"QAs"}
+              interns={[]}
+              juniors={this.props.statistics.juniorQualityAssurance}
+              regulars={this.props.statistics.qualityAssurance}
+              seniors={this.props.statistics.seniorQualityAssurance} />
           </tbody>
         </table>
       </div>
