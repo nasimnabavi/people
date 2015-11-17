@@ -3,6 +3,7 @@ import StatisticsPeopleRow from './statistics-people-row';
 
 export default class StatisticsPeople extends React.Component {
   render() {
+    let supportDevelopers = this.props.statistics.supportDevelopers;
     return(
       <div>
         <h3>Positions</h3>
@@ -60,6 +61,12 @@ export default class StatisticsPeople extends React.Component {
               juniors={this.props.statistics.juniorQualityAssurance}
               regulars={this.props.statistics.qualityAssurance}
               seniors={this.props.statistics.seniorQualityAssurance} />
+            <tr>
+              <td>Support</td>
+              <td className="text-center" colSpan="5">
+                {supportDevelopers ? supportDevelopers.length : 0}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -68,5 +75,5 @@ export default class StatisticsPeople extends React.Component {
 }
 
 StatisticsPeople.propTypes = {
-  statistics: PropTypes.array.required
+  statistics: PropTypes.object.isRequired
 };
