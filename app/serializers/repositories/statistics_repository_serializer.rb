@@ -4,7 +4,8 @@ module Repositories
       :beginningSoonProjects, :seniorAndroidDevs, :seniorIosDevs, :seniorRorDevs, :androidDevs,
       :iosDevs, :rorDevs, :developersInInternals, :interns, :juniorRor, :juniorIos, :juniorAndroid,
       :nonBillableInCommercialProjects, :juniorFrontendDevs, :frontendDevs, :seniorFrontendDevs,
-      :designers, :seniorDesigners
+      :designers, :seniorDesigners, :juniorProjectManagers, :projectManagers,
+      :seniorProjectManagers
 
     def commercialProjects
       ActiveModel::ArraySerializer.new(object.commercial_projects,
@@ -56,6 +57,11 @@ module Repositories
         each_serializer: Api::V2::UserStatisticsSerializer)
     end
 
+    def seniorProjectManagers
+      ActiveModel::ArraySerializer.new(object.senior_project_managers,
+        each_serializer: Api::V2::UserStatisticsSerializer)
+    end
+
     def androidDevs
       ActiveModel::ArraySerializer.new(object.android_devs,
         each_serializer: Api::V2::UserStatisticsSerializer)
@@ -78,6 +84,11 @@ module Repositories
 
     def designers
       ActiveModel::ArraySerializer.new(object.designers,
+        each_serializer: Api::V2::UserStatisticsSerializer)
+    end
+
+    def projectManagers
+      ActiveModel::ArraySerializer.new(object.project_managers,
         each_serializer: Api::V2::UserStatisticsSerializer)
     end
 
@@ -108,6 +119,11 @@ module Repositories
 
     def juniorFrontend
       ActiveModel::ArraySerializer.new(object.junior_frontend,
+        each_serializer: Api::V2::UserStatisticsSerializer)
+    end
+
+    def juniorProjectManagers
+      ActiveModel::ArraySerializer.new(object.junior_project_managers,
         each_serializer: Api::V2::UserStatisticsSerializer)
     end
 
