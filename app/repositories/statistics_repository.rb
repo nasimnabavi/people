@@ -50,6 +50,10 @@ class StatisticsRepository
     User.roles_between(['senior PM'], start_date, end_date)
   end
 
+  def senior_quality_assurance
+    User.roles_between(['senior QA'], start_date, end_date)
+  end
+
   def android_devs
     User.billable_roles_between(['android'], start_date, end_date)
   end
@@ -72,6 +76,10 @@ class StatisticsRepository
 
   def project_managers
     User.roles_between(['PM'], start_date, end_date)
+  end
+
+  def quality_assurance
+    User.roles_between(['QA'], start_date, end_date)
   end
 
   def developers_in_internals
@@ -103,6 +111,10 @@ class StatisticsRepository
 
   def junior_project_managers
     User.roles_between(['designer/UX'], start_date, end_date)
+  end
+
+  def junior_quality_assurance
+    User.roles_between(['junior qa'], start_date, end_date)
   end
 
   def non_billable_in_commercial_projects
