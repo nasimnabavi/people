@@ -29,7 +29,8 @@
     "react-select": "0.9.1",
     "react-tools": "*",
     "sass-loader": "^2.0.1",
-    "webpack": "^1.12.1"
+    "webpack": "^1.12.1",
+    "alt": "0.17.9"
   },
   "scripts": {
     "test": "karma start",
