@@ -1,5 +1,6 @@
 class StatisticsRepository
   include DatesManagement
+  include ActiveModel::Serialization
 
   def initialize(start_date, end_date)
     @start_date = start_date
@@ -115,6 +116,10 @@ class StatisticsRepository
 
   def junior_quality_assurance
     User.roles_between(['junior qa'], start_date, end_date)
+  end
+
+  def support_developers
+    User.roles_between(['support'], start_date, end_date)
   end
 
   def non_billable_in_commercial_projects
