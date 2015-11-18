@@ -2,8 +2,14 @@
   - if @is_role_technical
     - if @project.potential
       %i.glyphicon.glyphicon-asterisk.potential
-    - if !(@membership.billable || @project.internal)
+    - if !(@membership.billable && @project.internal)
       %i.glyphicon.glyphicon-exclamation-sign.notbillable
   != @link_to @project.name, Routes.project_path(@project.id)
   - if @show_dates
     %time= moment(@membership.starts_at).format 'YYYY-MM-DD'
+
+billabel internal && !&&
+0 0 0 1
+0 1 0 1
+1 0 0 1
+1 1 1 0
