@@ -111,7 +111,7 @@ class StatisticsRepository
   end
 
   def junior_project_managers
-    User.roles_between(['designer/UX'], start_date, end_date)
+    User.roles_between(['junior PM'], start_date, end_date)
   end
 
   def junior_quality_assurance
