@@ -32,10 +32,8 @@ class Teams extends React.Component {
     this.editTeamCallback = this.editTeamCallback.bind(this);
     this.updateTeam = this.updateTeam.bind(this);
     this.removeTeam = this.removeTeam.bind(this);
-    this.teamRemoved = this.teamRemoved.bind(this);
     this.teamEdited = this.teamEdited.bind(this);
     this.failedToEditTeam = this.failedToEditTeam.bind(this);
-    this.failedToRemoveTeam = this.failedToRemoveTeam.bind(this);
     this.userAddedToTeamCallback = this.userAddedToTeamCallback.bind(this);
     this.teamChangedCallback = this.teamChangedCallback.bind(this);
     this._onTeamChange = this._onTeamChange.bind(this);
@@ -51,7 +49,12 @@ class Teams extends React.Component {
   }
 
   _onTeamChange(store) {
-    this.setState({ teams: store.teams, display: false });
+    this.setState({
+      teams: store.teams,
+      display: false,
+      showEditTeamModal: false,
+      editedTeam: null
+    });
   }
 
   userAddedToTeamCallback(newUser) {
@@ -152,24 +155,7 @@ class Teams extends React.Component {
   }
 
   removeTeam() {
-    $.ajax({
-      url: Routes.team_path(this.state.editedTeam.id),
-      type: "DELETE",
-      dataType: 'json'
-    }).done(this.teamRemoved).fail(this.failedToRemoveTeam);
-  }
-
-  teamRemoved() {
-    let cleanedTeams = this.state.teams.filter(team => {
-      return team != this.state.editedTeam;
-    });
-    Messenger().success(`${this.state.editedTeam.name} team removed.`);
-    this.setState({ showEditTeamModal: false, teams: cleanedTeams, editedTeam: null });
-  }
-
-  failedToRemoveTeam() {
-    Messenger().error(`Team could not be removed`);
-    this.setState({ showEditTeamModal: false, editedTeam: null });
+    TeamActions.delete(this.state.editedTeam.id);
   }
 
   teamChangedCallback(newTeam) {
