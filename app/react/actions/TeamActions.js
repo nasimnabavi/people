@@ -5,8 +5,7 @@ class TeamActions {
     this.generateActions(
       'create',
       'update',
-      'delete',
-      'setInitialTeams'
+      'delete'
     )
   }
 }
