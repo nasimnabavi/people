@@ -5,6 +5,7 @@ import NewTeamForm from './new-team-form';
 import Modal from 'react-modal';
 import TeamActions from '../../actions/TeamActions';
 import TeamStore from '../../stores/TeamStore';
+import UserStore from '../../stores/UserStore';
 
 require('react-select/dist/react-select.css');
 
@@ -21,10 +22,11 @@ class Teams extends React.Component {
   constructor(props) {
     super(props);
     TeamStore.setInitialState(this.props.teams);
+    UserStore.setInitialState(this.props.users);
     this.state = {
       display: false,
       teams: TeamStore.getState().teams,
-      users: this.props.users,
+      users: UserStore.getState().users,
       showEditTeamModal: false,
       showNoTeamUsers: false
     };
@@ -36,15 +38,18 @@ class Teams extends React.Component {
     this.userAddedToTeamCallback = this.userAddedToTeamCallback.bind(this);
     this.teamChangedCallback = this.teamChangedCallback.bind(this);
     this._onTeamChange = this._onTeamChange.bind(this);
+    this._onUserChange = this._onUserChange.bind(this);
     this.setMessengerOptions();
   }
 
   componentDidMount() {
     TeamStore.listen(this._onTeamChange);
+    UserStore.listen(this._onUserChange);
   }
 
   componentWillUnmount() {
     TeamStore.unlisten(this._onTeamChange);
+    UserStore.unlisten(this._onUserChange);
   }
 
   _onTeamChange(store) {
@@ -54,6 +59,10 @@ class Teams extends React.Component {
       showEditTeamModal: false,
       editedTeam: null
     });
+  }
+
+  _onUserChange(store) {
+    this.setState({ users: store.users });
   }
 
   userAddedToTeamCallback(newUser) {
