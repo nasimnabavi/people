@@ -60,7 +60,6 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
     @renderBookedProjectsRegion()
 
   renderProjectsRegion: ->
-    debugger if @model.id == 51
     collectProjects = new Backbone.Collection @model.get('projects')
     projectsView = new Hrguru.Views.UsersProjects
       collection: collectProjects
