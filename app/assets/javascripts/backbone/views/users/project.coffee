@@ -20,3 +20,4 @@ class Hrguru.Views.UsersProject extends Marionette.ItemView
       role: @role
       show_dates: @show_dates
       is_role_technical: @role? && @role.technical
+      show_nonbillable_sign: !(@model.get('billable') || @model.get('project').internal)
