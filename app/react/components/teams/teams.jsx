@@ -1,6 +1,7 @@
 import React from 'react';
 import TeamUser from './team-user';
 import Team from './team';
+import NewTeamForm from './new-team-form';
 import Modal from 'react-modal';
 import TeamActions from '../../actions/TeamActions';
 import TeamStore from '../../stores/TeamStore';
@@ -27,8 +28,6 @@ class Teams extends React.Component {
       showEditTeamModal: false,
       showNoTeamUsers: false
     };
-    this.onNewTeamButtonClick = this.onNewTeamButtonClick.bind(this);
-    this.handleTeamChangeName = this.handleTeamChangeName.bind(this);
     this.editTeamCallback = this.editTeamCallback.bind(this);
     this.updateTeam = this.updateTeam.bind(this);
     this.removeTeam = this.removeTeam.bind(this);
@@ -78,10 +77,6 @@ class Teams extends React.Component {
     this.setState({ showEditTeamModal: true, editedTeam: team });
   }
 
-  onNewTeamButtonClick() {
-    this.setState({ display: !this.state.display });
-  }
-
   visibleRoles() {
     return this.props.roles.filter(role => {
       return role.show_in_team === true
@@ -101,32 +96,6 @@ class Teams extends React.Component {
     return this.visibleUsers().filter(user => {
       return user.team_ids === null;
     });
-  }
-
-  newTeamRow() {
-    const createTeam = () => TeamActions.create(this.state.teamName);
-    const closeNewTeamRow = () => this.setState({ display: false });
-    return (
-      <div className="js-new-team-form sm-bottom-margin">
-        <div className="form-group">
-          <div className="input-group">
-            <label className="control-label">
-              <abbr title="required"></abbr>
-            </label>
-            <input className="form-control name" placeholder="Team name..." type="text" onChange={this.handleTeamChangeName}>
-            </input>
-          </div>
-        </div>
-        <div className="actions">
-          <a className="btn btn-danger btn-sm new-team-close" href="#" onClick={closeNewTeamRow}>Close</a>
-          <a className="btn btn-default btn-sm new-team-submit" href="#" onClick={createTeam}>Add team</a>
-        </div>
-      </div>
-    );
-  }
-
-  handleTeamChangeName(e) {
-    this.setState({ teamName: e.target.value });
   }
 
   updateTeam() {
@@ -190,22 +159,11 @@ class Teams extends React.Component {
         </li>
       );
     });
-    let newTeamArea = (
-      <div className="row">
-        <div className="col-md-12" id="buttons-region">
-          <div className="btn btn-success new-team-add xs-bottom-margin" onClick={this.onNewTeamButtonClick}>
-            <div className="glyphicon glyphicon-plus pull-left"></div>
-            <div className="pull-right small">New team</div>
-          </div>
-          { this.state.display ? this.newTeamRow() : null}
-        </div>
-      </div>
-    );
     Modal.setAppElement('body');
 
     return (
       <div className="whole-teams">
-        { gon.current_user_is_emailed_admin ? newTeamArea : null }
+        { gon.current_user_is_emailed_admin ? <NewTeamForm /> : null }
         <div className="row">
           <div className="col-md-12" id="no-team-region">
             <div className="btn btn-default lg-bottom-margin show-users" onClick={toggleNoTeamUserRows}>
