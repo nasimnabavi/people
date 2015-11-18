@@ -2,7 +2,7 @@
   - if @is_role_technical
     - if @project.potential
       %i.glyphicon.glyphicon-asterisk.potential
-    - unless @membership.billable || @project.internal
+    - if !@membership.billable || @project.internal
       %i.glyphicon.glyphicon-exclamation-sign.notbillable
   != @link_to @project.name, Routes.project_path(@project.id)
   - if @show_dates
