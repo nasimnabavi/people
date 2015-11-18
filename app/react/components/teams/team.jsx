@@ -129,8 +129,7 @@ class Team extends React.Component {
     let addUserToTeamSection = (
       <AddUserToTeam
       users={this.props.users}
-      team={this.props.team}
-      userAddedCallback={this.props.userAddedCallback}/>
+      team={this.props.team} />
     );
     let editButton = (
       <div className="admin-section" onClick={this.showEditModal}>
