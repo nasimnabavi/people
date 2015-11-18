@@ -1,12 +1,12 @@
 import React from 'react';
 import Select from 'react-select';
+import UserActions from '../../actions/UserActions';
 
 class AddUserToTeam extends React.Component {
   static get propTypes() {
     return {
       team: React.PropTypes.object.isRequired,
-      users: React.PropTypes.array.isRequired,
-      userAddedCallback: React.PropTypes.func.isRequired
+      users: React.PropTypes.array.isRequired
     };
   }
 
@@ -32,25 +32,7 @@ class AddUserToTeam extends React.Component {
   }
 
   selectedUser(userId) {
-    let user = this.props.users.filter(user => user.id == userId)[0];
-    let userIndex = this.props.users.indexOf(user);
-    if(user.team_ids === null) {
-      user.team_ids = [this.props.team.id];
-    } else { user.team_ids.push(this.props.team.id) };
-    let userPersisted = () => {
-      Messenger().success(`User ${user.name} added to team`);
-      this.props.userAddedCallback(user);
-    };
-    $.ajax({
-      url: Routes.user_path(userId),
-      type: "PUT",
-      dataType: 'json',
-      data: {
-        user: {
-          team_ids: user.team_ids
-        }
-      }
-    }).done(userPersisted).fail(this.failedToPersistUser);
+    UserActions.addToTeam({ userId: userId, teamId: this.props.team.id});
   }
 
   failedToPersistUser() {
