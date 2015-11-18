@@ -33,7 +33,19 @@ class TeamStore {
   }
 
   onDelete(id) {
-    // CODE
+    const teamRemoved = () => {
+      const removedTeam = this.teams.filter(team => team.id == id)[0];
+      Messenger().success(`${removedTeam.name} team removed.`);
+      this.teams = this.teams.filter(team => team.id != id);
+      this.emitChange();
+    }
+    const failedToRemoveTeam = () => Messenger().error(`Team could not be removed`);
+    $.ajax({
+      url: Routes.team_path(id),
+      type: "DELETE",
+      dataType: 'json'
+    }).done(teamRemoved).fail(failedToRemoveTeam);
+    return false;
   }
 
   static setInitialState(teams) {
