@@ -6,7 +6,7 @@ class UserActions {
       'addToTeam',
       'promoteToLeader',
       'removeFromTeam'
-    )
+    );
   }
 }
 
