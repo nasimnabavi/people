@@ -144,6 +144,20 @@ describe 'Projects page', js: true do
     end
   end
 
+  describe 'project editing' do
+    let(:project) { create(:project) }
+    before { visit edit_project_path(project) }
+
+    it 'allows to edit project' do
+      check('Synchronize with profile?')
+      fill_in('project_name', with: 'Edited project')
+      fill_in('project_kickoff', with: Date.today)
+      fill_in('project_end_at', with: Date.parse(1.year.from_now.to_s))
+      find('.btn-success').click
+      expect(page).to have_content('Edited project')
+    end
+  end
+
   describe 'managing people in project' do
     describe 'adding member to project' do
       it 'adds member to project correctly' do
