@@ -34,8 +34,7 @@ class UserStore {
       dataType: 'json',
       data: {
         user: {
-          team_ids: user.team_ids,
-          leader_team_id: user.leader_team_id
+          team_ids: user.team_ids
         }
       }
     }).done(onSuccess).fail(onFail);
