@@ -168,7 +168,17 @@ class Teams extends React.Component {
         </li>
       );
     });
-    Modal.setAppElement('body');
+    Modal.setAppElement('#teams-region');
+    const modalStyles = {
+      content : {
+        top                   : '20%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+      }
+    };
 
     return (
       <div className="whole-teams">
@@ -197,24 +207,23 @@ class Teams extends React.Component {
           className="Modal__Bootstrap modal-dialog"
           closeTimeoutMS={150}
           isOpen={this.state.showEditTeamModal}
-          onRequestClose={closeModal}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" onClick={closeModal}>
-                <span aria-hidden="true">&times;</span>
-                <span className="sr-only">Close</span>
-              </button>
-              <h4 className="modal-title">Edit team</h4>
-            </div>
-            <div className="modal-body">
-              <h4>New name: </h4>
-              <input type="text" onChange={updateNewTeamName}></input>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-danger" onClick={this.removeTeam}>Remove</button>
-              <button type="button" className="btn btn-default" onClick={closeModal}>Close</button>
-              <button type="button" className="btn btn-primary" onClick={this.updateTeam}>Save changes</button>
-            </div>
+          onRequestClose={closeModal}
+          style={modalStyles}>
+          <div className="modal-header">
+            <button type="button" className="close" onClick={closeModal}>
+              <span aria-hidden="true">&times;</span>
+              <span className="sr-only">Close</span>
+            </button>
+            <h4 className="modal-title">Edit team</h4>
+          </div>
+          <div className="modal-body">
+            <h4>New name: </h4>
+            <input type="text" onChange={updateNewTeamName}></input>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-danger" onClick={this.removeTeam}>Remove</button>
+            <button type="button" className="btn btn-default" onClick={closeModal}>Close</button>
+            <button type="button" className="btn btn-primary" onClick={this.updateTeam}>Save changes</button>
           </div>
         </Modal>
     </div>
