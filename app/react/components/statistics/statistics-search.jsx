@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
+import StatisticsUrlLink from './statistics-url-link';
 
 class StatisticsSearch extends React.Component {
   static get propTypes() {
@@ -55,13 +56,18 @@ class StatisticsSearch extends React.Component {
     };
     const dateString = 'from  ' + this.state.startDate + '  to  ' + this.state.endDate;
     return (
-      <DateRangePicker onApply={this.onApply} locale={locale} ranges={ranges} applyClass='btn-primary'
-        startDate={moment(this.state.startDate)} endDate={moment(this.state.endDate)}>
-        <div className="input-group">
-          <span className="input-group-addon"><span className="glyphicon glyphicon-calendar"></span></span>
-          <input ref='statisticsDate' className='form-control' type='text' value={dateString}/>
-        </div>
-      </DateRangePicker>
+      <div>
+        <DateRangePicker onApply={this.onApply} locale={locale} ranges={ranges} applyClass='btn-primary'
+          startDate={moment(this.state.startDate)} endDate={moment(this.state.endDate)}>
+          <div className="input-group">
+            <span className="input-group-addon"><span className="glyphicon glyphicon-calendar"></span></span>
+            <input ref='statisticsDate' className='form-control' type='text' value={dateString}/>
+          </div>
+        </DateRangePicker>
+        <StatisticsUrlLink
+          startDate={this.state.startDate}
+          endDate={this.state.endDate} />
+      </div>
     );
   }
 }
