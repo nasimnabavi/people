@@ -30,4 +30,8 @@ class ProjectsRepository
   def not_potential
     Project.where(potential: false)
   end
+
+  def to_synchronize
+    Project.where(potential: false, synchronize: true)
+  end
 end
