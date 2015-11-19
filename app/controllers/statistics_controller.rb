@@ -1,6 +1,19 @@
 class StatisticsController < ApplicationController
   before_filter :authenticate_admin!
-
-  def index
+  expose(:start_date) do
+    begin
+      Date.parse(params[:start])
+      params[:start]
+    rescue ArgumentError
+      Date.today.beginning_of_month.to_s
+    end
+  end
+  expose(:end_date) do
+    begin
+      Date.parse(params[:end])
+      params[:end]
+    rescue ArgumentError
+      Date.today.end_of_month.to_s
+    end
   end
 end
