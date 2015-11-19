@@ -4,7 +4,7 @@ class StatisticsController < ApplicationController
     begin
       Date.parse(params[:start])
       params[:start]
-    rescue ArgumentError
+    rescue ArgumentError, TypeError
       Date.today.beginning_of_month.to_s
     end
   end
@@ -12,7 +12,7 @@ class StatisticsController < ApplicationController
     begin
       Date.parse(params[:end])
       params[:end]
-    rescue ArgumentError
+    rescue ArgumentError, TypeError
       Date.today.end_of_month.to_s
     end
   end
