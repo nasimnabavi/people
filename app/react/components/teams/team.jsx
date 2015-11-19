@@ -136,10 +136,11 @@ class Team extends React.Component {
         <span className="js-edit-team glyphicon glyphicon-pencil"/>
       </div>
     );
+    const teamAvatarStyles = { backgroundColor: this.props.team.color };
     return (
       <article className='team'>
         <header>
-          <div className='team-avatar' styles={this.props.team.color}>
+          <div className='team-avatar' style={teamAvatarStyles}>
             {this.props.team.initials}
           </div>
           <h3 className='team-name'>{this.props.team.name}</h3>
