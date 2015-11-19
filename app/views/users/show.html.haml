@@ -9,7 +9,8 @@
     = render 'details_form', details_page: user_details_page
 
   .col-sm-6
-    = render 'new_membership_form', membership_page: new_membership_page
+    - if current_user.admin?
+      = render 'new_membership_form', membership_page: new_membership_page
     = render 'positions', details_page: user_details_page
 
     .list-group
