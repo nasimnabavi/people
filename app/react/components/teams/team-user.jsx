@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import UserActions from '../../actions/UserActions';
 
 class TeamUser extends React.Component {
   static get propTypes() {
@@ -24,7 +25,7 @@ class TeamUser extends React.Component {
   }
 
   linkToUserProfile() {
-    let link = '/users/' + this.props.user.id;
+    let link = Routes.user_path(this.props.user.id);
     return (
       <a href={link}>{ this.props.user.name }</a>
     )
