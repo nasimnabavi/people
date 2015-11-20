@@ -28,8 +28,26 @@ class TeamStore {
     return false;
   }
 
-  onUpdate(name) {
-    // CODE
+  onUpdate(params) {
+    const teamEdited = (data) => {
+      let teamIds = this.teams.map(team => team.id);
+      let editedTeamIndex = teamIds.indexOf(data.id);
+      this.teams[editedTeamIndex] = data;
+      Messenger().success(`Team ${data.name} changed successfully`);
+      this.emitChange();
+    };
+    const failedToEditTeam = () => Messenger().error("Failed to edit team");
+    $.ajax({
+      url: Routes.team_path(params.editedTeam.id),
+      type: "PUT",
+      dataType: 'json',
+      data: {
+        team: {
+          name: params.name
+        }
+      }
+    }).done(teamEdited).fail(failedToEditTeam);
+    return false;
   }
 
   onDelete(id) {
