@@ -64,9 +64,8 @@ describe 'Projects page', js: true do
           it 'does not show future memberships' do
             visit '/dashboard'
             uncheck 'show-next'
-            within '.invisible' do
-              expect(page).to have_content(future_membership.user.last_name)
-            end
+            invisible_memberships = all('.invisible', visible: false)
+            expect(invisible_memberships.size).to eq 1
           end
         end
       end
