@@ -114,13 +114,13 @@ describe User do
       end
 
       it 'returns true' do
-        expect(subject.has_current_projects?).to be true
+        expect(subject.has_current_projects?).to be_true
       end
     end
 
     context "when user hasn't current project" do
       it 'returns false' do
-        expect(subject.has_current_projects?).to be false
+        expect(subject.has_current_projects?).to be_false
       end
     end
 

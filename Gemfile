@@ -92,7 +92,6 @@ group :test do
   gem 'rack_session_access'
   gem 'rspec-instafail'
   gem 'rspec-rails'
-  gem 'rspec-its'
   gem 'selenium-webdriver'
   gem 'shoulda'
   gem 'spork-rails'
