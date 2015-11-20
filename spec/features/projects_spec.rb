@@ -70,6 +70,19 @@ describe 'Projects page', js: true do
           end
         end
       end
+
+      describe 'people in project' do
+        let!(:project_membership) { create(:membership, project: active_project) }
+        let!(:future_project_membership) do
+          create(:membership, project: active_project, starts_at: Time.now + 2.weeks)
+        end
+
+        it 'shows number of present people in project' do
+          visit '/dashboard'
+          non_billable_count = find('.non-billable > .count')
+          expect(non_billable_count).to have_content('1')
+        end
+      end
     end
 
     context 'when on Potential tab' do
