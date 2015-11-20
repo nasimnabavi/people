@@ -2,18 +2,11 @@
   %h4.list-group-item-heading= link_to membership.project, project_path(membership.project)
   .list-group
     .membership__item
-      = link_to edit_membership_path(membership), class: 'list-group-item' do
-        = membership.date_range
-        - if membership.duration_in_words == 'current'
-          %span.badge.badge-success= membership.duration_in_words
-        - elsif membership.booked?
-          %span.badge.badge-info booked
-        - else
-          %span.badge= membership.duration_in_words
-        = membership.role.label
-        - if membership.project.archived?
-          %strong archived
-        - if membership.project.potential?
-          %strong potential
-      = link_to 'delete', membership, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
+      - if current_user.admin?
+        = link_to edit_membership_path(membership), class: 'list-group-item' do
+          = render 'project_membership', membership: membership
+        = link_to 'delete', membership, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
+      - else
+        .list-group-item
+          = render 'project_membership', membership: membership
       .clearfix
