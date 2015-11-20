@@ -18,6 +18,7 @@ Spork.prefork do
   require File.expand_path('../../config/environment', __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
+  require 'rspec/its'
   require 'shoulda/matchers'
 
   Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
@@ -59,6 +60,8 @@ Spork.prefork do
     config.after(:each) do
       DatabaseCleaner.clean
     end
+
+    config.infer_spec_type_from_file_location!
 
     # HACK to force asset compilation in a Rack request so it's ready for
     # the Poltergeist request that otherwise times out.
