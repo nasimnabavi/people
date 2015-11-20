@@ -63,6 +63,14 @@ describe RolesController do
     end
   end
 
+  describe '#destroy' do
+    let!(:role) { create(:role) }
+
+    it 'destroys role' do
+      expect { delete :destroy, id: role.id }.to change(Role, :count)
+    end
+  end
+
   describe '#update' do
     let!(:role) { create(:role, name: 'senior4') }
 

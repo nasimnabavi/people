@@ -6,7 +6,7 @@ class RolesController < ApplicationController
   expose(:role, attributes: :role_params)
   expose(:roles) { roles_repository.all }
 
-  before_filter :authenticate_admin!, only: [:index, :create, :update]
+  before_filter :authenticate_admin!, only: [:index, :create, :update, :destroy]
 
   def index
     gon.rabl as: 'roles'
@@ -25,6 +25,14 @@ class RolesController < ApplicationController
       render :role
     else
       respond_with role
+    end
+  end
+
+  def destroy
+    if role.destroy
+      redirect_to roles_path
+    else
+      render :show, errors: role.errors
     end
   end
 
