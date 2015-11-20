@@ -5,7 +5,7 @@ describe 'Profile page', js: true do
 
   let(:role) { create(:role) }
   let(:user) do
-    create(:user, first_name: 'Jack', last_name: 'Sparrow',
+    create(:user, :admin, first_name: 'Jack', last_name: 'Sparrow',
       primary_role: role)
   end
 
