@@ -1,1 +1,9 @@
 %h1= role.name
+
+%p
+  Priority:
+  = role.priority
+= link_to role_path(role), method: :delete, data: { confirm: "Are you sure you want to delete this role?" } do
+  .btn.btn-danger
+    %span.glyphicon.glyphicon-trash
+    Remove role
