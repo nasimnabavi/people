@@ -137,9 +137,10 @@ GEM
     docile (1.1.5)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
-    dotenv (1.0.2)
-    dotenv-deployment (0.3.0)
-      dotenv (~> 1.0)
+    dotenv (2.0.2)
+    dotenv-rails (2.0.2)
+      dotenv (= 2.0.2)
+      railties (~> 4.0)
     draper (2.1.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -582,8 +583,7 @@ DEPENDENCIES
   decent_decoration
   decent_exposure
   devise
-  dotenv
-  dotenv-deployment
+  dotenv-rails
   draper
   factory_girl_rails
   faker
