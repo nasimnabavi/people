@@ -2,7 +2,7 @@ import React from 'react';
 import TeamUser from './team-user';
 import Team from './team';
 import NewTeamForm from './new-team-form';
-import Modal from 'react-modal';
+import TeamEditModal from './team-edit-modal';
 import TeamActions from '../../actions/TeamActions';
 import TeamStore from '../../stores/TeamStore';
 import UserStore from '../../stores/UserStore';
@@ -31,10 +31,7 @@ class Teams extends React.Component {
       showNoTeamUsers: false
     };
     this.editTeamCallback = this.editTeamCallback.bind(this);
-    this.updateTeam = this.updateTeam.bind(this);
-    this.removeTeam = this.removeTeam.bind(this);
     this.teamEdited = this.teamEdited.bind(this);
-    this.failedToEditTeam = this.failedToEditTeam.bind(this);
     this.userAddedToTeamCallback = this.userAddedToTeamCallback.bind(this);
     this.teamChangedCallback = this.teamChangedCallback.bind(this);
     this._onTeamChange = this._onTeamChange.bind(this);
@@ -107,33 +104,12 @@ class Teams extends React.Component {
     });
   }
 
-  updateTeam() {
-    $.ajax({
-      url: Routes.team_path(this.state.editedTeam.id),
-      type: "PUT",
-      dataType: 'json',
-      data: {
-        team: {
-          name: this.state.newTeamName
-        }
-      }
-    }).done(this.teamEdited).fail(this.failedToEditTeam);
-  }
-
   teamEdited(data) {
     let teamIds = this.state.teams.map(team => team.id);
     let editedTeamIndex = teamIds.indexOf(data.id);
     this.state.teams[editedTeamIndex] = data;
     Messenger().success(`Team ${data.name} changed successfully`);
     this.setState({ teams: this.state.teams, editedTeam: null, showEditTeamModal: false, newTeamName: null });
-  }
-
-  failedToEditTeam(xhr, status, err) {
-    Messenger().error("Failed to edit team");
-  }
-
-  removeTeam() {
-    TeamActions.delete(this.state.editedTeam.id);
   }
 
   teamChangedCallback(newTeam) {
@@ -168,17 +144,7 @@ class Teams extends React.Component {
         </li>
       );
     });
-    Modal.setAppElement('#teams-region');
-    const modalStyles = {
-      content : {
-        top                   : '20%',
-        left                  : '50%',
-        right                 : 'auto',
-        bottom                : 'auto',
-        marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)'
-      }
-    };
+
 
     return (
       <div className="whole-teams">
@@ -203,29 +169,7 @@ class Teams extends React.Component {
             </div>
           </div>
         </div>
-        <Modal
-          className="Modal__Bootstrap modal-dialog"
-          closeTimeoutMS={150}
-          isOpen={this.state.showEditTeamModal}
-          onRequestClose={closeModal}
-          style={modalStyles}>
-          <div className="modal-header">
-            <button type="button" className="close" onClick={closeModal}>
-              <span aria-hidden="true">&times;</span>
-              <span className="sr-only">Close</span>
-            </button>
-            <h4 className="modal-title">Edit team</h4>
-          </div>
-          <div className="modal-body">
-            <h4>New name: </h4>
-            <input type="text" onChange={updateNewTeamName}></input>
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-danger" onClick={this.removeTeam}>Remove</button>
-            <button type="button" className="btn btn-default" onClick={closeModal}>Close</button>
-            <button type="button" className="btn btn-primary" onClick={this.updateTeam}>Save changes</button>
-          </div>
-        </Modal>
+        { this.state.showEditTeamModal ? <TeamEditModal editedTeam={this.state.editedTeam} closeModalCallback={closeModal} /> : null }
     </div>
   );
   }
