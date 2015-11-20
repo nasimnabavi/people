@@ -12,7 +12,7 @@ describe SavePosition do
     end
 
     it 'returns true' do
-      expect(subject).to be_true
+      expect(subject).to be true
     end
   end
 
@@ -24,7 +24,7 @@ describe SavePosition do
     end
 
     it 'returns false' do
-      expect(subject).to be_false
+      expect(subject).to be false
     end
   end
 end

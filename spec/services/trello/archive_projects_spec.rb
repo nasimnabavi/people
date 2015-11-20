@@ -7,7 +7,7 @@ describe Trello::ArchiveProjects do
     it 'does not set them as archived' do
       expect do
         described_class.new([project.name]).call
-      end.not_to change{ project.archived }.from(false).to true
+      end.not_to change{ project.archived }
     end
   end
 
