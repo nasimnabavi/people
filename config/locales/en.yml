@@ -51,7 +51,7 @@ en:
       updated: 'User updated.'
   roles:
     show:
-      priority: Priority:
+      priority: 'Priority:'
       remove_confirmation: Are you sure you want to delete this role?
       remove_btn_label: Remove role
   positions:
