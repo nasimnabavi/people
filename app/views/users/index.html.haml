@@ -4,31 +4,31 @@
 #filters
   .filters
     .users
-      %input{ type: 'text', name: 'users', placeholder: 'Filter users…' }
+      %input{ type: 'text', name: 'users', placeholder: t('users.index.filters.users') }
     .roles
-      %input{ type: 'text', name: 'roles', placeholder: 'Filter roles…' }
+      %input{ type: 'text', name: 'roles', placeholder: t('users.index.filters.roles') }
     .projects
-      %input{ type: 'text', name: 'projects-actual', placeholder: 'Filter by actual projects…' }
+      %input{ type: 'text', name: 'projects-actual', placeholder: t('users.index.filters.actual_projects') }
     .projects
-      %input{ type: 'text', name: 'projects-old', placeholder: 'Filter by previous projects...' }
+      %input{ type: 'text', name: 'projects-old', placeholder: t('users.index.filters.old_projects') }
     .abilities
-      %input{ type: 'text', name: 'abilities', placeholder: 'Filter abilities…' }
+      %input{ type: 'text', name: 'abilities', placeholder: t('users.index.filters.abilities') }
 
 %table.table.table-striped.table-hover#users
   %thead
     %th
-    %th.to_end To end
+    %th.to_end= t('users.index.table.to_end')
     %th
     %th
-      %p.columnName User
+      %p.columnName= t('users.index.table.user')
       .sort
         .up.glyphicon.glyphicon-chevron-up.active.default{ data: { sort: 'name' } }
         .down.glyphicon.glyphicon-chevron-down{ data: { sort: 'name' } }
     %th
-      %p.columnName Role
+      %p.columnName= t('users.index.table.role')
       .sort
         .up.glyphicon.glyphicon-chevron-up{ data: { sort: 'role' } }
         .down.glyphicon.glyphicon-chevron-down{ data: { sort: 'role' } }
-    %th Employment
-    %th Projects
+    %th= t('users.index.table.employment')
+    %th= t('users.index.table.projects')
     %th= 'Admin Role' if current_user.admin?

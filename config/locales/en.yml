@@ -31,6 +31,19 @@ en:
         link: "view..."
         main_line: "Project '%{project}' is about to start in %{time_remaining}"
   users:
+    index:
+      filters:
+        users: 'Filter users…'
+        roles: 'Filter roles…'
+        actual_projects: 'Filter by actual projects…'
+        old_projects: 'Filter by previous projects...'
+        abilities: 'Filter abilities…'
+      table:
+        to_end: To end
+        user: User
+        role: Role
+        employment: Employment
+        projects: Projects
     show:
       hours: How many hours do you work in a month?
       positions: "Positions"
@@ -38,6 +51,7 @@ en:
       updated: 'User updated.'
   roles:
     show:
+      priority: Priority:
       remove_confirmation: Are you sure you want to delete this role?
       remove_btn_label: Remove role
   positions:
