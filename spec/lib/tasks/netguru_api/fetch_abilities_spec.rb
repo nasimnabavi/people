@@ -26,9 +26,9 @@ describe 'netguru_api:profile namespace rake tasks' do
     end
 
     it 'updates users abilities' do
-      expect(user.abilities.pluck(:name)).to eq(%w(ruby))
+      expect(user.abilities.pluck(:name)).to match_array(%w(ruby))
       run_rake_task
-      expect(user.abilities.pluck(:name)).to eq(%w(ruby javascript php))
+      expect(user.abilities.pluck(:name)).to match_array(%w(ruby javascript php))
     end
   end
 end

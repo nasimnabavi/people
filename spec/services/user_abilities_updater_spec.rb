@@ -18,7 +18,7 @@ describe UserAbilitiesUpdater do
 
     it 'adds new ability to the user' do
       subject
-      expect(user.abilities.pluck(:name)).to eq(%w(Java php html))
+      expect(user.abilities.pluck(:name)).to match_array(%w(Java php html))
     end
   end
 
@@ -29,7 +29,7 @@ describe UserAbilitiesUpdater do
 
     it 'removes ability from the user' do
       subject
-      expect(user.abilities.pluck(:name)).to eq(%w(Java))
+      expect(user.abilities.pluck(:name)).to match_array(%w(Java))
     end
   end
 
@@ -44,7 +44,7 @@ describe UserAbilitiesUpdater do
 
     it 'adds new ability and remove old one' do
       subject
-      expect(user.abilities.pluck(:name)).to eq(%w(Java Ruby))
+      expect(user.abilities.pluck(:name)).to match_array(%w(Java Ruby))
     end
   end
 
