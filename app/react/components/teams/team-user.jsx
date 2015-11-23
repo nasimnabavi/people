@@ -193,7 +193,7 @@ class TeamUser extends React.Component {
           </div>
           <div className='member-details'>
             {this.labelsRow()}
-            <div className='label label-info js-number-of-days'></div>
+            <div className='label label-info js-number-of-days'>{ this.props.user.archived ? 'archived' : null }</div>
           </div>
         </div>
         {this.actions()}
