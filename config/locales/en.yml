@@ -52,6 +52,8 @@ en:
   roles:
     show:
       priority: 'Priority:'
+      memberships: 'Memberships with this role:'
+      destroy_info: To destroy this role you have to make sure that no membership have this role assigned.
       remove_confirmation: Are you sure you want to delete this role?
       remove_btn_label: Remove role
   positions:

@@ -3,7 +3,21 @@
 %p
   = t('roles.show.priority')
   = role.priority
-= link_to role_path(role), method: :delete, data: { confirm: t('roles.show.remove_confirmation') } do
-  .btn.btn-danger
-    %span.glyphicon.glyphicon-trash
-    = t('roles.show.remove_btn_label')
+
+%p
+  = t('roles.show.memberships')
+- role.memberships.each do |membership|
+  =link_to user_path(membership.user) do
+    = membership.user.decorate.name
+    \,
+    = membership.project.name
+    %br
+
+%br
+- if role.memberships.empty?
+  = link_to role_path(role), method: :delete, data: { confirm: t('roles.show.remove_confirmation') } do
+    .btn.btn-danger
+      %span.glyphicon.glyphicon-trash
+      = t('roles.show.remove_btn_label')
+- else
+  = t('roles.show.destroy_info')
