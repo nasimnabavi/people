@@ -92,7 +92,7 @@ class Teams extends React.Component {
     return this.props.users.filter(user => {
       return user.primary_role_ids.some(roleId => {
         return visibleRolesIds.indexOf(roleId) > -1;
-      });
+      }) && (user.archived === false || (user.archived === true && user.team_ids != null));
     });
   }
 
