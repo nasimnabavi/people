@@ -5,6 +5,7 @@ FactoryGirl.define do
     end_at { 30.days.from_now }
     archived false
     project_type { 'regular' }
+    synchronize true
 
     factory :project_deleted do
       deleted_at Time.now

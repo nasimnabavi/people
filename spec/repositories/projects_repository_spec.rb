@@ -48,4 +48,23 @@ describe ProjectsRepository do
       end
     end
   end
+
+  describe '#to_synchronize' do
+    subject { described_class.new.to_synchronize }
+
+    let!(:project) { create(:project) }
+    let!(:not_synchronized_project) { create(:project, synchronize: false) }
+
+    it 'return only one project' do
+      expect(subject.size).to eq 1
+    end
+
+    it 'return project which should be synchronized' do
+      expect(subject).to include project
+    end
+
+    it 'does not return project which should not be synchronized' do
+      expect(subject).not_to include not_synchronized_project
+    end
+  end
 end
