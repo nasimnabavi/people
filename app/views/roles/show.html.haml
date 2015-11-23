@@ -1,9 +1,9 @@
 %h1= role.name
 
 %p
-  Priority:
+  = t('roles.show.priority')
   = role.priority
-= link_to role_path(role), method: :delete, data: { confirm: "Are you sure you want to delete this role?" } do
+= link_to role_path(role), method: :delete, data: { confirm: t('roles.show.remove_confirmation') } do
   .btn.btn-danger
     %span.glyphicon.glyphicon-trash
-    Remove role
+    = t('roles.show.remove_btn_label')

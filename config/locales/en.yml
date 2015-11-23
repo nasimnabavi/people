@@ -36,6 +36,10 @@ en:
       positions: "Positions"
       add_position: "Add position"
       updated: 'User updated.'
+  roles:
+    show:
+      remove_confirmation: Are you sure you want to delete this role?
+      remove_btn_label: Remove role
   positions:
     errors:
       chronology: "Position dates should be chronologically ordered"
