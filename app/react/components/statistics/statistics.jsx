@@ -4,6 +4,7 @@ import StatisticsSearch from './statistics-search';
 import StatisticsChart from './statistics-chart';
 import NestedStatistics from './nested-statistics';
 import StatisticsPeople from './statistics-people';
+import StatisticsTutorial from './statistics-tutorial';
 
 class Statistics extends React.Component {
   static get propTypes() {
@@ -74,6 +75,7 @@ class Statistics extends React.Component {
       <div>
         <StatisticsSearch onFormSubmit={this.onFormSubmit} format='YYYY-MM-DD'
           initStartDate={this.props.startDate} initEndDate={this.props.endDate}/>
+        <StatisticsTutorial />
         <h3>Projects</h3>
         <StatisticsChart
           commercial={this.state.statistics.commercialProjects.length}
