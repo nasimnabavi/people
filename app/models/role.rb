@@ -8,6 +8,8 @@ class Role < ActiveRecord::Base
   validates :billable, inclusion: { in: [true, false] }
   validates :technical, inclusion: { in: [true, false] }
 
+  before_destroy :check_if_there_are_no_memberships
+
   default_scope -> { order(priority: :asc) }
   scope :billable, -> { where(billable: true) }
   scope :non_billable, -> { where(billable: false) }
@@ -23,5 +25,11 @@ class Role < ActiveRecord::Base
 
   def self.by_name
     all.sort_by { |r| r.name.downcase }
+  end
+
+  def check_if_there_are_no_memberships
+    return true if memberships.empty?
+    errors[:role] << "There are still memberships for this role"
+    false
   end
 end
