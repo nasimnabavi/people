@@ -8,7 +8,7 @@
   = t('roles.show.memberships')
 - role.memberships.each do |membership|
   =link_to user_path(membership.user) do
-    = membership.user.decorate.name
+    = membership.user.name
     \,
     = membership.project.name
     %br
