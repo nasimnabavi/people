@@ -7,8 +7,6 @@ import TeamActions from '../../actions/TeamActions';
 import TeamStore from '../../stores/TeamStore';
 import UserStore from '../../stores/UserStore';
 
-require('react-select/dist/react-select.css');
-
 class Teams extends React.Component {
   static get propTypes() {
     return {
