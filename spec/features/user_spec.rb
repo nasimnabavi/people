@@ -4,10 +4,7 @@ describe 'Profile page', js: true do
   subject { page }
 
   let(:role) { create(:role) }
-  let(:user) do
-    create(:user, :admin, first_name: 'Jack', last_name: 'Sparrow',
-      primary_role: role)
-  end
+  let(:user) { create(:user, :admin, primary_role: role) }
 
   before {
     page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
