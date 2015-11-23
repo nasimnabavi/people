@@ -3,7 +3,7 @@ class RolesController < ApplicationController
 
   respond_to :json
 
-  expose(:role, attributes: :role_params)
+  expose_decorated(:role, attributes: :role_params)
   expose(:roles) { roles_repository.all }
 
   before_filter :authenticate_admin!, only: [:index, :create, :update, :destroy]
