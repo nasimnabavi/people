@@ -1,12 +1,10 @@
 = membership.date_range
-- if membership.duration_in_words == 'current'
+- if membership.started?
   %span.badge.badge-success= membership.duration_in_words
 - elsif membership.booked?
   %span.badge.badge-info booked
 - else
   %span.badge= membership.duration_in_words
 = membership.role.label
-- if membership.project.archived?
-  %strong archived
-- if membership.project.potential?
-  %strong potential
+%strong='archived' if membership.project.archived?
+%strong='potential' if membership.project.potential?
