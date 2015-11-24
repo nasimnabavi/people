@@ -1,6 +1,7 @@
 module Api::V2
   class UserSerializer < ActiveModel::Serializer
-    attributes :uid, :email, :first_name, :last_name, :gh_nick, :archived, :primary_roles, :role
+    attributes :uid, :email, :first_name, :last_name, :gh_nick, :archived, :primary_roles, :role,
+      :primary_role
 
     has_many :memberships, serializer: MembershipSerializer
 
