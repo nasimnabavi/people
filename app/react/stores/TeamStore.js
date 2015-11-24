@@ -30,9 +30,9 @@ class TeamStore {
 
   onUpdate(params) {
     const teamEdited = (data) => {
-      let teamIds = this.teams.map(team => team.id);
-      let editedTeamIndex = teamIds.indexOf(data.id);
-      this.teams[editedTeamIndex] = data;
+      this.teams.forEach((team, index) => {
+        if(team.id === data.id) { this.teams[index] = data; }
+      });
       Messenger().success(`Team ${data.name} changed successfully`);
       this.emitChange();
     };
