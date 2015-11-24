@@ -11,6 +11,7 @@ class TeamStore {
   onCreate(name) {
     const addedTeam = (data) => {
       this.teams.push(data);
+      this._defaultSort();
       Messenger().success(`${data.name} has been created`);
       this.emitChange();
     };
@@ -33,6 +34,7 @@ class TeamStore {
       this.teams.forEach((team, index) => {
         if(team.id === data.id) { this.teams[index] = data; }
       });
+      this._defaultSort();
       Messenger().success(`Team ${data.name} changed successfully`);
       this.emitChange();
     };
@@ -55,6 +57,7 @@ class TeamStore {
       const removedTeam = this.teams.filter(team => team.id == id)[0];
       Messenger().success(`${removedTeam.name} team removed.`);
       this.teams = this.teams.filter(team => team.id != id);
+      this._defaultSort();
       this.emitChange();
     }
     const failedToRemoveTeam = () => Messenger().error(`Team could not be removed`);
@@ -66,8 +69,16 @@ class TeamStore {
     return false;
   }
 
+  _defaultSort() {
+    this.teams.sort((a, b) => {
+      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
+  }
+
   static setInitialState(teams) {
-    this.state.teams = teams;
+    this.state.teams = teams.sort((a, b) => {
+      return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+    });
   }
 }
 
