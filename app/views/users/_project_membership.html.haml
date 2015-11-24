@@ -1,5 +1,5 @@
 = membership.date_range
-- if membership.started?
+- if membership.started? && !membership.terminated?
   %span.badge.badge-success= membership.duration_in_words
 - elsif membership.booked?
   %span.badge.badge-info booked

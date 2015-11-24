@@ -50,7 +50,7 @@ class Membership < ActiveRecord::Base
   end
 
   def started?
-    starts_at <= Date.today
+    starts_at <= Date.today && !booked
   end
 
   def terminated?
