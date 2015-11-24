@@ -45,9 +45,8 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
           value: null
 
   serializeData: ->
-    primary_role_name = @model.get('role').name if @model.get('role')
     _.extend super,
-      primary_role_name: primary_role_name
+      primary_role_names: _.pluck(@model.get('primary_roles'), 'name').join(', ')
 
   onRender: ->
     @stickit()
