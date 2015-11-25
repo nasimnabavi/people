@@ -16,6 +16,14 @@ describe "Users page", js: true do
     expect(page).to have_content(names)
   end
 
+  context 'role names' do
+    let!(:previous_position) { create(:position, user: developer, primary: false) }
+
+    it 'shows only actual role name' do
+      expect(page).not_to have_content(previous_position.role.name)
+    end
+  end
+
   context 'internal project' do
     let!(:project) { create(:project, :internal) }
     let!(:membership) { create(:membership, project: project, user: developer) }
