@@ -5,7 +5,8 @@ class StatisticsPeopleChart extends React.Component {
     return {
       billableCount: React.PropTypes.number.isRequired,
       internalsCount: React.PropTypes.number.isRequired,
-      nonBillableInCommercialProjectsCount: React.PropTypes.number.isRequired
+      nonBillableInCommercialProjectsCount: React.PropTypes.number.isRequired,
+      juniorsAndInternsCount: React.PropTypes.number.isRequired
     };
   }
 
@@ -19,24 +20,30 @@ class StatisticsPeopleChart extends React.Component {
 
   render() {
     const sumOfAllDevelopers = this.props.billableCount + this.props.internalsCount +
-      this.props.nonBillableInCommercialProjectsCount;
+      this.props.nonBillableInCommercialProjectsCount + this.props.juniorsAndInternsCount;
     const billablePercentage = ((this.props.billableCount /
-      sumOfAllDevelopers)*100).toFixed(1);
+      sumOfAllDevelopers) * 100).toFixed(1);
     const internalsPercentage = ((this.props.internalsCount /
-      sumOfAllDevelopers)*100).toFixed(1);
-    const nonBillableInCommercialProjects = (100 - billablePercentage - internalsPercentage).toFixed(1);
-    
+      sumOfAllDevelopers) * 100).toFixed(1);
+    const nonBillableInCommercialProjectsPercentage = ((this.props.nonBillableInCommercialProjectsCount /
+      sumOfAllDevelopers) * 100).toFixed(1);
+    const juniorsAndInternsPercentage = (100 - billablePercentage - internalsPercentage -
+      nonBillableInCommercialProjectsPercentage).toFixed(1);
+
     return (
       <div className='progress'>
         <div className='progress-bar progress-bar-success'
           style={{width: this._percentToS(billablePercentage)}} data-toggle='tooltip'
-          data-original-title={'commerical: ' + this._percentToS(billablePercentage)}></div>
+          data-original-title={'billable: ' + this._percentToS(billablePercentage)}></div>
         <div className='progress-bar progress-bar-info'
           style={{width: this._percentToS(internalsPercentage)}} data-toggle='tooltip'
-          data-original-title={'internal: ' + this._percentToS(internalsPercentage)}></div>
+          data-original-title={'internals: ' + this._percentToS(internalsPercentage)}></div>
         <div className='progress-bar progress-bar-danger'
-          style={{width: this._percentToS(nonBillableInCommercialProjects)}} data-toggle='tooltip'
-          data-original-title={'maintenance: ' + this._percentToS(nonBillableInCommercialProjects)}></div>
+          style={{width: this._percentToS(nonBillableInCommercialProjectsPercentage)}} data-toggle='tooltip'
+          data-original-title={'non-billable commercial: ' + this._percentToS(nonBillableInCommercialProjectsPercentage)}></div>
+        <div className='progress-bar progress-bar-primary'
+          style={{width: this._percentToS(juniorsAndInternsPercentage)}} data-toggle='tooltip'
+          data-original-title={'juniors/interns: ' + this._percentToS(juniorsAndInternsPercentage)}></div>
       </div>
     );
   }

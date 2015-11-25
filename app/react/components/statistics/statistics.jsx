@@ -75,6 +75,8 @@ class Statistics extends React.Component {
     const billableCount = statistics.seniorAndroidDevs.length + statistics.androidDevs.length +
       statistics.seniorIosDevs.length + statistics.seniorRorDevs.length +
       statistics.iosDevs.length + statistics.rorDevs.length;
+    const juniorsAndInternsCount = statistics.interns.length + statistics.juniorRor.length +
+      statistics.juniorIos.length + statistics.juniorAndroid.length;
     return (
       <div>
         <StatisticsSearch onFormSubmit={this.onFormSubmit} format='YYYY-MM-DD'
@@ -113,6 +115,7 @@ class Statistics extends React.Component {
           billableCount={billableCount}
           internalsCount={statistics.developersInInternals.length}
           nonBillableInCommercialProjectsCount={statistics.nonBillableInCommercialProjects.length}
+          juniorsAndInternsCount={juniorsAndInternsCount}
            />
         <table className='table'>
           <thead>
