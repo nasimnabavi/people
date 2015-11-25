@@ -1,7 +1,8 @@
 import React from 'react';
 import Statistic from './statistic';
 import StatisticsSearch from './statistics-search';
-import StatisticsChart from './statistics-chart';
+import StatisticsProjectsChart from './statistics-projects-chart';
+import StatisticsPeopleChart from './statistics-people-chart';
 import NestedStatistics from './nested-statistics';
 import StatisticsTutorial from './statistics-tutorial';
 
@@ -70,13 +71,17 @@ class Statistics extends React.Component {
   }
 
   render() {
+    const statistics = this.state.statistics;
+    const billableCount = statistics.seniorAndroidDevs.length + statistics.androidDevs.length +
+      statistics.seniorIosDevs.length + statistics.seniorRorDevs.length +
+      statistics.iosDevs.length + statistics.rorDevs.length;
     return (
       <div>
         <StatisticsSearch onFormSubmit={this.onFormSubmit} format='YYYY-MM-DD'
           initStartDate={this.props.startDate} initEndDate={this.props.endDate}/>
         <StatisticsTutorial />
         <h3>Projects</h3>
-        <StatisticsChart
+        <StatisticsProjectsChart
           commercial={this.state.statistics.commercialProjects.length}
           maintenance={this.state.statistics.maintenanceProjects.length}
           internal={this.state.statistics.internalProjects.length}/>
@@ -104,6 +109,11 @@ class Statistics extends React.Component {
             detailsArray={this.state.statistics.beginningSoonProjects}/>
         </table>
         <h3>People</h3>
+        <StatisticsPeopleChart
+          billableCount={billableCount}
+          internalsCount={statistics.developersInInternals.length}
+          nonBillableInCommercialProjectsCount={statistics.nonBillableInCommercialProjects.length}
+           />
         <table className='table'>
           <thead>
             <tr>
