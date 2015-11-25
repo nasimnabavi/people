@@ -1,4 +1,30 @@
 = react_component('statistics',
   { token: AppConfig.api_token,
     startDate: start_date,
-    endDate: end_date})
+    endDate: end_date} )
+
+%h3 Positions
+%table.table
+  %thead
+    %tr
+      %th Technology/Role
+      %th Interns
+      %th Juniors
+      %th Regular
+      %th Senior
+      %th Sum
+  %tbody
+    = render 'positions_row', group_label: "Ruby on Rails", counts: position_numbers_repo.ror_group
+    = render 'positions_row', group_label: "iOS", counts: position_numbers_repo.ios_group
+    = render 'positions_row', group_label: "Android", counts: position_numbers_repo.android_group
+    = render 'positions_row', group_label: "Frontend", counts: position_numbers_repo.frontend_group
+    = render 'positions_row', group_label: "Designers/UX", counts: position_numbers_repo.designers_group
+    = render 'positions_row', group_label: "PMs", counts: position_numbers_repo.pms_group
+    = render 'positions_row', group_label: "QAs", counts: position_numbers_repo.qas_group
+    %tr
+      %td Support
+      %td
+      %td
+      %td 0
+      %td
+      %td
