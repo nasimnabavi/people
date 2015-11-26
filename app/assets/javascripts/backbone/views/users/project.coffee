@@ -18,7 +18,7 @@ class Hrguru.Views.UsersProject extends Marionette.ItemView
     if @roles
       @role = @roles.filter((role) => role.id == roleId)[0]
     else
-      @role = nil
+      @role = null
 
   serializeData: ->
     _.extend super,
