@@ -65,7 +65,7 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
       collection: collectProjects
       show_dates: false
       header: "current"
-      role: @model.get("role")
+      roles: @model.get("roles")
     @projectsRegion.show projectsView
 
   renderNextProjectsRegion: ->

@@ -12,8 +12,10 @@ class Hrguru.Views.UsersProject extends Marionette.ItemView
   template: JST['users/project']
 
   initialize: (options) ->
-    @role = options.role
+    @roles = options.roles
     @show_dates = options.show_dates
+    roleId = @model.get('membership').role_id
+    @role = @roles.filter((role) => role.id == roleId)[0]
 
   serializeData: ->
     _.extend super,
