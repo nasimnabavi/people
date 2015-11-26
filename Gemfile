@@ -91,7 +91,7 @@ group :test do
   gem 'poltergeist'
   gem 'rack_session_access'
   gem 'rspec-instafail'
-  gem 'rspec-rails', '2.99.0'
+  gem 'rspec-rails', '3.1.0'
   gem 'rspec-its'
   gem 'selenium-webdriver'
   gem 'shoulda'
