@@ -67,7 +67,7 @@ describe Api::V1::MembershipsController do
     end
 
     it 'updates the attribute in params' do
-      expect(Membership.find(membership.id).billable).to be_true
+      expect(Membership.find(membership.id).billable).to be true
     end
   end
 

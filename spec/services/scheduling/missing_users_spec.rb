@@ -13,9 +13,9 @@ describe Scheduling::MissingUsers do
       users_ids = subject.call.map(&:id).sort
 
       expect(users_ids.size).to_not eql(0)
-      expect(other_technial_users[0].id.in?(users_ids)).to be_false
-      expect(other_technial_users[1].id.in?(users_ids)).to be_false
-      expect(other_technial_users[2].id.in?(users_ids)).to be_false
+      expect(other_technial_users[0].id.in?(users_ids)).to be false
+      expect(other_technial_users[1].id.in?(users_ids)).to be false
+      expect(other_technial_users[2].id.in?(users_ids)).to be false
     end
 
     it 'returns users that are with technical roles as primary' do
@@ -23,8 +23,8 @@ describe Scheduling::MissingUsers do
 
       expect(users_ids.size).to eql(technical_users.size)
       expect(users_ids.sort).to eql(technical_users.map(&:id).sort)
-      expect(pm_user.id.in?(users_ids)).to be_false
-      expect(qa_user.id.in?(users_ids)).to be_false
+      expect(pm_user.id.in?(users_ids)).to be false
+      expect(qa_user.id.in?(users_ids)).to be false
     end
   end
 end

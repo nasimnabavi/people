@@ -74,22 +74,22 @@ describe Membership do
 
     context "when membership is not yet started" do
       let(:membership) { build(:membership, starts_at: 2.days.from_now, ends_at: 5.months.from_now) }
-      it { should be_false }
+      it { should be false }
     end
 
     context "when membership is strated but not ended" do
       let(:membership) { build(:membership, starts_at: 1.month.ago, ends_at: 2.months.from_now) }
-      it { should be_true }
+      it { should be true }
     end
 
     context "when membership is started and has no end" do
       let(:membership) { build(:membership, starts_at: 1.month.ago, ends_at: nil) }
-      it { should be_true }
+      it { should be true }
     end
 
     context "when membership is started and ended" do
       let(:membership) { build(:membership, starts_at: 5.months.ago, ends_at: 1.week.ago) }
-      it { should be_false }
+      it { should be false }
     end
   end
 
