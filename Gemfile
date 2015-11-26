@@ -92,9 +92,9 @@ group :test do
   gem 'rack_session_access'
   gem 'rspec-instafail'
   gem 'rspec-rails', '2.99.0'
+  gem 'rspec-its'
   gem 'selenium-webdriver'
   gem 'shoulda'
-  gem 'spork-rails'
   gem 'timecop'
   gem 'webmock'
 end
