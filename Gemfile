@@ -90,7 +90,7 @@ group :test do
   gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'poltergeist'
   gem 'rack_session_access'
-  gem 'rspec-rails', '3.1.0'
+  gem 'rspec-rails'
   gem 'rspec-its'
   gem 'selenium-webdriver'
   gem 'shoulda'
