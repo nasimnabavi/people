@@ -3,7 +3,6 @@ if ENV['CI']
   CodeClimate::TestReporter.start
 end
 
-require 'spork'
 require 'webmock/rspec'
 require 'sucker_punch/testing/inline'
 require 'capybara/rspec'
@@ -12,84 +11,79 @@ require 'capybara/poltergeist'
 require 'phantomjs'
 require 'database_cleaner'
 
-Spork.prefork do
 
-  ENV['RAILS_ENV'] ||= 'test'
-  require File.expand_path('../../config/environment', __FILE__)
-  require 'rspec/rails'
-  require 'rspec/autorun'
-  require 'shoulda/matchers'
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../../config/environment', __FILE__)
+require 'rspec/rails'
+require 'rspec/autorun'
+require 'shoulda/matchers'
 
-  Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-  RSpec.configure do |config|
-    I18n.enforce_available_locales = false
-    WebMock.disable_net_connect!(allow_localhost: true,
-                                 allow: [/rest/, /codeclimate.com/])
+RSpec.configure do |config|
+  I18n.enforce_available_locales = false
+  WebMock.disable_net_connect!(allow_localhost: true,
+                               allow: [/rest/, /codeclimate.com/])
 
-    config.include FactoryGirl::Syntax::Methods
-    config.include Devise::TestHelpers, type: :controller
-    config.include Helpers::JSONResponse, type: :controller
-    config.include Capybara::DSL
+  config.include FactoryGirl::Syntax::Methods
+  config.include Devise::TestHelpers, type: :controller
+  config.include Helpers::JSONResponse, type: :controller
+  config.include Capybara::DSL
 
-    config.use_transactional_fixtures = false
-    config.infer_base_class_for_anonymous_controllers = false
+  config.use_transactional_fixtures = false
+  config.infer_base_class_for_anonymous_controllers = false
+  config.infer_spec_type_from_file_location!
 
-    config.before(:suite) do
-      DatabaseCleaner.clean_with(:truncation)
-    end
-
-    config.before(:each) do
-      DatabaseCleaner.strategy = :transaction
-    end
-
-    config.before(:each, js: true) do
-      DatabaseCleaner.strategy = :truncation
-    end
-
-    config.before(:each, job: true) do
-      DatabaseCleaner.strategy = :truncation
-    end
-
-    config.before(:each) do
-      Timecop.return
-      DatabaseCleaner.start
-    end
-
-    config.after(:each) do
-      DatabaseCleaner.clean
-    end
-
-    # HACK to force asset compilation in a Rack request so it's ready for
-    # the Poltergeist request that otherwise times out.
-    config.before(:all) do
-      if self.respond_to? :visit
-        visit '/assets/application.css'
-        visit '/assets/application.js'
-      end
-    end
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
   end
 
-  CarrierWave.configure do |config|
-    config.storage = :file
-    config.enable_processing = false
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
   end
 
-  Capybara.register_driver :poltergeist do |app|
-    options = {
-      phantomjs: Phantomjs.path,
-      js_errors: false,
-      timeout: 120,
-      debug: false,
-      phantomjs_options: ['--load-images=no', '--disk-cache=false'],
-      inspector: false
-    }
-    Capybara::Poltergeist::Driver.new(app, options)
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
   end
 
-  Capybara.javascript_driver = :poltergeist
+  config.before(:each, job: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    Timecop.return
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  # HACK to force asset compilation in a Rack request so it's ready for
+  # the Poltergeist request that otherwise times out.
+  config.before(:all) do
+    if self.respond_to? :visit
+      visit '/assets/application.css'
+      visit '/assets/application.js'
+    end
+  end
 end
 
-Spork.each_run do
-  FactoryGirl.reload
+CarrierWave.configure do |config|
+  config.storage = :file
+  config.enable_processing = false
 end
+
+Capybara.register_driver :poltergeist do |app|
+  options = {
+    phantomjs: Phantomjs.path,
+    js_errors: false,
+    timeout: 120,
+    debug: false,
+    phantomjs_options: ['--load-images=no', '--disk-cache=false'],
+    inspector: false
+  }
+  Capybara::Poltergeist::Driver.new(app, options)
+end
+
+Capybara.javascript_driver = :poltergeist
