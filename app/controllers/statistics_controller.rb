@@ -1,8 +1,6 @@
 class StatisticsController < ApplicationController
   before_filter :authenticate_admin!
-  expose(:position_numbers_repo) do
-    PositionCountRepository.new
-  end
+  expose(:position_numbers_repo) { PositionCountRepository.new }
   expose(:start_date) do
     begin
       Date.parse(params[:start])
