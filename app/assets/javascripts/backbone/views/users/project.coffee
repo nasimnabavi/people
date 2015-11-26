@@ -15,7 +15,10 @@ class Hrguru.Views.UsersProject extends Marionette.ItemView
     @roles = options.roles
     @show_dates = options.show_dates
     roleId = @model.get('membership').role_id
-    @role = @roles.filter((role) => role.id == roleId)[0]
+    if @roles
+      @role = @roles.filter((role) => role.id == roleId)[0]
+    else
+      @role = nil
 
   serializeData: ->
     _.extend super,
