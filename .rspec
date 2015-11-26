@@ -2,5 +2,4 @@
 --format RSpec::Instafail
 --color
 --profile
---drb
 --order rand
