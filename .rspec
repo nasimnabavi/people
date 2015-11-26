@@ -1,5 +1,3 @@
---require rspec/instafail
---format RSpec::Instafail
 --color
 --profile
 --order rand
