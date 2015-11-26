@@ -1,14 +1,24 @@
+ENV["RAILS_ENV"] ||= 'development'
 require 'active_support/core_ext'
 require 'konf'
 
-rails_env =
-  if defined? Rails
-    Rails.env
-  else
-    ENV['RAILS_ENV']
+AppConfig = Konf.new(
+  %w{
+    ../config.yml
+    ../sec_config.yml
+  }.inject({}) do |config_hash, file_path|
+    config_hash.deep_merge(
+      begin
+        YAML.load(
+          ERB.new(
+            File.read(
+              File.expand_path(file_path, __FILE__)
+            )
+          ).result
+        ).fetch(ENV['RAILS_ENV']) { {} }
+      rescue Errno::ENOENT
+        {}
+      end
+    )
   end
-
-pub_config = (YAML.load(ERB.new(File.read(File.expand_path('../config.yml',     __FILE__))).result)[rails_env] rescue {}) || {}
-sec_config = (YAML.load(ERB.new(File.read(File.expand_path('../sec_config.yml', __FILE__))).result)[rails_env] rescue {}) || {}
-AppConfig = Konf.new(pub_config.deep_merge(sec_config))
-
+)
