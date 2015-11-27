@@ -1,23 +1,21 @@
-.row
-  = simple_form_for project  do |f|
-    .col-xs-12.col-sm-6
-      = f.input :name
-      = f.input :color, input_html: { class: 'input', type: 'color'  }
-      = f.input :kickoff, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-      = f.input :starts_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-      = f.input :end_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-      = f.input :potential, as: :boolean, wrapper: :vertical_boolean, label: false, inline_label: true, input_html: { checked: project.potential }
-      = f.input :internal, as: :boolean, wrapper: :vertical_boolean, label: false, inline_label: true, input_html: { checked: project.internal }
-      = f.input :synchronize, as: :boolean, wrapper: :vertical_boolean, label: false, inline_label: "Synchronize with profile?", input_html: { checked: project.synchronize }
-      = f.input :project_type, label: 'Type', collection: Project::POSSIBLE_TYPES, label_method: ->(l) {l.humanize}, include_blank: false
-      = f.input :maintenance_since, as: :date_picker, wrapper: :prepend, required: true, label_html: { class: 'input-group-addon'},
-        wrapper_html: { id: 'maintenance_wrapper', class: f.object.maintenance_visibility }
-      = f.input :toggl_bookmark
-    .col-xs-12.actions
-      = f.button :submit, "Save", class: "btn-success"
-      = link_to "Back", :back, class: "btn btn-default btn-sm"
-      - if project.persisted?
-        = link_to "Remove project", project_path(project),
-          method: :delete,
-          data: { confirm: "Are you sure you want to remove '#{project.name}' project?" },
-          class: 'btn btn-danger'
+= simple_form_for project  do |f|
+  .col-sm-6
+    = f.input :name
+    = f.input :color, input_html: { class: 'input', type: 'color'  }
+    = f.input :kickoff, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+    = f.input :starts_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+    = f.input :end_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+    = f.input :potential, as: :boolean, wrapper: :vertical_boolean, label: false, inline_label: true, input_html: { checked: project.potential }
+    = f.input :internal, as: :boolean, wrapper: :vertical_boolean, label: false, inline_label: true, input_html: { checked: project.internal }
+    = f.input :synchronize, as: :boolean, wrapper: :vertical_boolean, label: false, inline_label: "Synchronize with profile?", input_html: { checked: project.synchronize }
+    = f.input :project_type, label: 'Type', collection: Project::POSSIBLE_TYPES, label_method: ->(l) {l.humanize}, include_blank: false
+    = f.input :maintenance_since, as: :date_picker, wrapper: :prepend, required: true, label_html: { class: 'input-group-addon'},
+      wrapper_html: { id: 'maintenance_wrapper', class: f.object.maintenance_visibility }
+    = f.input :toggl_bookmark
+    = f.button :submit, "Save", class: "btn-success"
+    = link_to "Back", :back, class: "btn btn-default btn-sm"
+    - if project.persisted?
+      = link_to "Remove project", project_path(project),
+        method: :delete,
+        data: { confirm: "Are you sure you want to remove '#{project.name}' project?" },
+        class: 'btn btn-danger'
