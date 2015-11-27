@@ -49,7 +49,7 @@ class MembershipsController < ApplicationController
 
   def membership_params
     params.require(:membership)
-      .permit(:starts_at, :ends_at, :project_id, :user_id, :role_id, :billable, :booked)
+      .permit(:starts_at, :ends_at, :project_id, :user_id, :role_id, :billable, :booked, :stays)
   end
 
   private
