@@ -64,6 +64,14 @@ en:
     edit: "Edit position"
     new: "Add position"
     empty: "No positions"
+  projects:
+    edit:
+      potential:
+        header: Potential memberships
+        description: If you will change project from potential to non potential, memberships that doesn't have checked "stays" field will be lost.
+        none: No potential memberships
+        stays_checked: stays checked
+        stays_unchecked: stays unchecked
   messages:
     success: "%{object_name} %{type}d!"
     error:  'Something went wrong. %{type} unsuccessful'
