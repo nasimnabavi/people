@@ -7,7 +7,8 @@ class Hrguru.Views.UsersShow extends Backbone.View
     @initializeAbilities()
     @observePrimaryRoleChange()
     elTimeline = @$('.timeline')
-    @timeline = elTimeline.timeline(gon.events)
+    events = gon.events.filter((event) -> !event.project_potential)
+    @timeline = elTimeline.timeline(events)
     elTimeline.scrollTo(elTimeline[0].scrollWidth, 0)
     @$el.after @timeline
 
