@@ -1,2 +1,14 @@
 %h1 Editing project
-= render 'form'
+.row
+  = render 'form'
+  .col-sm-6
+    %h3= t('projects.edit.potential.header')
+    %p= t('projects.edit.potential.description')
+    - if project.memberships.potential.any?
+      - project.memberships.potential.each do |membership|
+        = link_to edit_membership_path(membership) do
+          = membership.user.decorate.name
+          ,
+          = membership.stays ? t('projects.edit.potential.stays_checked') : t('projects.edit.potential.stays_unchecked')
+    - else
+      %p= t('projects.edit.potential.none')
