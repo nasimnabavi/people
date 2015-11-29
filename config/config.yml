@@ -21,13 +21,6 @@ defaults: &defaults
       changes_digest:
         days:             30
         weekday:          monday
-  hipchat:
-    active:               false
-    api_token:            your_hipchat_api_token
-    author_name:          name_for_message_author
-    notify_users:         true
-    message_color:        yellow
-    room_name:            room_where_to_send_notifications
   tld_length:             1
   feature:
     new_available_view:   false
@@ -67,13 +60,6 @@ heroku_settings: &heroku_settings
     admin:
                         - <%= ENV['EMAIL_ADMIN_1'] %>
                         - <%= ENV['EMAIL_ADMIN_2'] %>
-  hipchat:
-    active:             <%= ENV['HIPCHAT_ACTIVE'] %>
-    api_token:          <%= ENV['HIPCHAT_API_TOKEN'] %>
-    author_name:        <%= ENV['HIPCHAT_AUTHOR_NAME'] %>
-    notify_users:       <%= ENV['HIPCHAT_NOTIFY_USERS'] %>
-    message_color:      <%= ENV['HIPCHAT_MESSAGE_COLOR'] %>
-    room_name:          <%= ENV['HIPCHAT_ROOM_NAME'] %>
   company_name:         <%= ENV['COMPANY_NAME'] %>
   domain:               <%= ENV['DOMAIN'] %>
   tld_length:           <%= ENV['TLD_LENGTH'] %>
@@ -89,9 +75,6 @@ development:
 test:
   <<: *defaults
   domain: people.test
-  hipchat:
-    active: false
-    api_token: 1234567890
   slack:
     webhook_url:
     username: PeopleApp

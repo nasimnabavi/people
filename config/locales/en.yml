@@ -6,30 +6,6 @@ en:
     formats:
       date_picker: "%F"
   confirm_question: "Are you sure?"
-  hipchat:
-    memberships:
-      added:
-        details_line: "from %{start_date} to %{end_date} as %{role} (billable: %{billable})"
-        link: "view..."
-        main_line: "%{user} has been added to project '%{project}'"
-      beginning:
-        link: "view..."
-        main_line: "%{user} membership in project '%{project}' is about to start in %{time_remaining}"
-      ending:
-        link: "view..."
-        main_line: "%{user} membership in project '%{project}' is about to end in %{time_remaining}"
-      removed:
-        main_line: "%{user} has been removed from project '%{project}'"
-      updated:
-        link: "view..."
-        main_line: "%{user} membership in project '%{project}' has been modified:"
-    projects:
-      ending:
-        link: "view..."
-        main_line: "Project '%{project}' is about to end in %{time_remaining}"
-      kickoff:
-        link: "view..."
-        main_line: "Project '%{project}' is about to start in %{time_remaining}"
   users:
     index:
       filters:
