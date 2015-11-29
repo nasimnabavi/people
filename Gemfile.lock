@@ -58,7 +58,7 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
-    autoprefixer-rails (6.1.0.1)
+    autoprefixer-rails (6.1.1)
       execjs
       json
     awesome_print (1.6.1)
@@ -412,7 +412,7 @@ GEM
     orm_adapter (0.5.0)
     pg (0.18.4)
     phantomjs (1.9.8.0)
-    poltergeist (1.8.0)
+    poltergeist (1.8.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
