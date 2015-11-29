@@ -319,8 +319,6 @@ GEM
     hashdiff (0.2.3)
     hashie (2.0.5)
     hike (1.2.3)
-    hipchat (1.4.0)
-      httparty
     hitimes (1.2.2)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
@@ -646,7 +644,6 @@ DEPENDENCIES
   google-api-client
   haml-rails
   haml_coffee_assets!
-  hipchat
   httparty
   jquery-cookie-rails
   jquery-rails
