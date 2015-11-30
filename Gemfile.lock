@@ -559,7 +559,7 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    slack-notifier (1.4.0)
+    slack-notifier (1.5.0)
     slop (3.6.0)
     sprockets (2.12.4)
       hike (~> 1.2)
