@@ -58,7 +58,7 @@ describe RolesController do
       subject { attributes_for(:role_invalid) }
 
       it 'does not save' do
-        expect { post :create, role: subject, format: :json }.to_not change(Role, :count)
+        expect { post :create, role: subject }.to_not change(Role, :count)
       end
     end
   end
@@ -89,7 +89,7 @@ describe RolesController do
 
     context 'invalid attributes' do
       it "does not change role's attributes" do
-        put :update, id: role, role: attributes_for(:role, name: nil), format: :json
+        put :update, id: role, role: attributes_for(:role, name: nil)
         role.reload
         expect(role.name).to eq 'senior4'
       end
