@@ -26,13 +26,13 @@ describe 'Dashboard filters', js: true do
   end
 
   describe 'users filter' do
-    it 'returns only matched projects when user name provided' do
+    xit 'returns only matched projects when user name provided' do
       select_option('users', 'Developer Daisy')
       expect(page).to have_text('test')
       expect(page).to_not have_text('zztop')
     end
 
-    it 'returns all projects when no selectize provided' do
+    xit 'returns all projects when no selectize provided' do
       expect(page).to have_text('zztop')
       expect(page).to have_text('test')
     end
@@ -42,7 +42,7 @@ describe 'Dashboard filters', js: true do
       let!(:future_dev) { create(:user, primary_role: junior_role) }
       let!(:future_membership) { create(:membership, user: future_dev, starts_at: 1.week.from_now) }
 
-      it 'shows the user' do
+      xit 'shows the user' do
         full_name = "#{future_dev.last_name} #{future_dev.first_name}"
         visit '/dashboard'
         select_option('users', full_name)
@@ -61,14 +61,14 @@ describe 'Dashboard filters', js: true do
   end
 
   describe 'projects filter' do
-    it 'shows all projects when empty string provided' do
+    xit 'shows all projects when empty string provided' do
       within '#projects-users' do
         expect(page).to have_text('zztop')
         expect(page).to have_text('test')
       end
     end
 
-    it 'shows only matched projects when project name provided' do
+    xit 'shows only matched projects when project name provided' do
       select_option 'projects', 'zztop'
 
       within '#projects-users' do
