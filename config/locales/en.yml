@@ -1,4 +1,6 @@
 en:
+  TrueClass: "Yes"
+  FalseClass: "No"
   time:
     formats:
       date_picker: "%F"

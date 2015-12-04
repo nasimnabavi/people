@@ -1,0 +1,23 @@
+= simple_form_for role do |f|
+  .form-group
+    = f.input :name, placeholder: 'Enter role name...', class: 'form-control'
+  .form-group
+    = f.input :priority, as: :select, collection: 1..4, include_blank: false, id: 'priority'
+  .form-group
+    = f.input :color, input_html: { class: 'input', type: 'color'  }
+  .row
+    .col-sm-3.col-sm-offset-2.checkbox-inline
+      = f.input :billable, inline_label: true, label: false
+    .col-sm-3.checkbox-inline
+      = f.input :technical, inline_label: true, label: false
+    .col-sm-3.checkbox-inline
+      = f.input :show_in_team, inline_label: true, label: false
+  %br
+  .form-group
+    = f.button :submit, class: 'btn btn-primary'
+    = link_to "Back", roles_path, class: 'btn btn-default'
+    - if role.persisted?
+      = link_to role_path(role), method: :delete, data: { confirm: t('roles.show.remove_confirmation') } do
+        .btn.btn-danger
+          %span.glyphicon.glyphicon-trash
+          = t('roles.show.remove_btn_label')

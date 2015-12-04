@@ -6,25 +6,21 @@ class RolesController < ApplicationController
   expose_decorated(:role, attributes: :role_params)
   expose(:roles) { roles_repository.all }
 
-  before_filter :authenticate_admin!, only: [:index, :create, :update, :destroy]
-
-  def index
-    gon.rabl as: 'roles'
-  end
+  before_filter :authenticate_admin!
 
   def create
     if role.save
-      render :role, status: :created
+      redirect_to roles_path
     else
-      respond_with role
+      render :new
     end
   end
 
   def update
     if role.save
-      render :role
+      redirect_to roles_path
     else
-      respond_with role
+      render :edit
     end
   end
 
