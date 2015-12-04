@@ -7,7 +7,7 @@ class NotesController < ApplicationController
 
   def create
     if NoteCreator.new(note).call
-      render json: note
+      render json: note, root: false
     else
       respond_on_failure note.errors
     end
