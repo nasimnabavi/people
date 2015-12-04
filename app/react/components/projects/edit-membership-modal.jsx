@@ -33,7 +33,17 @@ export default class EditMembershipModal extends React.Component {
   }
 
   _showEditMembershipModal(storeState) {
-    this.setState({ membership: storeState.membership });
+    if(storeState.membership == null) {
+      this.setState({ membership: null });
+    } else {
+      const endsAt = storeState.membership.ends_at ? Moment(storeState.membership.ends_at).format("YYYY-MM-DD") : null;
+      this.setState({
+        membership: storeState.membership,
+        startDate: Moment(storeState.membership.starts_at).format("YYYY-MM-DD"),
+        endDate: endsAt,
+        billable: storeState.membership.billable
+      });
+    }
   }
 
   render() {
