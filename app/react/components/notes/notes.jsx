@@ -50,10 +50,10 @@ export default class Notes extends React.Component {
             <div className="project-notes-region">
               {notesViews}
             </div>
+            <NewNoteForm projectId={this.props.projectId}
+              noteAddedCallback={this.noteAddedCallback} />
           </div>
         </div>
-        <NewNoteForm projectId={this.props.projectId}
-          noteAddedCallback={this.noteAddedCallback} />
       </div>
     );
   }
