@@ -1,317 +1,114 @@
-/**
- * React Select
- * ============
- * Created by Jed Watson and Joss Mackison for KeystoneJS, http://www.keystonejs.com/
- * https://twitter.com/jedwatson https://twitter.com/jossmackison https://twitter.com/keystonejs
- * MIT License: https://github.com/keystonejs/react-select
-*/
-.Select {
-  position: relative; }
+/* DayPicker styles */
+.DayPicker {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  padding: 1rem 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
 
-.Select,
-.Select div,
-.Select input,
-.Select span {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
-
-.Select.is-disabled > .Select-control {
-  background-color: #f6f6f6; }
-
-.Select.is-disabled .Select-arrow-zone {
-  cursor: default;
-  pointer-events: none; }
-
-.Select-control {
-  background-color: #fff;
-  border-color: #d9d9d9 #ccc #b3b3b3;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  color: #333;
-  cursor: default;
+.DayPicker-Month {
   display: table;
-  height: 36px;
-  outline: none;
-  overflow: hidden;
-  position: relative;
-  width: 100%; }
+  border-collapse: collapse;
+  border-spacing: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0 1rem; }
 
-.Select-control:hover {
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06); }
-
-.is-searchable.is-open > .Select-control {
-  cursor: text; }
-
-.is-open > .Select-control {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  background: #fff;
-  border-color: #b3b3b3 #ccc #d9d9d9; }
-
-.is-open > .Select-control > .Select-arrow {
-  border-color: transparent transparent #999;
-  border-width: 0 5px 5px; }
-
-.is-searchable.is-focused:not(.is-open) > .Select-control {
-  cursor: text; }
-
-.is-focused:not(.is-open) > .Select-control {
-  border-color: #08c #0099e6 #0099e6;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 5px -1px rgba(0, 136, 204, 0.5); }
-
-.Select-placeholder {
-  bottom: 0;
-  color: #aaa;
-  left: 0;
-  line-height: 34px;
-  padding-left: 10px;
-  padding-right: 10px;
+.DayPicker-NavBar {
   position: absolute;
+  left: 0;
   right: 0;
-  top: 0;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; }
+  padding: 0 .5rem; }
 
-.has-value > .Select-control > .Select-placeholder {
-  color: #333; }
-
-.Select-value {
-  color: #aaa;
-  left: 0;
-  padding: 8px 52px 8px 10px;
+.DayPicker-NavButton {
   position: absolute;
-  right: -15px;
-  top: 0;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; }
-
-.has-value > .Select-control > .Select-value {
-  color: #333; }
-
-.Select-input {
-  height: 34px;
-  padding-left: 10px;
-  padding-right: 10px;
-  vertical-align: middle; }
-
-.Select-input > input {
-  background: none transparent;
-  border: 0 none;
-  box-shadow: none;
-  cursor: default;
-  display: inline-block;
-  font-family: inherit;
-  font-size: inherit;
-  height: 34px;
-  margin: 0;
-  outline: none;
-  padding: 0;
-  -webkit-appearance: none; }
-
-.is-focused .Select-input > input {
-  cursor: text; }
-
-.Select-control:not(.is-searchable) > .Select-input {
-  outline: none; }
-
-.Select-loading-zone {
-  cursor: pointer;
-  display: table-cell;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
-  width: 16px; }
-
-.Select-loading {
-  -webkit-animation: Select-animation-spin 400ms infinite linear;
-  -o-animation: Select-animation-spin 400ms infinite linear;
-  animation: Select-animation-spin 400ms infinite linear;
-  width: 16px;
-  height: 16px;
-  box-sizing: border-box;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-  border-right-color: #333;
-  display: inline-block;
-  position: relative;
-  vertical-align: middle; }
-
-.Select-clear-zone {
-  -webkit-animation: Select-animation-fadeIn 200ms;
-  -o-animation: Select-animation-fadeIn 200ms;
-  animation: Select-animation-fadeIn 200ms;
-  color: #999;
-  cursor: pointer;
-  display: table-cell;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
-  width: 17px; }
-
-.Select-clear-zone:hover {
-  color: #D0021B; }
-
-.Select-clear {
-  display: inline-block;
-  font-size: 18px;
-  line-height: 1; }
-
-.Select--multi .Select-clear-zone {
-  width: 17px; }
-
-.Select-arrow-zone {
-  cursor: pointer;
-  display: table-cell;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
-  width: 25px;
-  padding-right: 5px; }
-
-.Select-arrow {
-  border-color: #999 transparent transparent;
-  border-style: solid;
-  border-width: 5px 5px 2.5px;
-  display: inline-block;
-  height: 0;
-  width: 0; }
-
-.is-open .Select-arrow,
-.Select-arrow-zone:hover > .Select-arrow {
-  border-top-color: #666; }
-
-@-webkit-keyframes Select-animation-fadeIn {
-  from {
-    opacity: 0; }
-  to {
-    opacity: 1; } }
-
-@keyframes Select-animation-fadeIn {
-  from {
-    opacity: 0; }
-  to {
-    opacity: 1; } }
-
-.Select-menu-outer {
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-top-color: #e6e6e6;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
-  box-sizing: border-box;
-  margin-top: -1px;
-  max-height: 200px;
-  position: absolute;
-  top: 100%;
-  width: 100%;
-  z-index: 1000;
-  -webkit-overflow-scrolling: touch; }
-
-.Select-menu {
-  max-height: 198px;
-  overflow-y: auto; }
-
-.Select-option {
-  box-sizing: border-box;
-  color: #666666;
-  cursor: pointer;
-  display: block;
-  padding: 8px 10px; }
-
-.Select-option:last-child {
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px; }
-
-.Select-option.is-focused {
-  background-color: #f2f9fc;
-  color: #333; }
-
-.Select-option.is-disabled {
-  color: #cccccc;
-  cursor: not-allowed; }
-
-.Select-noresults,
-.Select-search-prompt,
-.Select-searching {
-  box-sizing: border-box;
-  color: #999999;
-  cursor: default;
-  display: block;
-  padding: 8px 10px; }
-
-.Select--multi .Select-input {
-  vertical-align: middle;
-  margin-left: 10px;
-  padding: 0; }
-
-.Select--multi.has-value .Select-input {
-  margin-left: 5px; }
-
-.Select-item {
-  background-color: #f2f9fc;
-  border-radius: 2px;
-  border: 1px solid #c9e6f2;
-  color: #08c;
-  display: inline-block;
-  font-size: 0.9em;
-  margin-left: 5px;
-  margin-top: 5px;
-  vertical-align: top; }
-
-.Select-item-icon,
-.Select-item-label {
-  display: inline-block;
-  vertical-align: middle; }
-
-.Select-item-label {
-  border-bottom-right-radius: 2px;
-  border-top-right-radius: 2px;
-  cursor: default;
-  padding: 2px 5px; }
-
-.Select-item-label .Select-item-label__a {
-  color: #08c;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   cursor: pointer; }
 
-.Select-item-icon {
+.DayPicker-NavButton--prev {
+  left: 1rem;
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjI2cHgiIGhlaWdodD0iNTBweCIgdmlld0JveD0iMCAwIDI2IDUwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggMy4zLjIgKDEyMDQzKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5wcmV2PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc2tldGNoOnR5cGU9Ik1TUGFnZSI+CiAgICAgICAgPGcgaWQ9InByZXYiIHNrZXRjaDp0eXBlPSJNU0xheWVyR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEzLjM5MzE5MywgMjUuMDAwMDAwKSBzY2FsZSgtMSwgMSkgdHJhbnNsYXRlKC0xMy4zOTMxOTMsIC0yNS4wMDAwMDApIHRyYW5zbGF0ZSgwLjg5MzE5MywgMC4wMDAwMDApIiBmaWxsPSIjNTY1QTVDIj4KICAgICAgICAgICAgPHBhdGggZD0iTTAsNDkuMTIzNzMzMSBMMCw0NS4zNjc0MzQ1IEwyMC4xMzE4NDU5LDI0LjcyMzA2MTIgTDAsNC4yMzEzODMxNCBMMCwwLjQ3NTA4NDQ1OSBMMjUsMjQuNzIzMDYxMiBMMCw0OS4xMjM3MzMxIEwwLDQ5LjEyMzczMzEgWiIgaWQ9InJpZ2h0IiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K"); }
+
+.DayPicker-NavButton--next {
+  right: 1rem;
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjI2cHgiIGhlaWdodD0iNTBweCIgdmlld0JveD0iMCAwIDI2IDUwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggMy4zLjIgKDEyMDQzKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5uZXh0PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc2tldGNoOnR5cGU9Ik1TUGFnZSI+CiAgICAgICAgPGcgaWQ9Im5leHQiIHNrZXRjaDp0eXBlPSJNU0xheWVyR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuOTUxNDUxLCAwLjAwMDAwMCkiIGZpbGw9IiM1NjVBNUMiPgogICAgICAgICAgICA8cGF0aCBkPSJNMCw0OS4xMjM3MzMxIEwwLDQ1LjM2NzQzNDUgTDIwLjEzMTg0NTksMjQuNzIzMDYxMiBMMCw0LjIzMTM4MzE0IEwwLDAuNDc1MDg0NDU5IEwyNSwyNC43MjMwNjEyIEwwLDQ5LjEyMzczMzEgTDAsNDkuMTIzNzMzMSBaIiBpZD0icmlnaHQiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiPjwvcGF0aD4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPgo="); }
+
+.DayPicker-Caption {
+  display: table-caption;
+  height: 1.5rem;
+  text-align: center; }
+
+.DayPicker-Weekdays {
+  display: table-header-group; }
+
+.DayPicker-WeekdaysRow {
+  display: table-row; }
+
+.DayPicker-Weekday {
+  display: table-cell;
+  padding: .5rem;
+  font-size: .875em;
+  text-align: center;
+  color: #8b9898; }
+
+.DayPicker-Body {
+  display: table-row-group; }
+
+.DayPicker-Week {
+  display: table-row; }
+
+.DayPicker-Day {
+  display: table-cell;
+  padding: .5rem;
+  border: 1px solid #eaecec;
+  text-align: center;
   cursor: pointer;
-  border-bottom-left-radius: 2px;
-  border-top-left-radius: 2px;
-  border-right: 1px solid #c9e6f2;
-  padding: 1px 5px 3px; }
+  vertical-align: middle; }
 
-.Select-item-icon:hover,
-.Select-item-icon:focus {
-  background-color: #ddeff7;
-  color: #0077b3; }
+.DayPicker--interactionDisabled .DayPicker-Day {
+  cursor: default; }
 
-.Select-item-icon:active {
-  background-color: #c9e6f2; }
+/* Default modifiers */
+.DayPicker-Day--today {
+  color: #d0021b;
+  font-weight: 500; }
 
-.Select--multi.is-disabled .Select-item {
-  background-color: #f2f2f2;
-  border: 1px solid #d9d9d9;
-  color: #888; }
+.DayPicker-Day--disabled {
+  color: #dce0e0;
+  cursor: default;
+  background-color: #eff1f1; }
 
-.Select--multi.is-disabled .Select-item-icon {
-  cursor: not-allowed;
-  border-right: 1px solid #d9d9d9; }
+.DayPicker-Day--outside {
+  cursor: default;
+  color: #dce0e0; }
 
-.Select--multi.is-disabled .Select-item-icon:hover,
-.Select--multi.is-disabled .Select-item-icon:focus,
-.Select--multi.is-disabled .Select-item-icon:active {
-  background-color: #f2f2f2; }
+/* Example modifiers */
+.DayPicker-Day--sunday {
+  color: #dce0e0;
+  background-color: #f7f8f8; }
 
-@keyframes Select-animation-spin {
-  to {
-    transform: rotate(1turn); } }
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  color: #FFF;
+  background-color: #4A90E2; }
 
-@-webkit-keyframes Select-animation-spin {
-  to {
-    -webkit-transform: rotate(1turn); } }
+/* Locales */
+.DayPicker--ar {
+  direction: rtl; }
