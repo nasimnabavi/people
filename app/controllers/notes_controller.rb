@@ -7,7 +7,7 @@ class NotesController < ApplicationController
 
   def create
     if NoteCreator.new(note).call
-      respond_on_success note
+      render json: note
     else
       respond_on_failure note.errors
     end
@@ -24,7 +24,7 @@ class NotesController < ApplicationController
   def destroy
     if note.destroy
       respond_to do |format|
-        format.html { redirect_to note, notice: 'Note deleted!' }
+        format.html { redirect_to :back, notice: 'Note deleted!' }
         format.json { render json: { }, status: 204 }
       end
     else
