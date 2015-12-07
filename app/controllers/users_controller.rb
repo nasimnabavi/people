@@ -3,7 +3,10 @@ class UsersController < ApplicationController
   before_filter :authenticate_admin!, only: [:update, :fetch_abilities], unless: -> { check_action }
 
   expose(:user) { users_repository.get params[:id] }
-  expose(:users) { UserDecorator.decorate_collection(users_repository.active) }
+  expose_decorated(:users) { User.includes(:memberships, :primary_roles).active.by_last_name }
+  expose_decorated(:projects) { Project.where(archived: false) }
+  expose_decorated(:memberships) { Membership.where(project_id: projects.ids) }
+  expose_decorated(:roles)
   # FIXME: this is a bad way, we can't access repo from user model!
   expose(:user_memberships_repository) { UserMembershipsRepository.new(user) }
   expose(:user_positions_repository) { UserPositionsRepository.new(user) }
@@ -39,10 +42,6 @@ class UsersController < ApplicationController
     )
   end
 
-  def index
-    setup_gon_for_index
-  end
-
   def update
     if UpdateUser.new(user, user_params, current_user).call
       info = { notice: t('users.updated') }
@@ -51,7 +50,7 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to user, info }
-      format.json
+      format.json { render json: user, root: false }
     end
   end
 
@@ -97,15 +96,5 @@ class UsersController < ApplicationController
       result << { value: n, text: "#{n} months" }
     end
     result
-  end
-
-  def setup_gon_for_index
-    projects_a = projects_repository.with_notes
-    gon.users = Rabl.render(users, 'users/index', view_path: 'app/views', format: :hash)
-    gon.projects = Rabl.render(projects_a, 'users/projects', format: :hash)
-    gon.roles = roles_repository.all
-    gon.locations = locations_repository.all
-    gon.abilities = abilities_repository.all
-    gon.months = months
   end
 end
