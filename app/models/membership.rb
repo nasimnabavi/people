@@ -26,6 +26,7 @@ class Membership < ActiveRecord::Base
   scope :started, -> { where('memberships.starts_at <= NOW()') }
   scope :not_started, -> { where('memberships.starts_at > NOW()') }
   scope :billable, -> { where(billable: true) }
+  scope :non_billable, -> { where(billable: false) }
   scope :booked, -> { where(booked: true) }
   scope :without_bookings, -> { where(booked: false) }
   scope :only_active, -> { active.order(starts_at: :desc).limit(3) }
