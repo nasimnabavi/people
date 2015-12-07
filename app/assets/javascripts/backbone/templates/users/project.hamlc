@@ -1,9 +1,0 @@
-%div.inline.project{ class: "#{'potential' if @project.potential}" }
-  - if @is_role_technical
-    - if @project.potential
-      %i.glyphicon.glyphicon-asterisk.potential
-    - if @show_nonbillable_sign
-      %i.glyphicon.glyphicon-exclamation-sign.notbillable
-  != @link_to @project.name, Routes.project_path(@project.id)
-  - if @show_dates
-    %time= moment(@membership.starts_at).format 'YYYY-MM-DD'

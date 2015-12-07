@@ -1,2 +1,0 @@
-.project__header= "#{_.str.capitalize(@header)}:"
-.projects
