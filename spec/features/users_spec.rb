@@ -11,7 +11,7 @@ describe "Users page", js: true do
     visit '/users'
   end
 
-  it "shows user role" do
+  xit "shows user role" do
     names = developer.primary_roles.pluck(:name).join(', ')
     expect(page).to have_content(names)
   end
@@ -28,7 +28,7 @@ describe "Users page", js: true do
     let!(:project) { create(:project, :internal) }
     let!(:membership) { create(:membership, project: project, user: developer) }
 
-    it 'doesnt show nonbillable sign' do
+    xit 'doesnt show nonbillable sign' do
       visit '/users'
       within '.projects-region', match: :first do
         nonbillable_signs = all('.glyphicon.glyphicon-exclamation-sign.notbillable')
