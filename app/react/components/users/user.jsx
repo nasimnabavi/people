@@ -30,7 +30,7 @@ export default class User extends React.Component {
 
     return(
       <tr style={styles}>
-        <td>{user.id}</td>
+        <td>{this.props.number}</td>
         <td className="to_end"></td>
         <td><img src={user.gravatar.gravatar.circle.url} /></td>
         <td>
@@ -78,5 +78,6 @@ export default class User extends React.Component {
 }
 
 User.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  number: PropTypes.number.isRequired
 };

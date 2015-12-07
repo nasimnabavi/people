@@ -63,7 +63,8 @@ export default class Users extends React.Component {
   }
 
   render() {
-    const userRows = this.state.users.map(user => <User key={user.id} user={user} />);
+    let i = 1;
+    const userRows = this.state.users.map(user => <User key={user.id} number={i++} user={user} />);
     return(
       <div>
         <Filters/>
