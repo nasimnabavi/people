@@ -1,6 +1,7 @@
 import alt from '../alt';
 
 import UserActions from '../actions/UserActions';
+import UserSource from '../sources/UserSource';
 
 class UserStore {
   constructor() {
@@ -38,6 +39,21 @@ class UserStore {
         }
       }
     }).done(onSuccess).fail(onFail);
+  }
+
+  update(params) {
+    const successCallback = (data) => {
+      const userIndex = this.users.map(user => user.id).indexOf(data.id);
+      Messenger().success('User updated successfully.');
+      this.users[userIndex] = data;
+      this.emitChange();
+    };
+    const failCallback = () => {
+      Messenger().error('Failed to update user');
+      this.emitChange();
+    };
+    UserSource.update(params).done(successCallback).fail(failCallback);
+    return false;
   }
 
   promoteToLeader(team_id) {

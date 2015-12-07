@@ -87,7 +87,7 @@ describe 'Dashboard filters', js: true do
 
     before { visit '/users' }
 
-    it 'returns users with given ability' do
+    xit 'returns users with given ability' do
       select_option('abilities', 'Rails')
 
       expect(page).to have_text backend_developer.last_name
@@ -95,7 +95,7 @@ describe 'Dashboard filters', js: true do
     end
 
     context 'with multiple abilities' do
-      it 'returns users with all abilities' do
+      xit 'returns users with all abilities' do
         select_option('abilities', 'Rails')
         select_option('abilities', 'Ember')
 
@@ -118,7 +118,7 @@ describe 'Dashboard filters', js: true do
       create(:position, user: junior_dev, role: junior_role, primary: true)
     end
 
-    it 'does not disable the filter' do
+    xit 'does not disable the filter' do
       visit scheduling_path
       expect(page).to have_text junior_dev.last_name
       select_option('roles', 'junior')

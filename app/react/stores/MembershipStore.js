@@ -58,6 +58,16 @@ class MembershipStore {
     return memberships;
   }
 
+  static getMembershipForUserInProject(userId, projectId) {
+    const membership = this.state.memberships.filter(membership => {
+      return membership.user_id == userId && membership.project_id == projectId;
+    });
+    if(membership.length > 0) {
+      return membership[0];
+    }
+    return null;
+  }
+
   static setInitialState(memberships) {
     this.state.memberships = memberships;
   }
