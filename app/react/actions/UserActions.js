@@ -5,7 +5,8 @@ class UserActions {
     this.generateActions(
       'addToTeam',
       'promoteToLeader',
-      'removeFromTeam'
+      'removeFromTeam',
+      'update'
     );
   }
 }
