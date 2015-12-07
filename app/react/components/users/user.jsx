@@ -26,6 +26,8 @@ export default class User extends React.Component {
       UserActions.update({ id: userId, admin: e.target.checked });
     };
 
+    const userPrimaryRoleName = user.primary_roles[0] ? user.primary_roles[0].name : 'No primary role';
+
     return(
       <tr style={styles}>
         <td>{user.id}</td>
@@ -34,7 +36,7 @@ export default class User extends React.Component {
         <td>
             <a href={Routes.user_path(user.id)}>{user.last_name + " " + user.first_name}</a>
         </td>
-        <td>{user.primary_roles[0].name}</td>
+        <td>{userPrimaryRoleName}</td>
         <td>
             <div className="employment-container input-group">
                 <p>{user.commitment} h</p>
