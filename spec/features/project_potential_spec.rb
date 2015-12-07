@@ -18,7 +18,7 @@ describe 'Potential project', js: true do
     end
 
     it 'shows potential memberships' do
-      expect(page).to have_content("#{user.decorate.name} , stays unchecked")
+      expect(page).to have_content("#{user.decorate.name}")
     end
 
     it 'deletes membership when project is updated to nonpotential' do
@@ -36,7 +36,7 @@ describe 'Potential project', js: true do
     end
 
     it 'shows potential memberships' do
-      expect(page).to have_content("#{user.decorate.name} , stays checked")
+      expect(page).to have_content("#{user.decorate.name}")
     end
 
     it 'dont delete membership when project is updated to nonpotential' do

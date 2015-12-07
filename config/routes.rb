@@ -33,7 +33,11 @@ Hrguru::Application.routes.draw do
 
   get 'fetch_abilities', to: 'users#fetch_abilities'
   resources :users, only: [:index, :show, :update]
-  resources :dashboard, only: [:index], path: 'dashboard'
+  resources :dashboard, only: [:index], path: 'dashboard' do
+    get 'active', on: :collection
+    get 'potential', on: :collection
+    get 'archived', on: :collection
+  end
   resources :projects, except: [:index]
   resources :memberships, except: [:show]
   resources :teams

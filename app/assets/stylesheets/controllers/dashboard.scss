@@ -162,9 +162,15 @@ body.dashboard {
   .filter {
     display: inline-block;
     max-width: 360px;
+    min-width: 200px;
     vertical-align: top;
   }
 
+}
+
+.new-membership {
+  width: 11em;
+  margin-top: 0.25em;
 }
 
 .projects-types {

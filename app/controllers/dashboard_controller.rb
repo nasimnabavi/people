@@ -1,23 +1,31 @@
 class DashboardController < ApplicationController
   include ContextFreeRepos
 
-  expose(:projects) { projects_repository.all }
-  expose(:roles) { roles_repository.all }
-  expose(:primary_positions) { positions_repository.primary }
-  expose_decorated(:users) { users_repository.all_by_name }
-  expose_decorated(:memberships) { memberships_repository.active_ongoing }
+  expose_decorated(:projects) { projects_repository.active_with_memberships }
+  expose_decorated(:users) { User.includes(:memberships, :primary_roles).where(memberships: {project_id: projects.ids}) }
+  expose_decorated(:memberships) { Membership.where(project_id: projects.ids) }
+  expose(:note)
 
-  def index
-    gon.rabl template: 'app/views/dashboard/users', as: 'users'
-    gon.rabl template: 'app/views/dashboard/memberships', as: 'memberships'
-    gon.rabl template: 'app/views/dashboard/roles', as: 'roles'
-    gon.rabl template: 'app/views/dashboard/projects', as: 'projects'
+  before_action :set_time_gon
+
+  def active
+    self.projects = projects_repository.active_with_memberships
+    render :index
+  end
+
+  def potential
+    self.projects = projects_repository.potential
+    render :index
+  end
+
+  def archived
+    self.projects = projects_repository.archived
+    render :index
+  end
+
+  private
+
+  def set_time_gon
     gon.currentTime = Time.now
-
-    if params[:cookie]
-      cookies[:note_id] = params[:cookie]
-    else
-      cookies.delete(:note_id)
-    end
   end
 end

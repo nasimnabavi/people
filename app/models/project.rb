@@ -81,9 +81,10 @@ class Project < ActiveRecord::Base
   private
 
   def update_membership_fields
-    if potential_changed? || archived_changed?
+    if potential_changed? || archived_changed? || internal_changed?
       memberships.each do |membership|
-        membership.update_attributes(project_potential: potential, project_archived: archived)
+        membership.update_attributes(project_potential: potential, project_archived: archived,
+          project_internal: internal)
       end
     end
   end

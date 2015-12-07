@@ -114,7 +114,8 @@ class User < ActiveRecord::Base
   scope :non_billable_in_commercial_projects_between, lambda { |roles, start_date, end_date|
     membership_between(start_date, end_date)
       .where(
-        'roles.name IN (?) AND project_internal = false AND memberships.billable = false',
+        'roles.name IN (?) AND project_potential = false AND project_archived = false
+          AND project_internal = false AND memberships.billable = false',
         roles).without_excluded_projects.distinct.order(:last_name)
   }
 

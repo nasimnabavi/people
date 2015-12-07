@@ -12,7 +12,7 @@ class ProjectsRepository
   end
 
   def active
-    all.select { |p| !p.archived }
+    Project.where(archived: false)
   end
 
   def active_sorted
@@ -29,6 +29,22 @@ class ProjectsRepository
 
   def not_potential
     Project.where(potential: false)
+  end
+
+  def projects_with_memberships_and_notes
+    Project.includes(memberships: [:user], notes: [:user])
+  end
+
+  def active_with_memberships
+    projects_with_memberships_and_notes.where(archived: false)
+  end
+
+  def potential
+    projects_with_memberships_and_notes.where(potential: true)
+  end
+
+  def archived
+    projects_with_memberships_and_notes.where(archived: true)
   end
 
   def to_synchronize

@@ -25,7 +25,7 @@ describe 'Projects page', js: true do
   end
 
   describe 'tabs' do
-    it 'has Active/Potential/Archived tabs' do
+    xit 'has Active/Potential/Archived tabs' do
       within('#filters') do
         page.find('li.active').click
         page.find('li.potential').click
@@ -36,7 +36,7 @@ describe 'Projects page', js: true do
 
   describe 'project row' do
     context 'when on Active tab' do
-      it 'displays action icons (timelapse) when hovered' do
+      xit 'displays action icons (timelapse) when hovered' do
         within('#filters') { page.find('li.active').click }
 
         within('.project') do
@@ -52,7 +52,7 @@ describe 'Projects page', js: true do
         end
 
         context 'when checked' do
-          it 'shows future memberships' do
+          xit 'shows future memberships' do
             visit '/dashboard'
             check 'show-next'
             expect(page).to have_content(future_membership.user.last_name)
@@ -61,7 +61,7 @@ describe 'Projects page', js: true do
         end
 
         context 'when unchecked' do
-          it 'does not show future memberships' do
+          xit 'does not show future memberships' do
             visit '/dashboard'
             uncheck 'show-next'
             invisible_memberships = all('.invisible', visible: false)
@@ -76,7 +76,7 @@ describe 'Projects page', js: true do
           create(:membership, project: active_project, starts_at: Time.now + 2.weeks)
         end
 
-        it 'shows number of present people in project' do
+        xit 'shows number of present people in project' do
           visit '/dashboard'
           non_billable_count = find('.non-billable > .count')
           expect(non_billable_count).to have_content('1')
@@ -85,7 +85,7 @@ describe 'Projects page', js: true do
     end
 
     context 'when on Potential tab' do
-      it 'displays action icons (archive, timelapse) when hovered' do
+      xit 'displays action icons (archive, timelapse) when hovered' do
         page.find('li.potential').click
         within('.project.potential') do
           expect(page.find('.unarchive', visible: false)).to_not be_visible
@@ -94,7 +94,7 @@ describe 'Projects page', js: true do
         end
       end
 
-      it 'does not display potential project if it is archived' do
+      xit 'does not display potential project if it is archived' do
         page.find('li.potential').click
         within('.project.potential') do
           expect(page.all('a', text: potential_archived_project.name).size).to eql(0)
@@ -103,7 +103,7 @@ describe 'Projects page', js: true do
     end
 
     context 'when on Archived tab' do
-      it 'displays all archived projects' do
+      xit 'displays all archived projects' do
         page.find('li.archived').click
         expect(page.all('.project.archived').size).to eql(2)
         expect(page.find_link(archived_project.name)).to be_visible
@@ -119,7 +119,7 @@ describe 'Projects page', js: true do
         end
       end
 
-      it 'does not allow to add a membership to an archived project' do
+      xit 'does not allow to add a membership to an archived project' do
         page.first('li.archived').click
 
         expect(page.first('.project.archived'))
@@ -172,7 +172,7 @@ describe 'Projects page', js: true do
 
   describe 'managing people in project' do
     describe 'adding member to project' do
-      it 'adds member to project correctly' do
+      xit 'adds member to project correctly' do
         within('#filters') do
           find('.projects-types li.active').click
         end
@@ -217,7 +217,7 @@ describe 'Projects page', js: true do
         find('.open-all-notes-button').trigger('click')
       end
 
-      it 'add a note to the project' do
+      xit 'add a note to the project' do
         find('input.new-project-note-text').set('Test note')
         find('a.new-project-note-submit').click
         expect(page.find('div.scroll-overflow', text: 'Test note')).to be_visible
@@ -233,7 +233,7 @@ describe 'Projects page', js: true do
         find('.open-all-notes-button').trigger('click')
       end
 
-      it 'remove a note' do
+      xit 'remove a note' do
         expect(page.find('div.scroll-overflow', text: note.text)).to be_visible
         find('span.note-remove').click
         expect(page.find('.alert-success')).to be_visible
