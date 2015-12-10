@@ -11,17 +11,17 @@ module Repositories
           map_record(database_model_class.find(id))
         end
 
-        def create(object)
-          record = database_model_class.create!(object.attributes)
+        def create(entity)
+          record = database_model_class.create!(map_entity_attributes(entity))
           map_record(record)
         end
 
-        def update(object)
-          database_model_class.update(object.id, object.attributes)
+        def update(entity)
+          database_model_class.update(entity.id, map_entity_attributes(entity))
         end
 
-        def delete(object)
-          database_model_class.destroy(object.id)
+        def delete(entity)
+          database_model_class.destroy(entity.id)
         end
 
         private
@@ -30,8 +30,20 @@ module Repositories
           raise NotImplementedError
         end
 
-        def map_record(object)
+        def default_entity_class
           raise NotImplementedError
+        end
+
+        def default_mapper_class
+          Repositories::Mappers::Null
+        end
+
+        def map_record(record, entity_class = default_entity_class, mapper_class = default_mapper_class)
+          entity_class.new(mapper_class.map_record_attributes(record.attributes))
+        end
+
+        def map_entity_attributes(entity, mapper_class = default_mapper_class)
+          mapper_class.map_entity_attributes(entity.attributes)
         end
 
       end
