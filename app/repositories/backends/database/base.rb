@@ -4,7 +4,7 @@ module Repositories
       class Base
 
         def all
-          database_model_class.all.map(&:map_record)
+          database_model_class.all.map { |record| map_record(record) }
         end
 
         def find(id)
