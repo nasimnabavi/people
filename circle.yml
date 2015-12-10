@@ -10,7 +10,7 @@ deployment:
   production:
     branch: production
     commands:
-      - curl -L https://raw.githubusercontent.com/netguru/review/master/check.rb | ruby
+      # - curl -L https://raw.githubusercontent.com/netguru/review/master/check.rb | ruby
       - bundle exec cap production deploy
 dependencies:
   post:
