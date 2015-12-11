@@ -12,12 +12,12 @@ module Repositories
         end
 
         def create(entity)
-          record = database_model_class.create!(map_entity_attributes(entity))
+          record = database_model_class.create!(unmap_record_attributes(entity))
           map_record(record)
         end
 
         def update(entity)
-          database_model_class.update(entity.id, map_entity_attributes(entity))
+          database_model_class.update(entity.id, unmap_record_attributes(entity))
         end
 
         def delete(entity)
@@ -42,8 +42,8 @@ module Repositories
           entity_class.new(mapper_class.map_record_attributes(record.attributes))
         end
 
-        def map_entity_attributes(entity, mapper_class = default_mapper_class)
-          mapper_class.map_entity_attributes(entity.attributes)
+        def unmap_record_attributes(entity, mapper_class = default_mapper_class)
+          mapper_class.unmap_record_attributes(entity.attributes)
         end
 
       end

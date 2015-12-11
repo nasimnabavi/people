@@ -2,11 +2,11 @@ module Repositories
   module Mappers
     class Base
 
-      def self.map_entity_attributes(attributes)
+      def self.map_record_attributes(attributes)
         raise NotImplementedError
       end
 
-      def self.map_record_attributes(attributes)
+      def self.unmap_record_attributes(attributes)
         raise NotImplementedError
       end
 
