@@ -3,7 +3,7 @@ set -e
 
 function start {
   # executed when container is run
-  : # do nothing
+  bundle exec whenever --update-crontab --set environment=staging
 }
 
 if [ "$1" == "/sbin/my_init" ]; then
