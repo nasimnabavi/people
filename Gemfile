@@ -6,10 +6,6 @@ gem 'acts_as_list'
 gem 'animate-scss'
 gem "autoprefixer-rails"
 gem 'capistrano'
-gem 'capistrano-bundler'
-gem 'capistrano-passenger'
-gem 'capistrano-rails'
-gem 'capistrano-npm'
 gem 'capistrano-docker', github: 'netguru/capistrano-docker', tag: 'v0.2.5'
 gem 'carrierwave'
 gem 'coffee-rails'
@@ -47,7 +43,6 @@ gem 'rack-mini-profiler', require: false
 gem 'render_anywhere', require: false
 gem 'rollbar'
 gem 'ruby-trello'
-gem 'rvm1-capistrano3', require: false
 gem 'sass-rails'
 gem 'searchlight'
 gem 'selectize-rails'
