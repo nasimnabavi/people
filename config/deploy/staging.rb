@@ -12,19 +12,5 @@ set :docker_volumes, [
   "#{shared_path}/assets/javascripts/react_bundle.js:/var/www/app/app/assets/javascripts/react_bundle.js",
 ]
 
-set :docker_links, %w(postgres_ambassador:postgres)
-set :docker_additional_options, -> { "--env-file #{shared_path}/.env" }
-set :docker_apparmor_profile, "docker-ptrace"
 set :docker_dockerfile, "docker/staging/Dockerfile"
 
-namespace :docker do
-  namespace :npm do
-    task :build do
-      on roles(fetch(:docker_role)) do
-        execute :docker, task_command("npm run build")
-      end
-    end
-  end
-end
-
-after "docker:npm:install", "docker:npm:build"
