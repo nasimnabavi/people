@@ -2,7 +2,9 @@ class DashboardController < ApplicationController
   include ContextFreeRepos
 
   expose_decorated(:projects) { projects_repository.active_with_memberships }
-  expose_decorated(:users) { User.includes(:memberships, :primary_roles).where(memberships: {project_id: projects.ids}) }
+  expose_decorated(:users) do
+    User.includes(:memberships, :primary_roles).where(memberships: { project_id: projects.ids })
+  end
   expose_decorated(:memberships) { Membership.where(project_id: projects.ids) }
   expose(:note)
 
