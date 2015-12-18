@@ -43,7 +43,7 @@ export default class Users extends React.Component {
       users = users.filter(user => store.userIds.indexOf(user.id) > -1);
     }
     if(store.roleIds.length > 0) {
-      users = users.filter(user => store.roleIds.indexOf(user.primary_roles[0].id) > -1);
+      users = users.filter(user => user.primary_roles[0] && store.roleIds.indexOf(user.primary_roles[0].id) > -1);
     }
     if(store.actualProjectIds.length > 0) {
       users = users.filter(user => {
