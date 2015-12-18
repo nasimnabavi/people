@@ -6,8 +6,8 @@ export default class MembershipSource {
     const roleId = ProjectUsersStore.getUser(userId).primary_roles[0].id;
     return $.ajax({
       url: Routes.memberships_path(),
-      method: "POST",
-      dataType: "json",
+      method: 'POST',
+      dataType: 'json',
       data: {
         membership: {
           user_id: userId,
@@ -23,8 +23,8 @@ export default class MembershipSource {
   static update(params) {
     return $.ajax({
       url: Routes.membership_path(params.id),
-      method: "PUT",
-      dataType: "json",
+      method: 'PUT',
+      dataType: 'json',
       data: {
         membership: params
       }
