@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import SchedulingUserStore from '../../stores/SchedulingUserStore'
 import RoleStore from '../../stores/RoleStore'
 import AbilityStore from '../../stores/AbilityStore'
+import User from './user';
 
 
 export default class Scheduling extends React.Component {
@@ -24,6 +25,7 @@ export default class Scheduling extends React.Component {
   }
 
   render() {
+    const users = this.state.users.map(user => <User key={user.id} user={user} />);
     return(
       <div>
         <Filters />
@@ -40,6 +42,7 @@ export default class Scheduling extends React.Component {
             <th>Notes</th>
           </thead>
           <tbody>
+            {users}
           </tbody>
         </table>
       </div>
