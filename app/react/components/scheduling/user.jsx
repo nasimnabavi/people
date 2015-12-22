@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import Membership from './membership';
+import NotesModal from './notes-modal';
 
 export default class User extends React.Component {
   static get propTypes() {
@@ -44,6 +45,11 @@ export default class User extends React.Component {
       booked_memberships = <span>No booked projects.</span>;
     }
 
+    var notes_modal;
+    if(user.user_notes) {
+      notes_modal = <NotesModal notes={user.user_notes}/>;
+    }
+
     return(
       <tr>
         <td>
@@ -68,6 +74,7 @@ export default class User extends React.Component {
           <div className="booked_projects-region">{booked_memberships}</div>
         </td>
         <td className="user-notes">
+          {notes_modal}
         </td>
       </tr>
     );
