@@ -62,6 +62,8 @@ gem 'httparty'
 gem 'active_model_serializers'
 gem 'react_webpack_rails', '0.0.4'
 gem 'virtus', '~> 1.0', '>= 1.0.5'
+gem 'rom', '1.0.0.beta2'
+gem 'rom-sql', '0.7.0.beta1'
 gem 'rom-repository', '~> 0.2.0.beta1'
 
 group :development do

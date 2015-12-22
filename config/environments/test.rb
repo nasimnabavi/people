@@ -38,4 +38,8 @@ Hrguru::Application.configure do
   config.middleware.use RackSessionAccess::Middleware
 
   config.action_mailer.default_url_options = { host: AppConfig.domain }
+
+  config.to_prepare do
+    Rails.application.config.rom_container = ROM::ContainersFactory.new(default: [:memory]).build
+  end
 end

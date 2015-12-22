@@ -47,4 +47,8 @@ class ApplicationController < ActionController::Base
     gon.rabl template: 'app/views/layouts/flash.rabl', as: 'flash'
     flash.clear
   end
+
+  def rom_container
+    @rom_container ||= Rails.application.config.rom_container
+  end
 end

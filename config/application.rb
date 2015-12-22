@@ -30,5 +30,14 @@ module Hrguru
     # config.i18n.default_locale = :de
     config.hamlcoffee.name_filter = lambda { |n| n.sub /^backbone\/templates\//, '' }
     config.action_dispatch.tld_length = AppConfig.tld_length
+
+    config.to_prepare do
+      Rails.application.config.rom_container = ROM::ContainersFactory.new(
+        default: ROM::PostgreSqlGatewaysFactory.build_from_active_record_config(
+          ActiveRecord::Base.configurations.fetch(Rails.env)
+        )
+      ).build
+    end
+
   end
 end

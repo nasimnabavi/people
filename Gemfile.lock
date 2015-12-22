@@ -524,6 +524,10 @@ GEM
       rom (~> 1.0.0.beta1)
       rom-mapper (~> 0.3.beta1)
       rom-support (~> 1.0.0.beta1)
+    rom-sql (0.7.0.beta1)
+      dry-equalizer (~> 0.2)
+      rom (~> 1.0.0.beta1)
+      sequel (~> 4.18)
     rom-support (1.0.0.beta1)
       dry-equalizer (~> 0.2)
       transproc (~> 0.4.0)
@@ -576,6 +580,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sequel (4.29.0)
     sexp_processor (4.5.0)
     shoulda (3.5.0)
       shoulda-context (~> 1.0, >= 1.0.1)
@@ -733,7 +738,9 @@ DEPENDENCIES
   react_webpack_rails (= 0.0.4)
   render_anywhere
   rollbar
+  rom (= 1.0.0.beta2)
   rom-repository (~> 0.2.0.beta1)
+  rom-sql (= 0.7.0.beta1)
   rspec-its
   rspec-rails
   ruby-trello
