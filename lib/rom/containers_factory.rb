@@ -37,7 +37,7 @@ module ROM
       entities_root_path = entities_root_paths[entities_type]
       Dir[entities_path.join('**', '*.rb')].each do |file|
         klass = file.gsub(/#{entities_root_path.dirname}/, '').gsub(/\.rb/, '').camelize.constantize
-        @config.public_send("register_#{entities_type}", klass)
+        config.public_send("register_#{entities_type}", klass)
       end
     end
 
