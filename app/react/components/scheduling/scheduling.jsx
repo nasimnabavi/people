@@ -46,6 +46,12 @@ export default class Scheduling extends React.Component {
     if(store.roleIds.length !== 0) {
       usersToView = usersToView.filter(user => store.roleIds.indexOf(user.primary_role.id) > -1);
     }
+    if(store.abilityIds.length !== 0) {
+      usersToView = usersToView.filter(user => {
+        let filteredUserAbilities = user.ability_ids.filter(id => store.abilityIds.indexOf(id) > -1);
+        return filteredUserAbilities.length > 0
+      });
+    }
     this.setState({ users: usersToView });
   }
 
