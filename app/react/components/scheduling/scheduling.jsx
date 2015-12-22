@@ -40,6 +40,9 @@ export default class Scheduling extends React.Component {
 
   _filterUsers(store) {
     let usersToView = SchedulingUserStore.getState().users;
+    if(store.userIds.length !== 0) {
+      usersToView = usersToView.filter(user => store.userIds.indexOf(user.id) > -1);
+    }
     this.setState({ users: usersToView });
   }
 
