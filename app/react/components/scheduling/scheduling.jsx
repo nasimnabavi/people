@@ -2,7 +2,9 @@ import React, {PropTypes} from 'react';
 import SchedulingUserStore from '../../stores/SchedulingUserStore'
 import RoleStore from '../../stores/RoleStore'
 import AbilityStore from '../../stores/AbilityStore'
+import SchedulingFilterStore from '../../stores/SchedulingFilterStore'
 import User from './user';
+import Filters from './filters';
 
 
 export default class Scheduling extends React.Component {
@@ -22,6 +24,27 @@ export default class Scheduling extends React.Component {
     this.state = {
       users: SchedulingUserStore.getState().users
     }
+    this._filterUsers = this._filterUsers.bind(this);
+    this._changeUsers = this._changeUsers.bind(this);
+  }
+
+  componentDidMount() {
+    SchedulingFilterStore.listen(this._filterUsers);
+    SchedulingUserStore.listen(this._changeUsers);
+  }
+
+  componentWillUnmount() {
+    SchedulingFilterStore.unlisten(this._filterUsers);
+    SchedulingUserStore.unlisten(this._changeUsers);
+  }
+
+  _filterUsers(store) {
+    let usersToView = SchedulingUserStore.getState().users;
+    this.setState({ users: usersToView });
+  }
+
+  _changeUsers(store) {
+    this.setState({ users: store.users });
   }
 
   render() {
