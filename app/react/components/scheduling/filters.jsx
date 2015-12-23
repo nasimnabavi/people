@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import FiltersDropdowns from './filters-dropdowns';
 import HowItWorksModal from './how-it-works-modal';
+import FiltersTabs from './filters-tabs';
 
 export default class Filters extends React.Component {
   render() {
@@ -8,6 +9,7 @@ export default class Filters extends React.Component {
       <div id="filters">
         <FiltersDropdowns />
         <HowItWorksModal />
+        <FiltersTabs />
       </div>
     );
   }
