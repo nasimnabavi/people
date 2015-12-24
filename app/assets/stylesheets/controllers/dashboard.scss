@@ -178,28 +178,32 @@ body.dashboard {
   padding: 0;
   margin-bottom: 10px;
   border-bottom: 1px solid $gray-light;
+  font-weight: bolder;
+
+  a {
+    color: BLACK;
+  }
+
 
   li {
     display: inline-block;
-    margin-bottom: -1px;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+
+    a {
+      color: $gray;
+    }
 
     & + li {
       margin-left: 30px;
     }
   }
 
-  input[type='radio'] {
-    display: none;
+  li.selected {
+    border-bottom: 3px solid $brand-primary;
 
-    &:checked ~ label {
+    a {
       color: $brand-primary;
-      border-bottom: 3px solid $brand-primary;
-    }
-
-    &:checked ~ label {
-      .label-default {
-        background-color: $brand-primary;
-      }
     }
   }
 

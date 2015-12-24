@@ -1,12 +1,12 @@
 %h2 Projects
 %ul.projects-types
-  %li.active
+  %li{class: [["active", "index"].include?(controller.action_name) && "selected"]}
     =link_to active_dashboard_index_path do
       Active
-  %li.potential
+  %li{class: [controller.action_name == "potential" && "selected"]}
     = link_to potential_dashboard_index_path do
       Potential
-  %li.archived
+  %li{class: [controller.action_name == "archived" && "selected"]}
     = link_to archived_dashboard_index_path do
       Archived
 = react_component('projects', { projects: ActiveModel::ArraySerializer.new(projects, each_serializer: ProjectSerializer).as_json, users: ActiveModel::ArraySerializer.new(users, each_serializer: UserSerializer).as_json, memberships: memberships.as_json })
