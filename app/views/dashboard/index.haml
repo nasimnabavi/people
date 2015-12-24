@@ -9,4 +9,4 @@
   %li{ class: project_type_class("archived") }
     = link_to archived_dashboard_index_path do
       Archived
-= react_component('projects', { projects: ActiveModel::ArraySerializer.new(projects, each_serializer: ProjectSerializer).as_json, users: ActiveModel::ArraySerializer.new(users, each_serializer: UserSerializer).as_json, memberships: memberships.as_json })
+= react_component('projects', { projects: projects, users: users, memberships: memberships })
