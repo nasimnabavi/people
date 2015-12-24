@@ -3,10 +3,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_admin!, only: [:update, :fetch_abilities], unless: -> { check_action }
 
   expose(:user) { users_repository.get params[:id] }
-  expose_decorated(:users) { User.includes(:memberships, :primary_roles).active.by_last_name }
-  expose_decorated(:projects) { Project.where(archived: false) }
-  expose_decorated(:memberships) { Membership.where(project_id: projects.ids) }
-  expose_decorated(:roles)
+  expose(:users_index_page) { UserIndexPage.new }
   # FIXME: this is a bad way, we can't access repo from user model!
   expose(:user_memberships_repository) { UserMembershipsRepository.new(user) }
   expose(:user_positions_repository) { UserPositionsRepository.new(user) }
