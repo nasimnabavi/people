@@ -14,7 +14,7 @@ module Memberships
     private
 
     def clear_ids
-      @membership_ids.reject { |id| id.empty? }
+      @membership_ids.reject(&:empty?)
     end
   end
 end

@@ -42,6 +42,15 @@ class ScheduledUsersRepository
     technical_users.not_booked.unavailable
   end
 
+  def technical
+    User.active.includes(
+      :primary_roles,
+      current_memberships: [:project],
+      next_memberships: [:project],
+      booked_memberships: [:project])
+      .technical.order(last_name: :asc)
+  end
+
   private
 
   def base_users

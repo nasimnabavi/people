@@ -1,6 +1,5 @@
 #= require_self
 #= require_tree ./templates
-#= require ./views/scheduling/item_layout.coffee
 #= require_tree ./views
 #= require_tree ./models
 #= require_tree ./lib

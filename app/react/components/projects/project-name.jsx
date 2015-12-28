@@ -57,7 +57,7 @@ export default class ProjectName extends React.Component {
         </div>
         <div className="btn-primary glyphicon glyphicon-list js-open-project-notes show-notes"
           onClick={this.props.toggleNotesCallback}></div>
-        <a href="/projects/55/edit">
+        <a href={"/projects/" + this.props.project.id + "/edit"}>
           <div className="btn-primary glyphicon glyphicon-pencil show-notes"></div>
         </a>
       </div>

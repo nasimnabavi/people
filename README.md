@@ -11,6 +11,13 @@ The main purpose of the app is to manage people within the projects.
 
 The main table shows the current teams in each project, but you can also add people who will start working on the project in the future, and see the people who are going to join or leave the project team by clicking “highlight ending” and “highlight next”. The app also gathers the information about a team member, like role, telephone number, github nick, or the city in which we work.
 
+## Technology stack
+
+* Rails 4.2.5
+* Ruby 2.1.5
+* ReactJS 0.14.2
+* PostgreSQL
+
 ## System Setup
 You need ImageMagick installed on your system, on OS X this is a simple as:
 ```shell
@@ -28,7 +35,7 @@ On other systems check out the official [ImageMagick](http://www.imagemagick.org
  * create sec config file `cp config/sec_config.yml.sample config/sec_config.yml`
  * run ```rake db:setup``` - it will create your database and populate it with sample data
  * this app uses Google Auth. In order to configure it, checkout section **Dev auth setup** and **Local settings**.
- * once you have authentication credentials go to config/config.yml and update your google_client_id, google_secret, google_domain, github_client_id, github_secret accordingly
+ * once you have authentication credentials go to config/config.yml and update your `google_client_id`, `google_secret`, `google_domain`, `github_client_id`, `github_secret` accordingly
  * in `config/config.yml` set `emails/internal` to your domain.
 
 ### Development
@@ -43,9 +50,16 @@ You should put your local settings in `config/sec_config.yml` file which is not 
 
 Take a note that emails->internal: in `config/config.yml` should be domain used to login users eg. example.com not test@example.com
 
-Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
+### Additional Info
 
-### Trello integration(not needed for basic setup)
+ * after logging in, go to your Profile's settings and update your role to 'senior' or 'pm'
+ * by default only 'pm' and 'senior' roles have admin privilages - creating new projects, managing privileges, memberships etc.
+ * optionally update your emails and company_name
+ * after deploy run `rake team:set_fields` - it sets avatars and team colors.
+
+### Integrations (not needed for basic setup)
+
+#### Trello integration
 
 1. Get your developer key from https://trello.com/1/appKey/generate
 2. Use the developer key to obtain a token with read/write privileges: https://trello.com/1/authorize?key=DEV_KEY&name=APP_NAME&expiration=never&response_type=token&scope=read,write
@@ -60,12 +74,16 @@ Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
     schedule_board_id:    BOARD_ID
 ```
 
-### Additional Info
+#### Slack integration
 
- * after logging in, go to your Profile's settings and update your role to 'senior' or 'pm'
- * by default only 'pm' and 'senior' roles have admin privilages - creating new projects, managing privileges, memberships etc.
- * optionally update your emails and company_name
- * after deploy run `rake team:set_fields` - it sets avatars and team colors.
+1. Get slack webhook url (more info 
+[https://team-name.slack.com/services/new/incoming-webhook](https://team-name.slack.com/services/new/incoming-webhook)). You need slack admin support for it.
+2. Add credentials to `sec_config.yml`
+```yaml
+  slack:
+    webhook_url:          webhook_url
+    username:             PeopleApp
+```
 
 ## Dev auth setup
 
@@ -73,13 +91,13 @@ Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
 
   * goto [https://cloud.google.com/console](https://cloud.google.com/console)
   * create new project
-  * choose API & Auth > Credentials tab (on the left)
-  * create new Client Id
-  * choose `web application` option
+  * goto `API Manager` > `Credentials` > `OAuth consent screen` (second tab)
+  * fill in "Email address" and "Product name" and save
+  * choose `API Manager` > `Credentials` tab (first tab)
+  * Create client ID: `Add Credentials` > `OAuth 2.0 client ID`
+  * choose `Web application` option
   * set `Authorized JavaScript origins` to `http://localhost:3000`
   * set `Authorized redirect URI` to `http://localhost:3000/users/auth/google_oauth2/callback`
-  * goto API & Auth > Consent screen
-  * fill in "Email address" and "Product name" and save
 
 ### Github Auth
   * go to: [https://github.com/settings/applications/new](https://github.com/settings/applications/new)

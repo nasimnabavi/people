@@ -1,8 +1,7 @@
 require 'capistrano/setup'
 require 'capistrano/deploy'
-require 'capistrano/bundler'
-require 'capistrano/npm'
-require 'capistrano/rails'
-require 'capistrano/passenger'
-require 'rvm1/capistrano3'
-require 'whenever/capistrano'
+
+require 'capistrano/docker'
+require 'capistrano/docker/npm'
+require 'capistrano/docker/assets'
+require 'capistrano/docker/migration'

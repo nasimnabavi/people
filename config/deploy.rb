@@ -4,20 +4,18 @@ set :application, "people"
 set :repo_url,  "git://github.com/netguru/people.git"
 set :deploy_to, ENV['DEPLOY_PATH']
 
-set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+set :docker_links, %w(postgres_ambassador:postgres)
+set :docker_additional_options, -> { "--env-file #{shared_path}/.env" }
+set :docker_apparmor_profile, "docker-ptrace"
 
-set :linked_files, %w(config/mongoid.yml config/sec_config.yml config/database.yml)
-set :linked_dirs, %w(bin log tmp vendor/bundle public/uploads node_modules)
-set :npm_flags, '--production --no-spin'
-
-namespace :webpack do
-  task :build do
-    on roles :web do
-      within release_path do
-        execute :bundle, 'exec npm run build'
+namespace :docker do
+  namespace :npm do
+    task :build do
+      on roles(fetch(:docker_role)) do
+        execute :docker, task_command("npm run build")
       end
     end
   end
 end
 
-after 'npm:install', 'webpack:build'
+after "docker:npm:install", "docker:npm:build"
