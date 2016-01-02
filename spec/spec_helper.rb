@@ -53,6 +53,7 @@ RSpec.configure do |config|
   config.before(:each) do
     Timecop.return
     DatabaseCleaner.start
+    @rom_container = Rails.application.config.rom_default_container
   end
 
   config.after(:each) do
