@@ -25,7 +25,8 @@ module ROM
       def options
         {
           encoding: config[:encoding],
-          pool: config[:pool]
+          pool: config[:pool],
+          infer_relations: false
         }
       end
 

@@ -40,6 +40,11 @@ Hrguru::Application.configure do
   config.action_mailer.default_url_options = { host: AppConfig.domain }
 
   config.to_prepare do
-    Rails.application.config.rom_container = ROM::ContainersFactory.new(default: [:memory]).build
+    Rails.application.config.rom_sql_container = ROM::ContainersFactory.new(
+      default: ROM::PostgreSqlGatewaysFactory.build_from_active_record_config(
+        ActiveRecord::Base.configurations.fetch('test')
+      )
+    ).build
+    Rails.application.config.rom_default_container = ROM::ContainersFactory.new(default: [:memory]).build
   end
 end

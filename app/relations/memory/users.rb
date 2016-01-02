@@ -1,7 +1,8 @@
 module Relations
   module Memory
     class Users < ROM::Relation[:memory]
-      register_as :users
+      include Relations::Memory::BaseView
+
       dataset :users
     end
   end

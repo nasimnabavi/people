@@ -49,6 +49,6 @@ class ApplicationController < ActionController::Base
   end
 
   def rom_container
-    @rom_container ||= Rails.application.config.rom_container
+    @rom_container ||= Rails.application.config.rom_default_container
   end
 end

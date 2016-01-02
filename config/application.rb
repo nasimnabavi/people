@@ -32,7 +32,7 @@ module Hrguru
     config.action_dispatch.tld_length = AppConfig.tld_length
 
     config.to_prepare do
-      Rails.application.config.rom_container = ROM::ContainersFactory.new(
+      Rails.application.config.rom_default_container = ROM::ContainersFactory.new(
         default: ROM::PostgreSqlGatewaysFactory.build_from_active_record_config(
           ActiveRecord::Base.configurations.fetch(Rails.env)
         )
