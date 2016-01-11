@@ -28,12 +28,10 @@ On other systems check out the official [ImageMagick](http://www.imagemagick.org
 
 ## Project setup
 
- * ```cd``` into project and ```bundle install``` to install all of the gem dependencies
- * ```npm install``` to install node dependencies
- * ```npm build``` to generate react-bundle for the first time
- * create database config file `cp config/database.yml.sample config/database.yml` and fill it with your credentials
- * create sec config file `cp config/sec_config.yml.sample config/sec_config.yml`
- * run ```rake db:setup``` - it will create your database and populate it with sample data
+ * just run
+  ```bash
+    bin/setup
+  ```
  * this app uses Google Auth. In order to configure it, checkout section **Dev auth setup** and **Local settings**.
  * once you have authentication credentials go to config/config.yml and update your `google_client_id`, `google_secret`, `google_domain`, `github_client_id`, `github_secret` accordingly
  * in `config/config.yml` set `emails/internal` to your domain.
@@ -41,14 +39,17 @@ On other systems check out the official [ImageMagick](http://www.imagemagick.org
 ### Development
 
 * run rails server
-* run webpack in watch mode:  ```$ npm start```
+* run webpack in watch mode:
+  ```
+  npm start
+  ```
 
 ### Local settings
 
 All the required app settings are located in `config/config.yml` file.
 You should put your local settings in `config/sec_config.yml` file which is not checked in version control.
 
-Take a note that emails->internal: in `config/config.yml` should be domain used to login users eg. example.com not test@example.com
+Take a note that emails->internal in `config/config.yml` should be domain used to login users eg. `example.com` not `test@example.com`
 
 ### Additional Info
 
@@ -76,7 +77,7 @@ Take a note that emails->internal: in `config/config.yml` should be domain used 
 
 #### Slack integration
 
-1. Get slack webhook url (more info 
+1. Get slack webhook url (more info
 [https://team-name.slack.com/services/new/incoming-webhook](https://team-name.slack.com/services/new/incoming-webhook)). You need slack admin support for it.
 2. Add credentials to `sec_config.yml`
 ```yaml
@@ -94,10 +95,16 @@ Take a note that emails->internal: in `config/config.yml` should be domain used 
   * goto `API Manager` > `Credentials` > `OAuth consent screen` (second tab)
   * fill in "Email address" and "Product name" and save
   * choose `API Manager` > `Credentials` tab (first tab)
-  * Create client ID: `Add Credentials` > `OAuth 2.0 client ID`
+  * Create client ID: `New Credentials` > `OAuth 2.0 client ID`
   * choose `Web application` option
-  * set `Authorized JavaScript origins` to `http://localhost:3000`
-  * set `Authorized redirect URI` to `http://localhost:3000/users/auth/google_oauth2/callback`
+  * set `Authorized JavaScript origins` to:
+  ```
+    http://localhost:3000
+  ```
+  * set `Authorized redirect URI` to
+  ```
+    http://localhost:3000/users/auth/google_oauth2/callback
+  ```
 
 ### Github Auth
   * go to: [https://github.com/settings/applications/new](https://github.com/settings/applications/new)
