@@ -59,6 +59,8 @@ GEM
     acts_as_list (0.6.0)
       activerecord (>= 3.0)
     addressable (2.3.8)
+    airbrussh (0.8.0)
+      sshkit (>= 1.6.1, != 1.7.0)
     animate-scss (0.0.5)
       sass
     arel (6.0.3)
@@ -620,6 +622,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   acts_as_list
+  airbrussh
   animate-scss
   autoprefixer-rails
   awesome_print
@@ -699,3 +702,6 @@ DEPENDENCIES
   webmock
   whenever
   xray-rails
+
+BUNDLED WITH
+   1.10.6
