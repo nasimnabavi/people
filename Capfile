@@ -1,3 +1,5 @@
+require "airbrussh/capistrano"
+
 require 'capistrano/setup'
 require 'capistrano/deploy'
 
