@@ -18,6 +18,7 @@ tags
 /.idea
 
 /app/assets/javascripts/react_bundle.js
+/app/assets/stylesheets/react_bundle.css
 node_modules
 
 # Gemsurance report files

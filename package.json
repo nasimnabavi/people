@@ -1,5 +1,6 @@
 {
   "name": "Hrguru",
+  "private": true,
   "devDependencies": {
     "babel-eslint": "^4.1.1",
     "eslint": "^0.24.1",
