@@ -4,6 +4,7 @@ gem 'rails', '4.2.5'
 
 gem 'acts_as_list'
 gem 'animate-scss'
+gem 'airbrussh'
 gem "autoprefixer-rails"
 gem 'capistrano'
 gem 'capistrano-docker', github: 'netguru/capistrano-docker', tag: 'v0.2.5'
