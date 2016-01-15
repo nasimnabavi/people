@@ -4,6 +4,10 @@ module ApplicationHelper
     'active' if name == controller_name
   end
 
+  def project_type_class(names)
+    [names, ('selected' if names.include?(action_name))]
+  end
+
   def body_css_classes
     "#{controller_path.gsub('/', ' ')} #{action_name}"
   end
