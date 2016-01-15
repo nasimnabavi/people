@@ -15,6 +15,7 @@
 //= require moment
 //= require backbone/hrguru
 //= require abilities/icon_preview
+//= require abilities/selectize_skills
 //= require react_integration
 //= require react_bundle
 //= require_tree .
