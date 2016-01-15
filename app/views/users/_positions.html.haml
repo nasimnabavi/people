@@ -10,8 +10,8 @@
               = p.starts_at_date
               = p.role.label
             %span.positions-primary Primary role?
-            = form_tag(toggle_primary_position_path(p), method: :put) do
-              = check_box_tag "primary-#{p.id}", 'true', p.primary, class: 'primary-toggle'
+            = form_tag(toggle_primary_position_path(p), method: :put, remote: true) do
+              = check_box_tag "primary-#{p.id}", 'true', p.primary, class: 'primary-toggle', onchange: "$(this).parent('form').submit();"
               = label_tag "primary-#{p.id}", ''
           = link_to 'delete', p, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
 
