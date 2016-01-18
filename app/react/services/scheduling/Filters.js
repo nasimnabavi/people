@@ -49,7 +49,7 @@ export default class Filters {
     )
   }
 
-  static selectInUnavailable(users) {
+  static selectUnavailable(users) {
     return users.filter(
       user => _.some(user.current_memberships, (membership) => {
         return membership.name === "unavailable";
