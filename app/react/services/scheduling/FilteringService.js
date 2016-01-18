@@ -1,4 +1,5 @@
 import Filters from './Filters';
+import Sorting from './Sorting';
 import * as FilterTabs from '../../constants/scheduling/FilterTabs';
 
 export default class FilteringService {
@@ -15,7 +16,6 @@ export default class FilteringService {
 
     switch(store.currentTab) {
       case FilterTabs.ALL:
-        debugger
         usersToView = Filters.selectAll(usersToView);
       break;
       case FilterTabs.JUNIORS_AND_INTERNS:
@@ -37,6 +37,12 @@ export default class FilteringService {
         debugger
         usersToView = Filters.selectNotScheduled(usersToView);
       break;
+    }
+
+    if(_.contains([FilterTabs.ALL, FilterTabs.NOT_SCHEDULED], store.currentTab)) {
+      usersToView = Sorting.sortUsersAlphabetically(usersToView);
+    } else {
+      usersToView = Sorting.sortByTimeInProject(usersToView);
     }
 
     return usersToView;
