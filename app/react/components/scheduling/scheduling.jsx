@@ -7,7 +7,6 @@ import User from './user';
 import Filters from './filters';
 import FilteringService from '../../services/scheduling/FilteringService';
 
-
 export default class Scheduling extends React.Component {
   static get propTypes() {
     return {
@@ -23,7 +22,7 @@ export default class Scheduling extends React.Component {
     RoleStore.setInitialState(this.props.roles);
     AbilityStore.setInitialState(this.props.abilities);
     this.state = {
-      users: SchedulingUserStore.getState().users
+      users: FilteringService.prepareDefaultData(SchedulingUserStore.getState().users)
     }
     this._filterUsers = this._filterUsers.bind(this);
     this._changeUsers = this._changeUsers.bind(this);

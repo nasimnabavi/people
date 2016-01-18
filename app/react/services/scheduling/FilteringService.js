@@ -3,6 +3,10 @@ import Sorting from './Sorting';
 import * as FilterTabs from '../../constants/scheduling/FilterTabs';
 
 export default class FilteringService {
+  static prepareDefaultData(users) {
+    return Filters.selectAll(users);
+  }
+
   static filter(usersToView, store) {
     if(store.userIds.length !== 0) {
       usersToView = Filters.selectUsers(usersToView, store);
