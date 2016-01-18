@@ -5,7 +5,13 @@ class SchedulingFilterActions {
     this.generateActions(
       'changeUserFilter',
       'changeRoleFilter',
-      'changeAbilityFilter'
+      'changeAbilityFilter',
+      'showAll',
+      'showJuniorsAndInterns',
+      'showToRotate',
+      'showInternals',
+      'showInRotation',
+      'showUnavailable'
     )
   }
 }
