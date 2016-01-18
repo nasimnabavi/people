@@ -6,8 +6,17 @@ import SchedulingFilterActions from '../../actions/SchedulingFilterActions';
 
 export default class FiltersTabs extends React.Component {
   render() {
-    const filterTabs = ["All", "Juniors/Interns", "To rotate", "Internals", "Rotation in progress"].map(name => {
-      return <FilterTab name={name} />;
+    const filterActions = [
+      { key: 1, name: "All", action: SchedulingFilterActions.showAll },
+      { key: 2, name: "Juniors/Interns", action: SchedulingFilterActions.showJuniorsAndInterns },
+      { key: 3, name: "To rotate", action: SchedulingFilterActions.showToRotate },
+      { key: 4, name: "Internals", action: SchedulingFilterActions.showInternals },
+      { key: 5, name: "Rotation in progress", action: SchedulingFilterActions.showInRotation },
+      { key: 6, name: "Unavailable", action: SchedulingFilterActions.showUnavailable }
+    ];
+
+    const filterTabs = filterActions.map(filterAction => {
+      return <FilterTab key={filterAction.key} name={filterAction.name} filterAction={filterAction.action} />;
     });
 
     return(
