@@ -15,7 +15,9 @@ export default class Filters {
   }
 
   static selectAll(users) {
-    return users;
+    return _.filter(users, (user) => {
+      return user.current_memberships.length > 0 || user.next_memberships.length > 0
+    });
   }
 
   static selectJuniorsAndInterns(users) {
@@ -57,11 +59,9 @@ export default class Filters {
     )
   }
 
-  static selectNotAvailable(users) {
-    return users.filter(
-      user => _.some(user.current_memberships, (membership) => {
-        return membership.name === "unavailable";
-      })
-    )
+  static selectNotScheduled(users) {
+    return _.filter(users, (user) => {
+      return user.current_memberships.length == 0 && user.next_memberships.length == 0
+    });
   }
 }
