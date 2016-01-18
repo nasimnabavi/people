@@ -1,4 +1,4 @@
-export class Filters {
+export default class Filters {
   static selectUsers(user, store) {
     return users.filter(user => store.userIds.indexOf(user.id) > -1);
   }
