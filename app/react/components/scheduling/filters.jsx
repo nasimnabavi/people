@@ -9,7 +9,7 @@ export default class Filters extends React.Component {
       <div id="filters">
         <FiltersDropdowns />
         <HowItWorksModal />
-        <FiltersTabs />
+        <FiltersTabs showHidden={this.props.showHidden} />
       </div>
     );
   }

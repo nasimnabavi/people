@@ -53,7 +53,7 @@ export default class Scheduling extends React.Component {
     const users = this.state.users.map(user => <User key={user.id} user={user} />);
     return(
       <div>
-        <Filters />
+        <Filters showHidden={this.props.admin} />
         <table className="table table-striped table-hover scheduled-users">
           <thead>
             <th>
