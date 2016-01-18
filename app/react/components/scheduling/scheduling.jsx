@@ -61,18 +61,15 @@ export default class Scheduling extends React.Component {
         usersToView = FilterService.selectJuniorsAndInterns(usersToView);
       break;
       case FilterTabs.TO_ROTATE:
-        debugger
         usersToView = FilterService.selectToRotate(usersToView);
       break;
       case FilterTabs.INTERNALS:
         usersToView = FilterService.selectInternals(usersToView);
       break;
       case FilterTabs.IN_ROTATION:
-        debugger
         usersToView = FilterService.selectInRotation(usersToView);
       break;
       case FilterTabs.UNAVAILABLE:
-        debugger
         usersToView = FilterService.selectUnavailable(usersToView);
       break;
       case FilterTabs.NOT_SCHEDULED:

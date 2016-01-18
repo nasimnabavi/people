@@ -14,11 +14,23 @@ export class Filters {
     });
   }
 
+  static selectAll(users) {
+    return users;
+  }
+
   static selectJuniorsAndInterns(users) {
     return users.filter(
-      user => _.some(user.primary_role, (role) => {
-        let name = role.name.toLowerCase();
+      user => {
+        let name = user.primary_role.name.toLowerCase();
         return name.indexOf('junior') > -1 || name.indexOf('intern') > -1;
+      }
+    )
+  }
+
+  static selectToRotate(users) {
+    return users.filter(
+      user => _.some(user.current_memberships, (membership) => {
+        return !membership.internal && membership.billable && !membership.end_date;
       })
     )
   }
@@ -31,7 +43,25 @@ export class Filters {
 
   static selectInRotation(users) {
     return users.filter(
-      user => _.some(user.current_memberships, (membership) => membership.internal)
+      user => _.some(user.booked_memberships, (membership) => {
+        return !membership.internal && membership.billable && !membership.end_date;
+      })
+    )
+  }
+
+  static selectInUnavailable(users) {
+    return users.filter(
+      user => _.some(user.current_memberships, (membership) => {
+        return membership.name === "unavailable";
+      })
+    )
+  }
+
+  static selectNotAvailable(users) {
+    return users.filter(
+      user => _.some(user.current_memberships, (membership) => {
+        return membership.name === "unavailable";
+      })
     )
   }
 }
