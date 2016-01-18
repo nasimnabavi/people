@@ -85,7 +85,8 @@ export default class Scheduling extends React.Component {
               <p>User</p>
             </th>
             <th>
-              <p>Role</p></th>
+              <p>Role</p>
+            </th>
             <th>Current project</th>
             <th>Next Projects</th>
             <th>Booked</th>
