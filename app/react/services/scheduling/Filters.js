@@ -1,5 +1,5 @@
 export default class Filters {
-  static selectUsers(user, store) {
+  static selectUsers(users, store) {
     return users.filter(user => store.userIds.indexOf(user.id) > -1);
   }
 
