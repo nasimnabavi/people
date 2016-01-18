@@ -46,6 +46,10 @@ class SchedulingFilterStore {
   showUnavailable(){
     this.setState({ currentTab: FilterTabs.UNAVAILABLE});
   }
+
+  showNotScheduled(){
+    this.setState({ currentTab: FilterTabs.NOT_SCHEDULED});
+  }
 }
 
 export default alt.createStore(SchedulingFilterStore);

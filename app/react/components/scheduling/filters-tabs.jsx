@@ -12,7 +12,8 @@ export default class FiltersTabs extends React.Component {
       { key: 3, name: "To rotate", action: SchedulingFilterActions.showToRotate },
       { key: 4, name: "Internals", action: SchedulingFilterActions.showInternals },
       { key: 5, name: "Rotation in progress", action: SchedulingFilterActions.showInRotation },
-      { key: 6, name: "Unavailable", action: SchedulingFilterActions.showUnavailable }
+      { key: 6, name: "Unavailable", action: SchedulingFilterActions.showUnavailable },
+      { key: 7, name: "Not Scheduled", action: SchedulingFilterActions.showNotScheduled }
     ];
 
     const filterTabs = filterActions.map(filterAction => {

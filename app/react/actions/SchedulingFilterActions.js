@@ -11,7 +11,8 @@ class SchedulingFilterActions {
       'showToRotate',
       'showInternals',
       'showInRotation',
-      'showUnavailable'
+      'showUnavailable',
+      'showNotScheduled'
     )
   }
 }

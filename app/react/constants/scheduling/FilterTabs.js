@@ -4,5 +4,6 @@ module.exports = {
   TO_ROTATE: "show_to_rotate",
   INTERNALS: "show_internals",
   IN_ROTATION: "show_in_rotation",
-  UNAVAILABLE: "show_unavailable"
+  UNAVAILABLE: "show_unavailable",
+  NOT_SCHEDULED: "not_scheduled"
 };
