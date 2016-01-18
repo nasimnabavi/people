@@ -34,7 +34,6 @@ export default class FilteringService {
         usersToView = Filters.selectUnavailable(usersToView);
       break;
       case FilterTabs.NOT_SCHEDULED:
-        debugger
         usersToView = Filters.selectNotScheduled(usersToView);
       break;
     }
