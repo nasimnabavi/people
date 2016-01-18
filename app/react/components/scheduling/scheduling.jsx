@@ -53,9 +53,16 @@ export default class Scheduling extends React.Component {
     }
 
     switch(store.currentTab) {
-      case FilterTabs.JUNIORS_AND_INTERNS:
+      case FilterTabs.ALL:
         debugger
+        usersToView = FilterService.selectAll(usersToView);
+      break;
+      case FilterTabs.JUNIORS_AND_INTERNS:
         usersToView = FilterService.selectJuniorsAndInterns(usersToView);
+      break;
+      case FilterTabs.TO_ROTATE:
+        debugger
+        usersToView = FilterService.selectToRotate(usersToView);
       break;
       case FilterTabs.INTERNALS:
         usersToView = FilterService.selectInternals(usersToView);
@@ -64,8 +71,15 @@ export default class Scheduling extends React.Component {
         debugger
         usersToView = FilterService.selectInRotation(usersToView);
       break;
+      case FilterTabs.UNAVAILABLE:
+        debugger
+        usersToView = FilterService.selectUnavailable(usersToView);
+      break;
+      case FilterTabs.NOT_SCHEDULED:
+        debugger
+        usersToView = FilterService.selectNotScheduled(usersToView);
+      break;
     }
-
 
     this.setState({ users: usersToView });
   }
