@@ -30,7 +30,7 @@ export default class Filters {
   static selectToRotate(users) {
     return users.filter(
       user => _.some(user.current_memberships, (membership) => {
-        return !membership.internal && membership.billable && !membership.end_date;
+        return !membership.internal && membership.billable && !membership.ends_at;
       })
     )
   }
@@ -43,8 +43,8 @@ export default class Filters {
 
   static selectInRotation(users) {
     return users.filter(
-      user => _.some(user.booked_memberships, (membership) => {
-        return !membership.internal && membership.billable && !membership.end_date;
+      user => _.some(user.next_memberships, (membership) => {
+        return !membership.internal && membership.billable && !membership.ends_at;
       })
     )
   }
