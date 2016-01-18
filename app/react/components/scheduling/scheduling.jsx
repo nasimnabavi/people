@@ -5,6 +5,8 @@ import AbilityStore from '../../stores/AbilityStore'
 import SchedulingFilterStore from '../../stores/SchedulingFilterStore'
 import User from './user';
 import Filters from './filters';
+import * as FilterTabs from '../../constants/scheduling/FilterTabs';
+import {Filters as FilterService} from '../../services/scheduling/Filters';
 
 
 export default class Scheduling extends React.Component {
@@ -41,17 +43,30 @@ export default class Scheduling extends React.Component {
   _filterUsers(store) {
     let usersToView = SchedulingUserStore.getState().users;
     if(store.userIds.length !== 0) {
-      usersToView = usersToView.filter(user => store.userIds.indexOf(user.id) > -1);
+      usersToView = FilterService.selectUsers(usersToView, store);
     }
     if(store.roleIds.length !== 0) {
-      usersToView = usersToView.filter(user => store.roleIds.indexOf(user.primary_role.id) > -1);
+      usersToView = FilterService.selectRoles(usersToView, store);
     }
     if(store.abilityIds.length !== 0) {
-      usersToView = usersToView.filter(user => {
-        let filteredUserAbilities = user.ability_ids.filter(id => store.abilityIds.indexOf(id) > -1);
-        return filteredUserAbilities.length > 0
-      });
+      usersToView = FilterService.selectAbilities(usersToView, store);
     }
+
+    switch(store.currentTab) {
+      case FilterTabs.JUNIORS_AND_INTERNS:
+        debugger
+        usersToView = FilterService.selectJuniorsAndInterns(usersToView);
+      break;
+      case FilterTabs.INTERNALS:
+        usersToView = FilterService.selectInternals(usersToView);
+      break;
+      case FilterTabs.IN_ROTATION:
+        debugger
+        usersToView = FilterService.selectInRotation(usersToView);
+      break;
+    }
+
+
     this.setState({ users: usersToView });
   }
 
