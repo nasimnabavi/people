@@ -1,12 +1,12 @@
 import React, {PropTypes} from 'react';
 import SchedulingUserStore from '../../stores/SchedulingUserStore'
 import SchedulingFilterStore from '../../stores/SchedulingFilterStore'
-import SchedulingFilterActions from '../../actions/SchedulingFilterActions';
 
 export default class FiltersTab extends React.Component {
   static get propTypes() {
     return {
-      name: React.PropTypes.string.isRequired
+      name: React.PropTypes.string.isRequired,
+      filterAction: React.PropTypes.func
     };
   }
 
@@ -16,8 +16,7 @@ export default class FiltersTab extends React.Component {
   }
 
   handleFilterChange(values) {
-    let objectIds = [];
-    SchedulingFilterActions.changeUserFilter(objectIds);
+    this.props.filterAction();
   }
 
   render() {
@@ -26,7 +25,7 @@ export default class FiltersTab extends React.Component {
 
     return(
       <li className="category">
-        <a href="#">
+        <a href="#" onClick={this.handleFilterChange}>
           {this.props.name}
           <span className="user-count"> ()</span>
         </a>
