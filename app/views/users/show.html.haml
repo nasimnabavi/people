@@ -24,3 +24,9 @@
   .time-section
     .timeline
     .timeline-buttons
+
+:javascript
+  var elTimeline = $(".timeline");
+  var timeline = elTimeline.timeline(gon.events);
+  elTimeline.scrollTo(elTimeline[0].scrollWidth, 0);
+  $('#user').append(timeline);
