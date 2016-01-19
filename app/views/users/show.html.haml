@@ -27,6 +27,9 @@
 
 :javascript
   var elTimeline = $(".timeline");
-  var timeline = elTimeline.timeline(gon.events);
+  var filteredEvents = gon.events.filter(function(obj) {
+    return obj.project_potential === false;
+  });
+  var timeline = elTimeline.timeline(filteredEvents);
   elTimeline.scrollTo(elTimeline[0].scrollWidth, 0);
   $('#user').append(timeline);
