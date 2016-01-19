@@ -46,7 +46,7 @@ en:
     edit:
       potential:
         header: Potential memberships
-        description: If you change project from potential to non-potential, memberships that that are not checked will be removed from the project.
+        description: If you change project from potential to non-potential, memberships that are not checked will be removed from the project.
         none: No potential memberships
         stays_checked: stays checked
         stays_unchecked: stays unchecked
