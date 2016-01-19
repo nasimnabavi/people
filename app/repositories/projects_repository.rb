@@ -12,7 +12,7 @@ class ProjectsRepository
   end
 
   def active
-    Project.where({ archived: false, potential: false })
+    Project.where(archived: false, potential: false)
   end
 
   def active_sorted
@@ -36,11 +36,11 @@ class ProjectsRepository
   end
 
   def active_with_memberships
-    projects_with_memberships_and_notes.where({ archived: false, potential: false })
+    projects_with_memberships_and_notes.where(archived: false, potential: false)
   end
 
   def potential
-    projects_with_memberships_and_notes.where({ potential: true, archived: false })
+    projects_with_memberships_and_notes.where(potential: true, archived: false)
   end
 
   def archived
