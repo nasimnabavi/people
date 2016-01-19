@@ -67,4 +67,111 @@ describe ProjectsRepository do
       expect(subject).not_to include not_synchronized_project
     end
   end
+
+  context 'project statuses' do
+    let(:active_project) { create(:project) }
+    let(:potential_project) { create(:project, potential: true) }
+    let(:archived_project) { create(:project, archived: true) }
+    let(:archived_potential_project) { create(:project, archived: true, potential: true) }
+
+    describe '#active_with_memberships' do
+      subject { described_class.new.active_with_memberships }
+
+      it 'returns active projects' do
+        expect(subject).to include active_project
+      end
+
+      it 'does not return potential projects' do
+        expect(subject).not_to include potential_project
+      end
+
+      it 'does not return archived projects' do
+        expect(subject).not_to include archived_project
+      end
+
+      it 'does not return archived potential projects' do
+        expect(subject).not_to include archived_potential_project
+      end
+    end
+
+    describe '#active' do
+      subject { described_class.new.active }
+
+      it 'returns active projects' do
+        expect(subject).to include active_project
+      end
+
+      it 'does not return potential projects' do
+        expect(subject).not_to include potential_project
+      end
+
+      it 'does not return archived projects' do
+        expect(subject).not_to include archived_project
+      end
+
+      it 'does not return archived potential projects' do
+        expect(subject).not_to include archived_potential_project
+      end
+    end
+
+    describe '#potential' do
+      subject { described_class.new.potential }
+
+      it 'does not return active projects' do
+        expect(subject).not_to include active_project
+      end
+
+      it 'returns potential projects' do
+        expect(subject).to include potential_project
+      end
+
+      it 'does not return archived projects' do
+        expect(subject).not_to include archived_project
+      end
+
+      it 'does not return archived potential projects' do
+        expect(subject).not_to include archived_potential_project
+      end
+    end
+
+    describe '#not_potential' do
+      subject { described_class.new.not_potential }
+
+      it 'returns active projects' do
+        expect(subject).to include active_project
+      end
+
+      it 'does not return potential projects' do
+        expect(subject).not_to include potential_project
+      end
+
+      it 'returns archived projects' do
+        expect(subject).to include archived_project
+      end
+
+      it 'does not return archived potential projects' do
+        expect(subject).not_to include archived_potential_project
+      end
+    end
+
+    describe '#archived' do
+      subject { described_class.new.archived }
+
+      it 'does not return active projects' do
+        expect(subject).not_to include active_project
+      end
+
+      it 'does not return potential projects' do
+        expect(subject).not_to include potential_project
+      end
+
+      it 'returns archived projects' do
+        expect(subject).to include archived_project
+      end
+
+      it 'returns archived potential projects' do
+        expect(subject).to include archived_potential_project
+      end
+    end
+  end
 end
