@@ -229,29 +229,31 @@ describe 'Projects page', js: true do
 
     describe 'add a new note' do
       before do
-        find('.open-all-notes-button').trigger('click')
+        find('.show-notes').trigger('click')
       end
 
-      xit 'add a note to the project' do
+      it 'add a note to the project' do
+        expect(page).not_to have_selector('div.note-group')
         find('input.new-project-note-text').set('Test note')
         find('a.new-project-note-submit').click
-        expect(page.find('div.scroll-overflow', text: 'Test note')).to be_visible
+        expect(page.find('div.note-group', text: 'Test note')).to be_visible
       end
     end
 
     describe 'remove note' do
-
       before do
         create(:note, user: pm_user, project: active_project)
         visit '/dashboard'
         find('.projects-types li.active').click
-        find('.open-all-notes-button').trigger('click')
+        find('.show-notes').trigger('click')
       end
 
-      xit 'remove a note' do
-        expect(page.find('div.scroll-overflow', text: note.text)).to be_visible
+      it 'remove a note' do
+        expect(page).to have_selector('div.note-group')
+        expect(page).to have_content(note.text)
         find('span.note-remove').click
-        expect(page.find('.alert-success')).to be_visible
+        expect(page).not_to have_selector('div.note-group')
+        expect(page).not_to have_content(note.text)
       end
     end
   end
