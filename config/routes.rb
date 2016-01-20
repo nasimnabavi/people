@@ -15,7 +15,17 @@ Hrguru::Application.routes.draw do
     root 'users#index', as: 'listing'
   end
 
-  get 'scheduling', to: 'scheduling#index'
+  resources :scheduling, only: [:index], path: 'scheduling' do
+    get 'all', on: :collection
+    get 'juniors_and_interns', on: :collection
+    get 'to_rotate', on: :collection
+    get 'in_internals', on: :collection
+    get 'with_rotations_in_progress', on: :collection
+    get 'in_commercial_projects_with_due_date', on: :collection
+    get 'booked', on: :collection
+    get 'unavailable', on: :collection
+    get 'not_scheduled', on: :collection
+  end
 
   namespace :api do
     scope module: :v1 do
