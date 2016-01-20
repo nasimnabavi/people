@@ -34,6 +34,12 @@ export default class FilteringService {
       case FilterTabs.IN_ROTATION:
         usersToView = Filters.selectInRotation(usersToView);
       break;
+      case FilterTabs.IN_COMMERCIAL_PROJECTS_WITH_DUE_DATE:
+        usersToView = Filters.showInCommercialProjectsWithDueDate(usersToView);
+      break;
+      case FilterTabs.BOOKED:
+        usersToView = Filters.showBooked(usersToView);
+      break;
       case FilterTabs.UNAVAILABLE:
         usersToView = Filters.selectUnavailable(usersToView);
       break;
