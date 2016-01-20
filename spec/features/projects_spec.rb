@@ -25,8 +25,8 @@ describe 'Projects page', js: true do
   end
 
   describe 'tabs' do
-    xit 'has Active/Potential/Archived tabs' do
-      within('#filters') do
+    it 'has Active/Potential/Archived tabs' do
+      within('.projects-types') do
         page.find('li.active').click
         page.find('li.potential').click
         page.find('li.archived').click
@@ -36,14 +36,25 @@ describe 'Projects page', js: true do
 
   describe 'project row' do
     context 'when on Active tab' do
-      xit 'displays action icons (timelapse) when hovered' do
-        within('#filters') { page.find('li.active').click }
+      before do
+        within('.projects-types') { page.find('li.active').click }
+      end
 
+      it 'displays action icon (archive) when hovered' do
         within('.project') do
-          expect(page.find('.unarchive', visible: false)).to_not be_visible
           expect(page.find('.archive')).to be_visible
-          expect(page.find('.info.js-timeline-show')).to be_visible
         end
+      end
+
+      it 'displays proper projects' do
+        expect(page).to have_content(active_project.name)
+        expect(page).not_to have_content(potential_project.name)
+        expect(page).not_to have_content(archived_project.name)
+        expect(page).not_to have_content(potential_archived_project.name)
+      end
+
+      it 'allows adding memberships to an active project' do
+        expect(page.first('.project')).to have_selector('.Select-placeholder')
       end
 
       describe 'show next' do
@@ -52,7 +63,7 @@ describe 'Projects page', js: true do
         end
 
         context 'when checked' do
-          xit 'shows future memberships' do
+          it 'shows future memberships' do
             visit '/dashboard'
             check 'show-next'
             expect(page).to have_content(future_membership.user.last_name)
@@ -76,9 +87,9 @@ describe 'Projects page', js: true do
           create(:membership, project: active_project, starts_at: Time.now + 2.weeks)
         end
 
-        xit 'shows number of present people in project' do
+        it 'shows number of present people in project' do
           visit '/dashboard'
-          non_billable_count = find('.non-billable > .count')
+          non_billable_count = find('.non-billable .count')
           expect(non_billable_count).to have_content('1')
         end
       end
