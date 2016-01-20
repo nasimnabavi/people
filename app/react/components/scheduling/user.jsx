@@ -5,6 +5,7 @@ import NotesModal from './notes-modal';
 export default class User extends React.Component {
   static get propTypes() {
     return {
+      key: React.PropTypes.number.isRequired,
       user: React.PropTypes.object.isRequired
     };
   }
