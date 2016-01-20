@@ -1,17 +1,29 @@
 class DashboardController < ApplicationController
   include ContextFreeRepos
 
-  expose(:projects) do
-    ActiveModel::ArraySerializer.new(projects_repository.active_with_memberships.decorate,
-      each_serializer: ProjectSerializer).as_json
-  end
-  expose(:users) do
+  expose(:projects_json) do
     ActiveModel::ArraySerializer.new(
-      User.includes(:memberships, :primary_roles).where(memberships: { project_id: projects.ids }).decorate,
+      projects.decorate,
+      each_serializer: ProjectSerializer
+    ).as_json
+  end
+  expose(:users_json) do
+    ActiveModel::ArraySerializer.new(
+      users.decorate,
       each_serializer: UserSerializer
     ).as_json
   end
-  expose(:memberships) { Membership.where(project_id: projects.ids).decorate.as_json }
+  expose(:projects) { projects_repository.active_with_memberships }
+  expose(:users) do
+    User.includes(:memberships, :primary_roles)
+        .where(memberships: { project_id: projects.ids })
+  end
+  expose(:memberships) do
+    Membership.where(project_id: projects.ids)
+  end
+  expose(:memberships_json) do
+    memberships.decorate.as_json
+  end
   expose(:note)
 
   before_action :set_time_gon
