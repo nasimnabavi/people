@@ -96,20 +96,24 @@ describe 'Projects page', js: true do
     end
 
     context 'when on Potential tab' do
-      xit 'displays action icons (archive, timelapse) when hovered' do
-        page.find('li.potential').click
-        within('.project.potential') do
-          expect(page.find('.unarchive', visible: false)).to_not be_visible
+      before { page.find('li.potential').click }
+
+      it 'displays action icon (archive) when hovered' do
+        within('.project') do
           expect(page.find('.archive')).to be_visible
-          expect(page.find('.info.js-timeline-show')).to be_visible
         end
       end
 
-      xit 'does not display potential project if it is archived' do
+      it 'displays proper projects' do
         page.find('li.potential').click
-        within('.project.potential') do
-          expect(page.all('a', text: potential_archived_project.name).size).to eql(0)
-        end
+        expect(page).not_to have_content(active_project.name)
+        expect(page).to have_content(potential_project.name)
+        expect(page).not_to have_content(archived_project.name)
+        expect(page).not_to have_content(potential_archived_project.name)
+      end
+
+      it 'allows adding memberships to a potential project' do
+        expect(page.first('.project')).to have_selector('.Select-placeholder')
       end
     end
 
