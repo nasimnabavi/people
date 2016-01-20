@@ -187,16 +187,17 @@ describe 'Projects page', js: true do
   describe 'managing people in project' do
     describe 'adding member to project' do
       xit 'adds member to project correctly' do
-        within('#filters') do
-          find('.projects-types li.active').click
+        within('.projects-types') do
+          find('li.active').click
         end
 
-        within('div.project') do
-          find('div.selectize-input.items').click
-          first('.selectize-dropdown.multi [data-selectable]').click
+        within('.project') do
+          find('.Select-placeholder').click
+          find('.Select-menu-outer').click
         end
 
-        expect(find('div.project div.non-billable div.count')).to have_text('1')
+        billable_count = find('.billable .count')
+        expect(billable_count).to have_content('1')
       end
     end
 
