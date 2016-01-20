@@ -1,10 +1,27 @@
 class UserIndexPage
+  def react_props
+    {
+      projects: serialized_projects,
+      users: serialized_users,
+      memberships: serialized_memberships,
+      roles: serialized_roles
+    }
+  end
+
+  private
+
   def serialized_projects
-    ActiveModel::ArraySerializer.new(projects, each_serializer: UserProjectSerializer).as_json
+    ActiveModel::ArraySerializer.new(
+      projects,
+      each_serializer: UserProjectSerializer
+    ).as_json
   end
 
   def serialized_users
-    ActiveModel::ArraySerializer.new(users, each_serializer: UserSerializer).as_json
+    ActiveModel::ArraySerializer.new(
+      users,
+      each_serializer: UserSerializer
+    ).as_json
   end
 
   def serialized_memberships
@@ -14,8 +31,6 @@ class UserIndexPage
   def serialized_roles
     roles.as_json
   end
-
-  private
 
   def projects
     @projects ||= Project.where(archived: false)
