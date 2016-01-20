@@ -12,6 +12,7 @@ export default class Scheduling extends React.Component {
     return {
       users: React.PropTypes.array.isRequired,
       roles: React.PropTypes.array.isRequired,
+      stats: React.PropTypes.object.isRequired,
       abilities: React.PropTypes.array.isRequired
     };
   }
@@ -52,7 +53,7 @@ export default class Scheduling extends React.Component {
     const users = this.state.users.map(user => <User key={user.id} user={user} />);
     return(
       <div>
-        <Filters showHidden={this.props.admin} />
+        <Filters showHidden={this.props.admin} stats={this.props.stats} />
         <table className="table table-striped table-hover scheduled-users">
           <thead>
             <th>
