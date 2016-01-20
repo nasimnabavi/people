@@ -118,27 +118,26 @@ describe 'Projects page', js: true do
     end
 
     context 'when on Archived tab' do
-      xit 'displays all archived projects' do
-        page.find('li.archived').click
-        expect(page.all('.project.archived').size).to eql(2)
+      before { page.find('li.archived').click }
+
+      it 'displays all archived projects' do
         expect(page.find_link(archived_project.name)).to be_visible
         expect(page.find_link(potential_archived_project.name)).to be_visible
       end
 
-      it 'displays action icons (unarchive, timelapse) when hovered' do
-        page.find('li.archived').click
-        page.all('.project.archived') do
+      it 'does not display active and potential non-archived projects' do
+        expect(page).not_to have_content(active_project.name)
+        expect(page).not_to have_content(potential_project.name)
+      end
+
+      it 'displays action icon (unarchive) when hovered' do
+        page.first('.project') do
           expect(page.find('.unarchive')).to be_visible
-          expect(page.find('.archive', visible: false)).to_not be_visible
-          expect(page.find('.info.js-timeline-show')).to be_visible
         end
       end
 
-      xit 'does not allow to add a membership to an archived project' do
-        page.first('li.archived').click
-
-        expect(page.first('.project.archived'))
-          .to have_no_selector('div.selectize-input.items')
+      it 'does not allow adding memberships to an archived project' do
+        expect(page.first('.project')).to have_no_selector('.Select-placeholder')
       end
     end
   end
