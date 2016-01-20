@@ -40,7 +40,7 @@ class ProjectsRepository
   end
 
   def potential
-    projects_with_memberships_and_notes.where(potential: true, archived: false)
+    projects_with_memberships_and_notes.where(archived: false, potential: true)
   end
 
   def archived
