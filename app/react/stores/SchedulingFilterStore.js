@@ -43,6 +43,14 @@ class SchedulingFilterStore {
     this.setState({ currentTab: FilterTabs.IN_ROTATION});
   }
 
+  showInCommercialProjectsWithDueDate() {
+    this.setState({ currentTab: FilterTabs.IN_COMMERCIAL_PROJECTS_WITH_DUE_DATE});
+  }
+
+  showBooked(){
+    this.setState({ currentTab: FilterTabs.BOOKED});
+  }
+
   showUnavailable(){
     this.setState({ currentTab: FilterTabs.UNAVAILABLE});
   }
