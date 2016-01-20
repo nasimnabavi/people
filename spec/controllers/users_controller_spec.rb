@@ -16,9 +16,9 @@ describe UsersController do
       expect(response.status).to eq(200)
     end
 
-    it 'exposes users' do
+    it 'exposes users index view object' do
       get :index
-      expect(controller.users.count).to be 2
+      expect(controller.users_index_page.class).to be UserIndexPage
     end
 
     it 'displays users on view' do
