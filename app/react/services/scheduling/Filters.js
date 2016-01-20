@@ -1,4 +1,10 @@
+import ProjectStore from '../../stores/ProjectStore'
+
 export default class Filters {
+  static _isUserBooked(user) {
+    return user.booked_memberships.length > 0;
+  }
+
   static selectUsers(users, store) {
     return users.filter(user => store.userIds.indexOf(user.id) > -1);
   }
@@ -30,33 +36,62 @@ export default class Filters {
   }
 
   static selectToRotate(users) {
-    return users.filter(
-      user => _.some(user.current_memberships, (membership) => {
+    var stores = ProjectStore;
+    debugger
+    return users.filter(user => {
+      if(_isUserBooked(user))
+        return false;
+      _.some(user.current_memberships, (membership) => {
         return !membership.internal && membership.billable && !membership.ends_at;
       })
-    )
+    })
   }
 
   static selectInternals(users) {
-    return users.filter(
-      user => _.some(user.current_memberships, (membership) => membership.internal)
-    )
+    return users.filter(user => {
+      if(_isUserBooked(user))
+        return false;
+      if(_.some(user.current_memberships, (membership) => membership.internal))
+        return true;
+      if(_.some(user.next_memberships, (membership) => membership.internal))
+        return true;
+      return false;
+    })
   }
 
   static selectInRotation(users) {
-    return users.filter(
-      user => _.some(user.next_memberships, (membership) => {
-        return !membership.internal && membership.billable && !membership.ends_at;
+    return users.filter(user => {
+      if(_isUserBooked(user))
+        return false;
+      _.some(user.next_memberships, (membership) => {
+        return !membership.internal;
       })
-    )
+    })
+  }
+
+  static showInCommercialProjectsWithDueDate(users) {
+    debugger
+    return users.filter(user => {
+      if(_isUserBooked(user))
+        return false;
+      _.some(user.next_memberships, (membership) => {
+        return !membership.internal && membership.ends_at;
+      })
+    })
+  }
+
+  static showBooked(users) {
+    return users.filter(user => _isUserBooked(user))
   }
 
   static selectUnavailable(users) {
-    return users.filter(
-      user => _.some(user.current_memberships, (membership) => {
+    return users.filter(user => {
+      if(_isUserBooked(user))
+        return false;
+      _.some(user.current_memberships, (membership) => {
         return membership.name === "unavailable";
       })
-    )
+    })
   }
 
   static selectNotScheduled(users) {
