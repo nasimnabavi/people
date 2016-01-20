@@ -23,7 +23,7 @@ export default class Scheduling extends React.Component {
     RoleStore.setInitialState(this.props.roles);
     AbilityStore.setInitialState(this.props.abilities);
     this.state = {
-      users: FilteringService.prepareDefaultData(SchedulingUserStore.getState().users)
+      users: SchedulingUserStore.getState().users
     }
     this._filterUsers = this._filterUsers.bind(this);
     this._changeUsers = this._changeUsers.bind(this);
