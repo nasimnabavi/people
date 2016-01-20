@@ -56,16 +56,18 @@ export default class Scheduling extends React.Component {
         <Filters showHidden={this.props.admin} stats={this.props.stats} />
         <table className="table table-striped table-hover scheduled-users">
           <thead>
-            <th>
-              <p>User</p>
-            </th>
-            <th>
-              <p>Role</p>
-            </th>
-            <th>Current project</th>
-            <th>Next Projects</th>
-            <th>Booked</th>
-            <th>Notes</th>
+            <tr>
+              <th>
+                <p>User</p>
+              </th>
+              <th>
+                <p>Role</p>
+              </th>
+              <th>Current project</th>
+              <th>Next Projects</th>
+              <th>Booked</th>
+              <th>Notes</th>
+            </tr>
           </thead>
           <tbody>
             {users}
