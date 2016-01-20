@@ -11,6 +11,8 @@ class SchedulingFilterActions {
       'showToRotate',
       'showInternals',
       'showInRotation',
+      'showInCommercialProjectsWithDueDate',
+      'showBooked',
       'showUnavailable',
       'showNotScheduled'
     )
