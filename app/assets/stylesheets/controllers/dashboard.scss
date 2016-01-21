@@ -38,11 +38,17 @@ body.dashboard {
 .edit-project {
   padding: 12px;
   width: 300px;
-  top: 2px;
   cursor: pointer;
   line-height: 16px;
   text-align: center;
-  border: 1px solid $brand-success;
+  float: right;
+  width: 40px;
+  top: 2px;
+  right: 3px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  margin-left: 15px;
 
   &:before {
     float: left;
@@ -65,18 +71,6 @@ body.dashboard {
       background: #eee;
     }
   }
-}
-
-.show-notes,
-.edit-project {
-  float: right;
-  width: 40px;
-  top: 2px;
-  right: 3px;
-  border: none;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  margin-left: 15px;
 }
 
 .project-notes-wrapper {

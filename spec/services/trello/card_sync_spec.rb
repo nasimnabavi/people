@@ -23,7 +23,7 @@ describe Trello::CardSync do
 
   context 'card has more than one label' do
     it 'calls AddUserToProject with array of project names' do
-    allow(card).to receive_messages(card_labels:
+      allow(card).to receive_messages(card_labels:
         [
           { 'name' => 'Project 1' },
           { 'name' => 'Project 2' }
