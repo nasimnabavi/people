@@ -615,6 +615,7 @@ DEPENDENCIES
   capistrano
   capistrano-docker!
   capistrano-rvm
+  capybara
   capybara-webkit
   carrierwave
   codeclimate-test-reporter
