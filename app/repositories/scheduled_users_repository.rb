@@ -9,15 +9,10 @@ class ScheduledUsersRepository
       .not(id: technical_users_with_valid_memberships.pluck(:id)).order(:last_name)
   end
 
-  def juniors_and_interns
-    @juniors_and_interns ||= technical_users_with_valid_memberships
+  def scheduled_juniors_and_interns
+    @scheduled_juniors_and_interns ||= technical_users_with_valid_memberships
       .joins(:positions).available
       .where(positions: { role: non_billable_technical_roles, primary: true } )
-  end
-
-  def scheduled_juniors_and_interns
-    @scheduled_juniors_and_interns ||= juniors_and_interns.joins(memberships: :project)
-     .where("(memberships.ends_at IS NULL OR memberships.ends_at > :now) AND (projects.end_at IS NULL OR projects.end_at > :now)", now: Time.now)
   end
 
   def to_rotate
