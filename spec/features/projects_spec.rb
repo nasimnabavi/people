@@ -229,7 +229,7 @@ describe 'Projects page', js: true do
 
     describe 'add a new note' do
       before do
-        find('.show-notes').trigger('click')
+        find('.show-notes').click
       end
 
       it 'add a note to the project' do
@@ -245,7 +245,7 @@ describe 'Projects page', js: true do
         create(:note, user: pm_user, project: active_project)
         visit '/dashboard'
         find('.projects-types li.active').click
-        find('.show-notes').trigger('click')
+        find('.show-notes').click
       end
 
       it 'remove a note' do
