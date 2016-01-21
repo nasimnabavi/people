@@ -26,7 +26,7 @@ describe 'Projects page', js: true do
 
   describe 'tabs' do
     it 'has Active/Potential/Archived tabs' do
-      within('.projects-types') do
+      within(find('.projects-types')) do
         page.find('li.active').click
         page.find('li.potential').click
         page.find('li.archived').click
@@ -37,11 +37,11 @@ describe 'Projects page', js: true do
   describe 'project row' do
     context 'when on Active tab' do
       before do
-        within('.projects-types') { page.find('li.active').click }
+        within(find('.projects-types')) { page.find('li.active').click }
       end
 
       it 'displays action icon (archive) when hovered' do
-        within('.project') do
+        within(find('.project')) do
           expect(page.find('.archive')).to be_visible
         end
       end
@@ -54,7 +54,9 @@ describe 'Projects page', js: true do
       end
 
       it 'allows adding memberships to an active project' do
-        expect(page.first('.project')).to have_selector('.Select-placeholder')
+        within(find('.project')) do
+          expect(page).to have_selector('.Select-placeholder')
+        end
       end
 
       describe 'show next' do
@@ -99,7 +101,7 @@ describe 'Projects page', js: true do
       before { page.find('li.potential').click }
 
       it 'displays action icon (archive) when hovered' do
-        within('.project') do
+        within(find('.project')) do
           expect(page.find('.archive')).to be_visible
         end
       end
@@ -113,7 +115,9 @@ describe 'Projects page', js: true do
       end
 
       it 'allows adding memberships to a potential project' do
-        expect(page.first('.project')).to have_selector('.Select-placeholder')
+        within(find('.project')) do
+          expect(page).to have_selector('.Select-placeholder')
+        end
       end
     end
 
@@ -137,7 +141,9 @@ describe 'Projects page', js: true do
       end
 
       it 'does not allow adding memberships to an archived project' do
-        expect(page.first('.project')).to have_no_selector('.Select-placeholder')
+        page.first('.project') do
+          expect(page).to have_no_selector('.Select-placeholder')
+        end
       end
     end
   end
