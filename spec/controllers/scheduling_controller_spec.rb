@@ -4,37 +4,21 @@ describe SchedulingController do
   render_views
 
   describe '#index' do
-    let!(:developer) { create(:developer_in_project) }
-    let!(:pm) { create(:pm_user) }
+    it_behaves_like 'user is an admin and response is 200', :index
+    it_behaves_like 'user is not an admin and response is 200', :index
+  end
 
-    context 'when current user is an admin' do
-      let(:admin_user) { create(:user, :admin) }
 
-      before { sign_in(admin_user) }
+  describe '#not_scheduled' do
+    it_behaves_like 'user is an admin and response is 200', :index
 
-      it 'responds successfully with an HTTP 200 status code' do
-        get :index
-        expect(response).to be_success
-        expect(response.status).to eq(200)
-      end
-
-      it 'displays users on view' do
-        get :index
-        expect(response.body).to match(developer.last_name)
-        expect(response.body).to match(developer.last_name)
-        expect(response.body).not_to match(pm.last_name)
-      end
-    end
-
-    context 'when current user is not an admin' do
+    context 'when current user is not an admin redirection occurs' do
       let(:user) { create(:user) }
 
       before { sign_in(user) }
-
-      it 'responds successfully with an HTTP 200 status code' do
-        get :index
-        expect(response).to be_success
-        expect(response.status).to eq(200)
+      it 'responds successfully with an HTTP 302 status code' do
+        get :not_scheduled
+        expect(response.status).to eq(302)
       end
     end
   end
