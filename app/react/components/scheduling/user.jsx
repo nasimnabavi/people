@@ -55,7 +55,10 @@ export default class User extends React.Component {
       <tr>
         <td>
           <div className="avatar">
+            <img src={user.gravatar.gravatar.circle.url} />
           </div>
+        </td>
+        <td>
           <div className="profile">
             <span className="name">
               <a href={"/users/" + user.id}>{user.name}</a>

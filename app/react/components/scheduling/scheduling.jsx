@@ -57,6 +57,7 @@ export default class Scheduling extends React.Component {
         <table className="table table-striped table-hover scheduled-users">
           <thead>
             <tr>
+              <th></th>
               <th>
                 <p>User</p>
               </th>
