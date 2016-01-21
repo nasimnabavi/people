@@ -66,18 +66,12 @@
     font-size: 11px;
   }
 
-  .remove {
-    cursor: pointer;
-  }
-
   .edit,
   .remove {
+    cursor: pointer;
     @include transition(opacity 0.25s);
     opacity: 0;
-  }
-
-  .remove,
-  .edit {
+    margin-left: 5px;
     position: relative;
     z-index: 5;
   }

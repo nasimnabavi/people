@@ -73,7 +73,9 @@ export default class Membership extends React.Component {
             <a className="edit" onClick={this.showEditMembershipModal}>
               <i className="fa fa-pencil-square-o"></i>
             </a>
-            <span className="remove" onClick={this.archiveMembership}>×</span>
+            <a className="remove" onClick={this.archiveMembership}>
+              <i className="fa fa-times"></i>
+            </a>
           </span>
         </div>
         <div className="member-details">
