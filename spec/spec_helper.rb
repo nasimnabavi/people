@@ -62,4 +62,6 @@ CarrierWave.configure do |config|
   config.enable_processing = false
 end
 
+Capybara.default_max_wait_time = 5
+
 Capybara.javascript_driver = :webkit
