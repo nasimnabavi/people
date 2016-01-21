@@ -72,6 +72,16 @@ export default class Project extends React.Component {
       </div>
     );
 
+    let adminSection = null;
+
+    if(!this.props.project.archived) {
+      adminSection = (
+        <div className="admin-section">
+          <AddUserToProject project={this.props.project} />
+        </div>
+      )
+    };
+
     let rootClasses = "project";
     if(this.state.highlightEnding && this.state.project.end_at) {
       let endAt = moment(this.state.project.end_at);
@@ -94,9 +104,7 @@ export default class Project extends React.Component {
                       <div className="count">
                         {billableMemberships.length}
                       </div>
-                      <div className="admin-section">
-                        <AddUserToProject project={this.props.project} />
-                      </div>
+                      { adminSection }
                       <div className="billable-list">
                         <div>
                           <div className="js-project-memberships memberships">

@@ -7,9 +7,9 @@ describe Calendar do
    refresh_token: '456')
   end
   before do
-    AppConfig.stub(:google_client_id).and_return('789')
-    AppConfig.stub(:google_secret).and_return('a99')
-    AppConfig.stub(:calendar_id).and_return('1')
+    allow(AppConfig).to receive(:google_client_id).and_return('789')
+    allow(AppConfig).to receive(:google_secret).and_return('a99')
+    allow(AppConfig).to receive(:calendar_id).and_return('1')
   end
 
   describe '#initialize_client' do

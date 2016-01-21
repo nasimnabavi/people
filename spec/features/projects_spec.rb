@@ -25,8 +25,8 @@ describe 'Projects page', js: true do
   end
 
   describe 'tabs' do
-    xit 'has Active/Potential/Archived tabs' do
-      within('#filters') do
+    it 'has Active/Potential/Archived tabs' do
+      within(find('.projects-types')) do
         page.find('li.active').click
         page.find('li.potential').click
         page.find('li.archived').click
@@ -36,14 +36,26 @@ describe 'Projects page', js: true do
 
   describe 'project row' do
     context 'when on Active tab' do
-      xit 'displays action icons (timelapse) when hovered' do
-        within('#filters') { page.find('li.active').click }
-
-        within('.project') do
-          expect(page.find('.unarchive', visible: false)).to_not be_visible
-          expect(page.find('.archive')).to be_visible
-          expect(page.find('.info.js-timeline-show')).to be_visible
+      before do
+        within(find('.projects-types')) do
+          page.find('li.active').click
+          wait_for_ajax
         end
+      end
+
+      xit 'displays action icon (archive) when hovered' do
+        expect(page.find('.archive')).to be_visible
+      end
+
+      xit 'displays proper projects' do
+        expect(page).to have_content(active_project.name)
+        expect(page).not_to have_content(potential_project.name)
+        expect(page).not_to have_content(archived_project.name)
+        expect(page).not_to have_content(potential_archived_project.name)
+      end
+
+      xit 'allows adding memberships to an active project' do
+        expect(page).to have_selector('.Select-placeholder')
       end
 
       describe 'show next' do
@@ -78,52 +90,59 @@ describe 'Projects page', js: true do
 
         xit 'shows number of present people in project' do
           visit '/dashboard'
-          non_billable_count = find('.non-billable > .count')
+          non_billable_count = find('.non-billable .count')
           expect(non_billable_count).to have_content('1')
         end
       end
     end
 
     context 'when on Potential tab' do
-      xit 'displays action icons (archive, timelapse) when hovered' do
+      before do
         page.find('li.potential').click
-        within('.project.potential') do
-          expect(page.find('.unarchive', visible: false)).to_not be_visible
-          expect(page.find('.archive')).to be_visible
-          expect(page.find('.info.js-timeline-show')).to be_visible
-        end
+        wait_for_ajax
       end
 
-      xit 'does not display potential project if it is archived' do
+      xit 'displays action icon (archive) when hovered' do
+        expect(page.find('.archive')).to be_visible
+      end
+
+      xit 'displays proper projects' do
         page.find('li.potential').click
-        within('.project.potential') do
-          expect(page.all('a', text: potential_archived_project.name).size).to eql(0)
-        end
+        expect(page).not_to have_content(active_project.name)
+        expect(page).to have_content(potential_project.name)
+        expect(page).not_to have_content(archived_project.name)
+        expect(page).not_to have_content(potential_archived_project.name)
+      end
+
+      xit 'allows adding memberships to a potential project' do
+        expect(page).to have_selector('.Select-placeholder')
       end
     end
 
     context 'when on Archived tab' do
-      xit 'displays all archived projects' do
+      before do
         page.find('li.archived').click
-        expect(page.all('.project.archived').size).to eql(2)
+        wait_for_ajax
+      end
+
+      xit 'displays all archived projects' do
         expect(page.find_link(archived_project.name)).to be_visible
         expect(page.find_link(potential_archived_project.name)).to be_visible
       end
 
-      it 'displays action icons (unarchive, timelapse) when hovered' do
-        page.find('li.archived').click
-        page.all('.project.archived') do
-          expect(page.find('.unarchive')).to be_visible
-          expect(page.find('.archive', visible: false)).to_not be_visible
-          expect(page.find('.info.js-timeline-show')).to be_visible
-        end
+      it 'does not display active and potential non-archived projects' do
+        expect(page).not_to have_content(active_project.name)
+        expect(page).not_to have_content(potential_project.name)
       end
 
-      xit 'does not allow to add a membership to an archived project' do
-        page.first('li.archived').click
+      xit 'displays action icon (unarchive) when hovered' do
+        expect(page).to have_selector('.unarchive')
+      end
 
-        expect(page.first('.project.archived'))
-          .to have_no_selector('div.selectize-input.items')
+      xit 'does not allow adding memberships to an archived project' do
+        within('#projects-users') do
+          expect(page).to have_no_selector('.Select-placeholder')
+        end
       end
     end
   end
@@ -173,16 +192,17 @@ describe 'Projects page', js: true do
   describe 'managing people in project' do
     describe 'adding member to project' do
       xit 'adds member to project correctly' do
-        within('#filters') do
-          find('.projects-types li.active').click
+        within('.projects-types') do
+          find('li.active').click
         end
 
-        within('div.project') do
-          find('div.selectize-input.items').click
-          first('.selectize-dropdown.multi [data-selectable]').click
+        within('.project') do
+          find('.Select-placeholder').click
+          find('.Select-menu-outer').click
         end
 
-        expect(find('div.project div.non-billable div.count')).to have_text('1')
+        billable_count = find('.billable .count')
+        expect(billable_count).to have_content('1')
       end
     end
 
@@ -211,32 +231,33 @@ describe 'Projects page', js: true do
   end
 
   describe 'managing notes' do
-
     describe 'add a new note' do
       before do
-        find('.open-all-notes-button').trigger('click')
+        find('.projects-types li.active').click
+        find('.show-notes').click
       end
 
       xit 'add a note to the project' do
+        expect(page).not_to have_selector('div.note-group')
         find('input.new-project-note-text').set('Test note')
         find('a.new-project-note-submit').click
-        expect(page.find('div.scroll-overflow', text: 'Test note')).to be_visible
+        expect(page.find('div.note-group', text: 'Test note')).to be_visible
       end
     end
 
     describe 'remove note' do
-
       before do
         create(:note, user: pm_user, project: active_project)
-        visit '/dashboard'
         find('.projects-types li.active').click
-        find('.open-all-notes-button').trigger('click')
+        find('.show-notes').click
       end
 
       xit 'remove a note' do
-        expect(page.find('div.scroll-overflow', text: note.text)).to be_visible
+        expect(page).to have_selector('div.note-group')
+        expect(page).to have_content(note.text)
         find('span.note-remove').click
-        expect(page.find('.alert-success')).to be_visible
+        expect(page).not_to have_selector('div.note-group')
+        expect(page).not_to have_content(note.text)
       end
     end
   end
