@@ -29,7 +29,7 @@ describe AbilitiesController do
 
       it 'has no access without admin rights' do
         get :index
-        response.should redirect_to(root_path)
+        expect(response).to redirect_to(root_path)
       end
     end
   end

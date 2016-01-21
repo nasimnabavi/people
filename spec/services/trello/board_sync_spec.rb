@@ -9,13 +9,13 @@ describe Trello::BoardSync do
     allow_any_instance_of(Trello::CardSync).to receive(:call)
     allow_any_instance_of(Trello::LabelsSync).to receive(:call)
 
-    card.stub(:name) { 'User Name' }
-    card.stub(:card_labels) { [{ 'name' => 'label' }] }
+    allow(card).to receive_messages(name: 'User Name')
+    allow(card).to receive_messages(card_labels: [{ 'name' => 'label' }])
 
-    label.stub(:name) { 'labelname' }
+    allow(label).to receive_messages(name: 'labelname')
 
-    board.stub(:cards) { [card] }
-    board.stub(:labels) { [label] }
+    allow(board).to receive_messages(cards: [card])
+    allow(board).to receive_messages(labels: [label])
   end
 
   describe '#call' do

@@ -244,7 +244,7 @@ describe UserMembershipsRepository do
   describe '#items' do
     let(:membership) { create(:membership) }
     it 'clears search params' do
-      subject.stub(:clear_search)
+      allow(subject).to receive(:clear_search)
       subject.items
       expect(subject).to have_received(:clear_search)
     end
