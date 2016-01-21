@@ -21,7 +21,7 @@ class SchedulingController < ApplicationController
   end
 
   expose(:stats) do
-    {
+    stats = {
       all: repository.all_scheduled.count,
       juniors_and_interns: repository.scheduled_juniors_and_interns.count,
       to_rotate: repository.to_rotate.count,
@@ -30,8 +30,9 @@ class SchedulingController < ApplicationController
       in_commercial_projects_with_due_date: repository.in_commercial_projects_with_due_date.count,
       booked: repository.booked.count,
       unavailable: repository.unavailable.count,
-      not_scheduled: repository.not_scheduled.count
     }
+    stats.merge!(not_scheduled: repository.not_scheduled.count) if current_user.admin?
+    stats
   end
 
   def all
