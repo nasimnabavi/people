@@ -13,7 +13,7 @@ class ScheduledUsersRepository
   def scheduled_juniors_and_interns
     @scheduled_juniors_and_interns ||= technical_users_with_valid_memberships
       .joins(:positions).available
-      .where(positions: { role: non_billable_technical_roles, primary: true } )
+      .where(positions: { role: non_billable_technical_roles, primary: true })
   end
 
   def to_rotate
@@ -92,13 +92,14 @@ class ScheduledUsersRepository
   def technical_users_with_valid_memberships
     @technical_users_with_valid_memberships ||= technical_users
       .joins(memberships: :project)
-      .where("(memberships.ends_at IS NULL OR memberships.ends_at > :now) AND (projects.end_at IS NULL OR projects.end_at > :now)", now: Time.now).distinct
+      .where("(memberships.ends_at IS NULL OR memberships.ends_at > :now) AND (projects.end_at IS NULL OR projects.end_at > :now)", now: Time.now)
+      .distinct
   end
 
   def billable_users
     @billable_users ||= base_users
       .joins(:positions)
-      .where(positions: { role: billable_technical_roles, primary: true } )
+      .where(positions: { role: billable_technical_roles, primary: true })
   end
 
   def not_booked_billable_users
