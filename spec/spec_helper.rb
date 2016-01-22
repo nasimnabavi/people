@@ -13,7 +13,6 @@ require 'database_cleaner'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'shoulda/matchers'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
@@ -63,4 +62,10 @@ CarrierWave.configure do |config|
   config.enable_processing = false
 end
 
-Capybara.javascript_driver = :webkit
+Capybara.default_max_wait_time = 5
+
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app)
+end
+
+Capybara.javascript_driver = :selenium

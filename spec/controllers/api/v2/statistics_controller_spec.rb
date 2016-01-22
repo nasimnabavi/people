@@ -67,7 +67,7 @@ describe Api::V2::StatisticsController do
         end
 
         it 'exposes statistics' do
-          controller.statistics.should be_a StatisticsRepository
+          expect(controller.statistics).to be_a StatisticsRepository
         end
 
         it 'returns response status 200' do

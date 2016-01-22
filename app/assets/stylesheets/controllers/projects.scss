@@ -40,6 +40,10 @@ $project-height: 45px;
   margin-top: 10px;
 }
 
+.filter.projects {
+  margin-right: 0.25em;
+}
+
 .project {
   @extend .clearfix;
   margin: 0 0 20px 0;
