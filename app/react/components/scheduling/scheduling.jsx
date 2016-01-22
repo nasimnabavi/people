@@ -13,6 +13,8 @@ export default class Scheduling extends React.Component {
       users: React.PropTypes.array.isRequired,
       roles: React.PropTypes.array.isRequired,
       stats: React.PropTypes.object.isRequired,
+      currentTab: React.PropTypes.string,
+      columns: React.PropTypes.array.isRequired,
       abilities: React.PropTypes.array.isRequired
     };
   }
@@ -50,24 +52,16 @@ export default class Scheduling extends React.Component {
   }
 
   render() {
-    const users = this.state.users.map(user => <User key={user.id} user={user} />);
+    const users = this.state.users.map(user => <User key={user.id} user={user} currentTab={this.props.currentTab} columns={this.props.columns} />);
+    const headers = this.props.columns.map(column => <th>{column}</th>)
     return(
       <div>
-        <Filters showHidden={this.props.admin} stats={this.props.stats} />
+        <Filters showHidden={this.props.admin} stats={this.props.stats} currentTab={this.props.currentTab} />
         <table className="table table-striped table-hover scheduled-users">
           <thead>
             <tr>
               <th></th>
-              <th>
-                <p>User</p>
-              </th>
-              <th>
-                <p>Role</p>
-              </th>
-              <th>Current project</th>
-              <th>Next Projects</th>
-              <th>Booked</th>
-              <th>Notes</th>
+              {headers}
             </tr>
           </thead>
           <tbody>
