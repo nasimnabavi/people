@@ -1,7 +1,7 @@
 class ScheduledUsersRepository
 
-  def all_scheduled
-    @all_scheduled ||= technical_users_with_valid_memberships.order(:last_name)
+  def all
+    @all_scheduled ||= technical_users.distinct.order(:last_name)
   end
 
   def not_scheduled
@@ -20,7 +20,7 @@ class ScheduledUsersRepository
       .where(
         projects: { end_at: nil, internal: false },
         memberships: { ends_at: nil }
-      ).merge(Project.active.nonpotential.not_maintenance).order('memberships.starts_at ASC')
+      ).merge(Project.active.nonpotential.not_maintenance).order('COALESCE(memberships.ends_at, projects.end_at)')
   end
 
   def in_internals
@@ -42,7 +42,7 @@ class ScheduledUsersRepository
       .where("(projects.internal = 'f') AND (memberships.ends_at > :now OR projects.end_at > :now)",
         now: 1.day.ago)
       .merge(Project.active.commercial.started.not_maintenance)
-      .order('COALESCE(memberships.ends_at, projects.end_at)')
+      .order('COALESCE(memberships.starts_at, projects.starts_at)')
   end
 
   def booked
@@ -59,8 +59,8 @@ class ScheduledUsersRepository
       :primary_roles,
       current_memberships: [:project],
       next_memberships: [:project],
-      booked_memberships: [:project])
-      .technical.order(last_name: :asc)
+      booked_memberships: [:project]
+    ).technical
   end
 
   private
@@ -76,7 +76,8 @@ class ScheduledUsersRepository
       next_memberships: [:project],
       booked_memberships: [:project],
       positions: [:role],
-      primary_role: [:users])
+      primary_role: [:users]
+    )
   end
 
   def technical_users
