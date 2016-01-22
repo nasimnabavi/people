@@ -59,7 +59,7 @@ export default class FiltersTabs extends React.Component {
     }
 
     const filterTabs = filterActions.map(filterAction => {
-      return <FilterTab key={filterAction.key} name={filterAction.name} href={filterAction.href} number={filterAction.number} />;
+      return <FilterTab key={filterAction.key} name={filterAction.name} href={filterAction.href} number={filterAction.number} currentTab={this.props.currentTab} />;
     });
 
     return(
