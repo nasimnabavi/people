@@ -22,7 +22,7 @@ class SchedulingController < ApplicationController
 
   expose(:stats) do
     stats = {
-      all: repository.all_scheduled.count,
+      all: repository.all.count,
       juniors_and_interns: repository.scheduled_juniors_and_interns.count,
       to_rotate: repository.to_rotate.count,
       in_internals: repository.in_internals.count,
@@ -35,13 +35,17 @@ class SchedulingController < ApplicationController
     stats
   end
 
+  expose(:columns) do
+    Scheduling::ColumnSetsBuilder.new.call[action_name]
+  end
+
   def all
-    self.users = serialized_users(repository.all_scheduled)
+    self.users = serialized_users(repository.all)
     render :index
   end
 
   def juniors_and_interns
-    self.users = serialized_users(repository.scheduled_juniors_and_interns)
+    self.users = serialized_users_sorted(repository.scheduled_juniors_and_interns)
     render :index
   end
 
@@ -51,12 +55,12 @@ class SchedulingController < ApplicationController
   end
 
   def in_internals
-    self.users = serialized_users(repository.in_internals)
+    self.users = serialized_users_sorted(repository.in_internals)
     render :index
   end
 
   def with_rotations_in_progress
-    self.users = serialized_users(repository.with_rotations_in_progress)
+    self.users = serialized_users_sorted(repository.with_rotations_in_progress)
     render :index
   end
 
@@ -66,12 +70,12 @@ class SchedulingController < ApplicationController
   end
 
   def booked
-    self.users = serialized_users(repository.booked)
+    self.users = serialized_users_sorted(repository.booked)
     render :index
   end
 
   def unavailable
-    self.users = serialized_users(repository.unavailable)
+    self.users = serialized_users_sorted(repository.unavailable)
     render :index
   end
 
@@ -89,8 +93,27 @@ class SchedulingController < ApplicationController
     ).as_json
   end
 
+  def serialized_users_sorted(users)
+    ActiveModel::ArraySerializer.new(
+      sort_by_current_membership_start_date(users),
+      each_serializer: UserSchedulingSerializer
+    ).as_json
+  end
+
   def repository
      @repository ||= ScheduledUsersRepository.new
+  end
+
+  def sort_by_current_membership_start_date(collection)
+    return collection if collection.size < 2
+    collection.sort do |node_a, node_b|
+      a = Date.today
+      a = node_a.longest_current_membership.starts_at unless node_a.longest_current_membership.nil?
+      b = Date.today
+      b = node_b.longest_current_membership.starts_at unless node_b.longest_current_membership.nil?
+
+      a.to_time.to_i <=> b.to_time.to_i
+    end
   end
 
   def authenticate!
