@@ -1,19 +1,28 @@
 module Scheduling
   class ColumnSetsBuilder
-    COLUMNS = {
-      'all' => %w(user role current-project from-to next-project booked notes),
-      'juniors-interns' => %w(user role current-project from-to next-project notes),
-      'to-rotate' => %w(user role current-project from-to notes),
-      'internals' => %w(user role current-project from-to next-project notes),
-      'in-progress' => %w(user role current-project from-to next-project notes),
-      'in-commercial-with-due-date' => %w(user role current-project next-project from-to notes),
-      'booked' => %w(user role current-project booked notes),
-      'unavailable' => %w(user role current-project from-to next-project booked notes),
-      'not-scheduled' => %w(user role current-project from-to booked notes)
-    }
-
     def call
       COLUMNS
     end
+
+    private
+
+    USER = 'User'.freeze
+    ROLE = 'Role'.freeze
+    CURRENT = 'Current project'.freeze
+    NEXT = 'Next project'.freeze
+    BOOKED = 'Booked'.freeze
+    NOTES = 'Notes'.freeze
+
+    COLUMNS = {
+      'all' => [USER, ROLE, CURRENT, NEXT, BOOKED, NOTES],
+      'juniors_and_interns' => [USER, ROLE, CURRENT, NEXT, NOTES],
+      'to_rotate' => [USER, ROLE, CURRENT, NOTES],
+      'in_internals' => [USER, ROLE, CURRENT, NEXT, NOTES],
+      'with_rotations_in_progress' => [USER, ROLE, CURRENT, NEXT, NOTES],
+      'in_commercial_projects_with_due_date' => [USER, ROLE, CURRENT, NEXT, NOTES],
+      'booked' => [USER, ROLE, CURRENT, BOOKED, NOTES],
+      'unavailable' => [USER, ROLE, CURRENT, NEXT, BOOKED, NOTES],
+      'not_scheduled' => [USER, ROLE, CURRENT, BOOKED, NOTES]
+    }
   end
 end
