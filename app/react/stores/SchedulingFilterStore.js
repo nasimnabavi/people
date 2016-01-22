@@ -8,7 +8,6 @@ class SchedulingFilterStore {
     this.userIds = [];
     this.roleIds = [];
     this.abilityIds = [];
-    this.currentTab = 'All'
   }
 
   changeUserFilter(userIds) {
@@ -21,42 +20,6 @@ class SchedulingFilterStore {
 
   changeAbilityFilter(abilityIds) {
     this.setState({ abilityIds: abilityIds });
-  }
-
-  showAll(){
-    this.setState({ currentTab: FilterTabs.ALL});
-  }
-
-  showJuniorsAndInterns(){
-    this.setState({ currentTab: FilterTabs.JUNIORS_AND_INTERNS});
-  }
-
-  showToRotate(){
-    this.setState({ currentTab: FilterTabs.TO_ROTATE});
-  }
-
-  showInternals() {
-    this.setState({ currentTab: FilterTabs.INTERNALS});
-  }
-
-  showInRotation(){
-    this.setState({ currentTab: FilterTabs.IN_ROTATION});
-  }
-
-  showInCommercialProjectsWithDueDate() {
-    this.setState({ currentTab: FilterTabs.IN_COMMERCIAL_PROJECTS_WITH_DUE_DATE});
-  }
-
-  showBooked(){
-    this.setState({ currentTab: FilterTabs.BOOKED});
-  }
-
-  showUnavailable(){
-    this.setState({ currentTab: FilterTabs.UNAVAILABLE});
-  }
-
-  showNotScheduled(){
-    this.setState({ currentTab: FilterTabs.NOT_SCHEDULED});
   }
 }
 
