@@ -14,8 +14,13 @@ export default class FiltersTab extends React.Component {
   }
 
   render() {
+    var classNames = "category";
+    if (this.props.currentTab === this.props.href) {
+      classNames += " active";
+    }
+
     return(
-      <li className="category">
+      <li className={classNames}>
         <a href={this.props.href} >
           {this.props.name}
           <span className="user-count"> ({this.props.number})</span>
