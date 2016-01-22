@@ -1,5 +1,3 @@
-import ProjectStore from '../../stores/ProjectStore'
-
 export default class Filters {
   static selectUsers(users, store) {
     return users.filter(user => store.userIds.indexOf(user.id) > -1);
