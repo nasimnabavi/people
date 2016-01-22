@@ -12,7 +12,7 @@ export default class Filters {
   static selectAbilities(users, store) {
     return users.filter(user => {
       let filteredUserAbilities = user.ability_ids.filter(id => store.abilityIds.indexOf(id) > -1);
-      return filteredUserAbilities.length > 0
+      return filteredUserAbilities.length > 0;
     });
   }
 }
