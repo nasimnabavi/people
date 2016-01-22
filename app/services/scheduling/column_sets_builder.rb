@@ -23,6 +23,6 @@ module Scheduling
       'booked' => [USER, ROLE, CURRENT, BOOKED, NOTES],
       'unavailable' => [USER, ROLE, CURRENT, NEXT, BOOKED, NOTES],
       'not_scheduled' => [USER, ROLE, CURRENT, BOOKED, NOTES]
-    }
+    }.freeze
   end
 end
