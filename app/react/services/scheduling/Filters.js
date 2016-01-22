@@ -6,12 +6,15 @@ export default class Filters {
   }
 
   static selectRoles(users, store) {
-    return users.filter(user => store.roleIds.indexOf(user.primary_role.id) > -1);
+    return users
+      .filter(user => store.roleIds.indexOf(user.primary_role.id) > -1);
   }
 
   static selectAbilities(users, store) {
     return users.filter(user => {
-      let filteredUserAbilities = user.ability_ids.filter(id => store.abilityIds.indexOf(id) > -1);
+      let filteredUserAbilities = user
+        .ability_ids
+        .filter(id => store.abilityIds.indexOf(id) > -1);
       return filteredUserAbilities.length > 0;
     });
   }
