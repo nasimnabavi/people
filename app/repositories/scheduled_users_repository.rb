@@ -5,8 +5,9 @@ class ScheduledUsersRepository
 
   def not_scheduled
     @not_scheduled ||= technical_users
-      .where
-      .not(id: technical_users_with_valid_memberships.pluck(:id)).order(:last_name)
+     .where
+     .not(id: technical_users_with_valid_memberships.pluck(:id))
+     .order(:last_name)
   end
 
   def scheduled_juniors_and_interns
