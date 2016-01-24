@@ -1,6 +1,5 @@
 import alt from '../alt';
 import SchedulingFilterActions from '../actions/SchedulingFilterActions';
-import * as FilterTabs from '../constants/scheduling/FilterTabs';
 
 class SchedulingFilterStore {
   constructor() {
