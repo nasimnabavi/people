@@ -31,7 +31,7 @@ class SchedulingController < ApplicationController
       booked: repository.booked.count,
       unavailable: repository.unavailable.count,
     }
-    stats.merge!(not_scheduled: repository.not_scheduled.count) if current_user.admin?
+    stats[:not_scheduled] = repository.not_scheduled.count if current_user.admin?
     stats
   end
 
@@ -101,7 +101,7 @@ class SchedulingController < ApplicationController
   end
 
   def repository
-     @repository ||= ScheduledUsersRepository.new
+    @repository ||= ScheduledUsersRepository.new
   end
 
   def sort_by_current_membership_start_date(collection)
@@ -111,7 +111,6 @@ class SchedulingController < ApplicationController
       a = node_a.longest_current_membership.starts_at unless node_a.longest_current_membership.nil?
       b = Date.today
       b = node_b.longest_current_membership.starts_at unless node_b.longest_current_membership.nil?
-
       a.to_time.to_i <=> b.to_time.to_i
     end
   end
