@@ -1,15 +1,9 @@
 %h2 Projects
 %ul.projects-types
-<<<<<<< Updated upstream
   %li{ class: project_type_class(["active", "index"]) }
     = link_to active_dashboard_index_path do
       Active
   %li{ class: project_type_class("potential") }
-=======
-  %li.active
-    = react_component('type-toggle')
-  %li.potential
->>>>>>> Stashed changes
     = link_to potential_dashboard_index_path do
       Potential
   %li{ class: project_type_class("archived") }
