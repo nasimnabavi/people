@@ -4,20 +4,23 @@ class ScheduledUsersRepository
   end
 
   def not_scheduled
-    @not_scheduled ||= technical_users
-     .where
-     .not(id: technical_users_with_valid_memberships.pluck(:id))
-     .order(:last_name)
+    @not_scheduled ||=
+      technical_users
+      .where
+      .not(id: technical_users_with_valid_memberships.pluck(:id))
+      .order(:last_name)
   end
 
   def scheduled_juniors_and_interns
-    @scheduled_juniors_and_interns ||= technical_users_with_valid_memberships
+    @scheduled_juniors_and_interns ||=
+      technical_users_with_valid_memberships
       .joins(:positions).available
       .where(positions: { role: non_billable_technical_roles, primary: true })
   end
 
   def to_rotate
-    @to_rotate ||= not_booked_billable_users
+    @to_rotate ||=
+      not_booked_billable_users
       .without_scheduled_commercial_memberships.joins(memberships: :project)
       .where(
         projects: { end_at: nil, internal: false },
@@ -27,25 +30,27 @@ class ScheduledUsersRepository
   end
 
   def in_internals
-    @in_internals ||= not_booked_billable_users
+    @in_internals ||=
+      not_booked_billable_users
       .without_scheduled_commercial_memberships.joins(memberships: :project)
       .where(projects: { internal: true })
       .merge(Membership.active.unfinished.started)
   end
 
   def with_rotations_in_progress
-    @with_rotations_in_progress ||= not_booked_billable_users
+    @with_rotations_in_progress ||=
+      not_booked_billable_users
       .joins(memberships: :project)
       .merge(Project.active.unfinished.started.commercial.not_maintenance)
       .merge(Membership.not_started.active.not_internal)
   end
 
   def in_commercial_projects_with_due_date
-    @in_commercial_projects_with_due_date ||= not_booked_billable_users
+    @in_commercial_projects_with_due_date ||=
+      not_booked_billable_users
       .without_scheduled_commercial_memberships
       .joins(current_memberships: [:project])
-      .where("(projects.internal = 'f') AND (memberships.ends_at > :now OR projects.end_at > :now)",
-        now: 1.day.ago)
+      .where("(projects.internal = 'f') AND (memberships.ends_at > :now OR projects.end_at > :now)", now: 1.day.ago)
       .merge(Project.active.commercial.started.not_maintenance)
       .order('COALESCE(memberships.starts_at, projects.starts_at)')
   end
@@ -90,14 +95,16 @@ class ScheduledUsersRepository
   end
 
   def technical_users_with_valid_memberships
-    @technical_users_with_valid_memberships ||= technical_users
+    @technical_users_with_valid_memberships ||=
+      technical_users
       .joins(memberships: :project)
-      .where("(memberships.ends_at IS NULL OR memberships.ends_at > :now) AND (projects.end_at IS NULL OR projects.end_at > :now)", now: Time.now)
+      .where('(memberships.ends_at IS NULL OR memberships.ends_at > :now) AND (projects.end_at IS NULL OR projects.end_at > :now)', now: Time.now)
       .distinct
   end
 
   def billable_users
-    @billable_users ||= base_users
+    @billable_users ||=
+      base_users
       .joins(:positions)
       .where(positions: { role: billable_technical_roles, primary: true })
   end
