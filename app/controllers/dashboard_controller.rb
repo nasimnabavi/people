@@ -13,10 +13,9 @@ class DashboardController < ApplicationController
       each_serializer: UserSerializer
     ).as_json
   end
-  expose(:projects) { projects_repository.active_with_memberships }
+  expose(:projects) { projects_repository.active_with_memberships.order(:name) }
   expose(:users) do
-    User.includes(:memberships, :primary_roles)
-        .where(memberships: { project_id: projects.ids })
+    User.includes(:memberships, :primary_roles).order(:last_name, :first_name)
   end
   expose(:memberships) do
     Membership.where(project_id: projects.ids)
@@ -29,17 +28,17 @@ class DashboardController < ApplicationController
   before_action :set_time_gon
 
   def active
-    self.projects = projects_repository.active_with_memberships
+    self.projects = projects_repository.active_with_memberships.order(:name)
     render :index
   end
 
   def potential
-    self.projects = projects_repository.potential
+    self.projects = projects_repository.potential.order(:name)
     render :index
   end
 
   def archived
-    self.projects = projects_repository.archived
+    self.projects = projects_repository.archived.order(:name)
     render :index
   end
 
