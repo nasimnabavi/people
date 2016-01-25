@@ -10,6 +10,8 @@ Metrics/LineLength:
   Max: 100
   Exclude:
     - 'config/**/*'
+    - 'Gemfile'
+    - 'Gemfile.lock'
 Rails/TimeZone:
   Enabled: false
 SignalException:
@@ -28,3 +30,5 @@ Style/TrailingCommaInLiteral:
   Enabled: true
 Metrics/ClassLength:
   Enabled: false
+Style/DotPosition:
+  EnforcedStyle: leading
