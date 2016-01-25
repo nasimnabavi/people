@@ -35,7 +35,6 @@ class ScheduledUsersRepository
       .without_scheduled_commercial_memberships.joins(memberships: :project)
       .where(projects: { internal: true })
       .merge(Membership.active.unfinished.started)
-      .distinct
   end
 
   def with_rotations_in_progress
