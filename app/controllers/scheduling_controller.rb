@@ -22,17 +22,17 @@ class SchedulingController < ApplicationController
 
   expose(:stats) do
     stats = {
-      all: repository.all.count,
-      juniors_and_interns: repository.scheduled_juniors_and_interns.count,
-      to_rotate: repository.to_rotate.count,
-      in_internals: repository.in_internals.count,
-      with_rotations_in_progress: repository.with_rotations_in_progress.count,
-      in_commercial_projects_with_due_date: repository.in_commercial_projects_with_due_date.count,
-      booked: repository.booked.count,
-      unavailable: repository.unavailable.count,
+      all: repository.all,
+      juniors_and_interns: repository.scheduled_juniors_and_interns,
+      to_rotate: repository.to_rotate,
+      in_internals: repository.in_internals,
+      with_rotations_in_progress: repository.with_rotations_in_progress,
+      in_commercial_projects_with_due_date: repository.in_commercial_projects_with_due_date,
+      booked: repository.booked,
+      unavailable: repository.unavailable,
     }
-    stats[:not_scheduled] = repository.not_scheduled.count if current_user.admin?
-    stats
+    stats[:not_scheduled] = repository.not_scheduled if current_user.admin?
+    stats.keys.each_with_object({}) { |key, h| h[key] = number_of(stats[key]) }
   end
 
   expose(:columns) do
@@ -117,5 +117,9 @@ class SchedulingController < ApplicationController
 
   def authenticate!
     redirect_to scheduling_index_path unless current_user.admin?
+  end
+
+  def number_of(collection)
+    collection.distinct.count
   end
 end

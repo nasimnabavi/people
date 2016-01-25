@@ -1,4 +1,5 @@
 AllCops:
+  TargetRubyVersion: 2.1
   Exclude:
     - 'bin/*'
     - 'db/**/*'
@@ -13,6 +14,13 @@ Metrics/LineLength:
     - 'Gemfile'
     - 'Guardfile'
     - 'Gemfile.lock'
+Metrics/ClassLength:
+  Enabled: false
+Metrics/MethodLength:
+  CountComments: false
+  Max: 15
+Metrict/AbcSize:
+  Enabled: false
 Rails/TimeZone:
   Enabled: false
 SignalException:
@@ -29,10 +37,5 @@ Style/StringLiterals:
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
   Enabled: true
-Metrics/ClassLength:
-  Enabled: false
-Metrics/MethodLength:
-  CountComments: false
-  Max: 15
 Style/DotPosition:
   EnforcedStyle: leading
