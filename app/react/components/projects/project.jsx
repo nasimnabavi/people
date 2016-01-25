@@ -49,8 +49,15 @@ export default class Project extends React.Component {
     const billableMemberships = MembershipStore.billableMemberships(this.state.project.id);
     const nonBillableMemberships = MembershipStore.nonBillableMemberships(this.state.project.id);
 
-    const billableMembershipsRows = billableMemberships.map(membership => <Membership key={membership.id} membership={membership} />);
-    const nonBillableMembershipsRows = nonBillableMemberships.map(membership => <Membership key={membership.id} membership={membership} />);
+    const activeBillableMemberships = billableMemberships
+      .filter(membership => membership.ends_at == null || moment(membership.ends_at) > moment());
+    const activeNonBillableMemberships = nonBillableMemberships
+      .filter(membership => membership.ends_at == null || moment(membership.ends_at) > moment());
+
+    const billableMembershipsRows = activeBillableMemberships
+      .map(membership => <Membership key={membership.id} membership={membership} />);
+    const nonBillableMembershipsRows = activeNonBillableMemberships
+      .map(membership => <Membership key={membership.id} membership={membership} />);
 
     const notes = ProjectStore.getNotesForProject(this.state.project.id);
     const toggleNotes = () => {
