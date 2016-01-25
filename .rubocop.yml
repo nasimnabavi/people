@@ -33,6 +33,6 @@ Metrics/ClassLength:
   Enabled: false
 Metrics/MethodLength:
   CountComments: false
-  Max: 10
+  Max: 15
 Style/DotPosition:
   EnforcedStyle: leading
