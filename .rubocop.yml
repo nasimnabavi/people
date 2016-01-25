@@ -11,6 +11,7 @@ Metrics/LineLength:
   Exclude:
     - 'config/**/*'
     - 'Gemfile'
+    - 'Guardfile'
     - 'Gemfile.lock'
 Rails/TimeZone:
   Enabled: false
