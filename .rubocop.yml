@@ -26,3 +26,5 @@ Style/StringLiterals:
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
   Enabled: true
+Style/IfUnlessModifier:
+  MaxLineLength: 100
