@@ -1,0 +1,30 @@
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'db/**/*'
+    - 'script/**/*'
+    - 'Rakefile'
+Documentation:
+  Enabled: false
+Metrics/LineLength:
+  Max: 100
+  Exclude:
+    - 'config/**/*'
+Rails/TimeZone:
+  Enabled: false
+SignalException:
+  Enabled: false
+Style/PredicateName:
+  NamePrefix:
+    - is_
+    - have_
+  NamePrefixBlacklist:
+    - is_
+    - have_
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+  Enabled: true
+Metrics/ClassLength:
+  Enabled: false
