@@ -26,7 +26,7 @@ class ScheduledUsersRepository
         projects: { end_at: nil, internal: false },
         memberships: { ends_at: nil })
       .merge(Project.active.nonpotential.not_maintenance)
-      .order('COALESCE(memberships.ends_at, projects.end_at)')
+      .order('COALESCE(memberships.starts_at, projects.starts_at)')
   end
 
   def in_internals
