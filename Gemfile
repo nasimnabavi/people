@@ -5,7 +5,7 @@ gem 'rails', '4.2.5'
 gem 'acts_as_list'
 gem 'animate-scss'
 gem 'airbrussh', require: false
-gem "autoprefixer-rails"
+gem 'autoprefixer-rails'
 gem 'capistrano'
 gem 'capistrano-docker', github: 'netguru/capistrano-docker', tag: 'v0.2.5'
 gem 'carrierwave'
@@ -62,10 +62,14 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
+  gem 'guard-rails'
+  gem 'guard-rspec'
+  gem 'guard-rubocop'
   gem 'letter_opener'
   gem 'quiet_assets'
   gem 'xray-rails'
   gem 'gemsurance'
+  gem 'spring-commands-rspec'
 end
 
 group :development, :test do
