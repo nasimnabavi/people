@@ -16,7 +16,6 @@ class DashboardController < ApplicationController
   expose(:projects) { projects_repository.active_with_memberships }
   expose(:users) do
     User.includes(:memberships, :primary_roles)
-        .where(memberships: { project_id: projects.ids })
   end
   expose(:memberships) do
     Membership.where(project_id: projects.ids)
