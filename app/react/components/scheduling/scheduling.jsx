@@ -5,13 +5,16 @@ import AbilityStore from '../../stores/AbilityStore'
 import SchedulingFilterStore from '../../stores/SchedulingFilterStore'
 import User from './user';
 import Filters from './filters';
-
+import FilteringService from '../../services/scheduling/FilteringService';
 
 export default class Scheduling extends React.Component {
   static get propTypes() {
     return {
       users: React.PropTypes.array.isRequired,
       roles: React.PropTypes.array.isRequired,
+      stats: React.PropTypes.object.isRequired,
+      currentTab: React.PropTypes.string,
+      columns: React.PropTypes.array.isRequired,
       abilities: React.PropTypes.array.isRequired
     };
   }
@@ -40,18 +43,7 @@ export default class Scheduling extends React.Component {
 
   _filterUsers(store) {
     let usersToView = SchedulingUserStore.getState().users;
-    if(store.userIds.length !== 0) {
-      usersToView = usersToView.filter(user => store.userIds.indexOf(user.id) > -1);
-    }
-    if(store.roleIds.length !== 0) {
-      usersToView = usersToView.filter(user => store.roleIds.indexOf(user.primary_role.id) > -1);
-    }
-    if(store.abilityIds.length !== 0) {
-      usersToView = usersToView.filter(user => {
-        let filteredUserAbilities = user.ability_ids.filter(id => store.abilityIds.indexOf(id) > -1);
-        return filteredUserAbilities.length > 0
-      });
-    }
+    usersToView = FilteringService.filter(usersToView, store);
     this.setState({ users: usersToView });
   }
 
@@ -60,21 +52,17 @@ export default class Scheduling extends React.Component {
   }
 
   render() {
-    const users = this.state.users.map(user => <User key={user.id} user={user} />);
+    const users = this.state.users.map(user => <User key={user.id} user={user} currentTab={this.props.currentTab} columns={this.props.columns} />);
+    const headers = this.props.columns.map(column => <th>{column}</th>)
     return(
       <div>
-        <Filters />
+        <Filters showHidden={this.props.admin} stats={this.props.stats} currentTab={this.props.currentTab} />
         <table className="table table-striped table-hover scheduled-users">
           <thead>
-            <th>
-              <p>User</p>
-            </th>
-            <th>
-              <p>Role</p></th>
-            <th>Current project</th>
-            <th>Next Projects</th>
-            <th>Booked</th>
-            <th>Notes</th>
+            <tr>
+              <th></th>
+              {headers}
+            </tr>
           </thead>
           <tbody>
             {users}

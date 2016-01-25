@@ -5,7 +5,8 @@ import NotesModal from './notes-modal';
 export default class User extends React.Component {
   static get propTypes() {
     return {
-      user: React.PropTypes.object.isRequired
+      user: React.PropTypes.object.isRequired,
+      currentTab: React.PropTypes.string
     };
   }
 
@@ -50,11 +51,34 @@ export default class User extends React.Component {
       notes_modal = <NotesModal notes={user.user_notes}/>;
     }
 
+    if(this.props.currentTab == 'to_rotate') {
+      var rowClass = user.rotation_class
+    }
+
+    if(this.props.columns.indexOf('Next project') > -1) {
+      var next_memberships_column = (
+        <td>
+          <div className="next_projects-region">{next_memberships}</div>
+        </td>
+      )
+    }
+
+    if(this.props.columns.indexOf('Booked') > -1) {
+      var booked_memberships_column = (
+        <td>
+          <div className="booked_projects-region">{booked_memberships}</div>
+        </td>
+      )
+    }
+
     return(
-      <tr>
+      <tr className={rowClass}>
         <td>
           <div className="avatar">
+            <img src={user.gravatar.gravatar.circle.url} />
           </div>
+        </td>
+        <td>
           <div className="profile">
             <span className="name">
               <a href={"/users/" + user.id}>{user.name}</a>
@@ -67,12 +91,8 @@ export default class User extends React.Component {
         <td>
           <div className="projects-region">{current_memberships}</div>
         </td>
-        <td>
-          <div className="next_projects-region">{next_memberships}</div>
-        </td>
-        <td>
-          <div className="booked_projects-region">{booked_memberships}</div>
-        </td>
+        {next_memberships_column}
+        {booked_memberships_column}
         <td className="user-notes">
           {notes_modal}
         </td>

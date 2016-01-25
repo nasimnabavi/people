@@ -1,34 +1,29 @@
 import React, {PropTypes} from 'react';
-import SchedulingUserStore from '../../stores/SchedulingUserStore'
-import SchedulingFilterStore from '../../stores/SchedulingFilterStore'
-import SchedulingFilterActions from '../../actions/SchedulingFilterActions';
 
 export default class FiltersTab extends React.Component {
   static get propTypes() {
     return {
-      name: React.PropTypes.string.isRequired
+      name: React.PropTypes.string.isRequired,
+      href: React.PropTypes.string.isRequired,
+      number: React.PropTypes.number.isRequired,
     };
   }
 
   constructor(props) {
     super(props);
-    this.handleFilterChange = this.handleFilterChange.bind(this);
-  }
-
-  handleFilterChange(values) {
-    let objectIds = [];
-    SchedulingFilterActions.changeUserFilter(objectIds);
   }
 
   render() {
-    const users = SchedulingUserStore.getState().users;
-    const userFilerIds = SchedulingFilterStore.getState().userIds;
+    var classNames = "category";
+    if (this.props.currentTab === this.props.href) {
+      classNames += " active";
+    }
 
     return(
-      <li className="category">
-        <a href="#">
+      <li className={classNames}>
+        <a href={this.props.href} >
           {this.props.name}
-          <span className="user-count"> ()</span>
+          <span className="user-count"> ({this.props.number})</span>
         </a>
       </li>
     );
