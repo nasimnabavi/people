@@ -26,6 +26,8 @@ export default class NewNoteForm extends React.Component {
         }
       }
     }).done(this.props.noteAddedCallback).fail(failedToSaveNote);
+
+    $('input.new-project-note-text').val('');
   }
 
   render() {
