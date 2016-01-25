@@ -3,7 +3,7 @@ class Hrguru.Models.User extends Backbone.Model
   visibleBy:
     users: true
     roles: true
-    actualProjects: true
+    currentProjects: true
     oldProjects: true
     abilities: true
     months_in_current_project: true
@@ -18,7 +18,7 @@ class Hrguru.Models.User extends Backbone.Model
 
   updateVisibility: (data) ->
     @visibleBy.roles = @visibleByRoles(data.roles)
-    @visibleBy.actualProjects = @visibleByProjects(data.actualProjects)
+    @visibleBy.currentProjects = @visibleByProjects(data.currentProjects)
     @visibleBy.oldProjects = @visibleByOldProjects(data.oldProjects)
     @visibleBy.users = @visibleByUsers(data.users)
     @visibleBy.abilities = @visibleByAbilities(data.abilities)
@@ -27,7 +27,7 @@ class Hrguru.Models.User extends Backbone.Model
     @trigger 'toggle_visible', @isVisible()
 
   isVisible: ->
-    @visibleBy.roles && @visibleBy.actualProjects && @visibleBy.users &&
+    @visibleBy.roles && @visibleBy.currentProjects && @visibleBy.users &&
       @visibleBy.abilities && @isActive() && @visibleBy.months_in_current_project &&
       @visibleBy.category && @visibleBy.oldProjects
 
