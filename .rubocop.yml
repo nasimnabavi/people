@@ -7,7 +7,7 @@ AllCops:
 Documentation:
   Enabled: false
 Metrics/LineLength:
-  Enabled: false
+  Max: 100
   Exclude:
     - 'config/**/*'
 Rails/TimeZone:
@@ -26,5 +26,5 @@ Style/StringLiterals:
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
   Enabled: true
-Style/IfUnlessModifier:
-  MaxLineLength: 100
+Metrics/ClassLength:
+  Enabled: false
