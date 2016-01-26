@@ -19,7 +19,7 @@ describe "Users page", js: true do
   context 'role names' do
     let!(:previous_position) { create(:position, user: developer, primary: false) }
 
-    it 'shows only actual role name' do
+    it 'shows only current role name' do
       expect(page).not_to have_content(previous_position.role.name)
     end
   end

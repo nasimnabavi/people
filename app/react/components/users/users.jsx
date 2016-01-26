@@ -45,11 +45,11 @@ export default class Users extends React.Component {
     if(store.roleIds.length > 0) {
       users = users.filter(user => user.primary_roles[0] && store.roleIds.indexOf(user.primary_roles[0].id) > -1);
     }
-    if(store.actualProjectIds.length > 0) {
+    if(store.currentProjectIds.length > 0) {
       users = users.filter(user => {
-        const actualFilteredProjects = ProjectStore.getCurrentProjectsForUser(user.id)
-          .filter(project => store.actualProjectIds.indexOf(project.id) > -1);
-        return actualFilteredProjects.length > 0;
+        const currentFilteredProjects = ProjectStore.getCurrentProjectsForUser(user.id)
+          .filter(project => store.currentProjectIds.indexOf(project.id) > -1);
+        return currentFilteredProjects.length > 0;
       });
     }
     if(store.previousProjectIds.length > 0) {

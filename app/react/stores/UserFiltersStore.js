@@ -5,14 +5,14 @@ import UserFilterActions from '../actions/UserFilterActions';
 class UserFiltersStore {
   constructor() {
     this.bindActions(UserFilterActions);
-    this.actualProjectIds = [];
+    this.currentProjectIds = [];
     this.previousProjectIds = [];
     this.roleIds = [];
     this.userIds = [];
   }
 
-  changeActualProjectIds(projectIds) {
-    this.setState({ actualProjectIds: projectIds });
+  changeCurrentProjectIds(projectIds) {
+    this.setState({ currentProjectIds: projectIds });
   }
 
   changePreviousProjectIds(projectIds) {

@@ -13,7 +13,7 @@ en:
       filters:
         users: 'Filter users…'
         roles: 'Filter roles…'
-        actual_projects: 'Filter by actual projects…'
+        current_projects: 'Filter by current projects…'
         old_projects: 'Filter by previous projects...'
         abilities: 'Filter abilities…'
       table:

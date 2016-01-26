@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Scheduling::BookedCheck do
   let!(:user) { create(:user) }
   let!(:expired_booked_membership) { create(:membership, :booked_expired, user: user) }
-  let!(:actual_booked_membership) { create(:membership, :booked, user: user) }
+  let!(:current_booked_membership) { create(:membership, :booked, user: user) }
 
 
   subject { described_class.new.call }
@@ -16,7 +16,7 @@ describe Scheduling::BookedCheck do
 
     it 'leaves booked memberships that are still before expiration date' do
       subject
-      expect(user.reload.memberships).to include(actual_booked_membership)
+      expect(user.reload.memberships).to include(current_booked_membership)
     end
   end
 end

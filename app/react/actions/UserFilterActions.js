@@ -3,7 +3,7 @@ import alt from '../alt';
 class UserFilterActions {
   constructor() {
     this.generateActions(
-      'changeActualProjectIds',
+      'changeCurrentProjectIds',
       'changePreviousProjectIds',
       'changeRoleIds',
       'changeUserIds'

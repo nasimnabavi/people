@@ -48,7 +48,7 @@ export default class ProjectName extends React.Component {
           <div className="project-avatar" style={avatarStyles}>
             {project.initials}
           </div>
-          <div className="actual-name">
+          <div className="current-name">
             <a href={Routes.project_path(project.id)}>{project.name}</a>
             <span className="action">
               {archiveIcon}

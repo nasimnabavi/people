@@ -22,7 +22,7 @@ describe Memberships::UpdateBookedAt do
           membership.booked = true
         end
 
-        it 'changes booked_at to actual time' do
+        it 'changes booked_at to current time' do
           subject
           expect(membership.booked_at.utc.to_s).to eq Time.zone.now.utc.to_s
         end

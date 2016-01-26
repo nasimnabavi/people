@@ -21,12 +21,12 @@ export default class Filters extends React.Component {
     UserFilterActions.changeUserIds(userIds);
   }
 
-  handleFilterActualProjectsChange(values) {
+  handleFilterCurrentProjectsChange(values) {
     let projectIds = [];
     if(values != '') {
       projectIds = values.split(',').map(value => Number(value));
     }
-    UserFilterActions.changeActualProjectIds(projectIds);
+    UserFilterActions.changeCurrentProjectIds(projectIds);
   }
 
   handleFilterPreviousProjectsChange(values) {
@@ -74,7 +74,7 @@ export default class Filters extends React.Component {
       return roleFilterOptions[optionIndex];
     });
 
-    const actualProjectsSelectValue = UserFilterStore.getState().actualProjectIds.map(projectId => {
+    const currentProjectsSelectValue = UserFilterStore.getState().currentProjectIds.map(projectId => {
       const optionIds = projectFilterOptions.map(option => option.value);
       let optionIndex = optionIds.indexOf(projectId);
       return projectFilterOptions[optionIndex];
@@ -104,11 +104,11 @@ export default class Filters extends React.Component {
               onChange={this.handleFilterRoleChange} />
           </div>
           <div className="projects">
-            <Select name="projects-actual" placeholder="Filter by actual projects..." type="text"
+            <Select name="projects-current" placeholder="Filter by current projects..." type="text"
               multi={true}
               options={projectFilterOptions}
-              value={actualProjectsSelectValue}
-              onChange={this.handleFilterActualProjectsChange} />
+              value={currentProjectsSelectValue}
+              onChange={this.handleFilterCurrentProjectsChange} />
           </div>
           <div className="projects">
             <Select name="projects-old" placeholder="Filter by previous projects..." type="text"

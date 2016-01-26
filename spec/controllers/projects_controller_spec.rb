@@ -60,7 +60,7 @@ describe ProjectsController do
 
   describe '#update' do
     let!(:project) { create(:project, name: 'hrguru') }
-    let(:actual_membership) { create(:membership, starts_at: 1.week.ago, ends_at: 1.week.from_now, stays: true, project: new_project) }
+    let(:current_membership) { create(:membership, starts_at: 1.week.ago, ends_at: 1.week.from_now, stays: true, project: new_project) }
     let(:old_membership) { create(:membership, starts_at: 2.weeks.ago, ends_at: 1.week.ago, stays: false, project: new_project) }
     let(:slack_config) { OpenStruct.new(webhook_url: 'webhook_url', username: 'PeopleApp') }
     let(:response_ok) { Net::HTTPOK.new('1.1', 200, 'OK') }
@@ -73,13 +73,13 @@ describe ProjectsController do
         allow_any_instance_of(Membership).to receive(:notify_slack_on_create)
         allow_any_instance_of(Membership).to receive(:notify_slack_on_update)
         expect_any_instance_of(Slack::Notifier).to receive(:ping).and_return(response_ok)
-        new_project.memberships << [actual_membership, old_membership]
+        new_project.memberships << [current_membership, old_membership]
         put :update, id: new_project, project: attributes_for(:project, potential: false)
         new_project.reload
       end
 
-      it 'return actual membership' do
-        expect(new_project.memberships).to match_array([actual_membership])
+      it 'return current membership' do
+        expect(new_project.memberships).to match_array([current_membership])
       end
 
       it 'deletes unnecessary memberships' do
@@ -99,7 +99,7 @@ describe ProjectsController do
       let!(:new_project) { create(:project, potential: false) }
 
       before do
-        new_project.memberships << [actual_membership, old_membership]
+        new_project.memberships << [current_membership, old_membership]
         allow(AppConfig).to receive(:slack).and_return(slack_config)
         expect_any_instance_of(Slack::Notifier).to receive(:ping).and_return(response_ok)
       end
@@ -108,7 +108,7 @@ describe ProjectsController do
         put :update, id: new_project, project: attributes_for(:project, potential: true)
         new_project.reload
         expect(new_project.memberships).to match_array([
-          actual_membership, old_membership])
+          current_membership, old_membership])
       end
     end
 
