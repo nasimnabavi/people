@@ -9,7 +9,6 @@ import SelectedMembershipStore from '../../stores/SelectedMembershipStore';
 import EditMembershipModal from './edit-membership-modal';
 import FilterStore from '../../stores/FilterStore';
 
-
 export default class Projects extends React.Component {
   constructor(props) {
     super(props);

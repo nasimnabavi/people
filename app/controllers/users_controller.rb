@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     UserShowPage.new(
       user: user,
       projects_repository: projects_repository,
-      user_projects_repository: user_projects_repository,
+      user_projects_repository: user_projects_repository
     )
   end
   expose(:user_details_page) do
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
       abilities_repository: abilities_repository,
       user_positions_repository: user_positions_repository,
       contract_types_repository: contract_types_repository,
-      user_roles_repository: user_roles_repository,
+      user_roles_repository: user_roles_repository
     )
   end
 

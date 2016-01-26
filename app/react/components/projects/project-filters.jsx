@@ -63,7 +63,6 @@ export default class ProjectFilters extends React.Component {
       FilterActions.highlightNotBillable(e.target.checked);
     }
 
-
     return(
       <div id="filters">
         <div className="filters">

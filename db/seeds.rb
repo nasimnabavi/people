@@ -22,6 +22,7 @@ end
 contract_types.each do |name|
   ContractType.find_or_create_by(name: name)
 end
+
 locations.each do |name|
   Location.find_or_create_by(name: name)
 end

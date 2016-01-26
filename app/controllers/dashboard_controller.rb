@@ -1,6 +1,7 @@
 class DashboardController < ApplicationController
   include ContextFreeRepos
 
+  expose(:projects) { projects_repository.active_with_memberships.order(:name) }
   expose(:projects_json) do
     ActiveModel::ArraySerializer.new(
       projects.decorate,
@@ -16,7 +17,6 @@ class DashboardController < ApplicationController
       each_serializer: UserSerializer
     ).as_json
   end
-  expose(:projects) { projects_repository.active_with_memberships.order(:name) }
   expose(:memberships) do
     Membership.where(project_id: projects.ids)
   end
