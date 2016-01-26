@@ -43,14 +43,14 @@ class MembershipStore {
 
   static billableMemberships(projectId) {
     return this.memberships(projectId)
-      .filter(membership => membership.billable == true &&
-        (membership.ends_at == null || Moment(membership.ends_at) > Moment()));
+      .filter(membership => membership.billable === true &&
+        (membership.ends_at === null || Moment(membership.ends_at) > Moment()));
   }
 
   static nonBillableMemberships(projectId) {
     return this.memberships(projectId)
-      .filter(membership => membership.billable == false &&
-        (membership.ends_at == null || Moment(membership.ends_at) > Moment()));
+      .filter(membership => membership.billable === false &&
+        (membership.ends_at === null || Moment(membership.ends_at) > Moment()));
   }
 
   static memberships(projectId) {
