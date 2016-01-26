@@ -1,4 +1,28 @@
 class ScheduledUsersRepository
+  def all_methods
+    (
+      all + scheduled_juniors_and_interns + to_rotate +
+      in_internals + with_rotations_in_progress +
+      in_commercial_projects_with_due_date + booked +
+      unavailable + not_scheduled
+    )
+  end
+
+  def all_2
+    all_methods.map do |user|
+      {
+        id: user.id,
+        name: "#{user.last_name} #{user.first_name}",
+      }
+    end
+  end
+
+  def occurs
+    all_2.each_with_object(Hash.new(0)) do |a, h|
+      h[a] += 1
+    end
+  end
+
   def all
     @all_scheduled ||= technical_users.distinct.order(:last_name)
   end
