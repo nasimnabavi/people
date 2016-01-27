@@ -37,15 +37,14 @@ export default class Projects extends React.Component {
 
   _filterProjects(store) {
     let projectsToView = ProjectStore.getState().projects;
+    const showNext = FilterStore.getState().showNext;
+    let memberships = MembershipStore.getState().memberships
+      .filter(membership => membership.ends_at === null || Moment(membership.ends_at) > Moment());
+    if(!showNext) {
+      memberships = memberships.filter(membership => Moment(membership.starts_at) < Moment());
+    }
 
     if(store.roleIds.length !== 0) {
-      const showNext = FilterStore.getState().showNext;
-      let memberships = MembershipStore.getState().memberships
-        .filter(membership => Moment(membership.starts_at) <= Moment() &&
-          membership.ends_at === null || Moment(membership.ends_at) > Moment());
-      if(!showNext) {
-        memberships = memberships.filter(membership => Moment(membership.starts_at) < Moment());
-      }
       let roleProjectsIds = memberships.filter(membership => {
         return store.roleIds.indexOf(membership.role_id) > -1;
       }).map(membership => membership.project_id);
@@ -57,7 +56,6 @@ export default class Projects extends React.Component {
     }
 
     if(store.userIds.length !== 0) {
-      let memberships = MembershipStore.getState().memberships;
       let userProjectsIds = memberships.filter(membership => {
         return store.userIds.indexOf(membership.user_id) > -1;
       }).map(membership => membership.project_id);
