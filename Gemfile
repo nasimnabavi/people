@@ -39,7 +39,7 @@ gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
 gem 'pg'
-gem 'rabl', '~> 0.11.5'
+gem 'rabl'
 gem 'rack-mini-profiler', require: false
 gem 'render_anywhere', require: false
 gem 'rollbar'
