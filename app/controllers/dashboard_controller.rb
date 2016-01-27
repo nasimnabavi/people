@@ -17,6 +17,8 @@ class DashboardController < ApplicationController
       each_serializer: UserSerializer
     ).as_json
   end
+  expose(:roles) { Role.all.order(:name) }
+  expose(:roles_json) { roles.as_json }
   expose(:memberships) do
     Membership.where(project_id: projects.ids)
   end
