@@ -165,7 +165,6 @@ describe 'Projects page', js: true do
     end
 
     context 'when adding invalid project' do
-
       context 'when name is not present' do
         it 'fails with error message' do
           find('.btn-success').click

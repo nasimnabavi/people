@@ -6,7 +6,6 @@ import UserFilterStore from '../../stores/UserFiltersStore';
 import UserFilterActions from '../../actions/UserFilterActions';
 import Select from 'react-select';
 
-
 export default class Filters extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +13,6 @@ export default class Filters extends React.Component {
 
   handleFilterUserChange(values) {
     let userIds = [];
-    debugger;
     if(values != '') {
       userIds = values.split(',').map(value => Number(value));
     }
