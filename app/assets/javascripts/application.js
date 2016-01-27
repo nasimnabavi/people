@@ -12,7 +12,8 @@
 //= require js_stack
 //= require js_stack/plugins/underscore.string
 //= require js_stack/plugins/underscore.inflections
-//= require moment
+//= require js_stack/plugins/backbone.associations
+//= require js_stack/plugins/moment
 //= require backbone/hrguru
 //= require abilities/icon_preview
 //= require abilities/selectize_skills
