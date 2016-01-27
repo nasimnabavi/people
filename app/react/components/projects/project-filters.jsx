@@ -46,28 +46,30 @@ export default class ProjectFilters extends React.Component {
     const roleFilterOptions = roles.map(role => {
       return { label: role.name, value: role.id };
     });
+    const roleOptionIds = roleFilterOptions.map(option => option.value);
+
     const projectFilterOptions = projects.map(project => {
       return { label: project.name, value: project.id };
     });
+    const projectOptionIds = projectFilterOptions.map(option => option.value);
+
     const userFilterOptions = users.map(user => {
       return { label: `${user.last_name} ${user.first_name}`, value: user.id };
     });
+    const userOptionIds = userFilterOptions.map(option => option.value);
 
     const roleSelectValue = FilterStore.getState().roleIds.map(roleId => {
-      const optionIds = roleFilterOptions.map(option => option.value);
-      let optionIndex = optionIds.indexOf(roleId);
+      let optionIndex = roleOptionIds.indexOf(roleId);
       return roleFilterOptions[optionIndex];
     });
 
     const projectSelectValue = FilterStore.getState().projectIds.map(projectId => {
-      const optionIds = projectFilterOptions.map(option => option.value);
-      let optionIndex = optionIds.indexOf(projectId);
+      let optionIndex = projectOptionIds.indexOf(projectId);
       return projectFilterOptions[optionIndex];
     });
 
     const userSelectValue = FilterStore.getState().userIds.map(userId => {
-      const optionIds = userFilterOptions.map(option => option.value);
-      let optionIndex = optionIds.indexOf(userId);
+      let optionIndex = userOptionIds.indexOf(userId);
       return userFilterOptions[optionIndex];
     });
 
