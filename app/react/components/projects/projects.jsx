@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import ProjectFilters from './project-filters';
 import Project from './project';
+import RoleStore from '../../stores/RoleStore';
 import ProjectStore from '../../stores/ProjectStore';
 import MembershipStore from '../../stores/MembershipStore'
 import ProjectUsersStore from '../../stores/ProjectUsersStore';
@@ -8,10 +9,12 @@ import ProjectActions from '../../actions/ProjectActions';
 import SelectedMembershipStore from '../../stores/SelectedMembershipStore';
 import EditMembershipModal from './edit-membership-modal';
 import FilterStore from '../../stores/FilterStore';
+import Moment from 'moment';
 
 export default class Projects extends React.Component {
   constructor(props) {
     super(props);
+    RoleStore.setInitialState(this.props.roles);
     ProjectStore.setInitialState(this.props.projects);
     MembershipStore.setInitialState(this.props.memberships);
     ProjectUsersStore.setInitialState(this.props.users);
@@ -34,9 +37,21 @@ export default class Projects extends React.Component {
 
   _filterProjects(store) {
     let projectsToView = ProjectStore.getState().projects;
+
+    if(store.roleIds.length !== 0) {
+      let memberships = MembershipStore.getState().memberships
+        .filter(membership => Moment(membership.starts_at) <= Moment() &&
+          membership.ends_at === null || Moment(membership.ends_at) > Moment());
+      let roleProjectsIds = memberships.filter(membership => {
+        return store.roleIds.indexOf(membership.role_id) > -1;
+      }).map(membership => membership.project_id);
+      projectsToView = projectsToView.filter(project => roleProjectsIds.indexOf(project.id) > -1);
+    }
+
     if(store.projectIds.length !== 0) {
       projectsToView = projectsToView.filter(project => store.projectIds.indexOf(project.id) > -1);
     }
+
     if(store.userIds.length !== 0) {
       let memberships = MembershipStore.getState().memberships;
       let userProjectsIds = memberships.filter(membership => {
