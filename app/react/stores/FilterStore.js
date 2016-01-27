@@ -5,11 +5,16 @@ import FilterActions from '../actions/FilterActions';
 class FilterStore {
   constructor() {
     this.bindActions(FilterActions);
+    this.roleIds = [];
     this.projectIds = [];
     this.userIds = [];
     this.showNext = false;
     this.highlightEnding = false;
     this.highlightNotBillable = false;
+  }
+
+  changeRoleFilter(roleIds) {
+    this.setState({ roleIds: roleIds});
   }
 
   changeProjectFilter(projectIds) {
