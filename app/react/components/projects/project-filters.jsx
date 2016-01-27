@@ -101,12 +101,6 @@ export default class ProjectFilters extends React.Component {
               Show next
             </label>
           </div>
-          <div className="checkbox">
-            <label>
-              <input id="highlight-not-billable" type= 'checkbox' onChange={highlightNonBillableChanged} />
-              Highlight not billable
-            </label>
-          </div>
         </div>
       </div>
     );
