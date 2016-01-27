@@ -56,7 +56,7 @@ gem 'versionist'
 gem 'whenever', require: false
 gem 'httparty'
 gem 'active_model_serializers'
-gem 'react_webpack_rails', '0.0.4'
+gem 'react_webpack_rails'
 
 group :development do
   gem 'better_errors'
