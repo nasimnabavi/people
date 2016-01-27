@@ -20,7 +20,7 @@ class DashboardController < ApplicationController
   expose(:roles) { Role.order(:name) }
   expose(:roles_json) { roles.as_json }
   expose(:memberships) do
-    Membership.where(project_id: projects.ids)
+    Membership.where(project_id: projects.ids, user_id: users.ids)
   end
   expose(:memberships_json) do
     memberships.decorate.as_json
