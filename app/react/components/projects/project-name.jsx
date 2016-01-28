@@ -11,10 +11,6 @@ export default class ProjectName extends React.Component {
     const avatarStyles = {
       backgroundColor: project.color
     };
-    const otherStyles = {
-      color: "red",
-      display: "none"
-    };
 
     const toggleArchiveProject = () => {
       const params = {
