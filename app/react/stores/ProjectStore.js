@@ -41,6 +41,7 @@ class ProjectStore {
       .filter(membership => membership.user_id == userId)
       .filter(membership => Moment(membership.starts_at) < Moment())
       .filter(membership => (membership.ends_at == null || Moment(membership.ends_at) > Moment()))
+      .filter(membership => !membership.booked)
       .map(membership => membership.project_id);
     return this.state.projects.filter(project => userCurrentMembershipsProjectIds.indexOf(project.id) > -1);
   }

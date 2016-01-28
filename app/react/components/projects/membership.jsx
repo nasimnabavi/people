@@ -34,9 +34,6 @@ export default class Membership extends React.Component {
     if(highlightNonBillable) {
       const user = ProjectUsersStore.getUser(this.props.membership.user_id);
       const userPrimaryRole = user.primary_roles[0]
-      if(this.props.membership.user_id == 51 && this.props.membership.project_id == 1) {
-        debugger;
-      }
       result = this.props.membership.role_id == userPrimaryRole.id && userPrimaryRole.billable && !this.props.membership.billable;
     }
     return result;
