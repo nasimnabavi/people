@@ -70,17 +70,17 @@ describe ScheduledUsersRepository do
         internal_project[:dev_with_due_date][:with_nothing_scheduled])
     end
 
-    it 'includes devs in internal projects with internal projects scheduled' do
+    it 'includes devs in internal projects with internal projects scheduled, except currently unavailable' do
       expect(subject).to include(
         internal_project[:dev_without_due_date][:with_internal_project_scheduled])
       expect(subject).to include(
         internal_project[:dev_with_due_date][:with_internal_project_scheduled])
-      expect(subject).to include(
+      expect(subject).to_not include(
         unavailable[:dev_with_due_date][:with_internal_project_scheduled])
     end
 
-    it 'doesn\'t include others' do
-      expect(subject.length).to eq(5)
+    it 'doesn\'t include others and unavailable' do
+      expect(subject.length).to eq(4)
     end
   end
 
@@ -103,12 +103,12 @@ describe ScheduledUsersRepository do
         internal_project[:dev_without_due_date][:with_commercial_project_scheduled])
       expect(subject).to include(
         internal_project[:dev_with_due_date][:with_commercial_project_scheduled])
-      expect(subject).to include(
+      expect(subject).to_not include(
         unavailable[:dev_with_due_date][:with_commercial_project_scheduled])
     end
 
-    it 'doesn\'t include others' do
-      expect(subject.length).to eq(7)
+    it 'doesn\'t include others and unavailable' do
+      expect(subject.length).to eq(6)
     end
   end
 
@@ -182,6 +182,13 @@ describe ScheduledUsersRepository do
         unavailable[:dev_with_due_date][:with_nothing_scheduled])
     end
 
+    it 'includes unavailable devs with a due date with scheduled projects' do
+      expect(subject).to include(
+        unavailable[:dev_with_due_date][:with_internal_project_scheduled])
+      expect(subject).to include(
+        unavailable[:dev_with_due_date][:with_commercial_project_scheduled])
+    end
+
     it 'includes unavailable devs without a due date' do
       expect(subject).to include(
         unavailable[:dev_without_due_date][:with_nothing_scheduled])
@@ -192,7 +199,7 @@ describe ScheduledUsersRepository do
     end
 
     it 'doesn\'t include others' do
-      expect(subject.length).to eq(4)
+      expect(subject.length).to eq(6)
     end
   end
 end
