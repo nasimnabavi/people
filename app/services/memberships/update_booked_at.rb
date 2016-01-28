@@ -5,8 +5,7 @@ module Memberships
     end
 
     def call
-      return unless @membership.booked_changed?
-      booked_date = @membership.booked ? Time.zone.now : nil
+      booked_date = @membership.booked ? @membership.starts_at : nil
       @membership.booked_at = booked_date
     end
   end
