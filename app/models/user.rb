@@ -1,10 +1,10 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
-    :trackable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :github]
+         :trackable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2, :github]
 
   mount_uploader :gravatar, GravatarUploader
 
-  has_many :memberships, ->{ order(:ends_at) }, dependent: :destroy
+  has_many :memberships, -> { order(:ends_at) }, dependent: :destroy
   has_many :notes
   has_many :positions
   has_many :projects, through: :memberships
@@ -19,21 +19,32 @@ class User < ActiveRecord::Base
   has_many :current_memberships, -> { active.unfinished.started }, anonymous_class: Membership
   has_many :potential_memberships, -> { potential.unfinished }, anonymous_class: Membership
   has_many :next_memberships, -> { next_memberships }, anonymous_class: Membership
-  has_many :previous_memberships, -> { where('ends_at < ?', Time.zone.now) },
-    anonymous_class: Membership
+  has_many :previous_memberships, -> {
+    where('ends_at < ?', Time.zone.now)
+  }, anonymous_class: Membership
   has_many :booked_memberships, -> {
     where(booked: true)
-      .where("memberships.ends_at IS NULL OR memberships.ends_at > ?", Time.current)
-      .order("memberships.ends_at ASC NULLS FIRST, id ASC")
+      .where('memberships.ends_at IS NULL OR memberships.ends_at > ?', Time.current)
+      .order('memberships.ends_at ASC NULLS FIRST, id ASC')
   }, anonymous_class: Membership
   has_one :last_membership, -> {
-    active.unfinished.started.order('memberships.ends_at DESC NULLS FIRST')
+    active
+      .unfinished
+      .started
+      .order('memberships.ends_at DESC NULLS FIRST')
   }, anonymous_class: Membership
   has_one :longest_current_membership, -> {
-    active.unfinished.started.order('memberships.ends_at DESC NULLS FIRST, memberships.starts_at ASC')
+    active
+      .unfinished
+      .started
+      .order('memberships.ends_at DESC NULLS FIRST, memberships.starts_at ASC')
   }, anonymous_class: Membership
   has_many :primary_roles, -> {
-    joins(:positions).where(positions: { primary: true }).group('roles.id').group('positions.starts_at') }, through: :positions, source: :role
+    joins(:positions)
+      .where(positions: { primary: true })
+      .group('roles.id')
+      .group('positions.starts_at')
+  }, through: :positions, source: :role
 
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true
@@ -50,22 +61,20 @@ class User < ActiveRecord::Base
   scope :available, -> { where.not(id: unavailable.select(:id)) }
   scope :unavailable, -> do
     joins(memberships: :project).where("lower(projects.name) = 'unavailable'")
-      .where('memberships.ends_at IS NULL
-        OR (memberships.ends_at > ? AND users.id NOT IN (?))',
-        Time.current, with_scheduled_memberships.select(:id))
+      .where('(memberships.ends_at IS NULL) OR (memberships.ends_at > ?)', Time.current)
       .merge(Membership.started)
   end
   scope :active, -> { where(archived: false) }
-  scope :technical, -> { joins(:positions).where(positions: { role_id: Role.technical.pluck(:id) } ) }
+  scope :technical, -> { joins(:positions).where(positions: { role_id: Role.technical.pluck(:id) }) }
   scope :technical_active, -> { where(archived: false) }
   scope :roles, -> (roles) { joins(:positions).where(positions: { role: roles, primary: true }) }
-  scope :contract_users, ->(contract_type) {
+  scope :contract_users, -> (contract_type) {
     ContractType.where(name: contract_type).first.try(:users)
   }
   scope :without_team, -> { where(team: nil) }
   scope :booked, -> do
     joins(:memberships).where(memberships: { booked: true })
-      .where("memberships.ends_at IS NULL OR memberships.ends_at > ?", Time.current)
+      .where('memberships.ends_at IS NULL OR memberships.ends_at > ?', Time.current)
   end
   scope :not_booked, -> { where.not(id: booked.select(:id)) }
   scope :with_scheduled_memberships, -> do
