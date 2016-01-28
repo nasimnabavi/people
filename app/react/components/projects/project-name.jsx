@@ -11,10 +11,6 @@ export default class ProjectName extends React.Component {
     const avatarStyles = {
       backgroundColor: project.color
     };
-    const otherStyles = {
-      color: "red",
-      display: "none"
-    };
 
     const toggleArchiveProject = () => {
       const params = {
@@ -23,6 +19,22 @@ export default class ProjectName extends React.Component {
       };
       ProjectActions.update(params);
     };
+
+    let maintenanceLabel = null;
+
+    if(project.project_type === "maintenance") {
+      maintenanceLabel = (
+        <div className="label label-warning label-maintenance pull-right">maintenance</div>
+      );
+    }
+
+    let internalLabel = null;
+
+    if(project.internal) {
+      internalLabel = (
+        <div className="label label-warning label-internal pull-right">internal</div>
+      );
+    }
 
     let archiveIcon = null;
 
@@ -50,6 +62,8 @@ export default class ProjectName extends React.Component {
           </div>
           <div className="current-name">
             <a href={Routes.project_path(project.id)}>{project.name}</a>
+            {maintenanceLabel}
+            {internalLabel}
             <span className="action">
               {archiveIcon}
             </span>
