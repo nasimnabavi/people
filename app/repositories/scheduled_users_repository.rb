@@ -84,8 +84,8 @@ class ScheduledUsersRepository
   end
 
   def unavailable
-    @unavailable ||= UnavailableProjectBuilder.new.call
-    technical_users.not_booked.unavailable
+    UnavailableProjectBuilder.new.call
+    @unavailable ||= technical_users.not_booked.unavailable
   end
 
   def technical
