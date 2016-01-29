@@ -45,6 +45,10 @@ export default class Project extends React.Component {
     });
   }
 
+  componentDidMount() {
+    $('[data-toggle="tooltip"]').tooltip();
+  }
+
   render() {
     const billableMemberships = MembershipStore.billableMemberships(this.state.project.id);
     const nonBillableMemberships = MembershipStore.nonBillableMemberships(this.state.project.id);
