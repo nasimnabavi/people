@@ -24,7 +24,7 @@ export default class ProjectName extends React.Component {
 
     if(project.project_type === "maintenance") {
       maintenanceLabel = (
-        <div className="label label-warning label-maintenance pull-right">maintenance</div>
+        <div className="label label-warning label-maintenance">maintenance</div>
       );
     }
 
@@ -32,7 +32,7 @@ export default class ProjectName extends React.Component {
 
     if(project.internal) {
       internalLabel = (
-        <div className="label label-warning label-internal pull-right">internal</div>
+        <div className="label label-warning label-internal">internal</div>
       );
     }
 
@@ -62,12 +62,12 @@ export default class ProjectName extends React.Component {
           </div>
           <div className="current-name">
             <a href={Routes.project_path(project.id)}>{project.name}</a>
-            {maintenanceLabel}
-            {internalLabel}
             <span className="action">
               {archiveIcon}
             </span>
           </div>
+          {maintenanceLabel}
+          {internalLabel}
         </div>
         <div className="btn-primary glyphicon glyphicon-list js-open-project-notes show-notes"
           onClick={this.props.toggleNotesCallback}></div>
