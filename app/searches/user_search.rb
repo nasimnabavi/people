@@ -1,20 +1,19 @@
 class UserSearch < Searchlight::Search
-
-  search_on User
-
-  searches :id, :email, :id_or_email, :pm, :qa, :developer
+  def base_query
+    User.all
+  end
 
   def search_id
-    search.where(id: id)
+    query.where(id: id)
   end
 
   def search_email
-    search.where(email: email)
+    query.where(email: email)
   end
 
   def search_id_or_email
-    by_id = search.where(id: id_or_email['id'])
-    by_id.count > 0 ? by_id : search.where(email: id_or_email['email'])
+    by_id = query.where(id: id_or_email['id'])
+    by_id.count > 0 ? by_id : query.where(email: id_or_email['email'])
   end
 
   def search_pm
@@ -26,14 +25,16 @@ class UserSearch < Searchlight::Search
   end
 
   def search_developer
-    search.joins(:positions).where(positions: { role: Role.technical, primary: true })
+    query
+      .joins(:positions)
+      .where(positions: { role: Role.technical, primary: true })
       .preload(:positions, :projects)
   end
 
   private
 
   def search_role_by_names(names)
-    search.joins(positions: :role).where(positions: { role: roles_by_names(names) })
+    query.joins(positions: :role).where(positions: { role: roles_by_names(names) })
   end
 
   def roles_by_names(names)
