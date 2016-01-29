@@ -67,7 +67,6 @@ group :development do
   gem 'guard-rubocop'
   gem 'letter_opener'
   gem 'quiet_assets'
-  gem 'xray-rails'
   gem 'gemsurance'
   gem 'spring-commands-rspec'
 end
