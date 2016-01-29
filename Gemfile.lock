@@ -113,23 +113,6 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
-    celluloid (0.17.2)
-      celluloid-essentials
-      celluloid-extras
-      celluloid-fsm
-      celluloid-pool
-      celluloid-supervision
-      timers (>= 4.1.1)
-    celluloid-essentials (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-extras (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-fsm (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-pool (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-supervision (0.20.5)
-      timers (>= 4.1.1)
     chronic (0.10.2)
     codeclimate-test-reporter (0.4.8)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -142,6 +125,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     colorize (0.7.5)
+    concurrent-ruby (1.0.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.1)
@@ -356,7 +340,6 @@ GEM
     hashdiff (0.2.3)
     hashie (3.4.3)
     hike (1.2.3)
-    hitimes (1.2.3)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
@@ -609,8 +592,8 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    sucker_punch (1.6.0)
-      celluloid (~> 0.17.2)
+    sucker_punch (2.0.0)
+      concurrent-ruby (~> 1.0.0)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -618,8 +601,6 @@ GEM
     thread_safe (0.3.5)
     tilt (1.4.1)
     timecop (0.8.0)
-    timers (4.1.1)
-      hitimes
     trollop (2.1.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)

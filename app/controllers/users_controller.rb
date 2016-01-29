@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   end
 
   def fetch_abilities
-    NetguruApi::FetchAbilitiesJob.new.async.perform
+    NetguruApi::FetchAbilitiesJob.perform_async
     render(nothing: true, status: :ok)
   end
 

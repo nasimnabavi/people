@@ -14,6 +14,6 @@ class NoteCreator
   private
 
   def send_notification_email
-    SendMailJob.new.async.perform(NoteMailer, :note_added, note)
+    SendMailJob.perform_async(NoteMailer, :note_added, note)
   end
 end

@@ -9,7 +9,7 @@ describe UpdateUser do
       'ability_ids' => ['']
     }
   end
-  let(:send_mail_job) { SendMailJob.new }
+  let(:send_mail_with_user_job) { SendMailWithUserJob }
 
   it 'updates user attributes' do
     expect do
@@ -39,27 +39,29 @@ describe UpdateUser do
 
   context 'notifications about changes send' do
     before do
-      allow(SendMailJob).to receive(:new).and_return(send_mail_job)
-      allow(send_mail_job).to receive(:async).and_return(send_mail_job)
+      allow(SendMailWithUserJob).to receive(:new).and_return(send_mail_with_user_job)
     end
 
     it 'sends email if location changed' do
-      expect(send_mail_job).to receive(:perform_with_user).with(
-        UserMailer, :notify_admins_about_changes, user, current_user).once
+      expect(send_mail_with_user_job).to receive(:perform).with(
+        UserMailer, :notify_admins_about_changes, user, current_user.id
+      ).once
 
       described_class.new(user, { location_id: 99 }, current_user).call
     end
 
     it 'sends email if employment changed' do
-      expect(send_mail_job).to receive(:perform_with_user).with(
-        UserMailer, :notify_admins_about_changes, user, current_user).once
+      expect(send_mail_with_user_job).to receive(:perform).with(
+        UserMailer, :notify_admins_about_changes, user, current_user.id
+      ).once
 
       described_class.new(user, { employment: user.employment + 10 }, current_user).call
     end
 
     it 'sends email if user_notes_changed changed' do
-      expect(send_mail_job).to receive(:perform_with_user).with(
-        UserMailer, :notify_admins_about_changes, user, current_user).once
+      expect(send_mail_with_user_job).to receive(:perform).with(
+        UserMailer, :notify_admins_about_changes, user, current_user.id
+      ).once
 
       described_class.new(user, { user_notes: 'This test is great!' }, current_user).call
     end
@@ -67,15 +69,17 @@ describe UpdateUser do
 
   context 'notifications about changes not send' do
     it "doesn't send an email if location or employment weren't updated" do
-      expect(send_mail_job).to receive(:perform_with_user).with(
-        UserMailer, :notify_admins_about_changes, user, current_user).exactly(0).times
+      expect(send_mail_with_user_job).to receive(:perform).with(
+        UserMailer, :notify_admins_about_changes, user, current_user.id
+      ).exactly(0).times
 
       described_class.new(user, params, current_user).call
     end
 
     it "doesn't send an email if validation fails" do
-      expect(send_mail_job).to receive(:perform_with_user).with(
-        UserMailer, :notify_admins_about_changes, user, current_user).exactly(0).times
+      expect(send_mail_with_user_job).to receive(:perform).with(
+        UserMailer, :notify_admins_about_changes, user, current_user.id
+      ).exactly(0).times
 
       described_class.new(user, { employment: 2000 }, current_user).call
     end

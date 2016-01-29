@@ -11,7 +11,7 @@ class GoogleUserBuilder
       update_user_tokens
       return user
     else
-      #send_notifications
+      # send_notifications
       User.create!(new_user_attributes)
     end
   end
@@ -46,6 +46,6 @@ class GoogleUserBuilder
 
   def send_notifications
     UserMailer.notify_operations(oauth_data['info']['email']).deliver
-    SendMailJob.new.async.perform(UserMailer, :notify_operations, oauth_data['info']['email'])
+    SendMailJob.perform_async(UserMailer, :notify_operations, oauth_data['info']['email'])
   end
 end

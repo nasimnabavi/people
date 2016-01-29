@@ -16,7 +16,9 @@ class PositionsController < ApplicationController
 
   def create
     if SavePosition.new(position).call
-      SendMailJob.new.async.perform_with_user(PositionMailer, :new_position, position, current_user)
+      SendMailWithUserJob.perform_async(
+        PositionMailer, :new_position, position, current_user.id
+      )
       respond_on_success user_path(position.user)
     else
       respond_on_failure position.errors
@@ -43,7 +45,9 @@ class PositionsController < ApplicationController
     position = Position.find(params[:id])
     position.toggle!(:primary)
     if position.primary
-      SendMailJob.new.async.perform_with_user(PositionMailer, :new_primary, position, current_user)
+      SendMailWithUserJob.perform_async(
+        PositionMailer, :new_primary, position, current_user.id
+      )
     end
     redirect_to user_path(position.user)
   end
