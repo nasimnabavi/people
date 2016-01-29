@@ -40,14 +40,14 @@ export default class ProjectName extends React.Component {
 
     if(project.archived) {
       archiveIcon = (
-        <a className="info unarchive" data-toggle="tooltip" title="fsadasds"
+        <a className="info unarchive" data-toggle="tooltip" title="Unarchive Project"
           data-original-title="Unarchive Project" onClick={toggleArchiveProject}>
           <span className="glyphicon glyphicon-folder-open"></span>
         </a>
       );
     } else {
       archiveIcon = (
-        <a className="archive info" data-toggle="tooltip" title="dasdasdsa"
+        <a className="archive info" data-toggle="tooltip" title="Archive Project"
           data-original-title="Archive Project" onClick={toggleArchiveProject}>
           <span className="glyphicon glyphicon-folder-close"></span>
         </a>
