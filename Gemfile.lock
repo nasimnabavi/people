@@ -439,7 +439,7 @@ GEM
       httpauth (~> 0.1)
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
-    oj (2.12.1)
+    oj (2.14.3)
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
