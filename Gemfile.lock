@@ -90,9 +90,7 @@ GEM
     bullet (4.14.10)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
-    byebug (4.0.1)
-      columnize (= 0.9.0)
-      rb-readline (= 0.5.2)
+    byebug (8.2.1)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -144,7 +142,6 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     colorize (0.7.5)
-    columnize (0.9.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.1)
@@ -461,8 +458,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (3.1.0)
-      byebug (~> 4.0)
+    pry-byebug (3.3.0)
+      byebug (~> 8.0)
       pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
@@ -507,7 +504,6 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
-    rb-readline (0.5.2)
     rbvmomi (1.8.2)
       builder
       nokogiri (>= 1.4.1)
