@@ -521,7 +521,7 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     retriable (2.1.0)
-    rollbar (2.6.3)
+    rollbar (2.7.1)
       multi_json
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
