@@ -36,6 +36,8 @@ Style/StringLiterals:
   EnforcedStyle: single_quotes
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
-  Enabled: true
+  Enabled: false
 Style/DotPosition:
   EnforcedStyle: leading
+Style/BracesAroundHashParameters:
+  Enabled: false
