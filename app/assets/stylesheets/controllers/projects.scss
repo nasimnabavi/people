@@ -148,8 +148,9 @@ $project-height: 45px;
 
   .label-maintenance,
   .label-internal {
-    margin-left: 10px;
-    margin-top: 10px;
+    position: absolute;
+    top: 15px;
+    right: 2px;
   }
 
   .action {
