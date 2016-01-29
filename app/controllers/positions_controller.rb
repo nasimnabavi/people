@@ -35,7 +35,7 @@ class PositionsController < ApplicationController
     if position.destroy
       redirect_to request.referer, notice: I18n.t('positions.success', type: 'delete')
     else
-      redirect_to request.referer, alert: I18n.t('positions.error',  type: 'delete')
+      redirect_to request.referer, alert: I18n.t('positions.error', type: 'delete')
     end
   end
 

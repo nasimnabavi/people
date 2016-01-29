@@ -37,7 +37,6 @@ export default class Users extends React.Component {
   }
 
   _filtersChanged(store) {
-    debugger;
     let users = UserStore.getState().users;
     if(store.userIds.length > 0) {
       users = users.filter(user => store.userIds.indexOf(user.id) > -1);

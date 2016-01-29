@@ -3,6 +3,7 @@ import alt from '../alt';
 class FilterActions {
   constructor() {
     this.generateActions(
+      'changeRoleFilter',
       'changeProjectFilter',
       'changeUserFilter',
       'highlightEnding',
