@@ -42,7 +42,7 @@ class UpdateUser
   end
 
   def notify_admins_about_changes
-    SendMailWithUserJob.new.perform_async(
+    SendMailWithUserJob.perform_async(
       UserMailer, :notify_admins_about_changes, user, current_user.id
     )
   end
