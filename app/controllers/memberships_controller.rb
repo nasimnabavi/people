@@ -18,7 +18,7 @@ class MembershipsController < ApplicationController
   def create
     Memberships::UpdateBookedAt.new(membership).call
     if membership.save
-      SendMailJob.new.async.perform_with_user(MembershipMailer, :created, membership, current_user)
+      SendMailWithUserJob.perform_async(MembershipMailer, :created, membership, current_user.id)
       respond_on_success
     else
       respond_on_failure membership.errors
@@ -30,7 +30,7 @@ class MembershipsController < ApplicationController
     Memberships::UpdateBookedAt.new(membership).call
     if membership.save
       data = { membership: membership, old_values: old_values }
-      SendMailJob.new.async.perform_with_user(MembershipMailer, :updated, data, current_user)
+      SendMailWithUserJob.perform_async(MembershipMailer, :updated, data, current_user.id)
       respond_on_success user_path(membership.user)
     else
       respond_on_failure membership.errors
@@ -48,8 +48,10 @@ class MembershipsController < ApplicationController
   protected
 
   def membership_params
-    params.require(:membership)
-      .permit(:starts_at, :ends_at, :project_id, :user_id, :role_id, :billable, :booked, :stays)
+    params.require(:membership).permit(
+      :starts_at, :ends_at, :project_id, :user_id,
+      :role_id, :billable, :booked, :stays
+    )
   end
 
   private

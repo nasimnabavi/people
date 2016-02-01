@@ -1,7 +1,7 @@
 class ProjectSearch < Searchlight::Search
-  search_on Project.all
-
-  searches :memberships, :potential, :archived, :end_at
+  def base_query
+    Project.all
+  end
 
   def search_potential
     Project.where(potential: potential)
@@ -18,5 +18,4 @@ class ProjectSearch < Searchlight::Search
   def search_end_at
     Project.where('end_at >= ? OR end_at = ?', end_at, nil)
   end
-
 end

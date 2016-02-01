@@ -1,11 +1,10 @@
 class MembershipSearch < Searchlight::Search
-  search_on Membership.includes(:project, :user, :role)
-
-  searches :user, :archived, :booked, :ends_later_than, :with_end_date, :potential,
-    :starts_earlier_than, :starts_later_than, :project_end_time
+  def base_query
+    Membership.includes(:project, :user, :role)
+  end
 
   def search_user
-    search.where(user_id: user.id)
+    query.where(user_id: user.id)
   end
 
   def search_archived
@@ -21,30 +20,30 @@ class MembershipSearch < Searchlight::Search
   end
 
   def search_ends_later_than
-    search.where('memberships.ends_at >= ? or memberships.ends_at IS NULL', ends_later_than)
+    query.where('memberships.ends_at >= ? or memberships.ends_at IS NULL', ends_later_than)
   end
 
   def search_starts_earlier_than
-    search.where('memberships.starts_at <= ?', starts_earlier_than)
+    query.where('memberships.starts_at <= ?', starts_earlier_than)
   end
 
   def search_starts_later_than
-    search.where('memberships.starts_at >= ?', starts_later_than)
+    query.where('memberships.starts_at >= ?', starts_later_than)
   end
 
   def search_booked
-    search.where(booked: booked)
+    query.where(booked: booked)
   end
 
   def search_with_end_date
     condition = with_end_date ? 'memberships.ends_at IS NOT NULL' : 'memberships.ends_at IS NULL'
-    search.where(condition)
+    query.where(condition)
   end
 
   private
 
   def search_for_project(params)
     project_ids = ProjectSearch.new(params).results.pluck(:id)
-    search.where(project_id: project_ids)
+    query.where(project_id: project_ids)
   end
 end
