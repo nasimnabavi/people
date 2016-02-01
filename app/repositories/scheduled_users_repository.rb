@@ -91,7 +91,7 @@ class ScheduledUsersRepository
   end
 
   def technical_users
-    @technical_users ||= base_users.technical
+    @technical_users ||= base_users.technical.merge(Position.primary)
   end
 
   def technical_users_with_valid_memberships
