@@ -74,9 +74,7 @@ export default class User extends React.Component {
     return(
       <tr className={rowClass}>
         <td>
-          <div className="avatar">
-            <img src={user.gravatar.gravatar.circle.url} />
-          </div>
+          <img className="img-circle" src={user.gravatar.gravatar.circle.url} />
         </td>
         <td>
           <div className="profile">
