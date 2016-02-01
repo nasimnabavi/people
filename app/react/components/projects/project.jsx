@@ -26,6 +26,7 @@ export default class Project extends React.Component {
   componentDidMount() {
     MembershipStore.listen(this._membershipsChanged);
     FilterStore.listen(this._filtersChanged);
+    $('[data-toggle="tooltip"]').tooltip();
   }
 
   componentWillUnmount() {
@@ -43,10 +44,6 @@ export default class Project extends React.Component {
       showNext: store.showNext,
       highlightNotBillable: store.highlightNotBillable
     });
-  }
-
-  componentDidMount() {
-    $('[data-toggle="tooltip"]').tooltip();
   }
 
   render() {

@@ -50,7 +50,7 @@ class SchedulingController < ApplicationController
   end
 
   def to_rotate
-    self.users = serialized_users(repository.to_rotate)
+    self.users = serialized_users_sorted(repository.to_rotate)
     render :index
   end
 

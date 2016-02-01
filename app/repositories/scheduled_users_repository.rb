@@ -26,7 +26,6 @@ class ScheduledUsersRepository
         projects: { end_at: nil, internal: false },
         memberships: { ends_at: nil })
       .merge(Project.active.nonpotential.not_maintenance)
-      .order('COALESCE(memberships.starts_at, projects.starts_at)')
   end
 
   def in_internals
@@ -91,7 +90,7 @@ class ScheduledUsersRepository
   end
 
   def technical_users
-    @technical_users ||= base_users.technical
+    @technical_users ||= base_users.technical.merge(Position.primary)
   end
 
   def technical_users_with_valid_memberships
