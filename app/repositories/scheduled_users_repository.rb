@@ -48,8 +48,11 @@ class ScheduledUsersRepository
     @in_commercial_projects_with_due_date ||=
       not_booked_billable_users
       .without_scheduled_commercial_memberships
-      .joins(current_memberships: [:project])
-      .where("(projects.internal = 'f') AND (memberships.ends_at > :now OR projects.end_at > :now)", now: 1.day.ago)
+      .with_current_memberships
+      .where(
+        "(projects.internal = 'f') AND (memberships.ends_at > :now OR projects.end_at > :now)",
+        now: 1.day.ago
+      )
       .merge(Project.active.commercial.started.not_maintenance)
       .order('COALESCE(memberships.starts_at, projects.starts_at)')
   end
@@ -80,7 +83,7 @@ class ScheduledUsersRepository
       :abilities,
       :projects,
       :longest_current_membership,
-      current_memberships: [:project],
+      memberships: [:project],
       potential_memberships: [:project],
       next_memberships: [:project],
       booked_memberships: [:project],
