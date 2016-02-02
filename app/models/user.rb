@@ -87,6 +87,13 @@ class User < ActiveRecord::Base
   scope :without_scheduled_commercial_memberships, -> do
     where.not(id: with_scheduled_commercial_memberships.select(:id))
   end
+  scope :with_memberships_and_projects, -> do
+    joins(memberships: :project)
+  end
+  scope :with_current_memberships, -> do
+    with_memberships_and_projects
+      .where(memberships: { id: Membership.active.unfinished.started.select(:id) })
+  end
   scope :without_excluded_projects, lambda {
     joins(memberships: :project).where('projects.name NOT IN (?)', Project::EXCLUDED_PROJECTS)
   }
