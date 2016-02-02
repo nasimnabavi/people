@@ -60,21 +60,6 @@ export default class Project extends React.Component {
       this.setState({ displayNotes: !this.state.displayNotes });
     }
 
-    const nonBillableSection = (
-      <div>
-        <div className="count">
-          {nonBillableMemberships.length}
-        </div>
-        <div className="non-billable-list">
-          <div>
-            <div className="js-project-memberships memberships">
-              {nonBillableMembershipsRows}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-
     let adminSection = null;
 
     if(!this.props.project.archived) {
@@ -117,7 +102,16 @@ export default class Project extends React.Component {
                       </div>
                     </div>
                     <div className="non-billable">
-                      { nonBillableMemberships.length > 0 ? nonBillableSection : null }
+                      <div className="count">
+                        {nonBillableMemberships.length}
+                      </div>
+                      <div className="non-billable-list">
+                        <div>
+                          <div className="js-project-memberships memberships">
+                            {nonBillableMembershipsRows}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
