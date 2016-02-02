@@ -41,3 +41,5 @@ Style/DotPosition:
   EnforcedStyle: leading
 Style/BracesAroundHashParameters:
   Enabled: false
+Style/Lambda:
+  Enabled: false
