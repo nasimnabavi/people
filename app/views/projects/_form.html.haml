@@ -24,6 +24,10 @@
       %h3= t('projects.edit.potential.header')
       %p= t('projects.edit.potential.description')
       - if project.memberships.potential.any?
-        = f.association :memberships, as: :check_boxes, collection: project.memberships.potential, label_method: lambda { |membership| membership.user.decorate.name }, value_method: :id
+        = f.association :memberships,
+          as: :check_boxes,
+          collection: project.memberships.potential,
+          label_method: lambda { |membership| membership.user.decorate.name },
+          value_method: :id
       - else
         %p= t('projects.edit.potential.none')
