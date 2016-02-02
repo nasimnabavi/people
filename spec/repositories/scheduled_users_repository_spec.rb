@@ -198,8 +198,8 @@ describe ScheduledUsersRepository do
         unavailable[:dev_without_due_date][:with_internal_project_scheduled])
     end
 
-    it 'doesn\'t include others' do
-      expect(subject.length).to eq(6)
+    it 'does include booked' do
+      expect(subject.length).to eq(8)
     end
   end
 end
