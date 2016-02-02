@@ -94,11 +94,12 @@ class ScheduledUsersRepository
   end
 
   def technical_users_with_valid_memberships
+    query = '(projects.potential IS false) AND (projects.maintenance_since IS NULL)'\
+            ' AND (memberships.ends_at IS NULL OR memberships.ends_at >= :now)'\
+            ' AND (projects.end_at IS NULL OR projects.end_at >= :now)'
+
     @technical_users_with_valid_memberships ||=
-      technical_users
-      .joins(memberships: :project)
-      .where('(projects.potential IS false) AND (projects.maintenance_since IS NULL) AND (memberships.ends_at IS NULL OR memberships.ends_at >= :now) AND (projects.end_at IS NULL OR projects.end_at >= :now)', now: Time.now)
-      .distinct
+      technical_users.joins(memberships: :project).where(query, now: Time.now).distinct
   end
 
   def billable_users
