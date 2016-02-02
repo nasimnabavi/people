@@ -97,7 +97,7 @@ class ScheduledUsersRepository
     @technical_users_with_valid_memberships ||=
       technical_users
       .joins(memberships: :project)
-      .where('(memberships.ends_at IS NULL OR memberships.ends_at > :now) AND (projects.end_at IS NULL OR projects.end_at > :now)', now: Time.now)
+      .where('(projects.potential IS false) AND (projects.maintenance_since IS NULL) AND (memberships.ends_at IS NULL OR memberships.ends_at >= :now) AND (projects.end_at IS NULL OR projects.end_at >= :now)', now: Time.now)
       .distinct
   end
 
