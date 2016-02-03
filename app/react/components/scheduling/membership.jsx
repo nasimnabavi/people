@@ -56,6 +56,13 @@ export default class Membership extends React.Component {
       );
     }
 
+    var maintenance_field;
+    if(membership.maintenance) {
+      maintenance_field = (
+        <div className="project-label">maintenance</div>
+      );
+    }
+
     return(
       <div className="inline project">
         <span className="project-name">
@@ -68,6 +75,7 @@ export default class Membership extends React.Component {
           {potential_field}
           {internal_field}
           {non_billable_field}
+          {maintenance_field}
         </div>
       </div>
     );
