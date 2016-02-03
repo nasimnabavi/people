@@ -19,6 +19,19 @@ describe UserShowPage do
     )
   end
 
+  describe '#user_all_memberships' do
+    let(:instance) do
+      described_class.new(user: user, projects_repository: nil, user_projects_repository: nil)
+    end
+
+    it 'returns all memberships of the user' do
+      expected_memberships = Membership.where(user: user)
+      memberships = instance.user_all_memberships
+
+      expect(memberships.map(&:id).sort).to eql(expected_memberships.map(&:id).sort)
+    end
+  end
+
   describe '#user_active_memberships' do
     let(:instance) do
       described_class.new(user: user, projects_repository: nil, user_projects_repository: nil)

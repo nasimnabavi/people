@@ -16,6 +16,12 @@ class UserShowPage
     projects_repository.with_notes
   end
 
+  def user_all_memberships
+    MembershipDecorator.decorate_collection(
+      user.object.memberships.includes(:project).reorder(starts_at: :desc, ends_at: :desc)
+    )
+  end
+
   def user_active_memberships
     MembershipDecorator.decorate_collection(
       user.object.memberships.active.includes(:project).reorder(ends_at: :desc, starts_at: :desc)
