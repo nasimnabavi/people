@@ -14,12 +14,9 @@
     = render 'positions', details_page: user_details_page
 
     .list-group
-      - user_show_page.user_booked_memberships.each do |membership|
-        = render partial: 'membership', locals: { membership: membership }
-      - user_show_page.user_active_memberships.each do |membership|
-        = render partial: 'membership', locals: { membership: membership }
-      - user_show_page.user_archived_memberships.each do |membership|
-        = render partial: 'membership', locals: { membership: membership }
+      - user_show_page.user_all_memberships.each do |membership|
+        - unless membership.project.potential? && !membership.booked?
+          = render partial: 'membership', locals: { membership: membership }
 
   .time-section
     .timeline
