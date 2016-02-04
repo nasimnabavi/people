@@ -59,17 +59,8 @@ describe 'profile', js: true do
 
   describe 'rendering timeline on profile' do
     let(:user) { create(:developer_in_project) }
-
     before { visit user_path(user.id) }
-
-    it 'shows timeline on users profile' do
-      wait_for_ajax
-      puts page.body
-      puts "-\n" * 30
-      sleep 15 # check if there is race condition
-      puts page.body
-      expect(page).to have_css('.timeline')
-      expect(page).to have_css('.event .time')
-    end
+    it_behaves_like 'has timeline visible'
+    it_behaves_like 'has timeline event visible'
   end
 end
