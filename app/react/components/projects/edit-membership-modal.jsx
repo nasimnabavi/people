@@ -68,6 +68,7 @@ export default class EditMembershipModal extends React.Component {
       const params = {
         id: this.state.membership.id,
         billable: this.state.billable,
+        booked: this.state.booked,
         starts_at: this.state.startDate,
         ends_at: this.state.endDate
       };
@@ -93,6 +94,7 @@ export default class EditMembershipModal extends React.Component {
     const showStartDatePicker = () => this.setState({ showStartDate: true, showEndDate: false });
     const showEndDatePicker = () => this.setState({ showStartDate: false, showEndDate: true });
     const changeBillable = () => this.setState({ billable: !this.state.billable });
+    const changeBooked = () => this.setState({ booked: !this.state.booked });
 
     return(
       <Modal
@@ -138,6 +140,12 @@ export default class EditMembershipModal extends React.Component {
               defaultChecked={this.state.membership.billable}
               onClick={changeBillable}></input>
             <label>Billable</label>
+          </div>
+          <div>
+            <input id="isBooked" type="checkbox"
+              defaultChecked={this.state.membership.booked}
+              onClick={changeBooked}></input>
+            <label>Booked</label>
           </div>
         </div>
         <div className="modal-footer">
