@@ -6,6 +6,7 @@ FactoryGirl.define do
     archived false
     project_type { 'regular' }
     synchronize true
+    memberships []
 
     factory :project_deleted do
       deleted_at Time.now
