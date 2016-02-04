@@ -63,7 +63,10 @@ describe 'profile', js: true do
     before { visit user_path(user.id) }
 
     it 'shows timeline on users profile' do
-      sleep 10 #check if there is race condition
+      wait_for_ajax
+      puts page.body
+      puts "-\n" * 30
+      sleep 15 # check if there is race condition
       puts page.body
       expect(page).to have_css('.timeline')
       expect(page).to have_css('.event .time')
