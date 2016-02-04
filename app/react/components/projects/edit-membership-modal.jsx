@@ -139,6 +139,12 @@ export default class EditMembershipModal extends React.Component {
               onClick={changeBillable}></input>
             <label>Billable</label>
           </div>
+          <div>
+            <input id="isBooked" type="checkbox"
+              defaultChecked={this.state.membership.booked}
+              onClick={changeBooked}></input>
+            <label>Booked</label>
+          </div>
         </div>
         <div className="modal-footer">
           <button type="button" className="btn btn-default" onClick={closeModal}>Close</button>
