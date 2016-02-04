@@ -64,6 +64,7 @@ describe 'profile', js: true do
 
     it 'shows timeline on users profile' do
       sleep 10 #check if there is race condition
+      puts page.body
       timeline_component = all('.timeline')
       time_component = all('.event .time')
       expect(timeline_component.size).to eq 1
