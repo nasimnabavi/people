@@ -18,8 +18,9 @@ dependencies:
     - sudo apt-get install -y qt54webkit libwebkit-dev libgstreamer0.10-dev
     - echo "/opt/qt54/bin/qt54-env.sh" >> ~/.circlerc
   override:
-    environment:
-      QMAKE: /opt/qt54/bin/qmake
+    - bundle install
+      environment:
+        QMAKE: /opt/qt54/bin/qmake
   post:
     - npm run build
   cache_directories:
