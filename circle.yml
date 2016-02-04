@@ -1,6 +1,8 @@
 machine:
   ruby:
     version: 2.1.5
+  environment:
+    QMAKE: /opt/qt54/bin/qmake
 deployment:
   master:
     branch: master
@@ -19,8 +21,6 @@ dependencies:
     - echo "/opt/qt54/bin/qt54-env.sh" >> ~/.circlerc
   override:
     - bundle install
-      environment:
-        QMAKE: /opt/qt54/bin/qmake
   post:
     - npm run build
   cache_directories:
