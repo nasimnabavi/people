@@ -216,7 +216,7 @@ describe 'Projects page', js: true do
         end
 
         within('div.project') do
-          # HACK because capybara has problems hovering over elements with empty body
+          # HACK: because capybara has problems hovering over elements with empty body
           execute_script "$('span.icons .remove').append('make me visible to capybara')"
           find('span.icons a.remove').hover
           find('span.icons a.remove').click
@@ -253,7 +253,7 @@ describe 'Projects page', js: true do
         expect(page).to have_selector('div.note-group')
         expect(page).to have_content(note.text)
 
-        # HACK because capybara has problems clicking links with empty body
+        # HACK: because capybara has problems clicking links with empty body
         execute_script "$('.note-remove').click()"
         expect(page).not_to have_selector('project-notes-wrapper')
         expect(page).not_to have_content(note.text)
