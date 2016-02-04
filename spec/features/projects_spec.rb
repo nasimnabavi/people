@@ -43,18 +43,18 @@ describe 'Projects page', js: true do
         end
       end
 
-      xit 'displays action icon (archive) when hovered' do
+      it 'displays action icon (archive) when hovered' do
         expect(page.find('.archive')).to be_visible
       end
 
-      xit 'displays proper projects' do
+      it 'displays proper projects' do
         expect(page).to have_content(active_project.name)
         expect(page).not_to have_content(potential_project.name)
         expect(page).not_to have_content(archived_project.name)
         expect(page).not_to have_content(potential_archived_project.name)
       end
 
-      xit 'allows adding memberships to an active project' do
+      it 'allows adding memberships to an active project' do
         expect(page).to have_selector('.Select-placeholder')
       end
 
@@ -64,20 +64,20 @@ describe 'Projects page', js: true do
         end
 
         context 'when checked' do
-          xit 'shows future memberships' do
+          it 'shows future memberships' do
             visit '/dashboard'
             check 'show-next'
-            expect(page).to have_content(future_membership.user.last_name)
-            expect(page).not_to have_css '.invisible'
+            time_elements = all('time.from-date')
+            expect(time_elements.size).to_not eq 0
           end
         end
 
         context 'when unchecked' do
-          xit 'does not show future memberships' do
+          it 'does not show future memberships' do
             visit '/dashboard'
             uncheck 'show-next'
-            invisible_memberships = all('.invisible', visible: false)
-            expect(invisible_memberships.size).to eq 1
+            time_elements = all('time.from-date')
+            expect(time_elements.size).to eq 0
           end
         end
       end
@@ -88,7 +88,7 @@ describe 'Projects page', js: true do
           create(:membership, project: active_project, starts_at: Time.now + 2.weeks)
         end
 
-        xit 'shows number of present people in project' do
+        it 'shows number of present people in project' do
           visit '/dashboard'
           non_billable_count = find('.non-billable .count')
           expect(non_billable_count).to have_content('1')
@@ -102,11 +102,11 @@ describe 'Projects page', js: true do
         wait_for_ajax
       end
 
-      xit 'displays action icon (archive) when hovered' do
+      it 'displays action icon (archive) when hovered' do
         expect(page.find('.archive')).to be_visible
       end
 
-      xit 'displays proper projects' do
+      it 'displays proper projects' do
         page.find('li.potential').click
         expect(page).not_to have_content(active_project.name)
         expect(page).to have_content(potential_project.name)
@@ -114,7 +114,7 @@ describe 'Projects page', js: true do
         expect(page).not_to have_content(potential_archived_project.name)
       end
 
-      xit 'allows adding memberships to a potential project' do
+      it 'allows adding memberships to a potential project' do
         expect(page).to have_selector('.Select-placeholder')
       end
     end
@@ -125,7 +125,7 @@ describe 'Projects page', js: true do
         wait_for_ajax
       end
 
-      xit 'displays all archived projects' do
+      it 'displays all archived projects' do
         expect(page.find_link(archived_project.name)).to be_visible
         expect(page.find_link(potential_archived_project.name)).to be_visible
       end
@@ -135,11 +135,11 @@ describe 'Projects page', js: true do
         expect(page).not_to have_content(potential_project.name)
       end
 
-      xit 'displays action icon (unarchive) when hovered' do
+      it 'displays action icon (unarchive) when hovered' do
         expect(page).to have_selector('.unarchive')
       end
 
-      xit 'does not allow adding memberships to an archived project' do
+      it 'does not allow adding memberships to an archived project' do
         within('#projects-users') do
           expect(page).to have_no_selector('.Select-placeholder')
         end
@@ -210,18 +210,16 @@ describe 'Projects page', js: true do
 
       before { visit '/dashboard' }
 
-      # The issue with this test is that Poltergeist driver relies on PhantomJS < 2.0
-      # which in turn does not support sending request body with PATCH, which in turn
-      # is the method for update action in Backbone.js. This is to be updated when the
-      # 'phantomjs' gem starts supporting the 2.0 version.
-
-      xit 'removes member from project correctly' do
-        within('#filters') do
-          find('.projects-types li.active').click
+      it 'removes member from project correctly' do
+        within('.projects-types') do
+          find('li.active').click
         end
 
         within('div.project') do
-          find('.icons span.remove', visible: false).click
+          # HACK because capybara has problems hovering over elements with empty body
+          execute_script "$('span.icons .remove').append('make me visible to capybara')"
+          find('span.icons a.remove').hover
+          find('span.icons a.remove').click
         end
 
         expect(find('div.project div.non-billable')).to have_no_selector('div.membership')
@@ -236,7 +234,7 @@ describe 'Projects page', js: true do
         find('.show-notes').click
       end
 
-      xit 'add a note to the project' do
+      it 'add a note to the project' do
         expect(page).not_to have_selector('div.note-group')
         find('input.new-project-note-text').set('Test note')
         find('a.new-project-note-submit').click
@@ -251,11 +249,13 @@ describe 'Projects page', js: true do
         find('.show-notes').click
       end
 
-      xit 'remove a note' do
+      it 'remove a note' do
         expect(page).to have_selector('div.note-group')
         expect(page).to have_content(note.text)
-        find('span.note-remove').click
-        expect(page).not_to have_selector('div.note-group')
+
+        # HACK because capybara has problems clicking links with empty body
+        execute_script "$('.note-remove').click()"
+        expect(page).not_to have_selector('project-notes-wrapper')
         expect(page).not_to have_content(note.text)
       end
     end
