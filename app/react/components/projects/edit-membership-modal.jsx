@@ -93,6 +93,7 @@ export default class EditMembershipModal extends React.Component {
     const showStartDatePicker = () => this.setState({ showStartDate: true, showEndDate: false });
     const showEndDatePicker = () => this.setState({ showStartDate: false, showEndDate: true });
     const changeBillable = () => this.setState({ billable: !this.state.billable });
+    const changeBooked = () => this.setState({ booked: !this.state.booked });
 
     return(
       <Modal
