@@ -67,7 +67,7 @@ describe 'Projects page', js: true do
           it 'shows future memberships' do
             visit '/dashboard'
             check 'show-next'
-            time_elements = all('time.from-date')
+            time_elements = all('time')
             expect(time_elements.size).to_not eq 0
           end
         end
@@ -190,7 +190,7 @@ describe 'Projects page', js: true do
 
   describe 'managing people in project' do
     describe 'adding member to project' do
-      xit 'adds member to project correctly' do
+      it 'adds member to project correctly' do
         within('.projects-types') do
           find('li.active').click
         end
