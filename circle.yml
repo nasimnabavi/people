@@ -1,6 +1,8 @@
 machine:
   ruby:
     version: 2.1.5
+  environment:
+    QMAKE: /opt/qt54/bin/qmake
 deployment:
   master:
     branch: master
@@ -11,6 +13,14 @@ deployment:
     commands:
       - bundle exec cap production deploy
 dependencies:
+  pre:
+    - sudo apt-get install apt -y
+    - sudo add-apt-repository ppa:beineri/opt-qt542 -y
+    - sudo apt-get update -y; true
+    - sudo apt-get install -y qt54webkit libwebkit-dev libgstreamer0.10-dev
+    - echo "/opt/qt54/bin/qt54-env.sh" >> ~/.circlerc
+  override:
+    - bundle install
   post:
     - npm run build
   cache_directories:
