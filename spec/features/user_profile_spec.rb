@@ -63,6 +63,7 @@ describe 'profile', js: true do
     before { visit user_path(user.id) }
 
     it 'shows timeline on users profile' do
+      sleep 10 #check if there is race condition
       timeline_component = all('.timeline')
       time_component = all('.event .time')
       expect(timeline_component.size).to eq 1
