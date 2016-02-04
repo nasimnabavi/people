@@ -43,7 +43,10 @@ class ProjectStore {
       .filter(membership => (membership.ends_at == null || Moment(membership.ends_at) > Moment()))
       .filter(membership => !membership.booked)
       .map(membership => membership.project_id);
-    return this.state.projects.filter(project => userCurrentMembershipsProjectIds.indexOf(project.id) > -1);
+    return this.state.projects
+      .filter(project => userCurrentMembershipsProjectIds.indexOf(project.id) > -1)
+      .filter(project => (project.end_at == null ||
+        Moment(project.end_at).format('YYYY-MM-DD') >= Moment().format('YYYY-MM-DD')));
   }
 
   static getNextProjectsForUser(userId) {
