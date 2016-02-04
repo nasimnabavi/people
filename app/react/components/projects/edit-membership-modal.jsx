@@ -68,6 +68,7 @@ export default class EditMembershipModal extends React.Component {
       const params = {
         id: this.state.membership.id,
         billable: this.state.billable,
+        booked: this.state.booked,
         starts_at: this.state.startDate,
         ends_at: this.state.endDate
       };
