@@ -37,17 +37,36 @@ describe 'profile', js: true do
 
       within('form.new_position') do
         select(developer.name, from: 'position_role_id')
-        select("#{position.user.last_name} #{position.user.first_name}",
-          from: 'position_user_id')
+        select(
+          "#{position.user.last_name} #{position.user.first_name}",
+          from: 'position_user_id'
+        )
 
-        fill_in('position_starts_at',
-          with: (position.starts_at + 1.year).strftime("%Y-%m-%d"))
+        fill_in(
+          'position_starts_at',
+          with: (position.starts_at + 1.year).strftime('%Y-%m-%d')
+        )
 
         click_button('Create Position')
       end
 
-      expect(page).to have_select('user-primary',
-        options: ['no role', 'junior', 'developer'])
+      expect(page).to have_select(
+        'user-primary',
+        options: ['no role', 'junior', 'developer']
+      )
+    end
+  end
+
+  describe 'rendering timeline on profile' do
+    let(:user) { create(:developer_in_project) }
+
+    before { visit user_path(user.id) }
+
+    it 'shows timeline on users profile' do
+      timeline_component = all('.timeline')
+      time_component = all('.event .time')
+      expect(timeline_component.size).to eq 1
+      expect(time_component.size).to eq 1
     end
   end
 end
