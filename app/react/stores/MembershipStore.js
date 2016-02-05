@@ -66,8 +66,18 @@ class MembershipStore {
     const membership = this.state.memberships.filter(membership => {
       return membership.user_id == userId && membership.project_id == projectId;
     });
+
+    const compare = (a, b) => {
+      if (a.starts_at < b.starts_at) {
+        return -1;
+      } else if (a.starts_at > b.starts_at) {
+        return 1;
+      }
+      return 0;
+    }
+
     if(membership.length > 0) {
-      return membership[membership.length - 1];
+      return membership.sort(compare)[membership.length - 1];
     }
     return null;
   }
