@@ -2,6 +2,7 @@ import alt from '../alt';
 
 import ProjectUsersActions from '../actions/ProjectUsersActions';
 import MembershipStore from './MembershipStore';
+import Moment from 'moment';
 
 class ProjectUsersStore {
   constructor() {
@@ -20,6 +21,7 @@ class ProjectUsersStore {
   static getUsersNotInProjectNow(projectId) {
     const userIdsInProject = MembershipStore
       .memberships(projectId)
+      .filter(membership => membership.ends_at === null || Moment(membership.ends_at) > Moment())
       .map(membership => membership.user_id);
 
     return this.state.users.filter(user => userIdsInProject.indexOf(user.id) == -1);
