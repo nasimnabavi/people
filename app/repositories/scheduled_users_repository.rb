@@ -1,6 +1,6 @@
 class ScheduledUsersRepository
   def all
-    @all_scheduled ||= technical_users.distinct.order(:last_name)
+    @all_scheduled ||= technical_users_with_valid_memberships.distinct.order(:last_name)
   end
 
   def not_scheduled
