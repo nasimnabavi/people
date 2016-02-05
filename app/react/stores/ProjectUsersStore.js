@@ -17,7 +17,7 @@ class ProjectUsersStore {
     return null;
   }
 
-  static getUsersWithoutProject(projectId) {
+  static getUsersNotInProjectNow(projectId) {
     const userIdsInProject = MembershipStore
       .memberships(projectId)
       .map(membership => membership.user_id);
