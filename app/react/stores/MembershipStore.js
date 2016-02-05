@@ -67,7 +67,7 @@ class MembershipStore {
       return membership.user_id == userId && membership.project_id == projectId;
     });
     if(membership.length > 0) {
-      return membership[0];
+      return membership[membership.length - 1];
     }
     return null;
   }
