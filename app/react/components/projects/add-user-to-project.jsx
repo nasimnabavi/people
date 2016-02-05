@@ -21,7 +21,7 @@ export default class AddUserToProject extends React.Component {
   }
 
   render() {
-    const users = ProjectUsersStore.getUsersWithoutProject(this.props.project.id);
+    const users = ProjectUsersStore.getUsersNotInProjectNow(this.props.project.id);
     const options = users.map(user => {
       return { label: `${user.last_name} ${user.first_name}`, value: user.id };
     });
