@@ -50,11 +50,10 @@ class ScheduledUsersRepository
       .without_scheduled_commercial_memberships
       .with_current_memberships
       .where(
-        "(projects.internal = 'f') AND (memberships.ends_at >= :now OR projects.end_at >= :now)",
+        "(projects.internal = 'f') AND (memberships.ends_at > :now OR projects.end_at > :now)",
         now: Time.now
       )
       .merge(Project.active.commercial.started.not_maintenance)
-      .order('COALESCE(memberships.ends_at, projects.end_at)')
   end
 
   def booked
