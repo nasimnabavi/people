@@ -54,7 +54,7 @@ class ScheduledUsersRepository
         now: 1.day.ago
       )
       .merge(Project.active.commercial.started.not_maintenance)
-      .order('COALESCE(memberships.starts_at, projects.starts_at)')
+      .order('COALESCE(memberships.ends_at, projects.end_at)')
   end
 
   def booked
