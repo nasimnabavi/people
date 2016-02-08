@@ -1,7 +1,7 @@
 class SchedulingController < ApplicationController
   before_filter :authenticate!, only: [:not_scheduled]
 
-  expose(:users)
+  expose(:users) {}
   expose(:roles) do
     ActiveModel::ArraySerializer.new(
       RolesRepository.new.all_technical,
