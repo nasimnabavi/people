@@ -15,8 +15,16 @@ class ProjectsRepository
     Project.where(archived: false, potential: false)
   end
 
+  def available
+    Project.where(archived: false)
+  end
+
   def active_sorted
     active.sort_by { |project| project.name.downcase }
+  end
+
+  def available_sorted
+    available.sort_by { |project| project.name.downcase }
   end
 
   def ending_in_a_week
