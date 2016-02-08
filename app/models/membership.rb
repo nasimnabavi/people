@@ -60,7 +60,7 @@ class Membership < ActiveRecord::Base
   end
 
   def terminated?
-    ends_at.try('<', Time.current) || false
+    ends_at.try('<', Date.current) || false
   end
 
   def active?

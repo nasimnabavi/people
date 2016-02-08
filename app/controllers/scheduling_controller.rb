@@ -58,7 +58,11 @@ class SchedulingController < ApplicationController
   end
 
   def in_commercial_projects_with_due_date
-    self.users = serialized_users(repository.in_commercial_projects_with_due_date)
+    self.users = serialized_users(
+      Scheduling::Sorting::ByCurrentMembershipEndDate.sort(
+        repository.in_commercial_projects_with_due_date
+      )
+    )
     render :index
   end
 
@@ -88,24 +92,13 @@ class SchedulingController < ApplicationController
 
   def serialized_users_sorted(users)
     ActiveModel::ArraySerializer.new(
-      sort_by_current_membership_start_date(users),
+      Scheduling::Sorting::ByCurrentMembershipStartDate.sort(users),
       each_serializer: UserSchedulingSerializer
     ).as_json
   end
 
   def repository
     @repository ||= Scheduling::UsersInCategories.new
-  end
-
-  def sort_by_current_membership_start_date(collection)
-    return collection if collection.size < 2
-    collection.sort do |node_a, node_b|
-      a = Date.today
-      a = node_a.longest_current_membership.starts_at unless node_a.longest_current_membership.nil?
-      b = Date.today
-      b = node_b.longest_current_membership.starts_at unless node_b.longest_current_membership.nil?
-      a.to_time.to_i <=> b.to_time.to_i
-    end
   end
 
   def authenticate!

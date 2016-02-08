@@ -24,6 +24,10 @@ class UserShowPage
       projects_repository.active_sorted
     end
 
+    def available_projects
+      projects_repository.available_sorted
+    end
+
     def available_roles
       @available_roles ||= roles_repository.all
     end

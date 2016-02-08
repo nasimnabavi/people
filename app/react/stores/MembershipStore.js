@@ -44,13 +44,15 @@ class MembershipStore {
   static billableMemberships(projectId) {
     return this.memberships(projectId)
       .filter(membership => membership.billable === true &&
-        (membership.ends_at === null || Moment(membership.ends_at) > Moment()));
+        (membership.ends_at === null ||
+          Moment(membership.ends_at).endOf('day') >= Moment().endOf('day')));
   }
 
   static nonBillableMemberships(projectId) {
     return this.memberships(projectId)
       .filter(membership => membership.billable === false &&
-        (membership.ends_at === null || Moment(membership.ends_at) > Moment()));
+        (membership.ends_at === null ||
+          Moment(membership.ends_at).endOf('day') >= Moment().endOf('day')));
   }
 
   static memberships(projectId) {
@@ -66,8 +68,18 @@ class MembershipStore {
     const membership = this.state.memberships.filter(membership => {
       return membership.user_id == userId && membership.project_id == projectId;
     });
+
+    const compare = (a, b) => {
+      if (a.starts_at < b.starts_at) {
+        return -1;
+      } else if (a.starts_at > b.starts_at) {
+        return 1;
+      }
+      return 0;
+    }
+
     if(membership.length > 0) {
-      return membership[0];
+      return membership.sort(compare)[membership.length - 1];
     }
     return null;
   }
