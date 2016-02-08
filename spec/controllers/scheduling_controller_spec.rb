@@ -4,6 +4,7 @@ describe SchedulingController do
   render_views
 
   before(:each) { Rails.cache.clear }
+  after(:all) { Rails.cache.clear }
 
   describe '#all' do
     it_behaves_like 'user is an admin and response is 200', :all
