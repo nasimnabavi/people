@@ -23,12 +23,12 @@ You need ImageMagick installed on your system, on OS X this is a simple as:
 ```shell
   brew update && brew install imagemagick
 ```
-
 On other systems check out the official [ImageMagick](http://www.imagemagick.org/script/binary-releases.php) documentation.
+
+Since the app uses capybara-webkit for running feature specs, you need to have `qt` installed on your machine (preferably v5 or higher) before running the setup script.
 
 ## Project setup
 
- * since the app uses capybara-webkit for running feature specs, you need to have `qt` installed on your machine (preferably v5 or higher)
  * run
   ```bash
     bin/setup
