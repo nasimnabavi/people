@@ -13,12 +13,7 @@ module Scheduling
       def self.node_date(_node)
         rails NotImplementedError
       end
-
-      def self.nil_date
-        1.year.from_now
-      end
-
-      private_class_method :node_date, :nil_date
+      private_class_method :node_date
     end
   end
 end

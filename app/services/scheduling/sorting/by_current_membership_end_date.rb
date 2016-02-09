@@ -20,7 +20,11 @@ module Scheduling
         end_dates.first
       end
 
-      private_class_method :node_date, :closest_end_date, :closest_project_end_date
+      def self.nil_date
+        1.year.from_now
+      end
+      private_class_method :node_date, :closest_end_date, :closest_project_end_date,
+                           :nil_date
     end
   end
 end
