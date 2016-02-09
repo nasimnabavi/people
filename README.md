@@ -28,17 +28,20 @@ On other systems check out the official [ImageMagick](http://www.imagemagick.org
 
 ## Project setup
 
- * just run
+ * since the app uses capybara-webkit for running feature specs, you need to have `qt` installed on your machine (preferably v5 or higher)
+ * run
   ```bash
     bin/setup
   ```
- * this app uses Google Auth. In order to configure it, checkout section **Dev auth setup** and **Local settings**.
- * once you have authentication credentials go to config/config.yml and update your `google_client_id`, `google_secret`, `google_domain`, `github_client_id`, `github_secret` accordingly
- * in `config/config.yml` set `emails/internal` to your domain.
+ * the setup script will create your own copy of database.yml, config.yml and sec_config.yml for your local configuration
+ * the app uses Google Auth; in order to configure it, check **Dev auth setup** and **Local settings** sections below
+ * once you get your authentication credentials, go to `config/config.yml` and update your `google_client_id`, `google_secret`, `google_domain`, `github_client_id`, `github_secret` accordingly
+ * in `config/config.yml` set `emails/internal` to the domain which you want to allow for new users
+ * create a Slack team account and configure its integration (see **Slack integration** below)
 
 ### Development
 
-* run rails server
+* run `rails s`
 * run webpack in watch mode:
   ```
   npm start
@@ -46,19 +49,20 @@ On other systems check out the official [ImageMagick](http://www.imagemagick.org
 
 ### Local settings
 
-All the required app settings are located in `config/config.yml` file.
-You should put your local settings in `config/sec_config.yml` file which is not checked in version control.
+You should put your local settings in `config/config.yml` and `config/sec_config.yml` files which are not checked in version control.
 
-Take a note that emails->internal in `config/config.yml` should be domain used to login users eg. `example.com` not `test@example.com`
+Note that emails->internal is required if you want to sign up in the app and should contain the domain used to login users eg. `example.com`, NOT the full email like `test@example.com`.
 
 ### Additional Info
 
  * after logging in, go to your Profile's settings and update your role to 'senior' or 'pm'
- * by default only 'pm' and 'senior' roles have admin privilages - creating new projects, managing privileges, memberships etc.
+ * by default only 'pm' and 'senior' roles have admin privileges - creating new projects, managing privileges, memberships etc.
  * optionally update your emails and company_name
  * after deploy run `rake team:set_fields` - it sets avatars and team colors.
 
-### Integrations (not needed for basic setup)
+### Integrations
+
+Trello integration is optional, but **without Slack integration, the app will throw errors** every time you do something that sends Slack notifications (most actions in the app).
 
 #### Trello integration
 
@@ -90,12 +94,12 @@ Take a note that emails->internal in `config/config.yml` should be domain used t
 
 ### Google Auth
 
-  * goto [https://cloud.google.com/console](https://cloud.google.com/console)
+  * goto [https://console.cloud.google.com/](https://console.cloud.google.com/)
   * create new project
-  * goto `API Manager` > `Credentials` > `OAuth consent screen` (second tab)
+  * click `Use Google APIs` > `Credentials` > `OAuth consent screen` (second tab)
   * fill in "Email address" and "Product name" and save
-  * choose `API Manager` > `Credentials` tab (first tab)
-  * Create client ID: `New Credentials` > `OAuth 2.0 client ID`
+  * go to `Credentials` (first tab)
+  * Create client ID: `New Credentials` > `OAuth client ID`
   * choose `Web application` option
   * set `Authorized JavaScript origins` to:
   ```
@@ -112,8 +116,7 @@ Take a note that emails->internal in `config/config.yml` should be domain used t
 
 ### Feature flags
 
-Feature flags toggle is available at `/features`.
-Admin Role is required.
+The app uses Feature flags through Flip gem. The feature flag panel (requires admin privileges) is available at `/features`.
 
 ### Gemsurance - keep gems up to date
 
@@ -142,4 +145,4 @@ Here a few guidelines to follow:
 3. Open a pull request on GitHub
 4. [Squash your commits](http://blog.steveklabnik.com/posts/2012-11-08-how-to-squash-commits-in-a-github-pull-request) after receiving feedback
 
-Copyright (c) 2014 [Netguru](https://netguru.co). See LICENSE for further details.
+Copyright (c) 2014-2016 [Netguru](https://netguru.co). See LICENSE for further details.
