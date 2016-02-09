@@ -1,6 +1,5 @@
 .DS_Store
 config/database.yml
-config/config.yml
 config/sec_config.yml
 /.bundle
 /.sass-cache/

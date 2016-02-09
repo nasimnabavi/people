@@ -11,10 +11,6 @@ deployment:
     commands:
       - bundle exec cap production deploy
 
-test:
-  pre:
-    - cp config/config.yml.sample config/config.yml
-
 dependencies:
   post:
     - npm run build

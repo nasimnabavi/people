@@ -1,0 +1,61 @@
+defaults: &defaults
+  tld_length:             1
+  feature:
+    new_available_view:   false
+  rollbar:
+    access_token:         token
+  fetching_abilities:     false
+  profile_api_url:        some_dev_url
+
+heroku_settings: &heroku_settings
+  <<: *defaults
+  github_client_id:     <%= ENV['GITHUB_CLIENT_ID'] %>
+  github_secret:        <%= ENV['GITHUB_CLIENT_SECRET'] %>
+  google_client_id:     <%= ENV['GOOGLE_CLIENT_ID'] %>
+  google_secret:        <%= ENV['GOOGLE_CLIENT_SECRET'] %>
+  google_domain:        <%= ENV['GOOGLE_DOMAIN'] %>
+  api_token:            <%= ENV['API_TOKEN'] %>
+  secret_token_key:     <%= ENV['SECRET_TOKEN_KEY'] %>
+  sendgrid:
+    login:              <%= ENV['SENDGRID_USERNAME'] %>
+    password:           <%= ENV['SENDGRID_PASSWORD'] %>
+    domain:             <%= ENV['SENDGRID_DOMAIN'] %>
+  emails:
+    from:               <%= ENV['EMAIL_FROM'] %>
+    pm:                 <%= ENV['EMAIL_PM'] %>
+    internal:           <%= ENV['EMAIL_INTERNAL'] %>
+    social:             <%= ENV['EMAIL_SOCIAL'] %>
+    support:            <%= ENV['EMAIL_SUPPORT'] %>
+    admin:
+                        - <%= ENV['EMAIL_ADMIN_1'] %>
+                        - <%= ENV['EMAIL_ADMIN_2'] %>
+  company_name:         <%= ENV['COMPANY_NAME'] %>
+  domain:               <%= ENV['DOMAIN'] %>
+  tld_length:           <%= ENV['TLD_LENGTH'] %>
+  feature:
+    new_available_view: <%= ENV['AVAILABLE_VIEW'] %>
+
+development:
+  <<: *defaults
+  domain: people.dev
+  feature:
+    new_available_view: true
+
+test:
+  <<: *defaults
+  domain: people.test
+  slack:
+    webhook_url:
+    username: PeopleApp
+
+staging:
+  <<: *heroku_settings
+  profile_api_url:        some_stag_url
+  profile_staging_auth:   some_profile_stag_auth
+  slack:
+    webhook_url:
+    username: PeopleApp
+
+production:
+  <<: *heroku_settings
+  profile_api_url:        some_stag_url
