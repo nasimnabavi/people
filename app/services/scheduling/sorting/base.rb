@@ -13,7 +13,6 @@ module Scheduling
       def self.node_date(_node)
         rails NotImplementedError
       end
-
       private_class_method :node_date
     end
   end

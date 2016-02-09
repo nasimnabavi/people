@@ -4,6 +4,7 @@ module Scheduling
       def self.node_date(node)
         date = closest_end_date(node)
         date = closest_project_end_date(node) if date.nil?
+        return nil_date if date.nil?
         date
       end
 
@@ -19,7 +20,11 @@ module Scheduling
         end_dates.first
       end
 
-      private_class_method :node_date, :closest_end_date, :closest_project_end_date
+      def self.nil_date
+        1.year.from_now
+      end
+      private_class_method :node_date, :closest_end_date, :closest_project_end_date,
+                           :nil_date
     end
   end
 end
