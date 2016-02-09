@@ -4,6 +4,7 @@ module Scheduling
       def self.node_date(node)
         date = closest_end_date(node)
         date = closest_project_end_date(node) if date.nil?
+        return nil_date if date.nil?
         date
       end
 
