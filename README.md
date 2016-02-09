@@ -33,10 +33,10 @@ On other systems check out the official [ImageMagick](http://www.imagemagick.org
   ```bash
     bin/setup
   ```
- * the setup script will create your own copy of database.yml, config.yml and sec_config.yml for your local configuration
+ * the setup script will create your own copy of database.yml and sec_config.yml for your local configuration
  * the app uses Google Auth; in order to configure it, check **Dev auth setup** and **Local settings** sections below
- * once you get your authentication credentials, go to `config/config.yml` and update your `google_client_id`, `google_secret`, `google_domain`, `github_client_id`, `github_secret` accordingly
- * in `config/config.yml` set `emails/internal` to the domain which you want to allow for new users
+ * once you get your authentication credentials, go to `config/sec_config.yml` and update your `google_client_id`, `google_secret`, `google_domain`, `github_client_id`, `github_secret` accordingly
+ * in `config/sec_config.yml` set `emails/internal` to the domain which you want to allow for new users
  * create a Slack team account and configure its integration (see **Slack integration** below)
 
 ### Development
@@ -49,7 +49,7 @@ On other systems check out the official [ImageMagick](http://www.imagemagick.org
 
 ### Local settings
 
-You should put your local settings in `config/config.yml` and `config/sec_config.yml` files which are not checked in version control.
+You should put your local settings in `config/sec_config.yml` file which is not checked in version control.
 
 Note that emails->internal is required if you want to sign up in the app and should contain the domain used to login users eg. `example.com`, NOT the full email like `test@example.com`.
 
