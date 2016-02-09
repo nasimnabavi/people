@@ -11,11 +11,9 @@ deployment:
     commands:
       - bundle exec cap production deploy
 
-test:
+dependencies:
   pre:
     - cp config/sec_config.yml.sample config/sec_config.yml
-
-dependencies:
   post:
     - npm run build
   cache_directories:
