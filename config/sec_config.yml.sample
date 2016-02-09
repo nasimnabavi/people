@@ -1,4 +1,4 @@
-development:
+defaults: &defaults
   google_client_id:       go_to_google_dev_console_add_new_app
   google_secret:          and_paste_config_here
   google_domain:          fill_in_your_domain
@@ -29,3 +29,16 @@ development:
   slack:
     webhook_url:          webhook_url
     username:             PeopleApp
+
+development:
+  <<: *defaults
+  domain: people.dev
+  feature:
+    new_available_view: true
+
+test:
+  <<: *defaults
+  domain: people.test
+  slack:
+    webhook_url:
+    username: PeopleApp
