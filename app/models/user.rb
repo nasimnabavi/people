@@ -169,6 +169,6 @@ class User < ActiveRecord::Base
   end
 
   def update_cache
-    Caching::CacheSchedulingData.perform_async unless Rails.env.test?
+    Caching::CacheSchedulingData.perform_async if Rails.application.config.caching_enabled
   end
 end

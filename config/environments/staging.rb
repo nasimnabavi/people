@@ -16,6 +16,7 @@ Hrguru::Application.configure do
   config.action_mailer.default_url_options = { host: AppConfig.domain }
   GA.tracker = 'UA-35395053-13'
   config.active_record.raise_in_transactional_callbacks = true
+  config.caching_enabled = true
 
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',

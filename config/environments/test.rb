@@ -38,4 +38,5 @@ Hrguru::Application.configure do
   config.middleware.use RackSessionAccess::Middleware
 
   config.action_mailer.default_url_options = { host: AppConfig.domain }
+  config.caching_enabled = false
 end
