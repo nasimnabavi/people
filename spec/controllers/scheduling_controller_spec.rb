@@ -3,9 +3,10 @@ require 'spec_helper'
 describe SchedulingController do
   render_views
 
-  describe '#index' do
-    it_behaves_like 'user is an admin and response is 200', :index
-    it_behaves_like 'user is not an admin and response is 200', :index
+  describe '#all' do
+    it_behaves_like 'user is an admin and response is 200', :all
+    it_behaves_like 'user is an admin and only technical users are visible', :all
+    it_behaves_like 'user is not an admin and response is 200', :all
   end
 
 
