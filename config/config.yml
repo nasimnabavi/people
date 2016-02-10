@@ -1,9 +1,40 @@
 defaults: &defaults
+  google_client_id:       go_to_google_dev_console_add_new_app
+  google_secret:          and_paste_config_here
+  google_domain:          fill_in_your_domain
+  github_client_id:       go_to_github_settings_and_add_new_app
+  github_secret:          and_paste_config_here
+  api_token:              miamiamia
+  secret_token_key:       miaaaaamia
+  company_name:           Company
+  calendar_id:            xxxx@group.calendar.google.com
+  emails:
+    from:                 default_address_used_to_send_emails
+    pm:                   pms_email_address
+    support:              support
+    internal:             example.com
+    social:               example.com
+    admin:
+                          - first@example.com
+                          - second@example.com
+    notifications:
+      changes_digest:
+        days:             30
+        weekday:          monday
   tld_length:             1
   feature:
     new_available_view:   false
   rollbar:
     access_token:         token
+  trello:
+    enabled:              false
+    developer_public_key: key
+    member_token:         token
+    schedule_board_id:    id
+  slack:
+    webhook_url:          webhook_url
+    username:             PeopleApp
+
   fetching_abilities:     false
   profile_api_url:        some_dev_url
 
@@ -34,19 +65,6 @@ heroku_settings: &heroku_settings
   tld_length:           <%= ENV['TLD_LENGTH'] %>
   feature:
     new_available_view: <%= ENV['AVAILABLE_VIEW'] %>
-
-development:
-  <<: *defaults
-  domain: people.dev
-  feature:
-    new_available_view: true
-
-test:
-  <<: *defaults
-  domain: people.test
-  slack:
-    webhook_url:
-    username: PeopleApp
 
 staging:
   <<: *heroku_settings
