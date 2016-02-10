@@ -12,21 +12,11 @@ shared_examples 'user is an admin and response is 200' do |action|
       expect(response).to be_success
       expect(response.status).to eq(200)
     end
-  end
-end
-
-shared_examples 'user is an admin and only technical users are visible' do |action|
-  let!(:developer) { create(:developer_in_project) }
-  let!(:pm) { create(:pm_user) }
-
-  context 'when current user is an admin' do
-    let(:admin_user) { create(:user, :admin) }
-    before { sign_in(admin_user) }
 
     it 'displays users on view' do
       get action
-      expect(response.body).to include(developer.last_name)
-      expect(response.body).not_to include(pm.last_name)
+      expect(response.body).to match(developer.last_name)
+      expect(response.body).not_to match(pm.last_name)
     end
   end
 end
