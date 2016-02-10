@@ -66,19 +66,6 @@ heroku_settings: &heroku_settings
   feature:
     new_available_view: <%= ENV['AVAILABLE_VIEW'] %>
 
-development:
-  <<: *defaults
-  domain: people.dev
-  feature:
-    new_available_view: true
-
-test:
-  <<: *defaults
-  domain: people.test
-  slack:
-    webhook_url:
-    username: PeopleApp
-
 staging:
   <<: *heroku_settings
   profile_api_url:        some_stag_url

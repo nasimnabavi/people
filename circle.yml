@@ -10,7 +10,10 @@ deployment:
     branch: production
     commands:
       - bundle exec cap production deploy
+
 dependencies:
+  pre:
+    - cp config/sec_config.yml.sample config/sec_config.yml
   post:
     - npm run build
   cache_directories:

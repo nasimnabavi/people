@@ -12,7 +12,7 @@ Dir.chdir APP_ROOT do
   puts '== Installing node modules =='
   system 'npm install'
 
-  puts "\n== Copying database and sec_config files =="
+  puts "\n== Copying database, config and sec_config files =="
   unless File.exist?("config/database.yml")
     system 'cp config/database.yml.sample config/database.yml'
   end
