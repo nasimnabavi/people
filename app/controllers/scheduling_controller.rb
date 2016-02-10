@@ -98,7 +98,7 @@ class SchedulingController < ApplicationController
   end
 
   def repository
-    @repository ||= Scheduling::UsersInCategories.new
+    @repository ||= CachedRepository.new(ScheduledUsersRepository.new)
   end
 
   def authenticate!
