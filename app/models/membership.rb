@@ -108,6 +108,6 @@ class Membership < ActiveRecord::Base
   end
 
   def update_cache
-    Caching::CacheSchedulingData.perform_async if Rails.application.config.caching_enabled
+    Caching::CacheSchedulingData.perform_async if AppConfig.caching_enabled
   end
 end
