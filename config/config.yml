@@ -40,6 +40,8 @@ heroku_settings: &heroku_settings
     new_available_view: <%= ENV['AVAILABLE_VIEW'] %>
   fetching_abilities:     false
   profile_api_url:        some_dev_url
+  redis_namespace:        PeopleApp
+  caching_enabled:        true
 
 staging:
   <<: *heroku_settings
