@@ -98,7 +98,10 @@ class SchedulingController < ApplicationController
   end
 
   def repository
-    @repository ||= CachedRepository.new(ScheduledUsersRepository.new)
+    @repository ||= CachedRepository.new(
+      ScheduledUsersRepository.new,
+      AppConfig.scheduling_cache_namespace
+    )
   end
 
   def authenticate!

@@ -38,6 +38,7 @@ defaults: &defaults
     webhook_url:          webhook_url
     username:             PeopleApp
   redis_namespace:        PeopleApp
+  scheduling_cache_namespace: scheduling
 
 development:
   <<: *defaults

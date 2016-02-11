@@ -5,7 +5,7 @@ module Caching
     def perform
       categories.each do |category_name|
         Rails.cache.write(
-          category_name,
+          "#{AppConfig.scheduling_cache_namespace}.#{category_name}",
           repository.public_send(category_name).to_a.uniq(&:id)
         )
       end

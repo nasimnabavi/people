@@ -42,6 +42,7 @@ heroku_settings: &heroku_settings
   profile_api_url:        some_dev_url
   redis_namespace:        PeopleApp
   caching_enabled:        true
+  scheduling_cache_namespace: scheduling
 
 staging:
   <<: *heroku_settings
