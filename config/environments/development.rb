@@ -37,5 +37,4 @@ Hrguru::Application.configure do
   end
 
   config.log_level = :debug
-  config.caching_enabled = true
 end
