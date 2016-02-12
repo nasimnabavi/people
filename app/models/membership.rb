@@ -13,8 +13,9 @@ class Membership < ActiveRecord::Base
   validate :validate_duplicate_project
 
   after_create :notify_slack_on_create
-  after_save :check_fields
   after_update :notify_slack_on_update
+  after_save :check_fields, :update_cache
+  after_destroy :update_cache
 
   scope :active, -> { where(project_potential: false, project_archived: false, booked: false) }
   scope :archived, -> { where(project_archived: true) }
@@ -104,5 +105,9 @@ class Membership < ActiveRecord::Base
 
   def notify_slack_on_update
     SlackNotifier.new.ping(Notification::Membership::Updated.new(self))
+  end
+
+  def update_cache
+    Caching::CacheSchedulingData.perform_async if AppConfig.caching_enabled
   end
 end

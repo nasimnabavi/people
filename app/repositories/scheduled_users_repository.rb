@@ -11,8 +11,8 @@ class ScheduledUsersRepository
       .order(:last_name)
   end
 
-  def scheduled_juniors_and_interns
-    @scheduled_juniors_and_interns ||=
+  def juniors_and_interns
+    @juniors_and_interns ||=
       technical_users_with_valid_memberships
       .joins(:positions).available
       .where(positions: { role: non_billable_technical_roles, primary: true })
@@ -81,8 +81,10 @@ class ScheduledUsersRepository
       :roles,
       :abilities,
       :projects,
+      :primary_roles,
       :longest_current_membership,
       memberships: [:project],
+      current_memberships: [:project],
       potential_memberships: [:project],
       next_memberships: [:project],
       booked_memberships: [:project],

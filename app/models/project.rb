@@ -2,8 +2,8 @@ class Project < ActiveRecord::Base
   include InitialsHandler
 
   before_save :set_color, :check_maintenance
-  after_save :update_membership_fields, :check_potential
   after_update :notify_if_dates_changed
+  after_save :update_membership_fields, :check_potential, :update_cache
 
   POSSIBLE_TYPES = %w(regular maintenance).freeze
   EXCLUDED_PROJECTS = %w(unavailable).freeze
@@ -115,5 +115,9 @@ class Project < ActiveRecord::Base
 
   def notify_if_dates_changed
     SlackNotifier.new.ping(Notification::Project::DatesChanged.new(self))
+  end
+
+  def update_cache
+    Caching::CacheSchedulingData.perform_async if AppConfig.caching_enabled
   end
 end

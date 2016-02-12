@@ -41,6 +41,8 @@ gem 'omniauth-google-oauth2'
 gem 'pg'
 gem 'rabl'
 gem 'rack-mini-profiler', require: false
+gem 'redis'
+gem 'redis-rails'
 gem 'render_anywhere', require: false
 gem 'rollbar'
 gem 'ruby-trello'

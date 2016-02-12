@@ -14,6 +14,8 @@ class Position < ActiveRecord::Base
 
   after_create :notify_slack_on_create
   after_update :notify_slack_on_update
+  after_save :update_cache
+  after_destroy :update_cache
 
   def <=>(other)
     [user.last_name, user.first_name, starts_at] <=> [other.user.last_name,
@@ -28,5 +30,9 @@ class Position < ActiveRecord::Base
 
   def notify_slack_on_update
     SlackNotifier.new.ping(Notification::Position::Updated.new(self))
+  end
+
+  def update_cache
+    Caching::CacheSchedulingData.perform_async if AppConfig.caching_enabled
   end
 end

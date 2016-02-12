@@ -20,13 +20,13 @@ describe ScheduledUsersRepository do
     build(:scheduled_users_hash, project: project)
   end
 
-  describe '#scheduled_juniors_and_interns' do
+  describe '#juniors_and_interns' do
     before do
       create(:membership, user: intern,  project: create(:project))
       create(:membership, user: junior,  project: create(:project))
     end
 
-    subject { described_class.new.scheduled_juniors_and_interns }
+    subject { described_class.new.juniors_and_interns }
 
     it 'includes juniors and interns' do
       expect(subject).to include(junior)
