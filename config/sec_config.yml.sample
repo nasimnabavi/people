@@ -37,15 +37,12 @@ defaults: &defaults
   slack:
     webhook_url:          webhook_url
     username:             PeopleApp
-  redis_namespace:        PeopleApp
-  scheduling_cache_namespace: scheduling
 
 development:
   <<: *defaults
   domain: people.dev
   feature:
     new_available_view: true
-  caching_enabled: true
 
 test:
   <<: *defaults
@@ -53,4 +50,3 @@ test:
   slack:
     webhook_url:
     username: PeopleApp
-  caching_enabled: false

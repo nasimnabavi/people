@@ -29,7 +29,5 @@ module Hrguru
     # config.i18n.default_locale = :de
     config.hamlcoffee.name_filter = lambda { |n| n.sub /^backbone\/templates\//, '' }
     config.action_dispatch.tld_length = AppConfig.tld_length
-    config.cache_store = :redis_store, 'redis://localhost:6379/cache',
-                         { namespace: AppConfig.redis_namespace }
   end
 end

@@ -4,9 +4,6 @@ class User < ActiveRecord::Base
 
   mount_uploader :gravatar, GravatarUploader
 
-  after_save :update_cache
-  after_destroy :update_cache
-
   has_many :memberships, -> { order(:ends_at) }, dependent: :destroy
   has_many :notes
   has_many :positions
@@ -166,9 +163,5 @@ class User < ActiveRecord::Base
 
   def user_memberships_repository
     @user_memberships_repository ||= UserMembershipsRepository.new(self)
-  end
-
-  def update_cache
-    Caching::CacheSchedulingData.perform_async if AppConfig.caching_enabled
   end
 end
