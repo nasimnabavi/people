@@ -43,7 +43,7 @@ Hrguru::Application.routes.draw do
     end
 
     namespace :v3 do
-      resources :users, only: []do
+      resources :users, only: [] do
         get :technical, on: :collection
       end
     end
