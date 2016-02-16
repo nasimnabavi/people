@@ -1,10 +1,12 @@
 Hrguru::Application.routes.draw do
-  devise_for :users,
+  devise_for(
+    :users,
     controllers: {
       omniauth_callbacks: 'omniauth_callbacks',
       sessions: 'sessions'
     },
     skip: [:sessions]
+  )
 
   devise_scope :user do
     get 'sign_in', to: 'welcome#index', as: :new_user_session
@@ -38,6 +40,12 @@ Hrguru::Application.routes.draw do
     namespace :v2 do
       resources :users, only: [:index]
       resources :statistics, only: [:index]
+    end
+
+    namespace :v3 do
+      resources :users, only: [] do
+        get :technical, on: :collection
+      end
     end
   end
 
