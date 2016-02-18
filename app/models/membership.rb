@@ -67,7 +67,7 @@ class Membership < ActiveRecord::Base
   end
 
   def end_now!
-    update(ends_at: Date.today)
+    update(ends_at: Date.today) if starts_at < Date.today && ends_at > Date.today
   end
 
   def duration_in_months
