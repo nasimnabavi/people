@@ -145,7 +145,7 @@ class Statistics extends React.Component {
             statisticsArrays={[
               {name: 'Junior RoR devs', people: this.state.statistics.juniorRor},
               {name: 'Junior iOS devs', people: this.state.statistics.juniorIos},
-              {name: 'Junir android devs', people: this.state.statistics.juniorAndroid},
+              {name: 'Junior android devs', people: this.state.statistics.juniorAndroid},
               {name: 'Interns', people: this.state.statistics.interns}
             ]}/>
         </table>
