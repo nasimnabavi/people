@@ -96,6 +96,7 @@ describe Membership do
   describe "#end_now!" do
     let(:past_membership) { build(:membership, starts_at: 2.months.ago, ends_at: 1.month.ago) }
     let(:current_membership) { build(:membership, starts_at: 1.months.ago, ends_at: 1.month.from_now) }
+    let(:unending_membership) { build(:membership, starts_at: 1.months.ago) }
     let(:future_membership) { build(:membership, starts_at: 2.months.from_now, ends_at: 3.months.from_now) }
 
     it "does not influence past memberships" do
@@ -104,6 +105,10 @@ describe Membership do
 
     it "influences current memberships" do
       expect{current_membership.end_now!}.to change{current_membership.ends_at}
+    end
+
+    it "influences current memberships that have no ending" do
+      expect{unending_membership.end_now!}.to change{unending_membership.ends_at}
     end
 
     it "does not influence future memberships" do
