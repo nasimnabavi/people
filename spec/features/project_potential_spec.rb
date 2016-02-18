@@ -21,10 +21,10 @@ describe 'Potential project', js: true do
       expect(page).to have_content("#{user.decorate.name}")
     end
 
-    it 'shows membership when project is potential' do
+    it 'deletes membership when project is updated to nonpotential' do
       click_button('Save')
       visit user_path(user)
-      expect(page).to have_content(project.name)
+      expect(page).not_to have_content(project.name)
     end
   end
 

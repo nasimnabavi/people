@@ -15,7 +15,8 @@
 
     .list-group
       - user_show_page.user_all_memberships.each do |membership|
-        = render partial: 'membership', locals: { membership: membership }
+        - unless membership.project.potential? && !membership.booked?
+          = render partial: 'membership', locals: { membership: membership }
 
   .time-section
     .timeline
