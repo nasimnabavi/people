@@ -100,19 +100,19 @@ describe Membership do
     let(:future_membership) { build(:membership, starts_at: 2.months.from_now, ends_at: 3.months.from_now) }
 
     it "does not influence past memberships" do
-      expect{past_membership.end_now!}.to_not change{past_membership.ends_at}
+      expect{ past_membership.end_now! }.to_not change{ past_membership.ends_at }
     end
 
     it "influences current memberships" do
-      expect{current_membership.end_now!}.to change{current_membership.ends_at}
+      expect{ current_membership.end_now! }.to change{ current_membership.ends_at }
     end
 
     it "influences current memberships that have no ending" do
-      expect{unending_membership.end_now!}.to change{unending_membership.ends_at}
+      expect{ unending_membership.end_now! }.to change{ unending_membership.ends_at }
     end
 
     it "does not influence future memberships" do
-      expect{future_membership.end_now!}.to_not change{future_membership.ends_at}
+      expect{ future_membership.end_now! }.to_not change{ future_membership.ends_at }
     end
   end
 
