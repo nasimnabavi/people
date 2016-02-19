@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
   def update
     if UpdateUser.new(user, user_params, current_user).call
-      info = { notice: t('users.updated') }
+      info = { notice: t('users.show.updated') }
     else
       info = { alert: generate_errors }
     end
