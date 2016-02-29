@@ -2,7 +2,7 @@ class UserShowPage
   class Details
     attr_accessor :user, :roles_repository, :contract_types_repository,
       :locations_repository, :user_positions_repository, :user_roles_repository,
-      :abilities_repository
+      :abilities_repository,
 
     def initialize(user:, roles_repository:, contract_types_repository:,
                    locations_repository:, user_positions_repository:,
