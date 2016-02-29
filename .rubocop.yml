@@ -28,6 +28,7 @@ Rails/Date:
   SupportedStyles:
     - strict
     - flexible
+  Enabled: true
 SignalException:
   Enabled: false
 Style/PredicateName:
