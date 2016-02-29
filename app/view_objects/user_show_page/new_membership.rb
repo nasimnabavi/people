@@ -1,7 +1,7 @@
 class UserShowPage
   class NewMembership
     attr_accessor :user, :roles_repository, :user_memberships_repository,
-      :user_roles_repository, :projects_repository
+      :user_roles_repository, :projects_repository,
 
     def initialize(user:, roles_repository:, user_memberships_repository:,
                    user_roles_repository:, projects_repository:)
