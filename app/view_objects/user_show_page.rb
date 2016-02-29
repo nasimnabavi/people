@@ -1,5 +1,5 @@
 class UserShowPage
-  attr_accessor :user, :projects_repository, :user_projects_repository
+  attr_accessor :user, :projects_repository, :user_projects_repository,
 
   def initialize(user:, projects_repository:, user_projects_repository:)
     self.user = UserDecorator.new user
