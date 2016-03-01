@@ -19,11 +19,9 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   CountComments: false
   Max: 15
-Metricts/AbcSize:
+Metrics/AbcSize:
   Enabled: false
 Rails/TimeZone:
-  Enabled: false
-Rails/Date:
   Enabled: false
 SignalException:
   Enabled: false
