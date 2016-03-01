@@ -19,12 +19,12 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   CountComments: false
   Max: 15
-Metrict/AbcSize:
+Metricts/AbcSize:
   Enabled: false
 Rails/TimeZone:
   Enabled: false
 Rails/Date:
-  Enabled:false
+  Enabled: false
 SignalException:
   Enabled: false
 Style/PredicateName:
