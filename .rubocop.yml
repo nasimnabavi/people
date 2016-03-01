@@ -23,6 +23,8 @@ Metrict/AbcSize:
   Enabled: false
 Rails/TimeZone:
   Enabled: false
+Rails/Date:
+  Enabled:false
 SignalException:
   Enabled: false
 Style/PredicateName:
